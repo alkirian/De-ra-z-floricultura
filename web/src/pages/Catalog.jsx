@@ -148,7 +148,9 @@ const Catalog = () => {
               <div className="modal-info">
                 <span className="badge mb-4">{selectedProduct.category}</span>
                 <h2 className="modal-title">{selectedProduct.name}</h2>
-                <p className="modal-price">{selectedProduct.price}</p>
+                {selectedProduct.price !== "Consultar" && (
+                  <p className="modal-price">{selectedProduct.price}</p>
+                )}
                 <p className="modal-description">{selectedProduct.description}</p>
                 
                 <div className="modal-specs">
@@ -159,6 +161,25 @@ const Catalog = () => {
                     </div>
                   ))}
                 </div>
+
+                {/* Extra info (Tips y Plagas) */}
+                {(selectedProduct.careTips || selectedProduct.pests) && (
+                  <div className="modal-extra-info">
+                    {selectedProduct.careTips && (
+                      <div className="info-block">
+                        <h4 className="info-title">✨ Tips de Cuidado</h4>
+                        <p className="info-text">{selectedProduct.careTips}</p>
+                      </div>
+                    )}
+                    {selectedProduct.pests && (
+                      <div className="info-block pests-block">
+                        <h4 className="info-title">🐛 Posibles Plagas</h4>
+                        <p className="info-text">{selectedProduct.pests}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
 
                 <a 
                   href={generateWaLink(WA_MESSAGES.producto(selectedProduct.name))} 
