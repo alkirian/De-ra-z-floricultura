@@ -1,0 +1,331 @@
+.plant-identifier {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 28px;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--beige-medio);
+}
+
+.plant-identifier-header h3 {
+  margin: 8px 0 10px;
+  color: var(--verde-profundo);
+}
+
+.plant-identifier-header p {
+  color: var(--texto-medio);
+  margin-bottom: 18px;
+}
+
+.plant-upload-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border: 1.5px dashed var(--verde-salvia);
+  border-radius: var(--radius-md);
+  background: rgba(244, 235, 221, 0.45);
+  margin-bottom: 18px;
+}
+
+.plant-upload-field input {
+  font-size: 0.95rem;
+}
+
+.plant-upload-field span {
+  font-size: 0.88rem;
+  color: var(--texto-suave);
+}
+
+.plant-preview-wrap {
+  width: 100%;
+  max-width: 520px;
+  border: 1px solid var(--beige-medio);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--crema);
+  margin-bottom: 18px;
+}
+
+.plant-preview {
+  display: block;
+  width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+}
+
+.plant-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.plant-alert {
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  font-size: 0.92rem;
+}
+
+.plant-alert-error {
+  border: 1px solid rgba(166, 95, 58, 0.5);
+  background: #f9e9df;
+  color: #7a3f23;
+}
+
+.plant-alert-info {
+  border: 1px solid rgba(47, 74, 46, 0.4);
+  background: #eaf2e5;
+  color: #2f4a2e;
+}
+
+.plant-result {
+  margin-top: 12px;
+  padding: 24px;
+  border: 1px solid rgba(143, 168, 120, 0.45);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, #fffaf1 0%, #f6eddc 100%);
+  box-shadow: 0 8px 24px rgba(43, 36, 28, 0.08);
+}
+
+.plant-result-header {
+  margin-bottom: 20px;
+}
+
+.plant-result-kicker {
+  display: inline-flex;
+  font-size: 0.86rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--terracota);
+  margin-bottom: 8px;
+}
+
+.plant-best-match {
+  margin: 0 0 14px;
+  color: var(--verde-profundo);
+  font-size: clamp(1.65rem, 3.2vw, 2.5rem);
+  line-height: 1.15;
+}
+
+.plant-confidence-card {
+  padding: 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--beige-medio);
+  background: rgba(255, 249, 239, 0.88);
+}
+
+.plant-confidence-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.plant-confidence-top span {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--texto-medio);
+}
+
+.plant-confidence-top strong {
+  font-size: 1.5rem;
+  color: var(--texto-oscuro);
+}
+
+.plant-confidence-bar {
+  width: 100%;
+  height: 12px;
+  border-radius: 999px;
+  background: #e8dcc9;
+  overflow: hidden;
+  margin: 10px 0 8px;
+}
+
+.plant-confidence-bar span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+}
+
+.plant-confidence-card p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--texto-medio);
+}
+
+.plant-confidence-card p strong {
+  color: var(--texto-oscuro);
+}
+
+.plant-confidence-high .plant-confidence-bar span {
+  background: linear-gradient(90deg, #4a945d, #2f7a49);
+}
+
+.plant-confidence-medium .plant-confidence-bar span {
+  background: linear-gradient(90deg, #d29e35, #be7f21);
+}
+
+.plant-confidence-low .plant-confidence-bar span {
+  background: linear-gradient(90deg, #cf6b44, #a64d31);
+}
+
+.plant-confidence-neutral .plant-confidence-bar span {
+  background: linear-gradient(90deg, #a79d90, #8f867a);
+}
+
+.plant-result h4 {
+  margin-bottom: 8px;
+  color: var(--verde-profundo);
+}
+
+.plant-result-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.plant-result-item {
+  background: rgba(255, 249, 239, 0.9);
+  border: 1px solid rgba(229, 211, 186, 0.9);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.plant-result-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 5px;
+}
+
+.plant-result-value {
+  margin: 0;
+  font-size: 1.24rem;
+  line-height: 1.45;
+  color: var(--texto-oscuro);
+}
+
+.plant-result-grid strong {
+  color: var(--texto-oscuro);
+}
+
+.plant-result-item-wide {
+  grid-column: 1 / -1;
+}
+
+.plant-health-info {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px dashed rgba(143, 168, 120, 0.55);
+}
+
+.plant-health-info h5 {
+  margin: 0 0 8px;
+  font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+  color: var(--verde-profundo);
+}
+
+.plant-health-subtitle {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  color: var(--texto-medio);
+}
+
+.plant-health-warning {
+  border: 1px solid rgba(166, 95, 58, 0.35);
+  background: rgba(249, 233, 223, 0.75);
+  color: #74452d;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.96rem;
+  margin-bottom: 12px;
+}
+
+.plant-health-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.plant-health-card {
+  background: rgba(255, 249, 239, 0.94);
+  border: 1px solid rgba(229, 211, 186, 0.95);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.plant-health-card h6 {
+  margin: 0 0 8px;
+  font-size: 1.03rem;
+  font-weight: 800;
+  color: var(--texto-oscuro);
+}
+
+.plant-health-card ul {
+  margin: 0;
+  padding-left: 22px;
+  color: var(--texto-medio);
+}
+
+.plant-health-card li {
+  margin-bottom: 6px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.plant-result-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.plant-disclaimer {
+  margin-top: 16px;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: var(--texto-suave);
+}
+
+@media (min-width: 768px) {
+  .plant-result-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .plant-health-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .plant-identifier {
+    padding: 20px;
+  }
+
+  .plant-actions .btn {
+    width: 100%;
+  }
+
+  .plant-result {
+    padding: 18px;
+  }
+
+  .plant-confidence-top strong {
+    font-size: 1.3rem;
+  }
+
+  .plant-result-value {
+    font-size: 1.08rem;
+  }
+
+  .plant-result-actions {
+    justify-content: stretch;
+  }
+
+  .plant-result-actions .btn {
+    width: 100%;
+  }
+}

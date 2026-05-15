@@ -1,0 +1,201 @@
+/* ══════════════════════════════════════
+   GIFTS PAGE — ESTILO EDITORIAL
+══════════════════════════════════════ */
+
+.gifts-page { width: 100%; overflow-x: hidden; }
+
+/* Hero Regalos */
+.gifts-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Grid de Ocasiones */
+.gift-step-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 640px) {
+  .gift-step-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.gift-option-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  text-align: center;
+  transition: all 0.4s var(--ease-natural);
+}
+
+.gift-option-img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+}
+
+.gift-option-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease-natural);
+}
+
+.gift-option-card:hover .gift-option-img img { transform: scale(1.1); }
+
+.gift-option-label {
+  display: block;
+  padding: 24px;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--verde-profundo);
+  font-weight: 600;
+}
+
+/* Presupuesto */
+.presupuesto-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.presupuesto-card {
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  transition: all 0.3s var(--ease-natural);
+}
+
+.presupuesto-card:hover {
+  transform: translateX(10px);
+  border-color: var(--terracota);
+}
+
+.presupuesto-info { display: flex; flex-direction: column; gap: 4px; }
+
+.presupuesto-label {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--verde-profundo);
+  font-weight: 600;
+}
+
+.presupuesto-sub {
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+}
+
+.presupuesto-arrow {
+  color: var(--terracota);
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.presupuesto-card:hover .presupuesto-arrow {
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+/* Combo Result */
+.combo-result {
+  padding: 48px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.combo-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.combo-icon-wrap {
+  width: 60px;
+  height: 60px;
+  background: var(--beige-claro);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--terracota);
+  flex-shrink: 0;
+}
+
+.combo-title {
+  font-size: 1.8rem;
+  color: var(--verde-profundo);
+}
+
+.combo-description {
+  font-size: 1.1rem;
+  color: var(--texto-medio);
+  margin-bottom: 40px;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.combo-details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-bottom: 40px;
+  padding: 32px;
+  background: var(--crema);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--beige-medio);
+}
+
+@media (min-width: 640px) {
+  .combo-details { grid-template-columns: 1fr 1fr; }
+}
+
+.combo-col h4 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--terracota);
+  margin-bottom: 16px;
+}
+
+.combo-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.combo-col li {
+  font-size: 0.95rem;
+  color: var(--texto-oscuro);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.combo-col li::before {
+  content: '🌿';
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.combo-cta {
+  text-align: center;
+  padding-top: 16px;
+}
+
+.combo-cta p {
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+  margin-bottom: 24px;
+}
+
+@media (max-width: 480px) {
+  .combo-result { padding: 32px 24px; }
+  .combo-header { flex-direction: column; text-align: center; }
+}

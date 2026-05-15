@@ -1,0 +1,149 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(44, 53, 45, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: flex-end; /* Bottom sheet in mobile */
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: var(--color-surface);
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--color-bg);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+  z-index: 10;
+  box-shadow: var(--shadow-sm);
+}
+
+.modal-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-image-col {
+  width: 100%;
+  aspect-ratio: 4/3;
+}
+
+.modal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-info-col {
+  padding: 24px;
+}
+
+.modal-title {
+  font-size: 2rem;
+  margin: 16px 0;
+}
+
+.modal-description {
+  color: var(--color-text-light);
+  margin-bottom: 24px;
+  font-size: 1rem;
+}
+
+.modal-attributes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+  background-color: var(--color-bg);
+  padding: 16px;
+  border-radius: var(--radius-md);
+}
+
+.modal-attribute {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.modal-icon-wrapper {
+  background-color: rgba(94, 138, 94, 0.1);
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+}
+
+.modal-attribute strong {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  margin-bottom: 2px;
+}
+
+.modal-attribute p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.modal-actions {
+  margin-top: auto;
+}
+
+.modal-hint {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  margin-top: 8px;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@media (min-width: 768px) {
+  .modal-backdrop {
+    align-items: center;
+    padding: 20px;
+  }
+  .modal-content {
+    border-radius: var(--radius-lg);
+  }
+  .modal-grid {
+    flex-direction: row;
+  }
+  .modal-image-col {
+    width: 50%;
+    aspect-ratio: auto;
+    min-height: 500px;
+  }
+  .modal-info-col {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+  }
+}
