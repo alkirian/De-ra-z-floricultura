@@ -68,6 +68,23 @@ const ProductModal = ({ product, onClose }) => {
               )}
             </div>
 
+            {(product.careTips || product.pests) && (
+              <div className="modal-extra-info">
+                {product.careTips && (
+                  <div className="info-block">
+                    <h4 className="info-title">✨ Tips de Cuidado</h4>
+                    <p className="info-text">{product.careTips}</p>
+                  </div>
+                )}
+                {product.pests && (
+                  <div className="info-block pests-block">
+                    <h4 className="info-title">🐛 Posibles Plagas</h4>
+                    <p className="info-text">{product.pests}</p>
+                  </div>
+                )}
+              </div>
+            )}
+
             <div className="modal-actions">
               <a 
                 href={generateWaLink(WA_MESSAGES.producto(product.name))} 

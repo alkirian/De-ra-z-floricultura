@@ -119,6 +119,43 @@
   margin-top: 8px;
 }
 
+/* Extra Info Blocks (Tips & Plagas) */
+.modal-extra-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.info-block {
+  background: rgba(143, 168, 120, 0.08); /* Fondo salvia muy suave */
+  border-left: 3px solid var(--verde-salvia);
+  padding: 16px;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.pests-block {
+  background: rgba(166, 95, 58, 0.06); /* Fondo terracota muy suave */
+  border-left-color: var(--terracota);
+}
+
+.info-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--verde-profundo);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.info-text {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  line-height: 1.6;
+  margin: 0;
+}
+
 @keyframes slideUp {
   from { transform: translateY(100%); }
   to { transform: translateY(0); }

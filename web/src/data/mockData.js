@@ -81,7 +81,9 @@ interiorPlants.forEach((name, i) => {
     attributes: [
       { type: 'luz', value: 'Media a mucha (sin sol)' },
       { type: 'riego', value: 'Riego moderado' }
-    ]
+    ],
+    careTips: "Limpiar las hojas con un paño húmedo para mantenerlas brillantes. Evitar corrientes de aire frío y cambios bruscos de temperatura.",
+    pests: "Cochinilla algodonosa, arañuela roja (en ambientes muy secos)."
   });
 });
 
@@ -98,7 +100,9 @@ exteriorPlants.forEach((name, i) => {
     attributes: [
       { type: 'luz', value: 'Sol directo o semisombra' },
       { type: 'riego', value: 'Riego frecuente' }
-    ]
+    ],
+    careTips: "Abonar a principios de primavera y verano. Podar ramas secas o flores marchitas para fomentar nuevo crecimiento.",
+    pests: "Pulgones (especialmente en primavera), trips y hormigas cortadoras."
   });
 });
 
@@ -115,7 +119,9 @@ huertaPlants.forEach((name) => {
     attributes: [
       { type: 'luz', value: 'Pleno sol' },
       { type: 'riego', value: 'Riego diario en verano' }
-    ]
+    ],
+    careTips: "Cosechar regularmente para estimular el crecimiento y evitar que la planta semille prematuramente.",
+    pests: "Mosca blanca, pulgones y orugas. Recomendamos preventivos orgánicos como aceite de Neem o jabón potásico."
   });
 });
 

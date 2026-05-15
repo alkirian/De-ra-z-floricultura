@@ -1,13 +1,13 @@
-import { Sun, Droplets, Ruler, Package, Sprout, ArrowUpRight } from 'lucide-react';
+import { Sun, Droplets, Ruler, Package, Sprout, ArrowRight } from 'lucide-react';
 import './ProductCard.css';
 
 const getAttributeIcon = (type) => {
   switch (type) {
-    case 'luz':      return <Sun size={13} />;
-    case 'riego':    return <Droplets size={13} />;
-    case 'tamano':   return <Ruler size={13} />;
-    case 'material': return <Package size={13} />;
-    default:         return <Sprout size={13} />;
+    case 'luz':      return <Sun size={15} />;
+    case 'riego':    return <Droplets size={15} />;
+    case 'tamano':   return <Ruler size={15} />;
+    case 'material': return <Package size={15} />;
+    default:         return <Sprout size={15} />;
   }
 };
 
@@ -16,17 +16,21 @@ const ProductCard = ({ product, onClick }) => {
 
   return (
     <article className="product-card" onClick={() => onClick(product)}>
-      {/* Imagen */}
+      {/* Imagen con arco editorial */}
       <div className="product-image-wrap">
-        <span className="product-section-glow" aria-hidden="true"></span>
         <span className="product-cat-badge">{category}</span>
         <img src={image} alt={name} className="product-image" loading="lazy" />
       </div>
 
       {/* Info */}
       <div className="product-body">
-        <span className="product-price">{price}</span>
         <h3 className="product-name">{name}</h3>
+        
+        {price !== "Consultar" && (
+          <div className="product-price-wrap">
+            <span className="product-price">{price}</span>
+          </div>
+        )}
 
         <div className="product-attrs">
           {attributes.slice(0, 2).map((attr, idx) => (
@@ -38,7 +42,7 @@ const ProductCard = ({ product, onClick }) => {
         </div>
 
         <button className="product-btn">
-          Ver detalle <ArrowUpRight size={16} />
+          Ver detalle <ArrowRight size={16} />
         </button>
       </div>
     </article>

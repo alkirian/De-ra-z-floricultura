@@ -1,213 +1,179 @@
 /* ══════════════════════════════════════
-   PRODUCT CARD — ESTILO CATÁLOGO ARTESANAL
+   PRODUCT CARD — HÍBRIDO EDITORIAL & FLOATING
 ══════════════════════════════════════ */
 
 .product-card {
   position: relative;
-  background: linear-gradient(180deg, #fff9ef 0%, #f6eddc 100%);
-  border: 1px solid rgba(143, 168, 120, 0.28);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 12px 22px rgba(43, 36, 28, 0.09);
-  overflow: hidden;
+  background: transparent;
+  border: none;
+  /* Eliminamos el box-shadow del contenedor para que la sombra venga de la imagen */
+  box-shadow: none;
+  overflow: visible; /* Permitimos que elementos sobresalgan */
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  transition: all 0.35s var(--ease-natural);
-  will-change: transform, box-shadow;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 10px;
 }
 
 .product-card:hover {
-  transform: translateY(-9px);
-  box-shadow: 0 22px 44px rgba(18, 47, 30, 0.2);
-  border-color: rgba(47, 74, 46, 0.45);
+  transform: translateY(-8px);
 }
 
-.product-card:active {
-  transform: translateY(-4px) scale(0.995);
-  box-shadow: 0 14px 30px rgba(18, 47, 30, 0.18);
-}
-
-.product-card::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  border: 1px solid rgba(143, 168, 120, 0);
-  pointer-events: none;
-  transition: border-color 0.35s var(--ease-natural), box-shadow 0.35s var(--ease-natural);
-  z-index: 3;
-}
-
-.product-card:hover::before {
-  border-color: rgba(143, 168, 120, 0.55);
-  box-shadow: inset 0 0 0 1px rgba(255, 249, 239, 0.5);
-}
-
-/* Imagen */
+/* Imagen y su fondo (sin recuadro duro) */
 .product-image-wrap {
   position: relative;
-  aspect-ratio: 1 / 1;
-  background:
-    radial-gradient(circle at 82% 18%, rgba(143, 168, 120, 0.35), rgba(143, 168, 120, 0) 48%),
-    linear-gradient(180deg, #f1e5d0 0%, #ecddc7 100%);
-  overflow: hidden;
+  aspect-ratio: 4 / 5; /* Un poco más vertical para look de revista */
+  /* Fondo sutil con textura simulada y color crema muy suave */
+  background: 
+    linear-gradient(180deg, rgba(244, 235, 221, 0.3) 0%, rgba(244, 235, 221, 0.8) 100%);
+  border-radius: 200px 200px 12px 12px; /* Forma de arco/ventana editorial */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px; /* Menos espacio entre imagen y texto */
+  transition: all 0.5s ease;
 }
 
-.product-image-wrap::after {
-  content: "";
-  position: absolute;
-  top: -25%;
-  left: -45%;
-  width: 42%;
-  height: 150%;
-  transform: rotate(18deg);
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0));
-  transition: left 0.75s var(--ease-natural);
-  z-index: 2;
-  pointer-events: none;
-}
-
-.product-card:hover .product-image-wrap::after {
-  left: 120%;
-}
-
-.product-section-glow {
-  position: absolute;
-  width: 54%;
-  height: 54%;
-  top: -20%;
-  right: -16%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(47, 74, 46, 0.25), rgba(47, 74, 46, 0));
-  z-index: 1;
+.product-card:hover .product-image-wrap {
+  background: 
+    linear-gradient(180deg, rgba(229, 211, 186, 0.4) 0%, rgba(229, 211, 186, 0.9) 100%);
 }
 
 .product-image {
   position: relative;
   z-index: 2;
-  width: 100%;
-  height: 100%;
+  width: 105%; /* Imagen más grande */
+  height: 105%; /* Imagen más grande */
   object-fit: contain;
-  padding: 20px;
-  transition: transform 0.5s var(--ease-natural);
-  filter: drop-shadow(0 16px 14px rgba(17, 39, 24, 0.2));
+  /* Sombra suave y realista directamente en la planta (asumiendo PNG transparente) */
+  filter: drop-shadow(0 20px 25px rgba(47, 74, 46, 0.15));
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .product-card:hover .product-image {
-  transform: scale(1.06);
+  transform: scale(1.08) translateY(-5px);
+  filter: drop-shadow(0 30px 35px rgba(47, 74, 46, 0.25));
 }
 
-/* Badge de categoría */
+/* Badge de categoría - Flotante y elegante */
 .product-cat-badge {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 2;
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  top: 20px;
+  right: -10px; /* Sobresale un poco */
+  z-index: 3;
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-family: var(--font-base);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  background: rgba(255, 249, 239, 0.94);
-  color: var(--verde-profundo);
-  border: 1px solid rgba(143, 168, 120, 0.42);
-  backdrop-filter: blur(4px);
+  background: var(--verde-profundo);
+  color: var(--crema);
+  box-shadow: 0 8px 16px rgba(47, 74, 46, 0.2);
+  writing-mode: horizontal-tb;
 }
 
-/* Cuerpo de la card */
+/* Cuerpo de la card - Tipografía editorial */
 .product-body {
-  padding: 18px 18px 20px;
   display: flex;
   flex-direction: column;
-  flex: 1;
-  gap: 11px;
-}
-
-.product-price {
-  align-self: flex-start;
-  padding: 4px 10px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--terracota);
-  border: 1px solid rgba(166, 95, 58, 0.3);
-  border-radius: var(--radius-full);
-  background: rgba(255, 249, 239, 0.75);
+  padding: 0 12px;
+  position: relative;
 }
 
 .product-name {
-  font-family: var(--font-base);
-  font-size: 1.1rem;
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
   color: var(--verde-profundo);
-  font-weight: 800;
-  line-height: 1.3;
-  letter-spacing: 0.01em;
+  font-weight: 500;
+  line-height: 1.1;
+  margin-bottom: 12px;
+  transition: color 0.3s ease;
 }
 
-/* Atributos (luz, riego, etc.) */
+.product-card:hover .product-name {
+  color: var(--terracota);
+}
+
+/* Precio - Estilo anillo/sello o minimalista */
+.product-price-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(143, 168, 120, 0.3);
+  padding-bottom: 16px;
+}
+
+.product-price {
+  font-family: var(--font-base);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--terracota);
+}
+
+/* Atributos - Asimétricos y finos */
 .product-attrs {
   display: flex;
-  flex-direction: column;
-  gap: 7px;
-  margin-top: 2px;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
 .product-attr {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.83rem;
+  font-size: 0.8rem;
   color: var(--texto-medio);
+  font-family: var(--font-base);
 }
 
 .product-attr svg {
   color: var(--verde-salvia);
-  flex-shrink: 0;
+  stroke-width: 1.5; /* Iconos más finos y elegantes */
 }
 
-/* Botón de la card */
+/* Botón flotante - Minimalista */
 .product-btn {
-  margin-top: auto;
+  align-self: flex-start;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 7px;
-  padding: 12px 20px;
-  border-radius: var(--radius-full);
-  background: rgba(47, 74, 46, 0.06);
-  border: 1.5px solid rgba(47, 74, 46, 0.38);
-  color: var(--verde-profundo-hover);
+  gap: 8px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--verde-profundo);
   font-family: var(--font-base);
   font-weight: 700;
-  font-size: 0.88rem;
-  letter-spacing: 0.03em;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.25s ease;
-  text-align: center;
+  position: relative;
+}
+
+.product-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background: var(--terracota);
+  transition: width 0.3s ease;
+}
+
+.product-card:hover .product-btn::after {
+  width: 100%;
 }
 
 .product-btn svg {
-  transition: transform 0.25s var(--ease-natural);
-}
-
-.product-btn:hover,
-.product-card:hover .product-btn {
-  background: var(--verde-profundo);
-  color: var(--crema);
+  transition: transform 0.3s ease;
+  color: var(--terracota);
 }
 
 .product-card:hover .product-btn svg {
-  transform: translateX(2px) translateY(-1px);
-}
-
-@media (max-width: 640px) {
-  .product-name {
-    font-size: 1.05rem;
-  }
-
-  .product-btn {
-    padding: 10px 16px;
-  }
+  transform: translateX(4px);
 }
