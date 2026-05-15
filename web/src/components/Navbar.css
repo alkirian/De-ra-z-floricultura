@@ -46,9 +46,9 @@
   transition: filter 0.4s ease;
 }
 
-/* Logo sobre hero (transparente) — mantener legible */
+/* Mantener el archivo de logo sin invertir para evitar lavado en blanco */
 .navbar--transparent .nav-logo-img {
-  filter: brightness(0) invert(1);
+  filter: none;
 }
 
 .nav-logo-text {

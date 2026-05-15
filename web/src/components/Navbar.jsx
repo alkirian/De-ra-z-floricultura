@@ -24,7 +24,7 @@ const Navbar = () => {
   const links = [
     { to: '/',              label: 'Inicio' },
     { to: '/catalogo',      label: 'Catálogo' },
-    { to: '/asesoramiento', label: 'Asesoramiento' },
+    { to: '/asesoramiento', label: 'Te ayudo a elegir' },
     { to: '/regalos',       label: 'Regalos' },
     { to: '/contacto',      label: 'Contacto' },
   ];
@@ -53,7 +53,7 @@ const Navbar = () => {
 
         {/* Desktop CTA */}
         <a
-          href={generateWaLink(WA_MESSAGES.general)}
+          href={generateWaLink(WA_MESSAGES.ayudaElegir)}
           target="_blank"
           rel="noreferrer"
           className="nav-cta btn btn-primary"

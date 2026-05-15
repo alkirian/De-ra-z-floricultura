@@ -90,6 +90,25 @@
   color: var(--texto-suave);
 }
 
+.presupuesto-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.presupuesto-meta span {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--terracota);
+  padding: 4px 8px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(166, 95, 58, 0.3);
+  background: rgba(166, 95, 58, 0.08);
+}
+
 .presupuesto-arrow {
   color: var(--terracota);
   opacity: 0.5;
@@ -193,6 +212,10 @@
   font-size: 0.9rem;
   color: var(--texto-suave);
   margin-bottom: 24px;
+}
+
+.combo-cta p strong {
+  color: var(--verde-profundo);
 }
 
 @media (max-width: 480px) {

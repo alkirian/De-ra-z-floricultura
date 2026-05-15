@@ -13,6 +13,42 @@ const MAIN_FILTERS = [
 
 const INSUMOS_SUBCATEGORIES = CATEGORIES.insumos.filter((cat) => cat !== 'Macetas');
 
+const NEED_FILTERS = {
+  'planta-facil': 'Plantas fáciles',
+  'poca-luz': 'Poca luz',
+  'mucha-luz': 'Mucha luz',
+  'poco-riego': 'Poco riego',
+  'pet-friendly': 'Pet friendly',
+};
+
+const normalizeText = (value = '') => value
+  .toLowerCase()
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '');
+
+const matchesNeed = (product, need) => {
+  if (!need) return true;
+  if (product.section !== 'plantas') return false;
+
+  const light = normalizeText(product.attributes?.find((attr) => attr.type === 'luz')?.value || '');
+  const water = normalizeText(product.attributes?.find((attr) => attr.type === 'riego')?.value || '');
+  const name = normalizeText(product.name);
+
+  if (need === 'poca-luz') return light.includes('poca') || light.includes('sombra');
+  if (need === 'mucha-luz') return light.includes('mucha') || light.includes('pleno sol') || light.includes('sol directo');
+  if (need === 'poco-riego') return water.includes('moderado') || water.includes('poca') || name.includes('sansevieria');
+  if (need === 'planta-facil') {
+    const easyNames = ['sansevieria', 'potus', 'peperomia', 'dracena', 'dracena', 'lavanda', 'gazania', 'hiedra', 'areca'];
+    return easyNames.some((item) => name.includes(item));
+  }
+  if (need === 'pet-friendly') {
+    const petFriendlyNames = ['areca', 'helecho', 'calathea', 'calatea', 'raphis', 'violeta africana'];
+    return petFriendlyNames.some((item) => name.includes(item));
+  }
+
+  return true;
+};
+
 const getCategoriesByMainFilter = (filter) => {
   if (filter === 'plantas') return CATEGORIES.plantas;
   if (filter === 'macetas') return ['Todas'];
@@ -23,12 +59,20 @@ const Catalog = () => {
   const location = useLocation();
   const [activeMainFilter, setActiveMainFilter] = useState('plantas');
   const [activeCategory, setActiveCategory] = useState('Todas');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeNeed, setActiveNeed] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   // Parse category from URL if present
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const catParam = params.get('cat');
+    const queryParam = params.get('q');
+    const needParam = params.get('need');
+
+    setSearchQuery(queryParam || '');
+    setActiveNeed(NEED_FILTERS[needParam] ? needParam : '');
+
     if (catParam) {
       if (CATEGORIES.plantas.includes(catParam)) {
         setActiveMainFilter('plantas');
@@ -43,6 +87,13 @@ const Catalog = () => {
     }
   }, [location]);
 
+  const handleClearFilters = () => {
+    setActiveMainFilter('plantas');
+    setActiveCategory('Todas');
+    setSearchQuery('');
+    setActiveNeed('');
+  };
+
   const handleMainFilterChange = (filterId) => {
     setActiveMainFilter(filterId);
     setActiveCategory(filterId === 'plantas' ? 'Todas' : 'Todos');
@@ -53,20 +104,24 @@ const Catalog = () => {
 
   const filteredProducts = MOCK_PRODUCTS.filter(product => {
     const isAllCategory = activeCategory === 'Todas' || activeCategory === 'Todos';
+    const query = searchQuery.trim().toLowerCase();
+    const searchMatch = query.length === 0 || product.name.toLowerCase().includes(query);
+    const needMatch = matchesNeed(product, activeNeed);
 
     if (activeMainFilter === 'plantas') {
       const sectionMatch = product.section === 'plantas';
       const catMatch = isAllCategory ? true : product.category === activeCategory;
-      return sectionMatch && catMatch;
+      return sectionMatch && catMatch && searchMatch && needMatch;
     }
 
     if (activeMainFilter === 'macetas') {
-      return product.section === 'insumos' && product.category === 'Macetas';
+      return product.section === 'insumos' && product.category === 'Macetas' && searchMatch;
     }
 
     const isInsumo = product.section === 'insumos' && product.category !== 'Macetas';
     if (!isInsumo) return false;
-    return isAllCategory ? true : product.category === activeCategory;
+    const catMatch = isAllCategory ? true : product.category === activeCategory;
+    return catMatch && searchMatch;
   });
 
   const activeCategoriesList = getCategoriesByMainFilter(activeMainFilter);
@@ -79,6 +134,42 @@ const Catalog = () => {
           <span className="section-label">Tienda</span>
           <h1>Nuestro Catálogo</h1>
           <p style={{marginTop: '8px', color: 'var(--texto-suave)'}}>Explorá todo lo que necesitás para darle vida a tu espacio.</p>
+        </div>
+
+        <div className="catalog-help-banner mb-8">
+          <p>¿No sabés cuál elegir? Te recomendamos opciones según tu luz y espacio.</p>
+          <div className="catalog-help-actions">
+            <a href={generateWaLink(WA_MESSAGES.ayudaElegir)} target="_blank" rel="noreferrer" className="btn btn-primary">
+              <MessageCircle size={18} /> Quiero ayuda para elegir
+            </a>
+            <a href={generateWaLink(WA_MESSAGES.diagnostico)} target="_blank" rel="noreferrer" className="btn btn-secondary">
+              <MessageCircle size={18} /> Tengo una planta decaída
+            </a>
+          </div>
+        </div>
+
+        {activeNeed && (
+          <div className="catalog-need-chip mb-6">
+            <span>Filtro activo: <strong>{NEED_FILTERS[activeNeed]}</strong></span>
+            <button type="button" className="catalog-clear-btn" onClick={() => setActiveNeed('')}>Quitar filtro</button>
+          </div>
+        )}
+
+        <div className="catalog-search-wrap mb-8">
+          <div className="catalog-search">
+            <Search size={18} className="catalog-search-icon" />
+            <input
+              type="text"
+              className="catalog-search-input"
+              placeholder="Buscar por nombre (ej: Monstera, Potus, Lavanda)"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              aria-label="Buscar productos"
+            />
+          </div>
+          <button type="button" className="catalog-clear-btn" onClick={handleClearFilters}>
+            Limpiar filtros
+          </button>
         </div>
 
         {/* Main Toggle (Plantas / Macetas / Insumos) */}
@@ -98,6 +189,7 @@ const Catalog = () => {
 
         {/* Sub-Categories Scroll */}
         <div className="category-filters-container mb-12">
+          <p className="category-scroll-hint">Deslizá para ver más categorías</p>
           <div className="category-filters">
             {activeCategoriesList.map(cat => (
               <button 
@@ -109,6 +201,14 @@ const Catalog = () => {
               </button>
             ))}
           </div>
+        </div>
+
+        <div className="catalog-results-head mb-6">
+          <p>
+            Mostrando <strong>{filteredProducts.length}</strong> resultado{filteredProducts.length === 1 ? '' : 's'}
+            {searchQuery.trim() ? <> para <strong>"{searchQuery.trim()}"</strong></> : null}
+            {activeNeed ? <> en <strong>{NEED_FILTERS[activeNeed]}</strong></> : null}
+          </p>
         </div>
 
         {/* Products Grid */}
@@ -126,7 +226,19 @@ const Catalog = () => {
           <div className="text-center mt-12" style={{color: 'var(--color-text-light)'}}>
             <Search size={48} className="mx-auto mb-4" opacity={0.5} />
             <h2>No encontramos productos</h2>
-            <p>Pronto agregaremos más opciones a esta categoría.</p>
+            {searchQuery.trim() ? (
+              <>
+                <p>No hay resultados para "{searchQuery.trim()}" con los filtros actuales.</p>
+                <button type="button" className="catalog-clear-btn mt-4" onClick={handleClearFilters}>
+                  Limpiar y ver todo
+                </button>
+                <a href={generateWaLink(WA_MESSAGES.ayudaElegir)} target="_blank" rel="noreferrer" className="btn btn-primary mt-4">
+                  <MessageCircle size={18} /> Pedir ayuda por WhatsApp
+                </a>
+              </>
+            ) : (
+              <p>Pronto agregaremos más opciones a esta categoría.</p>
+            )}
           </div>
         )}
 
@@ -182,7 +294,7 @@ const Catalog = () => {
 
 
                 <a 
-                  href={generateWaLink(WA_MESSAGES.producto(selectedProduct.name))} 
+                  href={generateWaLink(WA_MESSAGES.disponibilidad(selectedProduct.name))} 
                   target="_blank" 
                   rel="noreferrer" 
                   className="btn btn-primary w-full"

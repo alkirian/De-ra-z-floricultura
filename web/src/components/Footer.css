@@ -34,10 +34,10 @@
 }
 
 .footer-logo-image {
-  height: 48px;
+  height: 64px;
   width: auto;
   object-fit: contain;
-  filter: brightness(0) invert(1);
+  filter: none;
 }
 
 .footer-logo-text {
@@ -119,6 +119,14 @@
   gap: 12px;
   font-size: 0.9rem;
   color: rgba(244, 235, 221, 0.7);
+}
+
+.footer-contact a {
+  color: inherit;
+}
+
+.footer-contact a:hover {
+  color: var(--crema);
 }
 
 .footer-contact li svg {

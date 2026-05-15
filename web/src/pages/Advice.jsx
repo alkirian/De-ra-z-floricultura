@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { generateWaLink, WA_MESSAGES } from '../data/mockData';
 import { RefreshCcw, MessageCircle, HelpCircle, Droplets, Sun, AlertTriangle, ChevronDown, ChevronUp, Leaf, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import PlantIdentifier from '../components/PlantIdentifier';
 import './Advice.css';
 
 /* SVG de hoja decorativa */
@@ -166,7 +165,7 @@ const Advice = () => {
       case 3:
         return (
           <div className="quiz-step animate-fade-in">
-            <h3 className="quiz-step-title">¿Cuál es tu nivel de experiencia?</h3>
+            <h3 className="quiz-step-title">¿Qué buscás en esta planta?</h3>
             <div className="quiz-options">
               <button className="quiz-card" onClick={() => handleAnswer('proposito', 'principiante')}>
                 <div className="quiz-card-bg" style={{backgroundImage: "url('https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?auto=format&fit=crop&w=600&q=80')"}}></div>
@@ -176,7 +175,7 @@ const Advice = () => {
               <button className="quiz-card" onClick={() => handleAnswer('proposito', 'decorar')}>
                 <div className="quiz-card-bg" style={{backgroundImage: "url('https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=600&q=80')"}}></div>
                 <div className="quiz-card-overlay"></div>
-                <div className="quiz-card-content"><span>Ya tengo experiencia</span></div>
+                <div className="quiz-card-content"><span>Quiero algo más decorativo</span></div>
               </button>
             </div>
           </div>
@@ -185,6 +184,8 @@ const Advice = () => {
         const recs = getRecommendations(answers.ubicacion, answers.luz, answers.proposito);
         const nombresRecs = recs.map(r => r.name).join(', ');
         const finalMessage = WA_MESSAGES.asesoramiento(answers.ubicacion, answers.luz, answers.proposito, nombresRecs);
+        const suggestedCategory = answers.ubicacion === 'interior' ? 'Interior' : 'Exterior';
+        const catalogLink = `/catalogo?cat=${encodeURIComponent(suggestedCategory)}&q=${encodeURIComponent(recs[0]?.name || '')}`;
         return (
           <div className="quiz-step animate-fade-in result-step">
             <div className="result-header">
@@ -206,6 +207,9 @@ const Advice = () => {
             </div>
             <div className="result-cta">
               <p className="result-cta-text">¿Te convencieron? Escribinos y te confirmamos disponibilidad y precio.</p>
+              <Link to={catalogLink} className="btn btn-secondary w-full">
+                <ArrowRight size={18} /> Ver sugeridas en catálogo
+              </Link>
               <a href={generateWaLink(finalMessage)} target="_blank" rel="noreferrer" className="btn btn-primary w-full">
                 <MessageCircle size={20} /> Preguntar por estas plantas
               </a>
@@ -230,9 +234,32 @@ const Advice = () => {
           <span className="section-label">Asesoramiento</span>
           <h1 className="page-title">Consultorio Botánico</h1>
           <p className="page-subtitle mb-8 mx-auto" style={{maxWidth: '600px'}}>
-            En De Raíz no queremos venderte una planta para que se te muera a los dos meses. Queremos enseñarte a entenderlas, cuidarlas y elegir la correcta para tu estilo de vida.
+            Te ayudamos a elegir la planta correcta segun tu luz, tu espacio y tu tiempo de cuidado.
           </p>
           <div className="title-underline"></div>
+        </div>
+      </section>
+
+      <section className="advice-services section-padding--sm" style={{background: 'var(--blanco-calido)'}}>
+        <div className="container">
+          <div className="text-center mb-8">
+            <span className="section-label">Servicios</span>
+            <h2 className="section-title">Te asesoramos en minutos</h2>
+          </div>
+          <div className="advice-services-grid">
+            <a href={generateWaLink(WA_MESSAGES.ayudaElegir)} target="_blank" rel="noreferrer" className="advice-service-card">
+              <h3>Te ayudo a elegir tu planta</h3>
+              <p>Contanos tu espacio y te recomendamos opciones concretas.</p>
+            </a>
+            <a href={generateWaLink(WA_MESSAGES.diagnostico)} target="_blank" rel="noreferrer" className="advice-service-card">
+              <h3>Diagnóstico inicial de planta</h3>
+              <p>Si la ves decaída, mandanos foto y te guiamos paso a paso.</p>
+            </a>
+            <a href={generateWaLink(WA_MESSAGES.regaloRapido)} target="_blank" rel="noreferrer" className="advice-service-card">
+              <h3>Regalo armado</h3>
+              <p>Te recomendamos opciones segun ocasion y presupuesto.</p>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -281,6 +308,7 @@ const Advice = () => {
           <div className="text-center mb-12">
             <span className="section-label">Interactivo</span>
             <h2 className="section-title">Diagnóstico de Espacio</h2>
+            <p className="quiz-time-pill">Te lleva 1 minuto</p>
             <p className="mt-4" style={{color: 'var(--texto-suave)'}}>¿Aún no sabés qué llevar? Hacé este test de 3 pasos y te recomendamos la planta ideal.</p>
           </div>
           <div className="quiz-container card">
@@ -295,20 +323,6 @@ const Advice = () => {
         </div>
       </section>
 
-      <section className="section-padding--sm" style={{ background: 'var(--blanco-calido)' }}>
-        <div className="container">
-          <div className="text-center mb-8">
-            <span className="section-label">PlantNet</span>
-            <h2 className="section-title">Identificacion de plantas por imagen</h2>
-            <p className="mt-4" style={{ color: 'var(--texto-suave)', maxWidth: '680px', marginInline: 'auto' }}>
-              Si no sabes que planta es, sube una foto y te mostramos la mejor coincidencia,
-              nivel de confianza y datos botanicos.
-            </p>
-          </div>
-
-          <PlantIdentifier />
-        </div>
-      </section>
     </div>
   );
 };

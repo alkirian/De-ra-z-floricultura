@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Clock, CreditCard, MessageCircle, Navigation, Globe } from 'lucide-react';
+import { MapPin, Clock, CreditCard, MessageCircle, Navigation, Globe, Phone } from 'lucide-react';
 import { BIZ_INFO, generateWaLink, WA_MESSAGES } from '../data/mockData';
 import './Contact.css';
 
@@ -12,6 +12,8 @@ const LeafSVG = ({ className }) => (
 );
 
 const Contact = () => {
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${BIZ_INFO.name} ${BIZ_INFO.location}`)}`;
+
   return (
     <div className="contact-page animate-fade-in">
       {/* ══════════════════════════
@@ -46,7 +48,7 @@ const Contact = () => {
                   <h3>Ubicación</h3>
                   <p>{BIZ_INFO.location}</p>
                   <a 
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(BIZ_INFO.name + " " + BIZ_INFO.location)}`}
+                    href={mapsUrl}
                     target="_blank" 
                     rel="noreferrer"
                     className="btn-text-link mt-2"
@@ -78,21 +80,31 @@ const Contact = () => {
             <div className="contact-action-box card">
               <div className="action-icon-wrap"><MessageCircle size={48} /></div>
               <h2>¿Tenés alguna duda?</h2>
-              <p className="mb-8">Escribinos directamente a nuestro WhatsApp. Te asesoramos sobre stock, envíos y cuidados.</p>
+              <p className="mb-8">Escribinos por WhatsApp y te guiamos para elegir plantas, regalos o resolver cuidados.</p>
               
               <div className="action-buttons">
                 <a 
-                  href={generateWaLink(WA_MESSAGES.general)} 
+                  href={generateWaLink(WA_MESSAGES.ayudaElegir)} 
                   target="_blank" 
                   rel="noreferrer" 
                   className="btn btn-primary w-full"
                 >
                   <MessageCircle size={20} />
-                  Hablar por WhatsApp
+                  Quiero ayuda para elegir
+                </a>
+
+                <a href={generateWaLink(WA_MESSAGES.regaloRapido)} target="_blank" rel="noreferrer" className="btn btn-secondary w-full">
+                  <MessageCircle size={18} />
+                  Quiero armar un regalo
+                </a>
+
+                <a href={`tel:+${BIZ_INFO.phone}`} className="btn btn-secondary w-full">
+                  <Phone size={18} />
+                  Llamar al vivero
                 </a>
                 
                 <div className="social-cta-row">
-                  <a href="#" className="social-btn" aria-label="Sitio web"><Globe size={20} /></a>
+                  <a href={mapsUrl} target="_blank" rel="noreferrer" className="social-btn" aria-label="Ver ubicación en Google Maps"><Globe size={20} /></a>
                 </div>
               </div>
             </div>
@@ -114,7 +126,7 @@ const Contact = () => {
               <MapPin size={40} color="var(--terracota)" />
               <p>Las Piedras, Canelones (Ruta 48)</p>
               <a 
-                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(BIZ_INFO.name + " " + BIZ_INFO.location)}`}
+                href={mapsUrl}
                 target="_blank" 
                 rel="noreferrer"
                 className="btn btn-secondary btn-sm"

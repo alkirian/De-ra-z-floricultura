@@ -129,7 +129,7 @@ const PlantIdentifier = () => {
 
       if (!response.ok || !payload?.success) {
         if (!payload && response.status === 502) {
-          setError('No se pudo conectar correctamente con el backend. Verifica que el servidor backend este levantado en el puerto 4000.');
+          setError('La herramienta de identificación no está disponible en este momento. Probá de nuevo en unos minutos.');
           return;
         }
 
@@ -144,7 +144,7 @@ const PlantIdentifier = () => {
       setResult(payload);
     } catch (requestError) {
       setError(
-        'Ocurrio un error de red al enviar la imagen. Verifica que el backend este levantado con "cd web/backend && npm run dev" y vuelve a intentar.',
+        'No pudimos analizar la imagen por un problema de conexión. Probá de nuevo en unos minutos.',
       );
     } finally {
       setIsLoading(false);
@@ -164,7 +164,7 @@ const PlantIdentifier = () => {
 
       {!backendOnline && (
         <div className="plant-alert plant-alert-error">
-          Backend no disponible. Levantalo con <code>cd web/backend && npm run dev</code>.
+          Esta función puede estar temporalmente no disponible. Si querés, escribinos por WhatsApp y te ayudamos manualmente.
         </div>
       )}
 

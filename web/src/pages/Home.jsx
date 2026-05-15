@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { ArrowRight, MessageCircle, Sparkles, Leaf, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { generateWaLink, WA_MESSAGES } from '../data/mockData';
+import { BIZ_INFO, generateWaLink, WA_MESSAGES } from '../data/mockData';
 import './Home.css';
 
 /* SVG de hoja decorativa */
@@ -100,6 +100,7 @@ const CATEGORIES = [
 
 const Home = () => {
   const valueGridRef = useRef(null);
+  const mainHours = BIZ_INFO.hours.split('|')[0]?.trim();
 
   useEffect(() => {
     const cards = valueGridRef.current?.querySelectorAll('.value-item');
@@ -174,11 +175,11 @@ const Home = () => {
             Te ayudamos a encontrar la planta perfecta para tu espacio.
           </p>
           <div className="hero-actions stagger-3">
-            <a href={generateWaLink(WA_MESSAGES.general)} target="_blank" rel="noreferrer" className="btn btn-light">
-              <MessageCircle size={18} /> Consultar por WhatsApp
+            <a href={generateWaLink(WA_MESSAGES.ayudaElegir)} target="_blank" rel="noreferrer" className="btn btn-light">
+              <MessageCircle size={18} /> Quiero ayuda para elegir
             </a>
             <Link to="/catalogo" className="btn btn-outline-light">
-              Ver catálogo <ArrowRight size={18} />
+              Ver plantas y combos <ArrowRight size={18} />
             </Link>
           </div>
         </div>
@@ -188,6 +189,119 @@ const Home = () => {
           <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
             <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#F4EBDD"/>
           </svg>
+        </div>
+      </section>
+
+
+      {/* ══════════════════════════
+          ATAJOS RÁPIDOS
+      ══════════════════════════ */}
+      <section className="quick-actions-section section-padding--sm" style={{background: 'var(--crema)'}}>
+        <div className="container">
+          <div className="text-center mb-8">
+            <span className="section-label">Empezá por acá</span>
+            <h2>¿Qué necesitás hoy?</h2>
+          </div>
+          <div className="quick-actions-grid">
+            <Link to="/catalogo?cat=Interior" className="quick-action-card">
+              <span className="quick-action-kicker">Quiero algo fácil</span>
+              <h3>Plantas para principiantes</h3>
+              <p>Opciones nobles para arrancar sin complicarte.</p>
+              <span className="quick-action-link">Ver plantas <ArrowRight size={16} /></span>
+            </Link>
+            <Link to="/regalos" className="quick-action-card">
+              <span className="quick-action-kicker">Tengo un regalo</span>
+              <h3>Armá un combo en 2 pasos</h3>
+              <p>Te guiamos según ocasión y presupuesto.</p>
+              <span className="quick-action-link">Ir a regalos <ArrowRight size={16} /></span>
+            </Link>
+            <Link to="/asesoramiento" className="quick-action-card">
+              <span className="quick-action-kicker">No sé cuál elegir</span>
+              <h3>Hacé el diagnóstico</h3>
+              <p>Te lleva 1 minuto y te sugiere plantas concretas.</p>
+              <span className="quick-action-link">Empezar test <ArrowRight size={16} /></span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="solutions-section section-padding--sm" style={{background: 'var(--blanco-calido)'}}>
+        <div className="container">
+          <div className="text-center mb-8">
+            <span className="section-label">Filtros rápidos</span>
+            <h2>Elegí según tu espacio</h2>
+          </div>
+          <div className="solutions-grid">
+            <Link to="/catalogo?need=poca-luz" className="solution-card">
+              <h4>Poca luz</h4>
+              <p>Opciones que se adaptan a sombra.</p>
+            </Link>
+            <Link to="/catalogo?need=mucha-luz" className="solution-card">
+              <h4>Mucha luz</h4>
+              <p>Plantas que rinden mejor con sol o luz intensa.</p>
+            </Link>
+            <Link to="/catalogo?cat=Interior" className="solution-card">
+              <h4>Apartamento u oficina</h4>
+              <p>Plantas nobles para interior.</p>
+            </Link>
+            <Link to="/catalogo?need=poco-riego" className="solution-card">
+              <h4>Poco riego</h4>
+              <p>Opciones resistentes para rutinas ocupadas.</p>
+            </Link>
+            <Link to="/catalogo?need=pet-friendly" className="solution-card">
+              <h4>Pet friendly</h4>
+              <p>Plantas mas seguras para convivir con mascotas.</p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+
+      {/* ══════════════════════════
+          CÓMO COMPRAR
+      ══════════════════════════ */}
+      <section className="how-to-buy-section section-padding--sm" style={{background: 'var(--blanco-calido)'}}>
+        <div className="container">
+          <div className="text-center mb-8">
+            <span className="section-label">Proceso simple</span>
+            <h2>Cómo comprar en De Raíz</h2>
+          </div>
+          <div className="how-to-buy-steps">
+            <article className="how-step">
+              <span className="how-step-number">1</span>
+              <h4>Elegí tu planta</h4>
+              <p>Explorá el catálogo por tipo de planta, maceta o insumo.</p>
+            </article>
+            <article className="how-step">
+              <span className="how-step-number">2</span>
+              <h4>Consultá stock</h4>
+              <p>Te confirmamos disponibilidad, precio y opciones en minutos.</p>
+            </article>
+            <article className="how-step">
+              <span className="how-step-number">3</span>
+              <h4>Retirá o coordiná</h4>
+              <p>Pasás por el vivero o coordinás la mejor forma de entrega.</p>
+            </article>
+          </div>
+          <div className="text-center mt-6">
+            <a href={generateWaLink(WA_MESSAGES.general)} target="_blank" rel="noreferrer" className="btn btn-primary">
+              <MessageCircle size={18} /> Consultar por WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
+
+
+      {/* ══════════════════════════
+          INFO OPERATIVA
+      ══════════════════════════ */}
+      <section className="ops-strip-section" style={{background: 'var(--beige-claro)'}}>
+        <div className="container">
+          <div className="ops-strip">
+            <p><strong>Horario:</strong> {mainHours}</p>
+            <p><strong>Ubicación:</strong> {BIZ_INFO.location}</p>
+            <p><strong>WhatsApp:</strong> respuesta rápida en horario comercial</p>
+          </div>
         </div>
       </section>
 
@@ -258,7 +372,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <WaveBottom fill="var(--beige-claro)" bg="var(--crema)" />
+      <WaveBottom fill="var(--beige-claro)" bg="var(--verde-profundo)" />
 
 
       {/* ══════════════════════════
@@ -270,11 +384,11 @@ const Home = () => {
             <div className="advice-text">
               <span className="section-label" style={{color: 'var(--terracota-light)'}}>Asesoramiento gratuito</span>
               <h2>¿No sabés qué planta elegir?</h2>
-              <p style={{color: 'rgba(244,235,221,0.75)'}}>
-                Contanos dónde la querés poner, cuánta luz tiene el espacio y cuánto tiempo tenés para cuidarla. Te recomendamos opciones que se adapten a vos.
+              <p style={{color: 'rgba(244,235,221,0.82)'}}>
+                En 1 minuto te recomendamos 3 opciones segun tu luz, espacio y tiempo.
               </p>
               <div className="advice-checklist">
-                {['Interior o exterior', 'Poca, media o mucha luz', 'Principiante o con experiencia', 'Para decorar o regalar', 'Con mascotas o sin'].map((item, i) => (
+                {['Luz del espacio', 'Interior o exterior', 'Tiempo de cuidado'].map((item, i) => (
                   <span key={i} className="advice-check-item">
                     <Leaf size={14} /> {item}
                   </span>
@@ -282,10 +396,10 @@ const Home = () => {
               </div>
               <div className="advice-actions">
                 <Link to="/asesoramiento" className="btn btn-light">
-                  <Sparkles size={18} /> Hacer el test de plantas
+                  <Sparkles size={18} /> Empezar test (1 min)
                 </Link>
-                <a href={generateWaLink(WA_MESSAGES.general)} target="_blank" rel="noreferrer" className="btn btn-outline-light">
-                  <MessageCircle size={18} /> O escribinos
+                <a href={generateWaLink(WA_MESSAGES.general)} target="_blank" rel="noreferrer" className="advice-secondary-link">
+                  <MessageCircle size={18} /> Escribinos por WhatsApp
                 </a>
               </div>
             </div>

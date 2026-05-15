@@ -76,9 +76,9 @@ const OCASIONES = [
 ];
 
 const PRESUPUESTOS = [
-  { id: 'economico', label: '💚 Detalle económico', sublabel: 'Algo sencillo y lindo' },
-  { id: 'medio', label: '🌿 Regalo intermedio', sublabel: 'Impacto real por buen precio' },
-  { id: 'premium', label: '⭐ Combo premium', sublabel: 'Para sorprender de verdad' },
+  { id: 'economico', label: '💚 Detalle económico', sublabel: 'Algo sencillo y lindo', range: 'Hasta $900', eta: 'Listo en el día' },
+  { id: 'medio', label: '🌿 Regalo intermedio', sublabel: 'Impacto real por buen precio', range: '$900 a $1800', eta: 'Listo en 24 h' },
+  { id: 'premium', label: '⭐ Combo premium', sublabel: 'Para sorprender de verdad', range: 'Desde $1800', eta: 'Listo en 24-48 h' },
 ];
 
 const Gifts = () => {
@@ -92,7 +92,8 @@ const Gifts = () => {
 
   const combo = GIFT_COMBOS[`${ocasion}-${presupuesto}`];
   const ocasionLabel = OCASIONES.find(o => o.id === ocasion)?.label || '';
-  const presupuestoLabel = PRESUPUESTOS.find(p => p.id === presupuesto)?.label || '';
+  const selectedBudget = PRESUPUESTOS.find(p => p.id === presupuesto);
+  const presupuestoLabel = selectedBudget?.label || '';
 
   return (
     <div className="gifts-page">
@@ -151,6 +152,10 @@ const Gifts = () => {
                     <div className="presupuesto-info">
                       <span className="presupuesto-label">{p.label}</span>
                       <span className="presupuesto-sub">{p.sublabel}</span>
+                      <div className="presupuesto-meta">
+                        <span>{p.range}</span>
+                        <span>{p.eta}</span>
+                      </div>
                     </div>
                     <ArrowRight size={20} className="presupuesto-arrow" />
                   </button>
@@ -186,7 +191,10 @@ const Gifts = () => {
                 </div>
 
                 <div className="combo-cta">
-                  <p>Los precios varían según stock. Escribinos y armamos el combo para vos.</p>
+                  <p>
+                    Rango estimado: <strong>{selectedBudget?.range}</strong> · Tiempo de armado: <strong>{selectedBudget?.eta}</strong>.
+                    Los precios finales pueden variar según stock.
+                  </p>
                   <a
                     href={generateWaLink(WA_MESSAGES.regalo(ocasionLabel, presupuestoLabel))}
                     target="_blank"
