@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import { MOCK_PRODUCTS, CATEGORIES, generateWaLink, WA_MESSAGES } from '../data/mockData';
@@ -102,27 +102,29 @@ const Catalog = () => {
     }
   };
 
-  const filteredProducts = MOCK_PRODUCTS.filter(product => {
-    const isAllCategory = activeCategory === 'Todas' || activeCategory === 'Todos';
-    const query = searchQuery.trim().toLowerCase();
-    const searchMatch = query.length === 0 || product.name.toLowerCase().includes(query);
-    const needMatch = matchesNeed(product, activeNeed);
+  const filteredProducts = useMemo(() => {
+    return MOCK_PRODUCTS.filter((product) => {
+      const isAllCategory = activeCategory === 'Todas' || activeCategory === 'Todos';
+      const query = searchQuery.trim().toLowerCase();
+      const searchMatch = query.length === 0 || product.name.toLowerCase().includes(query);
+      const needMatch = matchesNeed(product, activeNeed);
 
-    if (activeMainFilter === 'plantas') {
-      const sectionMatch = product.section === 'plantas';
+      if (activeMainFilter === 'plantas') {
+        const sectionMatch = product.section === 'plantas';
+        const catMatch = isAllCategory ? true : product.category === activeCategory;
+        return sectionMatch && catMatch && searchMatch && needMatch;
+      }
+
+      if (activeMainFilter === 'macetas') {
+        return product.section === 'insumos' && product.category === 'Macetas' && searchMatch;
+      }
+
+      const isInsumo = product.section === 'insumos' && product.category !== 'Macetas';
+      if (!isInsumo) return false;
       const catMatch = isAllCategory ? true : product.category === activeCategory;
-      return sectionMatch && catMatch && searchMatch && needMatch;
-    }
-
-    if (activeMainFilter === 'macetas') {
-      return product.section === 'insumos' && product.category === 'Macetas' && searchMatch;
-    }
-
-    const isInsumo = product.section === 'insumos' && product.category !== 'Macetas';
-    if (!isInsumo) return false;
-    const catMatch = isAllCategory ? true : product.category === activeCategory;
-    return catMatch && searchMatch;
-  });
+      return catMatch && searchMatch;
+    });
+  }, [activeCategory, activeMainFilter, searchQuery, activeNeed]);
 
   const activeCategoriesList = getCategoriesByMainFilter(activeMainFilter);
 
@@ -254,7 +256,7 @@ const Catalog = () => {
             
             <div className="modal-grid">
               <div className="modal-image">
-                <img src={selectedProduct.image} alt={selectedProduct.name} />
+                <img src={selectedProduct.image} alt={selectedProduct.name} loading="lazy" decoding="async" />
               </div>
               
               <div className="modal-info">

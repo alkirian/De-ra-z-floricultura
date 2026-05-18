@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ScrollToTop from './components/ScrollToTop';
 import WhatsAppFloat from './components/WhatsAppFloat';
 import Home from './pages/Home';
-import Catalog from './pages/Catalog';
-import Advice from './pages/Advice';
-import Gifts from './pages/Gifts';
-import Contact from './pages/Contact';
 import Footer from './components/Footer';
 import './index.css';
+
+const Catalog = lazy(() => import('./pages/Catalog'));
+const Advice = lazy(() => import('./pages/Advice'));
+const Gifts = lazy(() => import('./pages/Gifts'));
+const Contact = lazy(() => import('./pages/Contact'));
+
+const RouteFallback = () => (
+  <div className="route-fallback" aria-live="polite">
+    Cargando...
+  </div>
+);
 
 function App() {
   return (
@@ -18,13 +25,15 @@ function App() {
       <div className="app-container">
         <Navbar />
         <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/catalogo" element={<Catalog />} />
-            <Route path="/asesoramiento" element={<Advice />} />
-            <Route path="/regalos" element={<Gifts />} />
-            <Route path="/contacto" element={<Contact />} />
-          </Routes>
+          <Suspense fallback={<RouteFallback />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/catalogo" element={<Catalog />} />
+              <Route path="/asesoramiento" element={<Advice />} />
+              <Route path="/regalos" element={<Gifts />} />
+              <Route path="/contacto" element={<Contact />} />
+            </Routes>
+          </Suspense>
         </main>
         <Footer />
         <WhatsAppFloat />

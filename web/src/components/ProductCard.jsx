@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Sun, Droplets, Ruler, Package, Sprout, ArrowRight } from 'lucide-react';
 import './ProductCard.css';
 
@@ -19,7 +20,7 @@ const ProductCard = ({ product, onClick }) => {
       {/* Imagen con arco editorial */}
       <div className="product-image-wrap">
         <span className="product-cat-badge">{category}</span>
-        <img src={image} alt={name} className="product-image" loading="lazy" />
+        <img src={image} alt={name} className="product-image" loading="lazy" decoding="async" fetchPriority="low" />
       </div>
 
       {/* Info */}
@@ -49,4 +50,4 @@ const ProductCard = ({ product, onClick }) => {
   );
 };
 
-export default ProductCard;
+export default memo(ProductCard);

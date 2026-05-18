@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react';
-import { ArrowRight, MessageCircle, Sparkles, Leaf, MapPin } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowRight, MessageCircle, Sparkles, Leaf, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { BIZ_INFO, generateWaLink, WA_MESSAGES } from '../data/mockData';
+import { generateWaLink, WA_MESSAGES } from '../data/mockData';
 import './Home.css';
 
 /* SVG de hoja decorativa */
@@ -93,15 +93,46 @@ const IconAsesoramiento = () => (
 );
 
 const CATEGORIES = [
-  { icon: <IconInterior />, title: 'Plantas', desc: 'Interior, exterior, huerta y suculentas para cada espacio.', link: '/catalogo', color: '#2F4A2E' },
-  { icon: <IconMaceta />, title: 'Macetas', desc: 'Barro, rotomoldeadas y opciones decorativas para tu planta.', link: '/catalogo?cat=Macetas', color: '#A65F3A' },
-  { icon: <IconJardineria />, title: 'Insumos', desc: 'Sustratos, fertilizantes y herramientas para cuidar mejor.', link: '/catalogo?cat=Sustratos%20y%20Tierra', color: '#6F7F5F' },
+  { 
+    icon: <IconInterior />, 
+    title: 'Plantas', 
+    shortDesc: 'Interior, exterior y suculentas.', 
+    link: '/catalogo', 
+    color: '#2F4A2E',
+    bgImage: '/images/categorias/bg_plantas.png',
+    adviceTitle: 'Tip Botánico',
+    advice: 'Cada planta tiene su lugar. Las de interior suelen preferir luz indirecta brillante, mientras que las de exterior y huerta necesitan mucho sol directo. Es clave elegir la planta según la luz real de tu espacio, no al revés.'
+  },
+  { 
+    icon: <IconMaceta />, 
+    title: 'Macetas', 
+    shortDesc: 'Barro, plástico y decorativas.', 
+    link: '/catalogo?cat=Macetas', 
+    color: '#A65F3A',
+    bgImage: '/images/categorias/bg_macetas.png',
+    adviceTitle: 'El Secreto del Drenaje',
+    advice: 'El drenaje es vital para que las raíces no se pudran. Usá macetas con agujeros siempre que puedas. Si elegís una maceta decorativa sin drenaje, te recomendamos usarla como portamaceta.'
+  },
+  { 
+    icon: <IconJardineria />, 
+    title: 'Insumos', 
+    shortDesc: 'Sustratos y fertilizantes.', 
+    link: '/catalogo?cat=Sustratos%20y%20Tierra', 
+    color: '#6F7F5F',
+    bgImage: '/images/categorias/bg_insumos.png',
+    adviceTitle: 'Nutrición y Tierra',
+    advice: 'La tierra común se compacta. Un buen sustrato debe ser suelto para que las raíces respiren y absorban nutrientes. Recordá fertilizar solo en su época de crecimiento (primavera y verano).'
+  },
 ];
 
 const Home = () => {
   const valueGridRef = useRef(null);
-  const mainHours = BIZ_INFO.hours.split('|')[0]?.trim();
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
 
+  const testimonials = [
+    { name: 'Mariana R.', loc: 'Las Piedras', text: 'Me recomendaron una planta para poca luz y quedó perfecta. Muy buena atención.' },
+    { name: 'Andrés P.', loc: 'Canelones', text: 'Fui por un regalo y me armaron una opción linda y rápida. Recomiendo.' },
+  ];
   useEffect(() => {
     const cards = valueGridRef.current?.querySelectorAll('.value-item');
     if (!cards || cards.length === 0) return undefined;
@@ -141,26 +172,30 @@ const Home = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5500);
+
+    return () => window.clearInterval(timer);
+  }, [testimonials.length]);
+
+  const goToPrevTestimonial = () => {
+    setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const goToNextTestimonial = () => {
+    setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
+
   return (
     <div className="home-page">
 
       {/* ══════════════════════════
-          HERO EDITORIAL
+          HERO SPLIT ORGÁNICO
       ══════════════════════════ */}
-      <section className="hero">
-        {/* Hojas decorativas */}
-        <div className="hero-leaf hero-leaf--tl">
-          <LeafSVG />
-        </div>
-        <div className="hero-leaf hero-leaf--br">
-          <LeafSVG />
-        </div>
-
-        {/* Overlay */}
-        <div className="hero-overlay"></div>
-
-        {/* Contenido centrado */}
-        <div className="container hero-content animate-fade-in">
+      <section className="hero split-hero">
+        <div className="hero-content-left animate-fade-in">
           <span className="hero-eyebrow">
             <MapPin size={14} /> Las Piedras, Uruguay
           </span>
@@ -184,11 +219,12 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Onda inferior */}
-        <div className="hero-wave">
-          <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-            <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#F4EBDD"/>
+        <div className="hero-image-right">
+          {/* SVG S-Curve corregido para evitar cortes */}
+          <svg className="hero-split-curve" viewBox="0 0 200 1000" preserveAspectRatio="none">
+            <path d="M0,0 L100,0 C200,300 0,700 100,1000 L0,1000 Z" fill="var(--verde-profundo)"/>
           </svg>
+          <img src="/images/hero_bg.png" alt="Planta Hero De Raíz" className="hero-bg-img" />
         </div>
       </section>
 
@@ -196,182 +232,123 @@ const Home = () => {
       {/* ══════════════════════════
           ATAJOS RÁPIDOS
       ══════════════════════════ */}
-      <section className="quick-actions-section section-padding--sm" style={{background: 'var(--crema)'}}>
-        <div className="container">
-          <div className="text-center mb-8">
-            <span className="section-label">Empezá por acá</span>
-            <h2>¿Qué necesitás hoy?</h2>
-          </div>
-          <div className="quick-actions-grid">
-            <Link to="/catalogo?cat=Interior" className="quick-action-card">
-              <span className="quick-action-kicker">Quiero algo fácil</span>
-              <h3>Plantas para principiantes</h3>
-              <p>Opciones nobles para arrancar sin complicarte.</p>
-              <span className="quick-action-link">Ver plantas <ArrowRight size={16} /></span>
-            </Link>
-            <Link to="/regalos" className="quick-action-card">
-              <span className="quick-action-kicker">Tengo un regalo</span>
-              <h3>Armá un combo en 2 pasos</h3>
-              <p>Te guiamos según ocasión y presupuesto.</p>
-              <span className="quick-action-link">Ir a regalos <ArrowRight size={16} /></span>
-            </Link>
-            <Link to="/asesoramiento" className="quick-action-card">
-              <span className="quick-action-kicker">No sé cuál elegir</span>
-              <h3>Hacé el diagnóstico</h3>
-              <p>Te lleva 1 minuto y te sugiere plantas concretas.</p>
-              <span className="quick-action-link">Empezar test <ArrowRight size={16} /></span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="solutions-section section-padding--sm" style={{background: 'var(--blanco-calido)'}}>
-        <div className="container">
-          <div className="text-center mb-8">
-            <span className="section-label">Filtros rápidos</span>
-            <h2>Elegí según tu espacio</h2>
-          </div>
-          <div className="solutions-grid">
-            <Link to="/catalogo?need=poca-luz" className="solution-card">
-              <h4>Poca luz</h4>
-              <p>Opciones que se adaptan a sombra.</p>
-            </Link>
-            <Link to="/catalogo?need=mucha-luz" className="solution-card">
-              <h4>Mucha luz</h4>
-              <p>Plantas que rinden mejor con sol o luz intensa.</p>
-            </Link>
-            <Link to="/catalogo?cat=Interior" className="solution-card">
-              <h4>Apartamento u oficina</h4>
-              <p>Plantas nobles para interior.</p>
-            </Link>
-            <Link to="/catalogo?need=poco-riego" className="solution-card">
-              <h4>Poco riego</h4>
-              <p>Opciones resistentes para rutinas ocupadas.</p>
-            </Link>
-            <Link to="/catalogo?need=pet-friendly" className="solution-card">
-              <h4>Pet friendly</h4>
-              <p>Plantas mas seguras para convivir con mascotas.</p>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-
-      {/* ══════════════════════════
-          CÓMO COMPRAR
-      ══════════════════════════ */}
-      <section className="how-to-buy-section section-padding--sm" style={{background: 'var(--blanco-calido)'}}>
-        <div className="container">
-          <div className="text-center mb-8">
-            <span className="section-label">Proceso simple</span>
-            <h2>Cómo comprar en De Raíz</h2>
-          </div>
-          <div className="how-to-buy-steps">
-            <article className="how-step">
-              <span className="how-step-number">1</span>
-              <h4>Elegí tu planta</h4>
-              <p>Explorá el catálogo por tipo de planta, maceta o insumo.</p>
-            </article>
-            <article className="how-step">
-              <span className="how-step-number">2</span>
-              <h4>Consultá stock</h4>
-              <p>Te confirmamos disponibilidad, precio y opciones en minutos.</p>
-            </article>
-            <article className="how-step">
-              <span className="how-step-number">3</span>
-              <h4>Retirá o coordiná</h4>
-              <p>Pasás por el vivero o coordinás la mejor forma de entrega.</p>
-            </article>
-          </div>
-          <div className="text-center mt-6">
-            <a href={generateWaLink(WA_MESSAGES.general)} target="_blank" rel="noreferrer" className="btn btn-primary">
-              <MessageCircle size={18} /> Consultar por WhatsApp
-            </a>
-          </div>
-        </div>
-      </section>
-
-
-      {/* ══════════════════════════
-          INFO OPERATIVA
-      ══════════════════════════ */}
-      <section className="ops-strip-section" style={{background: 'var(--beige-claro)'}}>
-        <div className="container">
-          <div className="ops-strip">
-            <p><strong>Horario:</strong> {mainHours}</p>
-            <p><strong>Ubicación:</strong> {BIZ_INFO.location}</p>
-            <p><strong>WhatsApp:</strong> respuesta rápida en horario comercial</p>
-          </div>
-        </div>
-      </section>
-
-
-      {/* ══════════════════════════
-          PROPUESTA DE VALOR
-      ══════════════════════════ */}
-      <section className="value-section section-padding--sm" style={{background: 'var(--crema)'}}>
-        <div className="container container--narrow text-center">
-          <span className="section-label">Nuestra propuesta</span>
-          <h2>No solo vendemos plantas.</h2>
-          <p className="value-text">
-            Te ayudamos a elegir la planta correcta para tu casa, jardín, oficina o regalo. Con asesoramiento real, productos de calidad y atención local en Las Piedras.
-          </p>
-          <div className="value-grid" ref={valueGridRef}>
-            <div className="value-item">
-              <div className="value-icon-wrap">
-                <div className="value-icon">🌿</div>
-              </div>
-              <h4>Asesoramiento personalizado</h4>
-              <p>Te orientamos según tu espacio, luz y experiencia.</p>
+      <div className="proposal-block" style={{background: 'var(--crema)'}}>
+        <span className="proposal-corner proposal-corner--top-left" aria-hidden="true"></span>
+        <span className="proposal-corner proposal-corner--top-right" aria-hidden="true"></span>
+        <span className="proposal-corner proposal-corner--bottom-left" aria-hidden="true"></span>
+        <span className="proposal-corner proposal-corner--bottom-right" aria-hidden="true"></span>
+        <section className="quick-actions-section section-padding--sm">
+          <div className="container">
+            <div className="text-center mb-8">
+              <span className="section-label">Empezá por acá</span>
+              <h2>¿Qué necesitás hoy?</h2>
             </div>
-            <div className="value-item">
-              <div className="value-icon-wrap">
-                <div className="value-icon">🪴</div>
-              </div>
-              <h4>Plantas, flores y macetas</h4>
-              <p>Gran variedad de interior, exterior, flores y más.</p>
-            </div>
-            <div className="value-item">
-              <div className="value-icon-wrap">
-                <div className="value-icon">📍</div>
-              </div>
-              <h4>Atención local</h4>
-              <p>Estamos en Las Piedras, Canelones. Visitanos.</p>
+            <div className="quick-actions-grid">
+              <Link to="/catalogo?cat=Interior" className="quick-action-card">
+                <span className="quick-action-kicker">Quiero algo fácil</span>
+                <h3>Plantas para principiantes</h3>
+                <p>Opciones nobles para arrancar sin complicarte.</p>
+                <span className="quick-action-link">Ver plantas <ArrowRight size={16} /></span>
+              </Link>
+              <Link to="/regalos" className="quick-action-card">
+                <span className="quick-action-kicker">Tengo un regalo</span>
+                <h3>Armá un combo en 2 pasos</h3>
+                <p>Te guiamos según ocasión y presupuesto.</p>
+                <span className="quick-action-link">Ir a regalos <ArrowRight size={16} /></span>
+              </Link>
+              <Link to="/asesoramiento" className="quick-action-card">
+                <span className="quick-action-kicker">No sé cuál elegir</span>
+                <h3>Hacé el diagnóstico</h3>
+                <p>Te lleva 1 minuto y te sugiere plantas concretas.</p>
+                <span className="quick-action-link">Empezar test <ArrowRight size={16} /></span>
+              </Link>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+        {/* ══════════════════════════
+            PROPUESTA DE VALOR
+        ══════════════════════════ */}
+        <section className="value-section section-padding--sm">
+          <div className="container container--narrow text-center">
+            <span className="section-label">Nuestra propuesta</span>
+            <h2>No solo vendemos plantas.</h2>
+            <p className="value-text">
+              Plantas, flores, macetas e insumos con atencion local en Las Piedras.
+            </p>
+            <div className="value-grid" ref={valueGridRef}>
+              <div className="value-item">
+                <div className="value-icon-wrap">
+                  <div className="value-icon">🌿</div>
+                </div>
+                <h4>Asesoramiento personalizado</h4>
+                <p>Te orientamos según tu espacio, luz y experiencia.</p>
+              </div>
+              <div className="value-item">
+                <div className="value-icon-wrap">
+                  <div className="value-icon">🪴</div>
+                </div>
+                <h4>Plantas, flores y macetas</h4>
+                <p>Gran variedad de interior, exterior, flores y más.</p>
+              </div>
+              <div className="value-item">
+                <div className="value-icon-wrap">
+                  <div className="value-icon">📍</div>
+                </div>
+                <h4>Atención local</h4>
+                <p>Estamos en Las Piedras, Canelones. Visitanos.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
 
 
       {/* ══════════════════════════
           CATEGORÍAS ILUSTRADAS
       ══════════════════════════ */}
       <WaveTop fill="var(--beige-claro)" bg="var(--crema)" />
-      <section className="categories-section section-padding" style={{background: 'var(--beige-claro)'}}>
-        {/* Hoja decorativa lateral */}
-        <div className="section-leaf section-leaf--right" style={{color: 'var(--verde-salvia)'}}>
-          <LeafSVG />
-        </div>
+      <section className="categories-section section-padding" style={{background: 'var(--beige-claro)', position: 'relative', overflow: 'hidden'}}>
+        {/* Hojas decorativas sutiles desenfocadas en los bordes */}
+        <img src="/images/bg_leaves.png" alt="" className="bg-leaf-blur bg-leaf-blur--left" aria-hidden="true" />
+        <img src="/images/bg_leaves.png" alt="" className="bg-leaf-blur bg-leaf-blur--right" aria-hidden="true" />
 
-        <div className="container">
+        <div className="container" style={{ position: 'relative', zIndex: 10 }}>
           <div className="text-center mb-12">
             <span className="section-label">Qué encontrás en De Raíz</span>
             <h2>Explorá nuestras categorías</h2>
             <div className="title-underline"></div>
           </div>
-          <div className="value-grid">
+          <div className="accordion-container">
             {CATEGORIES.map((cat, i) => (
-              <Link key={i} to={cat.link} className="value-item animate-fade-in" style={{ '--cat-color': cat.color, animationDelay: `${i * 0.08}s` }}>
-                <div className="value-icon-wrap" style={{ color: cat.color }}>
-                  <div className="value-icon">{cat.icon}</div>
+              <div key={i} className="accordion-item" style={{ '--cat-color': cat.color, backgroundImage: `url(${cat.bgImage})`, animationDelay: `${i * 0.08}s` }}>
+                <div className="accordion-overlay"></div>
+                <div className="accordion-content-wrapper">
+                  <div className="accordion-icon-wrap" style={{ color: cat.color }}>
+                    <div className="accordion-icon">{cat.icon}</div>
+                  </div>
+                  <div className="accordion-content">
+                    <div className="accordion-header">
+                      <h4>{cat.title}</h4>
+                      <p className="accordion-short-desc">{cat.shortDesc}</p>
+                    </div>
+                    <div className="accordion-details">
+                      <div className="advice-box" style={{ borderColor: `${cat.color}60`, backgroundColor: `rgba(255, 255, 255, 0.65)` }}>
+                        <span className="advice-title" style={{ color: cat.color }}><Sparkles size={14} /> {cat.adviceTitle}</span>
+                        <p>{cat.advice}</p>
+                      </div>
+                      <Link to={cat.link} className="btn-accordion" style={{ backgroundColor: cat.color }}>
+                        Ver {cat.title} <ArrowRight size={16} />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-                <h4>{cat.title}</h4>
-                <p>{cat.desc}</p>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
       </section>
+
+
       <WaveBottom fill="var(--beige-claro)" bg="var(--verde-profundo)" />
 
 
@@ -385,22 +362,30 @@ const Home = () => {
               <span className="section-label" style={{color: 'var(--terracota-light)'}}>Asesoramiento gratuito</span>
               <h2>¿No sabés qué planta elegir?</h2>
               <p style={{color: 'rgba(244,235,221,0.82)'}}>
-                En 1 minuto te recomendamos 3 opciones segun tu luz, espacio y tiempo.
+                Te guiamos en 1 minuto y te mostramos opciones reales para vos.
               </p>
-              <div className="advice-checklist">
-                {['Luz del espacio', 'Interior o exterior', 'Tiempo de cuidado'].map((item, i) => (
-                  <span key={i} className="advice-check-item">
-                    <Leaf size={14} /> {item}
-                  </span>
+              <div className="advice-steps">
+                {[
+                  { title: 'Tu espacio', desc: 'Nos contás dónde va la planta.' },
+                  { title: 'Nuestras sugerencias', desc: 'Te proponemos 3 opciones claras.' },
+                  { title: 'Tu elección', desc: 'Confirmás por WhatsApp si querés.' },
+                ].map((item, i) => (
+                  <div key={item.title} className="advice-step-item">
+                    <span className="advice-step-number">{i + 1}</span>
+                    <div>
+                      <strong>{item.title}</strong>
+                      <p>{item.desc}</p>
+                    </div>
+                  </div>
                 ))}
               </div>
               <div className="advice-actions">
                 <Link to="/asesoramiento" className="btn btn-light">
-                  <Sparkles size={18} /> Empezar test (1 min)
+                  <Sparkles size={18} /> Quiero mi recomendación
                 </Link>
-                <a href={generateWaLink(WA_MESSAGES.general)} target="_blank" rel="noreferrer" className="advice-secondary-link">
-                  <MessageCircle size={18} /> Escribinos por WhatsApp
-                </a>
+                <Link to="/catalogo" className="advice-secondary-link">
+                  <MessageCircle size={18} /> Ver catálogo primero
+                </Link>
               </div>
             </div>
             <div className="advice-image">
@@ -415,32 +400,53 @@ const Home = () => {
           TESTIMONIOS
       ══════════════════════════ */}
       <WaveTop fill="var(--blanco-calido)" bg="var(--verde-profundo)" />
-      <section className="testimonials-section section-padding" style={{background: 'var(--blanco-calido)'}}>
-        <div className="section-leaf section-leaf--left" style={{color: 'var(--verde-salvia)', opacity: 0.1}}>
-          <LeafSVG />
-        </div>
-        <div className="container">
+      <section className="testimonials-section section-padding" style={{background: 'var(--blanco-calido)', position: 'relative', overflow: 'hidden'}}>
+        {/* Hojas de eucalipto decorativas desenfocadas */}
+        <img src="/images/bg_eucalyptus.png" alt="" className="bg-leaf-blur bg-leaf-blur--left" aria-hidden="true" style={{ filter: 'blur(8px) sepia(0.1) saturate(0.9) brightness(0.95)' }} />
+        <img src="/images/bg_eucalyptus.png" alt="" className="bg-leaf-blur bg-leaf-blur--right" aria-hidden="true" style={{ filter: 'blur(8px) sepia(0.1) saturate(0.9) brightness(0.95)' }} />
+
+        <div className="container" style={{ position: 'relative', zIndex: 10 }}>
           <div className="text-center mb-12">
             <span className="section-label">Clientes</span>
             <h2>Lo que dicen nuestros clientes</h2>
             <p style={{marginTop: '12px', maxWidth: '520px', margin: '12px auto 0'}}>
-              Experiencias de personas que encontraron plantas y asesoramiento en De Raíz.
+              Opiniones reales de clientes de Las Piedras.
             </p>
           </div>
-          <div className="testimonials-grid">
-            {[
-              { name: 'Mariana R.', loc: 'Las Piedras', text: 'Me ayudaron a elegir una planta para mi apartamento con poca luz y me explicaron cómo cuidarla. Muy buena atención.' },
-              { name: 'Andrés P.', loc: 'Canelones', text: 'Fui buscando un regalo y me recomendaron una planta con maceta preciosa. Quedó muy lindo y la atención fue súper amable.' },
-              { name: 'Laura M.', loc: 'Las Piedras', text: 'Me gustó que no solo venden plantas, también te asesoran según el espacio que tengas. Volvería a comprar.' },
-            ].map((t, i) => (
-              <div key={i} className="testimonial-card animate-fade-in" style={{animationDelay: `${i*0.1}s`}}>
-                <div className="testimonial-stars">{'★★★★★'}</div>
-                <p className="testimonial-text">"{t.text}"</p>
-                <div className="testimonial-author">
-                  <strong>{t.name}</strong>
-                  <span>{t.loc}</span>
+          <div className="testimonial-carousel">
+            <button type="button" className="testimonial-nav testimonial-nav--prev" onClick={goToPrevTestimonial} aria-label="Testimonio anterior">
+              <ChevronLeft size={20} />
+            </button>
+
+            <div className="testimonial-track" style={{ transform: `translateX(-${activeTestimonial * 100}%)` }}>
+              {testimonials.map((t, i) => (
+                <div key={i} className="testimonial-slide">
+                  <div className="testimonial-card animate-fade-in">
+                    <div className="testimonial-stars">{'★★★★★'}</div>
+                    <p className="testimonial-text">"{t.text}"</p>
+                    <div className="testimonial-author">
+                      <strong>{t.name}</strong>
+                      <span>{t.loc}</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
+            </div>
+
+            <button type="button" className="testimonial-nav testimonial-nav--next" onClick={goToNextTestimonial} aria-label="Siguiente testimonio">
+              <ChevronRight size={20} />
+            </button>
+          </div>
+
+          <div className="testimonial-dots" aria-label="Indicadores de testimonio">
+            {testimonials.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                className={`testimonial-dot ${activeTestimonial === i ? 'active' : ''}`}
+                onClick={() => setActiveTestimonial(i)}
+                aria-label={`Ir al testimonio ${i + 1}`}
+              />
             ))}
           </div>
           <div className="text-center mt-8">
