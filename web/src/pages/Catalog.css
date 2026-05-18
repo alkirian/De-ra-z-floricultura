@@ -130,6 +130,30 @@
   box-shadow: var(--shadow-xs);
 }
 
+@media (max-width: 639px) {
+  .section-toggle-container {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .section-toggle-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .section-toggle {
+    min-width: max-content;
+  }
+
+  .section-btn {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+}
+
 .section-btn {
   padding: 12px 28px;
   border-radius: var(--radius-full);
@@ -213,6 +237,13 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
+}
+
+@media (max-width: 439px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }
 
 @media (min-width: 640px) {

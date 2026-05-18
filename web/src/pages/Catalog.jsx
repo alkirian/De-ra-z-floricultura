@@ -26,6 +26,11 @@ const normalizeText = (value = '') => value
   .normalize('NFD')
   .replace(/[\u0300-\u036f]/g, '');
 
+const getSearchTerms = (query = '') => query
+  .split(/[|,]/)
+  .map((term) => normalizeText(term).trim())
+  .filter(Boolean);
+
 const matchesNeed = (product, need) => {
   if (!need) return true;
   if (product.section !== 'plantas') return false;
@@ -105,8 +110,9 @@ const Catalog = () => {
   const filteredProducts = useMemo(() => {
     return MOCK_PRODUCTS.filter((product) => {
       const isAllCategory = activeCategory === 'Todas' || activeCategory === 'Todos';
-      const query = searchQuery.trim().toLowerCase();
-      const searchMatch = query.length === 0 || product.name.toLowerCase().includes(query);
+      const searchTerms = getSearchTerms(searchQuery);
+      const productName = normalizeText(product.name);
+      const searchMatch = searchTerms.length === 0 || searchTerms.some((term) => productName.includes(term));
       const needMatch = matchesNeed(product, activeNeed);
 
       if (activeMainFilter === 'plantas') {

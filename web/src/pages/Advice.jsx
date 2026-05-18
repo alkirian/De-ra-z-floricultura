@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { generateWaLink, WA_MESSAGES } from '../data/mockData';
+import { generateWaLink, WA_MESSAGES, MOCK_PRODUCTS } from '../data/mockData';
 import { RefreshCcw, MessageCircle, HelpCircle, Droplets, Sun, AlertTriangle, ChevronDown, ChevronUp, Leaf, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import './Advice.css';
@@ -70,6 +70,15 @@ const getRecommendations = (ubicacion, luz, proposito) => {
     { name: 'Sansevieria', motivo: 'Resistente a casi todo. Ideal para cualquier espacio.' },
     { name: 'Potus', motivo: 'El favorito del vivero. Se adapta a todo.' },
   ];
+};
+
+const getRecommendationWithImage = (rec, suggestedCategory) => {
+  const product = MOCK_PRODUCTS.find((item) => item.section === 'plantas' && item.name === rec.name);
+  return {
+    ...rec,
+    image: product?.image || `${import.meta.env.BASE_URL}images/placeholder_white.png`,
+    category: product?.category || suggestedCategory,
+  };
 };
 
 const FAQItem = ({ question, answer, icon: Icon }) => {
@@ -181,11 +190,13 @@ const Advice = () => {
           </div>
         );
       case 4: {
-        const recs = getRecommendations(answers.ubicacion, answers.luz, answers.proposito);
+        const suggestedCategory = answers.ubicacion === 'interior' ? 'Interior' : 'Exterior';
+        const recs = getRecommendations(answers.ubicacion, answers.luz, answers.proposito)
+          .map((rec) => getRecommendationWithImage(rec, suggestedCategory));
         const nombresRecs = recs.map(r => r.name).join(', ');
         const finalMessage = WA_MESSAGES.asesoramiento(answers.ubicacion, answers.luz, answers.proposito, nombresRecs);
-        const suggestedCategory = answers.ubicacion === 'interior' ? 'Interior' : 'Exterior';
-        const catalogLink = `/catalogo?cat=${encodeURIComponent(suggestedCategory)}&q=${encodeURIComponent(recs[0]?.name || '')}`;
+        const batchQuery = recs.map((rec) => rec.name).join('|');
+        const catalogLink = `/catalogo?cat=${encodeURIComponent(suggestedCategory)}&q=${encodeURIComponent(batchQuery)}`;
         return (
           <div className="quiz-step animate-fade-in result-step">
             <div className="result-header">
@@ -196,12 +207,20 @@ const Advice = () => {
             <div className="recommendation-cards">
               {recs.map((rec, idx) => (
                 <div key={idx} className="rec-card">
+                  <div className="rec-card-image-wrap">
+                    <img src={rec.image} alt={rec.name} className="rec-card-image" loading="lazy" />
+                  </div>
                   <div className="rec-card-name">
                     <Leaf size={18} color="var(--verde-profundo)" />
                     <strong>{rec.name}</strong>
                   </div>
-                  <p>{rec.motivo}</p>
-                  <Link to="/catalogo" className="rec-card-link">Ver en catálogo <ArrowRight size={14} /></Link>
+                  <p><strong>Por qué te la recomendamos:</strong> {rec.motivo}</p>
+                  <Link
+                    to={`/catalogo?cat=${encodeURIComponent(rec.category)}&q=${encodeURIComponent(rec.name)}`}
+                    className="rec-card-link"
+                  >
+                    Ver en catálogo <ArrowRight size={14} />
+                  </Link>
                 </div>
               ))}
             </div>
