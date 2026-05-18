@@ -34,7 +34,7 @@ const Navbar = () => {
       <div className="container nav-container">
         {/* Logo */}
         <Link to="/" className="nav-logo">
-          <img src="/images/Logo-transparent.png" alt="De Raíz Logo" className="nav-logo-img" />
+          <img src={`${import.meta.env.BASE_URL}images/Logo-transparent.png`} alt="De Raíz Logo" className="nav-logo-img" />
           <span className="nav-logo-text">De Raíz</span>
         </Link>
 

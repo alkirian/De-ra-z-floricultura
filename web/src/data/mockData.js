@@ -36,7 +36,8 @@ export const CATEGORIES = {
   insumos: ['Todos', 'Macetas', 'Sustratos y Tierra', 'Fertilizantes y Cuidado', 'Herramientas']
 };
 
-const PLANT_IMAGES_BASE_PATH = '/images/plantas%202';
+const BASE = import.meta.env.BASE_URL;
+const PLANT_IMAGES_BASE_PATH = `${BASE}images/plantas%202`;
 const SAFE_PLANT_IMAGES = {
   Anthurium: `${PLANT_IMAGES_BASE_PATH}/anturio.png`,
   Aphelandra: `${PLANT_IMAGES_BASE_PATH}/afelandra.png`,
@@ -89,7 +90,7 @@ const SAFE_PLANT_IMAGES = {
   Westringia: `${PLANT_IMAGES_BASE_PATH}/westringia.png`,
 };
 
-const getPlantImage = (name) => SAFE_PLANT_IMAGES[name] || '/images/placeholder_white.png';
+const getPlantImage = (name) => SAFE_PLANT_IMAGES[name] || `${BASE}images/placeholder_white.png`;
 
 const interiorPlants = [
   "Anthurium", "Aphelandra", "Areca", "Chamaedorea", "Croton", "Dieffenbachia", "Drácena", 
@@ -181,7 +182,7 @@ export const MOCK_PRODUCTS = [
     category: "Macetas",
     name: "Maceta de Barro Clásica",
     price: "Consultar",
-    image: "/images/placeholder_white.png",
+    image: `${BASE}images/placeholder_white.png`,
     description: "Maceta de terracota transpirable, excelente para suculentas y plantas que odian el exceso de humedad.",
     attributes: [
       { type: 'material', value: 'Barro / Terracota' },
@@ -194,7 +195,7 @@ export const MOCK_PRODUCTS = [
     category: "Macetas",
     name: "Maceta Rotomoldeada",
     price: "Consultar",
-    image: "/images/placeholder_white.png",
+    image: `${BASE}images/placeholder_white.png`,
     description: "Macetas modernas, ultra livianas y resistentes al sol. No se decoloran ni se rompen con facilidad.",
     attributes: [
       { type: 'material', value: 'Plástico Rotomoldeado' },
@@ -207,7 +208,7 @@ export const MOCK_PRODUCTS = [
     category: "Sustratos y Tierra",
     name: "Tierra Preparada Premium",
     price: "Consultar",
-    image: "/images/placeholder_white.png",
+    image: `${BASE}images/placeholder_white.png`,
     description: "Mezcla ideal lista para usar en macetas. Contiene compost, perlita y humus de lombriz.",
     attributes: [
       { type: 'volumen', value: 'Bolsas de 10L y 25L' },
@@ -220,7 +221,7 @@ export const MOCK_PRODUCTS = [
     category: "Sustratos y Tierra",
     name: "Sustrato para Suculentas",
     price: "Consultar",
-    image: "/images/placeholder_white.png",
+    image: `${BASE}images/placeholder_white.png`,
     description: "Sustrato con alto porcentaje de arena y pometina para garantizar un drenaje extremo.",
     attributes: [
       { type: 'volumen', value: 'Bolsa de 5L' },
@@ -233,7 +234,7 @@ export const MOCK_PRODUCTS = [
     category: "Fertilizantes y Cuidado",
     name: "Humus de Lombriz Líquido",
     price: "Consultar",
-    image: "/images/placeholder_white.png",
+    image: `${BASE}images/placeholder_white.png`,
     description: "Fertilizante 100% orgánico. Mejora la floración y el crecimiento verde sin quemar la planta.",
     attributes: [
       { type: 'tipo', value: 'Orgánico líquido' },

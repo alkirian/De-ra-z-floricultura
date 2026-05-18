@@ -92,6 +92,8 @@ const IconAsesoramiento = () => (
   </svg>
 );
 
+const BASE = import.meta.env.BASE_URL;
+
 const CATEGORIES = [
   { 
     icon: <IconInterior />, 
@@ -99,7 +101,7 @@ const CATEGORIES = [
     shortDesc: 'Interior, exterior y suculentas.', 
     link: '/catalogo', 
     color: '#2F4A2E',
-    bgImage: '/images/categorias/bg_plantas.png',
+    bgImage: `${BASE}images/categorias/bg_plantas.png`,
     adviceTitle: 'Tip Botánico',
     advice: 'Cada planta tiene su lugar. Las de interior suelen preferir luz indirecta brillante, mientras que las de exterior y huerta necesitan mucho sol directo. Es clave elegir la planta según la luz real de tu espacio, no al revés.'
   },
@@ -109,7 +111,7 @@ const CATEGORIES = [
     shortDesc: 'Barro, plástico y decorativas.', 
     link: '/catalogo?cat=Macetas', 
     color: '#A65F3A',
-    bgImage: '/images/categorias/bg_macetas.png',
+    bgImage: `${BASE}images/categorias/bg_macetas.png`,
     adviceTitle: 'El Secreto del Drenaje',
     advice: 'El drenaje es vital para que las raíces no se pudran. Usá macetas con agujeros siempre que puedas. Si elegís una maceta decorativa sin drenaje, te recomendamos usarla como portamaceta.'
   },
@@ -119,7 +121,7 @@ const CATEGORIES = [
     shortDesc: 'Sustratos y fertilizantes.', 
     link: '/catalogo?cat=Sustratos%20y%20Tierra', 
     color: '#6F7F5F',
-    bgImage: '/images/categorias/bg_insumos.png',
+    bgImage: `${BASE}images/categorias/bg_insumos.png`,
     adviceTitle: 'Nutrición y Tierra',
     advice: 'La tierra común se compacta. Un buen sustrato debe ser suelto para que las raíces respiren y absorban nutrientes. Recordá fertilizar solo en su época de crecimiento (primavera y verano).'
   },
@@ -200,7 +202,7 @@ const Home = () => {
             <MapPin size={14} /> Las Piedras, Uruguay
           </span>
           <img
-            src="/images/logo-hero-white.png"
+            src={`${BASE}images/logo-hero-white.png`}
             alt="De Raíz Floricultura"
             className="hero-brand-logo"
             loading="eager"
@@ -224,7 +226,7 @@ const Home = () => {
           <svg className="hero-split-curve" viewBox="0 0 200 1000" preserveAspectRatio="none">
             <path d="M0,0 L100,0 C200,300 0,700 100,1000 L0,1000 Z" fill="var(--verde-profundo)"/>
           </svg>
-          <img src="/images/hero_bg.png" alt="Planta Hero De Raíz" className="hero-bg-img" />
+          <img src={`${BASE}images/hero_bg.png`} alt="Planta Hero De Raíz" className="hero-bg-img" />
         </div>
       </section>
 
@@ -309,8 +311,8 @@ const Home = () => {
       <WaveTop fill="var(--beige-claro)" bg="var(--crema)" />
       <section className="categories-section section-padding" style={{background: 'var(--beige-claro)', position: 'relative', overflow: 'hidden'}}>
         {/* Hojas decorativas sutiles desenfocadas en los bordes */}
-        <img src="/images/bg_leaves.png" alt="" className="bg-leaf-blur bg-leaf-blur--left" aria-hidden="true" />
-        <img src="/images/bg_leaves.png" alt="" className="bg-leaf-blur bg-leaf-blur--right" aria-hidden="true" />
+        <img src={`${BASE}images/bg_leaves.png`} alt="" className="bg-leaf-blur bg-leaf-blur--left" aria-hidden="true" />
+        <img src={`${BASE}images/bg_leaves.png`} alt="" className="bg-leaf-blur bg-leaf-blur--right" aria-hidden="true" />
 
         <div className="container" style={{ position: 'relative', zIndex: 10 }}>
           <div className="text-center mb-12">
@@ -402,8 +404,8 @@ const Home = () => {
       <WaveTop fill="var(--blanco-calido)" bg="var(--verde-profundo)" />
       <section className="testimonials-section section-padding" style={{background: 'var(--blanco-calido)', position: 'relative', overflow: 'hidden'}}>
         {/* Hojas de eucalipto decorativas desenfocadas */}
-        <img src="/images/bg_eucalyptus.png" alt="" className="bg-leaf-blur bg-leaf-blur--left" aria-hidden="true" style={{ filter: 'blur(8px) sepia(0.1) saturate(0.9) brightness(0.95)' }} />
-        <img src="/images/bg_eucalyptus.png" alt="" className="bg-leaf-blur bg-leaf-blur--right" aria-hidden="true" style={{ filter: 'blur(8px) sepia(0.1) saturate(0.9) brightness(0.95)' }} />
+        <img src={`${BASE}images/bg_eucalyptus.png`} alt="" className="bg-leaf-blur bg-leaf-blur--left" aria-hidden="true" style={{ filter: 'blur(8px) sepia(0.1) saturate(0.9) brightness(0.95)' }} />
+        <img src={`${BASE}images/bg_eucalyptus.png`} alt="" className="bg-leaf-blur bg-leaf-blur--right" aria-hidden="true" style={{ filter: 'blur(8px) sepia(0.1) saturate(0.9) brightness(0.95)' }} />
 
         <div className="container" style={{ position: 'relative', zIndex: 10 }}>
           <div className="text-center mb-12">

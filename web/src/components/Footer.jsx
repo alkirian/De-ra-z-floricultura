@@ -12,7 +12,7 @@ const Footer = () => {
       <div className="container footer-container">
         <div className="footer-brand">
           <Link to="/" className="footer-logo">
-            <img src="/images/logo-hero-white.png" alt="De Raíz Floricultura" className="footer-logo-image" />
+            <img src={`${import.meta.env.BASE_URL}images/logo-hero-white.png`} alt="De Raíz Floricultura" className="footer-logo-image" />
           </Link>
           <p className="footer-description">
             Floricultura especializada en plantas de interior, exterior y regalos. Te acompañamos a elegir la mejor opción para tu espacio con asesoramiento local en Las Piedras.
