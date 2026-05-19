@@ -130,6 +130,7 @@ const CATEGORIES = [
 const Home = () => {
   const valueGridRef = useRef(null);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [activeAccordion, setActiveAccordion] = useState(0);
 
   const testimonials = [
     { name: 'Mariana R.', loc: 'Las Piedras', text: 'Me recomendaron una planta para poca luz y quedó perfecta. Muy buena atención.' },
@@ -322,7 +323,16 @@ const Home = () => {
           </div>
           <div className="accordion-container">
             {CATEGORIES.map((cat, i) => (
-              <div key={i} className="accordion-item" style={{ '--cat-color': cat.color, backgroundImage: `url(${cat.bgImage})`, animationDelay: `${i * 0.08}s` }}>
+              <div
+                key={i}
+                className={`accordion-item ${activeAccordion === i ? 'accordion-item--active' : ''}`}
+                onClick={() => setActiveAccordion(i)}
+                style={{
+                  '--cat-color': cat.color,
+                  backgroundImage: `url(${cat.bgImage})`,
+                  animationDelay: `${i * 0.08}s`
+                }}
+              >
                 <div className="accordion-overlay"></div>
                 <div className="accordion-content-wrapper">
                   <div className="accordion-icon-wrap" style={{ color: cat.color }}>

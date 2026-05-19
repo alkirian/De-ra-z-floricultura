@@ -596,7 +596,8 @@
   }
 }
 
-.accordion-item:hover {
+.accordion-item:hover,
+.accordion-item--active {
   flex: 2.8;
   max-height: 600px;
   box-shadow: var(--shadow-md);
@@ -611,7 +612,8 @@
   z-index: 1;
 }
 
-.accordion-item:hover .accordion-overlay {
+.accordion-item:hover .accordion-overlay,
+.accordion-item--active .accordion-overlay {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(8px);
 }
@@ -643,7 +645,8 @@
   height: 40px;
 }
 
-.accordion-item:hover .accordion-icon-wrap {
+.accordion-item:hover .accordion-icon-wrap,
+.accordion-item--active .accordion-icon-wrap {
   transform: scale(1.1) rotate(5deg);
   background: rgba(255, 255, 255, 1);
 }
@@ -669,7 +672,8 @@
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-.accordion-item:hover .accordion-header h4 {
+.accordion-item:hover .accordion-header h4,
+.accordion-item--active .accordion-header h4 {
   color: var(--verde-profundo);
   text-shadow: none;
 }
@@ -684,7 +688,8 @@
   text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
-.accordion-item:hover .accordion-short-desc {
+.accordion-item:hover .accordion-short-desc,
+.accordion-item--active .accordion-short-desc {
   color: var(--texto-medio);
   text-shadow: none;
 }
@@ -702,14 +707,16 @@
 
 @media (max-width: 859px) {
   .accordion-details {
-    display: none; /* En móviles no mostramos el contenido avanzado a menos que hagan hover, lo cual en móvil es tricky. Podríamos usar focus o tap, pero lo adaptamos a display block on hover */
+    display: none;
   }
-  .accordion-item:hover .accordion-details {
+  .accordion-item:hover .accordion-details,
+  .accordion-item--active .accordion-details {
     display: flex;
   }
 }
 
-.accordion-item:hover .accordion-details {
+.accordion-item:hover .accordion-details,
+.accordion-item--active .accordion-details {
   opacity: 1;
   transform: translateY(0) scale(1);
   transition-delay: 0.15s;
