@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirigiendo...</title>
+    <script>
+      (function () {
+        var redirectPath = window.location.pathname + window.location.search + window.location.hash;
+        sessionStorage.setItem('spa_redirect_path', redirectPath);
+        window.location.replace('/De-ra-z-floricultura/');
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
