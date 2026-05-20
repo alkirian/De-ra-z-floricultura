@@ -18,17 +18,17 @@ const LeafSVG = ({ className }) => (
 );
 
 /* SVG onda separadora */
-const WaveTop = ({ fill = '#F4EBDD', bg = 'transparent' }) => (
-  <div style={{ background: bg, lineHeight: 0, display: 'block' }}>
-    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" style={{display:'block',width:'100%'}}>
+const WaveTop = ({ fill = '#F4EBDD', bg = 'transparent', className = '' }) => (
+  <div className={`wave-transition wave-transition--top ${className}`.trim()} style={{ background: bg }}>
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill={fill}/>
     </svg>
   </div>
 );
 
-const WaveBottom = ({ fill = '#F4EBDD', bg = 'transparent' }) => (
-  <div style={{ background: bg, lineHeight: 0, display: 'block' }}>
-    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" style={{display:'block',width:'100%'}}>
+const WaveBottom = ({ fill = '#F4EBDD', bg = 'transparent', className = '' }) => (
+  <div className={`wave-transition wave-transition--bottom ${className}`.trim()} style={{ background: bg }}>
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M0,30 C360,0 1080,60 1440,30 L1440,0 L0,0 Z" fill={fill}/>
     </svg>
   </div>
@@ -146,6 +146,14 @@ const COMBO_INSPIRATIONS = [
       'Hola De Raíz, vi el Combo Selva Natural en la web y me gustaría armar uno parecido. ¿Me pueden asesorar?',
   },
 ];
+
+const ADVICE_STEPS = [
+  { title: 'Tu espacio', detail: 'Nos contas dónde va la planta.' },
+  { title: 'Nuestras sugerencias', detail: 'Te proponemos 3 opciones claras.' },
+  { title: 'Tu elección', detail: 'Confirmás por WhatsApp si querés.' },
+];
+
+const ADVICE_FEATURED_IMAGE = `${BASE}images/Plantas/Boca de sapo.png`;
 
 const CATEGORIES = [
   { 
@@ -298,6 +306,17 @@ const Home = () => {
         </svg>
         <svg className="hero-wave hero-wave-mobile" viewBox="0 0 1440 520" preserveAspectRatio="none" aria-hidden="true">
           <path d="M0,220 C240,192 430,188 620,220 C840,256 1036,288 1240,252 C1332,236 1398,208 1440,188 L1440,520 L0,520 Z" fill="currentColor" />
+        </svg>
+        <svg
+          className="hero-bottom-separator"
+          viewBox="0 0 1440 120"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M0,72 C180,48 340,38 520,52 C742,70 940,102 1142,88 C1258,80 1358,62 1440,46 L1440,120 L0,120 Z"
+            fill="var(--crema)"
+          />
         </svg>
 
         <div className="hero-content-left animate-fade-in">
@@ -493,9 +512,60 @@ const Home = () => {
       </section>
 
       {/* ══════════════════════════
+          ASESORAMIENTO GRATUITO
+      ══════════════════════════ */}
+      <WaveTop fill="var(--verde-profundo)" bg="var(--crema)" />
+      <section className="advice-section section-padding--sm">
+        <div className="container advice-grid">
+          <div className="advice-text">
+            <span className="section-label advice-label">Asesoramiento gratuito</span>
+            <h2>¿No sabés qué planta elegir?</h2>
+            <p>
+              Te guiamos en 1 minuto y te mostramos opciones reales para vos.
+            </p>
+
+            <div className="advice-steps" aria-label="Cómo te ayudamos a elegir">
+              {ADVICE_STEPS.map((step, index) => (
+                <div key={step.title} className="advice-step-item">
+                  <span className="advice-step-number">{index + 1}</span>
+                  <div>
+                    <strong>{step.title}</strong>
+                    <p>{step.detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="advice-actions">
+              <a
+                href={generateWaLink(WA_MESSAGES.ayudaElegir)}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-light"
+              >
+                <Sparkles size={18} /> Quiero mi recomendación
+              </a>
+              <Link to="/catalogo" className="advice-secondary-link">
+                <MessageCircle size={16} /> Ver catálogo primero
+              </Link>
+            </div>
+          </div>
+
+          <div className="advice-image">
+            <img
+              src={ADVICE_FEATURED_IMAGE}
+              alt="Planta destacada para asesoramiento personalizado"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </div>
+      </section>
+      <WaveBottom fill="var(--verde-profundo)" bg="var(--beige-claro)" className="wave-transition--advice-to-categories" />
+
+      {/* ══════════════════════════
           CATEGORÍAS ILUSTRADAS
       ══════════════════════════ */}
-      <WaveTop fill="var(--beige-claro)" bg="var(--crema)" />
       <section className="categories-section section-padding" style={{background: 'var(--beige-claro)', position: 'relative', overflow: 'hidden'}}>
         {/* Hojas decorativas sutiles desenfocadas en los bordes */}
         <img src={`${BASE}images/bg_leaves.png`} alt="" className="bg-leaf-blur bg-leaf-blur--left" aria-hidden="true" />
@@ -547,13 +617,12 @@ const Home = () => {
       </section>
 
 
-      <WaveBottom fill="var(--beige-claro)" bg="var(--verde-profundo)" />
+      <WaveBottom fill="var(--beige-claro)" bg="var(--verde-profundo)" className="wave-transition--categories-to-testimonials" />
 
 
       {/* ══════════════════════════
           TESTIMONIOS
       ══════════════════════════ */}
-      <WaveTop fill="var(--verde-profundo)" bg="var(--verde-profundo)" />
       <section className="testimonials-section section-padding">
         {/* Hojas de eucalipto decorativas desenfocadas */}
         <img src={`${BASE}images/bg_eucalyptus.png`} alt="" className="bg-leaf-blur bg-leaf-blur--left" aria-hidden="true" />
