@@ -9,7 +9,9 @@
 
 /* Estado transparente (sobre el hero) */
 .navbar--transparent {
-  background: transparent;
+  background: linear-gradient(to bottom, rgba(19, 43, 29, 0.34) 0%, rgba(19, 43, 29, 0.12) 65%, rgba(19, 43, 29, 0) 100%);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   padding: 20px 0;
 }
 
@@ -193,4 +195,3 @@
 .navbar.navbar--open .nav-toggle {
   color: var(--verde-profundo) !important;
 }
-

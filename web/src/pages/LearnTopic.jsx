@@ -59,13 +59,16 @@ const LearnTopic = () => {
     ? visibleTopics[(topicIndex + 1) % visibleTopics.length]
     : null;
 
-  const isCustomTopic = topic.slug === 'luz-y-ubicacion' || topic.slug === 'guia-ficus-lyrata';
+  const isCustomTopic =
+    topic.slug === 'luz-y-ubicacion' ||
+    topic.slug === 'guia-ficus-lyrata' ||
+    topic.slug === 'guia-espada-de-san-jorge';
 
   return (
     <div className="learn-topic-page">
       <SEO
-        title={`${topic.title} | Guia De Raiz Floricultura`}
-        description={`${topic.summary} - Aprende consejos practicos adaptados al clima de Uruguay de la mano de De Raiz.`}
+        title={topic.seoTitle || `${topic.title} | Guia De Raiz Floricultura`}
+        description={topic.seoDescription || `${topic.summary} - Aprende consejos practicos adaptados al clima de Uruguay de la mano de De Raiz.`}
         path={`/aprende-de-raiz/${topic.slug}`}
         jsonLd={articleJsonLd}
       />

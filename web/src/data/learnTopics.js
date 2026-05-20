@@ -137,7 +137,7 @@ export const LEARN_TOPICS = [
     title: 'Luz y ubicación de plantas',
     summary: 'Cómo identificar si tu espacio tiene mucha, media o poca luz.',
     readTime: '5 min',
-    image: `${GUIDE_IMG}/iluminacion.jpeg`,
+    image: `${BASE}images/Gu%C3%ADas/ficus%20lyrata.jpeg`,
     intro:
       'La luz es el factor más importante para elegir la especie. No todas las plantas aguantan los mismos rincones.',
     highlights: ['No toda ventana es igual', 'El sol directo quema algunas hojas', 'Mover 1 metro cambia mucho'],
@@ -243,7 +243,7 @@ export const LEARN_TOPICS = [
     title: 'Guía completa del Ficus Lyrata',
     summary: 'De hojas caídas a follaje exuberante: luz, riego, suelo y soluciones concretas.',
     readTime: '10 min',
-    image: `${GUIDE_IMG}/iluminacion.jpeg`,
+    image: `${BASE}images/Gu%C3%ADas/san%20seivieria.jpeg`,
     intro:
       'Esta guía te muestra, paso a paso, cómo ubicar y cuidar tu Ficus Lyrata en Uruguay para evitar hojas amarillas, manchas y pérdida de vigor.',
     highlights: ['Ideal para interior luminoso', 'Muy sensible al exceso de agua', 'Responde mejor a rutinas estables'],
@@ -329,6 +329,70 @@ export const LEARN_TOPICS = [
     relatedCatalog: [
       { label: 'Ver Ficus y plantas de interior', to: '/catalogo?cat=Interior&q=Ficus' },
       { label: 'Ver macetas con drenaje', to: '/catalogo?cat=Macetas' },
+    ],
+  },
+  {
+    slug: 'guia-espada-de-san-jorge',
+    isVisible: true,
+    tag: 'Guía definitiva',
+    title: 'Guía completa de la Espada de San Jorge (Sansevieria)',
+    seoTitle: 'Cuidados de la Espada de San Jorge (Sansevieria) | De Raíz Uruguay',
+    seoDescription:
+      'Aprende a cuidar tu Espada de San Jorge. Guía rápida sobre riego en invierno, luz ideal y solución a hojas caídas o podridas. Visita De Raíz.',
+    summary: 'Guía rápida sobre luz, riego y sustrato para mantener tu Sansevieria erguida y fuerte.',
+    readTime: '8 min',
+    image: `${GUIDE_IMG}/iluminacion.jpeg`,
+    heroTitle: 'GUÍA COMPLETA DE LA ESPADA DE SAN JORGE (SANSEVIERIA)',
+    heroSubtitle: 'La planta indestructible: Cuidados esenciales y errores fatales.',
+    heroImageAlt: 'Espada de San Jorge en interior luminoso',
+    showLightDiagram: false,
+    intro:
+      'Conocida botánicamente como Sansevieria o Dracaena trifasciata, la Espada de San Jorge es la heroína de los espacios difíciles. Purifica el aire y soporta el olvido, pero tiene un talón de Aquiles: el exceso de mimos. Descubre cómo mantenerla erguida y fuerte en tu hogar.',
+    sections: [
+      {
+        id: 'luz',
+        title: '1. LA LUZ: ADAPTABILIDAD EXTREMA',
+        paragraphs: [
+          'Es famosa por sobrevivir en rincones oscuros, pero ese no es su hábitat ideal. Para que sus hojas mantengan esos patrones atigrados vibrantes y crezca con fuerza, prefiere luz indirecta brillante. Tolera un par de horas de sol directo suave, especialmente durante los meses fríos en Uruguay, pero evita el sol abrasador del verano al mediodía para que no se quemen sus puntas.',
+        ],
+      },
+      {
+        id: 'riego',
+        title: '2. EL RIEGO: EL SECRETO ESTÁ EN OLVIDARLA',
+        paragraphs: [
+          'El asesino número uno de la Espada de San Jorge es la regadera. Esta planta almacena agua en sus gruesas hojas. Solo debes regarla cuando el sustrato esté 100% seco hasta el fondo de la maceta. En pleno verano, esto puede ser cada 15 días, pero durante el invierno uruguayo (cuando la humedad ambiental es alta y hace frío), un riego al mes es más que suficiente. Ante la duda, no riegues.',
+        ],
+      },
+      {
+        id: 'suelo',
+        title: '3. EL SUSTRATO: DRENAJE RÁPIDO',
+        paragraphs: [
+          'Necesita respirar. Un sustrato universal apelmazado pudrirá sus raíces en cuestión de días. Utiliza una mezcla para cactus y suculentas. En De Raíz preparamos un sustrato específico muy poroso, cargado de perlita y arena gruesa, ideal para garantizar que el agua pase de largo y no se encharque.',
+        ],
+      },
+    ],
+    problems: [
+      {
+        title: 'Hojas caídas o blandas',
+        text: 'Si las hojas se doblan desde la base y están pastosas, tu planta tiene pudrición por exceso de agua. Solución: Retírala de la maceta de inmediato, corta las partes podridas con tijeras desinfectadas, cambia todo el sustrato por uno seco y suspende el riego por completo.',
+      },
+      {
+        title: 'Manchas marrones y secas',
+        text: 'Suele ser indicio de quemaduras por sol directo muy fuerte, o daño por corrientes de aire helado si la tienes cerca de una ventana mal aislada en pleno invierno. Solución: Reubica la maceta a un lugar más resguardado con luz indirecta.',
+      },
+      {
+        title: 'La planta no crece',
+        text: 'La Sansevieria es de crecimiento lento por naturaleza. Sin embargo, si pasan los años y no da brotes nuevos (hijos), puede estar en un rincón demasiado oscuro o en una maceta excesivamente grande. Solución: Acércala a una fuente de luz y plántala en macetas ajustadas; prefieren estar ligeramente apretadas.',
+      },
+    ],
+    ctaText:
+      '¿Tu Espada de San Jorge necesita un rescate urgente o buscas la maceta ideal para ella?',
+    ctaButton: 'Tráenos una foto al local o consúltanos por WhatsApp.',
+    ctaWaMessage:
+      'Hola De Raíz, necesito ayuda con mi Espada de San Jorge. Les envío una foto para asesoramiento.',
+    relatedCatalog: [
+      { label: 'Ver macetas para interior', to: '/catalogo?cat=Macetas' },
+      { label: 'Ver sustratos y tierra', to: '/catalogo?cat=Sustratos%20y%20Tierra' },
     ],
   },
 ];

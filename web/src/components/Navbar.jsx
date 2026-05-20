@@ -31,9 +31,7 @@ const Navbar = () => {
   const links = [
     { to: '/',              label: 'Inicio' },
     { to: '/catalogo',      label: 'Catálogo' },
-    { to: '/asesoramiento', label: 'Te ayudo a elegir' },
     { to: '/aprende-de-raiz', label: 'Aprende de Raiz' },
-    { to: '/regalos',       label: 'Regalos' },
     { to: '/contacto',      label: 'Contacto' },
   ];
 

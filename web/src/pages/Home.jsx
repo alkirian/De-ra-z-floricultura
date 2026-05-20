@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, MessageCircle, Sparkles, Leaf, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
+﻿import { useEffect, useRef, useState } from 'react';
+import { ArrowRight, MessageCircle, Sparkles, Leaf, MapPin, ChevronLeft, ChevronRight, BookOpen, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { generateWaLink, WA_MESSAGES } from '../data/mockData';
 import SEO from '../components/SEO';
@@ -94,6 +94,58 @@ const IconAsesoramiento = () => (
 );
 
 const BASE = import.meta.env.BASE_URL;
+// Reemplazar por el numero final de WhatsApp en formato internacional (sin + ni espacios).
+const WHATSAPP_NUMBER = 'AQUI_COLOCAR_NUMERO';
+// Si queres cambiar imagenes, edita solo el campo image de cada objeto en COMBO_INSPIRATIONS.
+
+const createWhatsAppLink = (message) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+const COMBO_CUSTOM_MESSAGE =
+  'Hola De Raíz, quiero armar un combo personalizado con planta y maceta. ¿Me pueden ayudar?';
+
+const COMBO_INSPIRATIONS = [
+  {
+    id: 'toque-natural',
+    title: 'Combo Toque Natural',
+    description: 'Un toque de naturaleza que transforma tu espacio.',
+    includes: 'Planta + maceta',
+    image: `${BASE}images/Combos/662883861_18084336809621436_14415400890110370_n.webp`,
+    alt: 'Combo Toque Natural con planta ornamental y maceta blanca texturada.',
+    whatsappMessage:
+      'Hola De Raíz, vi el Combo Toque Natural en la web y me gustaría armar uno parecido. ¿Me pueden asesorar?',
+  },
+  {
+    id: 'selva-mini',
+    title: 'Combo Selva Mini',
+    description: 'Sumá verde y frescura a tus espacios.',
+    includes: 'Monstera adansonii + maceta a elección',
+    image: `${BASE}images/Combos/681808372_18084336797621436_6574950320876914164_n.webp`,
+    alt: 'Combo Selva Mini con Monstera adansonii y maceta de interior.',
+    whatsappMessage:
+      'Hola De Raíz, vi el Combo Selva Mini en la web y me gustaría armar uno parecido. ¿Me pueden asesorar?',
+  },
+  {
+    id: 'rincon-calido',
+    title: 'Combo Rincón Cálido',
+    description: 'Sumá calidez y vida a tus espacios.',
+    includes: 'Planta + maceta',
+    image: `${BASE}images/Combos/682819319_18084336818621436_4685393247746492369_n.webp`,
+    alt: 'Combo Rincón Cálido con planta variegada en maceta tejida.',
+    whatsappMessage:
+      'Hola De Raíz, vi el Combo Rincón Cálido en la web y me gustaría armar uno parecido. ¿Me pueden asesorar?',
+  },
+  {
+    id: 'selva-natural',
+    title: 'Combo Selva Natural',
+    description: 'Verde que transforma, vida que inspira.',
+    includes: 'Planta + maceta',
+    image: `${BASE}images/Combos/682935109_18084336827621436_33320198583019895_n.webp`,
+    alt: 'Combo Selva Natural con planta Monstera en maceta de cerámica clara.',
+    whatsappMessage:
+      'Hola De Raíz, vi el Combo Selva Natural en la web y me gustaría armar uno parecido. ¿Me pueden asesorar?',
+  },
+];
 
 const CATEGORIES = [
   { 
@@ -131,7 +183,8 @@ const CATEGORIES = [
 const Home = () => {
   const valueGridRef = useRef(null);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [activeAccordion, setActiveAccordion] = useState(0);
+  const [activeAccordion, setActiveAccordion] = useState(null);
+  const [activeComboIndex, setActiveComboIndex] = useState(null);
 
   const testimonials = [
     { name: 'Mariana R.', loc: 'Las Piedras', text: 'Me recomendaron una planta para poca luz y quedó perfecta. Muy buena atención.' },
@@ -192,6 +245,40 @@ const Home = () => {
     setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
   };
 
+  const openComboLightbox = (index) => {
+    setActiveComboIndex(index);
+  };
+
+  const closeComboLightbox = () => {
+    setActiveComboIndex(null);
+  };
+
+  const goToPrevCombo = () => {
+    setActiveComboIndex((prev) => (prev === null ? null : (prev - 1 + COMBO_INSPIRATIONS.length) % COMBO_INSPIRATIONS.length));
+  };
+
+  const goToNextCombo = () => {
+    setActiveComboIndex((prev) => (prev === null ? null : (prev + 1) % COMBO_INSPIRATIONS.length));
+  };
+
+  useEffect(() => {
+    if (activeComboIndex === null) return undefined;
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') closeComboLightbox();
+      if (event.key === 'ArrowLeft') goToPrevCombo();
+      if (event.key === 'ArrowRight') goToNextCombo();
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [activeComboIndex]);
+
   return (
     <div className="home-page">
       <SEO
@@ -203,7 +290,16 @@ const Home = () => {
       {/* ══════════════════════════
           HERO SPLIT ORGÁNICO
       ══════════════════════════ */}
-      <section className="hero split-hero">
+      <section className="hero split-hero" style={{ '--hero-bg-image': `url(${BASE}images/hero_bg.png)` }}>
+        <div className="hero-bg" aria-hidden="true"></div>
+        <div className="hero-bg-overlay" aria-hidden="true"></div>
+        <svg className="hero-wave hero-wave-desktop" viewBox="0 0 1440 520" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0,170 C220,80 420,90 620,180 C830,275 1010,365 1210,315 C1320,285 1390,220 1440,160 L1440,520 L0,520 Z" fill="currentColor" />
+        </svg>
+        <svg className="hero-wave hero-wave-mobile" viewBox="0 0 1440 520" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0,220 C240,192 430,188 620,220 C840,256 1036,288 1240,252 C1332,236 1398,208 1440,188 L1440,520 L0,520 Z" fill="currentColor" />
+        </svg>
+
         <div className="hero-content-left animate-fade-in">
           <h1 className="sr-only">De Raiz Floricultura - Vivero en Las Piedras, Uruguay</h1>
           <span className="hero-eyebrow">
@@ -229,13 +325,6 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="hero-image-right">
-          {/* SVG S-Curve corregido para evitar cortes */}
-          <svg className="hero-split-curve" viewBox="0 0 200 1000" preserveAspectRatio="none">
-            <path d="M0,0 L100,0 C200,300 0,700 100,1000 L0,1000 Z" fill="var(--verde-profundo)"/>
-          </svg>
-          <img src={`${BASE}images/hero_bg.png`} alt="Planta Hero De Raíz" className="hero-bg-img" />
-        </div>
       </section>
 
 
@@ -249,34 +338,42 @@ const Home = () => {
         <span className="proposal-corner proposal-corner--bottom-right" aria-hidden="true"></span>
         <section className="quick-actions-section section-padding--sm">
           <div className="container">
-            <div className="text-center mb-8">
-              <span className="section-label">Empezá por acá</span>
-              <h2>Lo mas buscado</h2>
+            <div className="text-center mb-12 quick-actions-header">
+              <span className="section-label">Comenzá por acá</span>
+              <h2>Explorá el universo De Raíz</h2>
+              <p className="quick-actions-subtitle">
+                Te guiamos en cada paso para que lleves la naturaleza a tu vida, con la calidad y calidez de siempre.
+              </p>
             </div>
             <div className="quick-actions-grid">
-              <Link to="/catalogo" className="quick-action-card">
-                <span className="quick-action-kicker">Top consultas</span>
-                <h3>Catalogo completo</h3>
-                <p>Plantas, macetas, sustratos e insumos en un solo lugar.</p>
-                <span className="quick-action-link">Ver catálogo <ArrowRight size={16} /></span>
+              <Link to="/catalogo" className="quick-action-card quick-action-card--catalog">
+                <div className="quick-action-icon-wrapper">
+                  <Leaf size={26} />
+                </div>
+                <span className="quick-action-kicker">Catálogo Completo</span>
+                <h3>Plantas & Macetas</h3>
+                <p>Llevá frescura a tu hogar. Gran variedad de interior, exterior, combos exclusivos e insumos premium.</p>
+                <span className="quick-action-link">Explorar catálogo <ArrowRight size={16} /></span>
               </Link>
-              <Link to="/regalos" className="quick-action-card">
-                <span className="quick-action-kicker">Top consultas</span>
-                <h3>Regalos guiados</h3>
-                <p>Elegí rápido según ocasión, presupuesto y estilo.</p>
-                <span className="quick-action-link">Ir a regalos <ArrowRight size={16} /></span>
-              </Link>
-              <Link to="/catalogo?cat=Macetas" className="quick-action-card">
-                <span className="quick-action-kicker">Top consultas</span>
-                <h3>Macetas y tierra</h3>
-                <p>Explorá opciones de drenaje, tamaños y mezclas recomendadas.</p>
-                <span className="quick-action-link">Ver insumos <ArrowRight size={16} /></span>
-              </Link>
-              <Link to="/aprende-de-raiz" className="quick-action-card">
-                <span className="quick-action-kicker">Nuevo</span>
+
+              <Link to="/aprende-de-raiz" className="quick-action-card quick-action-card--learn">
+                <div className="quick-action-icon-wrapper">
+                  <BookOpen size={26} />
+                </div>
+                <span className="quick-action-kicker">Guías de Cultivo</span>
                 <h3>Aprendé de Raíz</h3>
-                <p>Guía botánica para Uruguay: estaciones, riego y cuidados.</p>
-                <span className="quick-action-link">Ir a la guía <ArrowRight size={16} /></span>
+                <p>Convertite en experto. Consejos paso a paso sobre riego, sustratos y plagas adaptadas a Uruguay.</p>
+                <span className="quick-action-link">Ir a la guía botánica <ArrowRight size={16} /></span>
+              </Link>
+
+              <Link to="/contacto" className="quick-action-card quick-action-card--contact">
+                <div className="quick-action-icon-wrapper">
+                  <MapPin size={26} />
+                </div>
+                <span className="quick-action-kicker">Atención Cercana</span>
+                <h3>Visitanos o Escribinos</h3>
+                <p>Encontranos en Las Piedras, Ruta 48. O chateá con nuestro equipo para recibir asesoramiento personalizado.</p>
+                <span className="quick-action-link">Ver contacto y local <ArrowRight size={16} /></span>
               </Link>
             </div>
           </div>
@@ -318,6 +415,82 @@ const Home = () => {
         </section>
       </div>
 
+      {/* --------------------------
+          COMBOS INSPIRACION
+      -------------------------- */}
+      <section className="combos-section section-padding--sm" aria-labelledby="combos-title">
+        <div className="container">
+          <div className="text-center combos-header">
+            <span className="section-label">Inspiracion real</span>
+            <h2 id="combos-title">Combos verdes para regalar o decorar</h2>
+            <p className="combos-subtitle">
+              Inspirate con algunos combos que ya armamos y escribinos para crear uno a tu medida.
+            </p>
+          </div>
+
+          <div className="combos-grid">
+            {COMBO_INSPIRATIONS.map((combo, index) => (
+              <article
+                key={combo.id}
+                className="combo-card"
+                role="button"
+                tabIndex={0}
+                onClick={() => openComboLightbox(index)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    openComboLightbox(index);
+                  }
+                }}
+                aria-label={`${combo.title}: ver imagen en grande`}
+              >
+                <div className="combo-card-image-wrap">
+                  <img
+                    src={combo.image}
+                    alt={combo.alt}
+                    className="combo-card-image"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div className="combo-card-content">
+                  <h3>{combo.title}</h3>
+                  <p className="combo-card-description">{combo.description}</p>
+                  <p className="combo-card-includes">
+                    <strong>Incluye:</strong> {combo.includes}
+                  </p>
+                  <a
+                    href={createWhatsAppLink(combo.whatsappMessage)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn btn-secondary combo-card-btn"
+                    aria-label={`${combo.title}: Quiero uno parecido por WhatsApp`}
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    Quiero uno parecido
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <article className="combo-custom-cta">
+            <h3>Queres armar tu propio combo?</h3>
+            <p>
+              Elegi una planta, una maceta y el estilo que mas te guste. Nosotros te ayudamos a
+              combinarlo.
+            </p>
+            <a
+              href={createWhatsAppLink(COMBO_CUSTOM_MESSAGE)}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-primary combo-custom-cta-btn"
+            >
+              Armar mi combo por WhatsApp
+            </a>
+          </article>
+        </div>
+      </section>
 
       {/* ══════════════════════════
           CATEGORÍAS ILUSTRADAS
@@ -378,63 +551,19 @@ const Home = () => {
 
 
       {/* ══════════════════════════
-          ASESORAMIENTO (DARK)
-      ══════════════════════════ */}
-      <section className="advice-section section-dark section-padding">
-        <div className="container">
-          <div className="advice-grid">
-            <div className="advice-text">
-              <span className="section-label" style={{color: 'var(--terracota-light)'}}>Asesoramiento gratuito</span>
-              <h2>¿No sabés qué planta elegir?</h2>
-              <p style={{color: 'rgba(244,235,221,0.82)'}}>
-                Te guiamos en 1 minuto y te mostramos opciones reales para vos.
-              </p>
-              <div className="advice-steps">
-                {[
-                  { title: 'Tu espacio', desc: 'Nos contás dónde va la planta.' },
-                  { title: 'Nuestras sugerencias', desc: 'Te proponemos 3 opciones claras.' },
-                  { title: 'Tu elección', desc: 'Confirmás por WhatsApp si querés.' },
-                ].map((item, i) => (
-                  <div key={item.title} className="advice-step-item">
-                    <span className="advice-step-number">{i + 1}</span>
-                    <div>
-                      <strong>{item.title}</strong>
-                      <p>{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="advice-actions">
-                <Link to="/asesoramiento" className="btn btn-light">
-                  <Sparkles size={18} /> Quiero mi recomendación
-                </Link>
-                <Link to="/catalogo" className="advice-secondary-link">
-                  <MessageCircle size={18} /> Ver catálogo primero
-                </Link>
-              </div>
-            </div>
-            <div className="advice-image">
-              <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=700&q=80" alt="Asesoramiento en De Raíz" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      {/* ══════════════════════════
           TESTIMONIOS
       ══════════════════════════ */}
-      <WaveTop fill="var(--blanco-calido)" bg="var(--verde-profundo)" />
-      <section className="testimonials-section section-padding" style={{background: 'var(--blanco-calido)', position: 'relative', overflow: 'hidden'}}>
+      <WaveTop fill="var(--verde-profundo)" bg="var(--verde-profundo)" />
+      <section className="testimonials-section section-padding">
         {/* Hojas de eucalipto decorativas desenfocadas */}
-        <img src={`${BASE}images/bg_eucalyptus.png`} alt="" className="bg-leaf-blur bg-leaf-blur--left" aria-hidden="true" style={{ filter: 'blur(8px) sepia(0.1) saturate(0.9) brightness(0.95)' }} />
-        <img src={`${BASE}images/bg_eucalyptus.png`} alt="" className="bg-leaf-blur bg-leaf-blur--right" aria-hidden="true" style={{ filter: 'blur(8px) sepia(0.1) saturate(0.9) brightness(0.95)' }} />
+        <img src={`${BASE}images/bg_eucalyptus.png`} alt="" className="bg-leaf-blur bg-leaf-blur--left" aria-hidden="true" />
+        <img src={`${BASE}images/bg_eucalyptus.png`} alt="" className="bg-leaf-blur bg-leaf-blur--right" aria-hidden="true" />
 
         <div className="container" style={{ position: 'relative', zIndex: 10 }}>
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 testimonials-header">
             <span className="section-label">Clientes</span>
             <h2>Lo que dicen nuestros clientes</h2>
-            <p style={{marginTop: '12px', maxWidth: '520px', margin: '12px auto 0'}}>
+            <p className="testimonials-subtitle">
               Opiniones reales de clientes de Las Piedras.
             </p>
           </div>
@@ -475,15 +604,69 @@ const Home = () => {
             ))}
           </div>
           <div className="text-center mt-8">
-            <a href={generateWaLink(WA_MESSAGES.general)} target="_blank" rel="noreferrer" className="btn btn-primary">
+            <a href={generateWaLink(WA_MESSAGES.general)} target="_blank" rel="noreferrer" className="btn btn-outline-light">
               <MessageCircle size={18} /> Consultar por WhatsApp
             </a>
           </div>
         </div>
       </section>
 
+      {activeComboIndex !== null && (
+        <div
+          className="combo-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Vista ampliada: ${COMBO_INSPIRATIONS[activeComboIndex].title}`}
+          onClick={closeComboLightbox}
+        >
+          <div className="combo-lightbox-panel" onClick={(event) => event.stopPropagation()}>
+            <button
+              type="button"
+              className="combo-lightbox-close"
+              onClick={closeComboLightbox}
+              aria-label="Cerrar imagen"
+            >
+              <X size={20} />
+            </button>
+
+            <button
+              type="button"
+              className="combo-lightbox-nav combo-lightbox-nav--prev"
+              onClick={goToPrevCombo}
+              aria-label="Imagen anterior"
+            >
+              <ChevronLeft size={22} />
+            </button>
+
+            <figure className="combo-lightbox-figure">
+              <img
+                src={COMBO_INSPIRATIONS[activeComboIndex].image}
+                alt={COMBO_INSPIRATIONS[activeComboIndex].alt}
+                className="combo-lightbox-image"
+              />
+              <figcaption>
+                {COMBO_INSPIRATIONS[activeComboIndex].title}
+              </figcaption>
+            </figure>
+
+            <button
+              type="button"
+              className="combo-lightbox-nav combo-lightbox-nav--next"
+              onClick={goToNextCombo}
+              aria-label="Siguiente imagen"
+            >
+              <ChevronRight size={22} />
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
 
 export default Home;
+
+
+
+

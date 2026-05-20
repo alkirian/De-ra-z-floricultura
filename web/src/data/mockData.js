@@ -13,34 +13,9 @@ export const WA_MESSAGES = {
   plantaFacil: "¡Hola De Raíz! Quiero una planta fácil de cuidar para empezar.",
   fotoEspacio: "¡Hola De Raíz! Quiero mandar una foto de mi espacio para que me recomienden una planta.",
   diagnostico: "¡Hola De Raíz! Necesito ayuda con una planta que está decaída. ¿Les mando foto para diagnóstico?",
-  regaloRapido: "¡Hola De Raíz! Quiero armar un regalo con plantas. ¿Qué me recomiendan según mi presupuesto?",
   disponibilidad: (producto) => `¡Hola! Quiero consultar disponibilidad y precio de "${producto}".`,
   producto: (producto) => `¡Hola! Me encantó el producto "${producto}" que vi en la web. ¿Tienen stock?`,
-  asesoramiento: (ubicacion, luz, proposito, sugeridas) => `¡Hola! Hice el test en la web. Busco una planta para un espacio de ${ubicacion} con ${luz} luz natural. Mi nivel de experiencia es: ${proposito}. La web me sugirió: ${sugeridas}. ¿Me pueden ayudar?`,
-  regalo: (input, presupuestoLegacy) => {
-    if (typeof input === 'string') {
-      return `¡Hola! Quiero armar un regalo de plantas. La ocasión es: ${input}. Mi presupuesto es: ${presupuestoLegacy}. ¿Qué combo me recomiendan?`;
-    }
 
-    const data = input || {};
-    return [
-      '¡Hola De Raíz! Completé la guía de regalos en la web y quiero avanzar con esta opción:',
-      `${data.opcionElegida || 'Opción sin especificar'}`,
-      `Tipo de opción: ${data.opcionTipo || 'No indicado'}`,
-      `Referencia interna: ${data.opcionId || 'No indicado'}`,
-      `Ocasión: ${data.ocasion || 'No indicado'}`,
-      `Presupuesto: ${data.presupuesto || 'No indicado'}`,
-      `Experiencia de quien recibe: ${data.experiencia || 'No indicado'}`,
-      `Espacio: ${data.espacio || 'No indicado'}`,
-      `Luz: ${data.luz || 'No indicado'}`,
-      `Tamaño preferido: ${data.tamano || 'No indicado'}`,
-      `Estilo: ${data.estilo || 'No indicado'}`,
-      `Preferencia con flor: ${data.flor || 'No indicado'}`,
-      `Hogar con mascotas: ${data.petFriendly || 'No indicado'}`,
-      `Urgencia: ${data.urgencia || 'No indicado'}`,
-      '¿Me confirman disponibilidad real y precio final?',
-    ].join('\n');
-  },
   ubicacion: "¡Hola! ¿Me pasan la ubicación exacta del vivero para ir a visitarlos?",
   testimonios: "Hola, vi la web de De Raíz Floricultura y quiero que me ayuden a elegir una planta."
 };
