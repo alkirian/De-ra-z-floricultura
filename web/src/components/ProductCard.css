@@ -75,6 +75,34 @@
   writing-mode: horizontal-tb;
 }
 
+.product-difficulty-badge {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  z-index: 3;
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.product-difficulty-badge.is-baja {
+  background: #dff2d9;
+  color: #2f6a2a;
+}
+
+.product-difficulty-badge.is-media {
+  background: #f7ebc3;
+  color: #8c6700;
+}
+
+.product-difficulty-badge.is-alta {
+  background: #f3ddd2;
+  color: #9f4f34;
+}
+
 /* Cuerpo de la card - Tipografía editorial */
 .product-body {
   display: flex;
@@ -172,6 +200,24 @@
 .product-btn svg {
   transition: transform 0.3s ease;
   color: var(--terracota);
+}
+
+.product-cart-mini {
+  margin-top: 12px;
+  align-self: flex-start;
+  border: 1px solid rgba(143, 168, 120, 0.42);
+  border-radius: var(--radius-full);
+  padding: 6px 10px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--verde-profundo);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.product-cart-mini:hover {
+  background: var(--verde-salvia-light);
 }
 
 .product-card:hover .product-btn svg {

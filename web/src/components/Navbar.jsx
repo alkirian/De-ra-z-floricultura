@@ -21,10 +21,18 @@ const Navbar = () => {
 
   const navClass = `navbar ${isHome && !scrolled ? 'navbar--transparent' : 'navbar--solid'} ${isOpen ? 'navbar--open' : ''}`;
 
+  const isLinkActive = (to) => {
+    if (to === '/aprende-de-raiz') {
+      return location.pathname === to || location.pathname.startsWith('/aprende-de-raiz/');
+    }
+    return location.pathname === to;
+  };
+
   const links = [
     { to: '/',              label: 'Inicio' },
     { to: '/catalogo',      label: 'Catálogo' },
     { to: '/asesoramiento', label: 'Te ayudo a elegir' },
+    { to: '/aprende-de-raiz', label: 'Aprende de Raiz' },
     { to: '/regalos',       label: 'Regalos' },
     { to: '/contacto',      label: 'Contacto' },
   ];
@@ -44,7 +52,7 @@ const Navbar = () => {
             <Link
               key={l.to}
               to={l.to}
-              className={`nav-link ${location.pathname === l.to ? 'nav-link--active' : ''}`}
+              className={`nav-link ${isLinkActive(l.to) ? 'nav-link--active' : ''}`}
             >
               {l.label}
             </Link>

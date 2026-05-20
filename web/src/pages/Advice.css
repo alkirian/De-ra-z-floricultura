@@ -399,3 +399,11 @@
 /* Decorativos */
 .leaf-deco--faq-left { opacity: 0.1; }
 .leaf-deco--quiz-right { opacity: 0.1; }
+.advice-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  color: var(--texto-suave);
+  font-weight: 700;
+}

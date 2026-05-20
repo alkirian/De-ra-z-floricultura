@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { generateWaLink, WA_MESSAGES, MOCK_PRODUCTS } from '../data/mockData';
 import { RefreshCcw, MessageCircle, HelpCircle, Droplets, Sun, AlertTriangle, ChevronDown, ChevronUp, Leaf, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 import './Advice.css';
 
 /* SVG de hoja decorativa */
@@ -127,12 +128,20 @@ const Advice = () => {
   };
 
   const resetQuiz = () => { setStep(1); setAnswers({ ubicacion: '', luz: '', proposito: '' }); };
+  const handleBack = () => {
+    setStep((prev) => Math.max(1, prev - 1));
+  };
 
   const renderQuizStep = () => {
     switch (step) {
       case 1:
         return (
           <div className="quiz-step animate-fade-in">
+            {step > 1 && step < 4 && (
+              <button type="button" className="advice-back-btn" onClick={handleBack}>
+                <ArrowRight size={16} style={{ transform: 'rotate(180deg)' }} /> Volver al paso anterior
+              </button>
+            )}
             <h3 className="quiz-step-title">¿Dónde vas a poner la planta?</h3>
             <div className="quiz-options">
               <button className="quiz-card" onClick={() => handleAnswer('ubicacion', 'interior')}>
@@ -151,6 +160,11 @@ const Advice = () => {
       case 2:
         return (
           <div className="quiz-step animate-fade-in">
+            {step > 1 && step < 4 && (
+              <button type="button" className="advice-back-btn" onClick={handleBack}>
+                <ArrowRight size={16} style={{ transform: 'rotate(180deg)' }} /> Volver al paso anterior
+              </button>
+            )}
             <h3 className="quiz-step-title">¿Cuánta luz natural tiene ese lugar?</h3>
             <div className="quiz-options">
               <button className="quiz-card" onClick={() => handleAnswer('luz', 'mucha')}>
@@ -174,6 +188,11 @@ const Advice = () => {
       case 3:
         return (
           <div className="quiz-step animate-fade-in">
+            {step > 1 && step < 4 && (
+              <button type="button" className="advice-back-btn" onClick={handleBack}>
+                <ArrowRight size={16} style={{ transform: 'rotate(180deg)' }} /> Volver al paso anterior
+              </button>
+            )}
             <h3 className="quiz-step-title">¿Qué buscás en esta planta?</h3>
             <div className="quiz-options">
               <button className="quiz-card" onClick={() => handleAnswer('proposito', 'principiante')}>
@@ -245,6 +264,11 @@ const Advice = () => {
 
   return (
     <div className="advice-page">
+      <SEO
+        title="Asesoramiento botanico personalizado gratuito | De Raiz"
+        description="No sabes que planta elegir? Hace nuestro test rapido de 1 minuto y recibi recomendaciones ideales segun la luz y el espacio de tu hogar."
+        path="/asesoramiento"
+      />
       {/* ══════════════════════════
           HERO ASESORÍA
       ══════════════════════════ */}

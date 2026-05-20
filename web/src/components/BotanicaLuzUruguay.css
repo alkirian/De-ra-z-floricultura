@@ -1,0 +1,211 @@
+.botanica-luz-uy {
+  display: grid;
+  gap: 20px;
+}
+
+.luz-hero {
+  padding: 28px;
+  background: linear-gradient(145deg, #fff6e9, #f0e5d1);
+}
+
+.luz-hero p {
+  margin: 10px 0 16px;
+}
+
+.luz-module {
+  display: grid;
+  gap: 12px;
+}
+
+.luz-card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.luz-type-card {
+  border: 1px solid rgba(143, 168, 120, 0.35);
+  background: #fff9ef;
+  color: var(--texto-oscuro);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: grid;
+  gap: 6px;
+  text-align: left;
+  transition: transform var(--t-fast), border-color var(--t-fast), box-shadow var(--t-fast);
+}
+
+.luz-type-card:hover,
+.luz-type-card.is-active {
+  transform: translateY(-2px);
+  border-color: var(--verde-salvia);
+  box-shadow: var(--shadow-xs);
+}
+
+.luz-type-card strong {
+  color: var(--verde-profundo);
+}
+
+.luz-type-card span {
+  color: var(--texto-medio);
+  font-size: 0.92rem;
+}
+
+.luz-detail,
+.orientation-card,
+.season-panel,
+.signal-card,
+.housing-card,
+.semaforo-card,
+.quiz-result {
+  padding: 18px;
+}
+
+.luz-warning,
+.luz-tip {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.luz-warning { color: #9f4f34; }
+.luz-tip { color: var(--verde-profundo); }
+
+.orientation-switch,
+.season-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.orientation-chip,
+.season-tab {
+  border: 1px solid rgba(166, 95, 58, 0.36);
+  border-radius: var(--radius-full);
+  padding: 8px 12px;
+  font-weight: 700;
+  color: var(--terracota);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.orientation-chip.is-active,
+.season-tab.is-active,
+.orientation-chip:hover,
+.season-tab:hover {
+  background: var(--terracota);
+  color: var(--crema);
+}
+
+.quiz-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.quiz-group {
+  display: grid;
+  gap: 6px;
+}
+
+.quiz-group label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--verde-profundo);
+}
+
+.quiz-group select {
+  border: 1px solid rgba(143, 168, 120, 0.45);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  background: #fffaf2;
+  color: var(--texto-oscuro);
+}
+
+.signals-grid,
+.housing-grid,
+.semaforo-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.signal-card ul,
+.housing-card ul,
+.season-panel ul,
+.quiz-result ul {
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.signal-card li,
+.housing-card li,
+.season-panel li,
+.quiz-result li,
+.summary-table td {
+  color: var(--texto-oscuro);
+}
+
+.housing-card h4 {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 8px;
+}
+
+.semaforo-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.sem-verde { background: #2f8b48; }
+.sem-amarillo { background: #d8a125; }
+.sem-rojo { background: #c04b42; }
+
+.summary-table-wrap {
+  overflow-x: auto;
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.summary-table th,
+.summary-table td {
+  border-bottom: 1px solid var(--beige-medio);
+  text-align: left;
+  vertical-align: top;
+  padding: 10px;
+}
+
+.summary-table th {
+  color: var(--verde-profundo);
+  font-size: 0.86rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 860px) {
+  .luz-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .quiz-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .signals-grid,
+  .housing-grid,
+  .semaforo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

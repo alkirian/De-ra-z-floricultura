@@ -1,6 +1,7 @@
-import React from 'react';
-import { MapPin, Clock, CreditCard, MessageCircle, Navigation, Globe, Phone } from 'lucide-react';
+import React, { useState } from 'react';
+import { MapPin, Clock, MessageCircle, Navigation, Phone, Leaf, Sprout, Shovel, Package } from 'lucide-react';
 import { BIZ_INFO, generateWaLink, WA_MESSAGES } from '../data/mockData';
+import SEO from '../components/SEO';
 import './Contact.css';
 
 /* SVG de hoja decorativa */
@@ -12,134 +13,186 @@ const LeafSVG = ({ className }) => (
 );
 
 const Contact = () => {
+  const BASE = import.meta.env.BASE_URL;
+  const STORE_IMAGES = [
+    `${BASE}images/Instagram/641159597_18569292976036794_7285793248818445959_n.jpg`,
+    `${BASE}images/Instagram/625050079_18195451261339886_7903106744929881972_n.jpg`,
+    `${BASE}images/Instagram/626654593_18110861101637313_115686602871328692_n.jpg`,
+    `${BASE}images/Instagram/654255476_18049528838710120_3399500945441152094_n.jpg`,
+    `${BASE}images/Instagram/648207348_17932562826196211_1869222352040900296_n.jpg`,
+    `${BASE}images/Instagram/658062127_18177689302375798_6542075994669164954_n.jpg`,
+  ];
+
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${BIZ_INFO.name} ${BIZ_INFO.location}`)}`;
+  const localBusinessJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'GardenStore',
+    name: 'De Raiz',
+    url: 'https://alkirian.github.io/De-ra-z-floricultura/contacto',
+    telephone: `+${BIZ_INFO.phone}`,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'TODO_CALLE_Y_NUMERO',
+      addressLocality: 'TODO_CIUDAD',
+      addressRegion: 'TODO_DEPARTAMENTO',
+      addressCountry: 'UY',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 'TODO_LATITUD',
+      longitude: 'TODO_LONGITUD',
+    },
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        opens: '09:00',
+        closes: '18:00',
+      },
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: 'Sunday',
+        opens: '09:00',
+        closes: '13:00',
+      },
+    ],
+  };
+
+  const serviceCards = [
+    { icon: Leaf, title: 'Plantas de interior y exterior', text: 'Seleccion local con especies adaptadas a cada tipo de luz.' },
+    { icon: Sprout, title: 'Asesoria botanica', text: 'Te guiamos segun espacio, riego y estacionalidad en Uruguay.' },
+    { icon: Shovel, title: 'Sustratos y cuidado', text: 'Mezclas, fertilizantes y productos para mantener plantas saludables.' },
+    { icon: Package, title: 'Macetas y armado', text: 'Opciones con drenaje y armado de combos para regalo.' },
+  ];
 
   return (
-    <div className="contact-page animate-fade-in">
-      {/* ══════════════════════════
-          HERO CONTACTO
-      ══════════════════════════ */}
-      <section className="contact-hero section-padding--sm" style={{background: 'var(--crema)', paddingTop: '140px'}}>
-        <div className="container text-center">
-          <span className="section-label">Ubicación y contacto</span>
-          <h1 className="page-title">Dónde Encontrarnos</h1>
-          <p className="page-subtitle mb-8 mx-auto" style={{maxWidth: '500px'}}>
-            Vení a visitarnos al vivero en Las Piedras o escribinos para coordinar tu pedido.
-          </p>
-          <div className="title-underline"></div>
+    <article className="contact-page animate-fade-in">
+      <SEO
+        title="Visita nuestra tienda de plantas en Las Piedras | De Raiz"
+        description="Ubicacion, horarios y contacto de De Raiz en Las Piedras. Abri Google Maps, escribinos por WhatsApp y visita el local botanico."
+        path="/contacto"
+        jsonLd={localBusinessJsonLd}
+      />
+      {/*
+        JSON-LD skeleton (LocalBusiness) listo para ajustar datos finales:
+        <script type="application/ld+json">{...}</script>
+      */}
+
+      <section className="contact-hero section-padding--sm" style={{ paddingTop: '140px' }}>
+        <div className="container contact-hero-shell card">
+          <div className="contact-hero-copy">
+            <span className="section-label">Nuestra tienda</span>
+            <h1>Visita nuestra tienda de plantas en Las Piedras</h1>
+            <h2>Acercate al local y te ayudamos a elegir la planta ideal para tu espacio</h2>
+          </div>
+          <div className="contact-hero-image">
+            <img
+              src={STORE_IMAGES[0]}
+              alt="Fachada y exhibicion exterior del local De Raiz"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
         </div>
       </section>
 
-      {/* ══════════════════════════
-          INFO GRID
-      ══════════════════════════ */}
-      <section className="section-padding" style={{background: 'var(--blanco-calido)', position: 'relative'}}>
+      <section className="section-padding" style={{ background: 'var(--blanco-calido)', position: 'relative' }}>
         <div className="leaf-deco" style={{left: '-40px', top: '10%', color: 'var(--verde-salvia)', opacity: 0.15}}>
           <LeafSVG />
         </div>
-        
+
         <div className="container">
-          <div className="contact-grid">
-            {/* Info Cards */}
-            <div className="contact-info-cards">
-              <div className="info-card card">
-                <div className="info-icon-wrap"><MapPin size={24} /></div>
-                <div className="info-content">
-                  <h3>Ubicación</h3>
-                  <p>{BIZ_INFO.location}</p>
-                  <a 
-                    href={mapsUrl}
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="btn-text-link mt-2"
-                  >
-                    <Navigation size={16} /> Ver en Google Maps
-                  </a>
-                </div>
+          <div className="contact-main-grid">
+            <section className="contact-nap card" aria-labelledby="nap-title">
+              <h2 id="nap-title">Informacion del local</h2>
+              <address className="nap-address" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+                <p className="nap-row"><MapPin size={16} /> {BIZ_INFO.location}</p>
+                <p className="nap-row"><Phone size={16} /> <a href={`tel:+${BIZ_INFO.phone}`}>+{BIZ_INFO.phone}</a></p>
+              </address>
+
+              <div className="nap-hours" aria-label="Horarios de apertura">
+                <h3><Clock size={16} /> Horarios</h3>
+                <ul>
+                  <li><span>Lunes a Sabado</span><strong>09:00 - 18:00</strong></li>
+                  <li><span>Domingo</span><strong>09:00 - 13:00</strong></li>
+                </ul>
               </div>
 
-              <div className="info-card card">
-                <div className="info-icon-wrap"><Clock size={24} /></div>
-                <div className="info-content">
-                  <h3>Horarios</h3>
-                  <p>{BIZ_INFO.hours.split('|')[0]}</p>
-                  <p style={{color: 'var(--terracota)', fontWeight: 600}}>{BIZ_INFO.hours.split('|')[1]}</p>
-                </div>
-              </div>
-
-              <div className="info-card card">
-                <div className="info-icon-wrap"><CreditCard size={24} /></div>
-                <div className="info-content">
-                  <h3>Medios de pago</h3>
-                  <p>{BIZ_INFO.payment}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Action Box */}
-            <div className="contact-action-box card">
-              <div className="action-icon-wrap"><MessageCircle size={48} /></div>
-              <h2>¿Tenés alguna duda?</h2>
-              <p className="mb-8">Escribinos por WhatsApp y te guiamos para elegir plantas, regalos o resolver cuidados.</p>
-              
-              <div className="action-buttons">
-                <a 
-                  href={generateWaLink(WA_MESSAGES.ayudaElegir)} 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="btn btn-primary w-full"
-                >
-                  <MessageCircle size={20} />
-                  Quiero ayuda para elegir
+              <div className="nap-ctas">
+                <a href={mapsUrl} target="_blank" rel="noreferrer" className="btn btn-primary">
+                  <Navigation size={18} /> Abrir en Google Maps
                 </a>
-
-                <a href={generateWaLink(WA_MESSAGES.regaloRapido)} target="_blank" rel="noreferrer" className="btn btn-secondary w-full">
-                  <MessageCircle size={18} />
-                  Quiero armar un regalo
+                <a href={generateWaLink(WA_MESSAGES.ayudaElegir)} target="_blank" rel="noreferrer" className="btn btn-secondary">
+                  <MessageCircle size={18} /> Consultar por WhatsApp
                 </a>
-
-                <a href={`tel:+${BIZ_INFO.phone}`} className="btn btn-secondary w-full">
-                  <Phone size={18} />
-                  Llamar al vivero
-                </a>
-                
-                <div className="social-cta-row">
-                  <a href={mapsUrl} target="_blank" rel="noreferrer" className="social-btn" aria-label="Ver ubicación en Google Maps"><Globe size={20} /></a>
-                </div>
               </div>
-            </div>
-          </div>
-        </div>
+            </section>
 
-        <div className="leaf-deco" style={{right: '-40px', bottom: '10%', color: 'var(--terracota)', opacity: 0.1, transform: 'scaleX(-1)'}}>
-          <LeafSVG />
-        </div>
-      </section>
-
-      {/* ══════════════════════════
-          MAPA PLACEHOLDER
-      ══════════════════════════ */}
-      <section className="map-section section-padding--sm" style={{background: 'var(--crema)'}}>
-        <div className="container">
-          <div className="map-placeholder card">
-            <div className="map-overlay">
-              <MapPin size={40} color="var(--terracota)" />
-              <p>Las Piedras, Canelones (Ruta 48)</p>
-              <a 
-                href={mapsUrl}
-                target="_blank" 
-                rel="noreferrer"
-                className="btn btn-secondary btn-sm"
-              >
-                Abrir mapa completo
-              </a>
-            </div>
-            <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1200&q=80" alt="Mapa" className="map-img" />
+            <section className="contact-map card" aria-labelledby="map-title">
+              <h2 id="map-title">Mapa interactivo</h2>
+              <div className="map-frame-placeholder" role="region" aria-label="Contenedor para iframe de Google Maps">
+                <span>Placeholder para iframe Google Maps</span>
+              </div>
+            </section>
           </div>
         </div>
       </section>
-    </div>
+
+      <section className="section-padding--sm" style={{ background: 'var(--crema)' }}>
+        <div className="container">
+          <section className="local-services" aria-labelledby="services-title">
+            <h2 id="services-title">Que encontraras en el local</h2>
+            <div className="services-grid">
+              {serviceCards.map((service) => {
+                const Icon = service.icon;
+                return (
+                  <article key={service.title} className="service-card card">
+                    <div className="service-icon"><Icon size={18} /></div>
+                    <h3>{service.title}</h3>
+                    <p>{service.text}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className="local-gallery" aria-labelledby="gallery-title">
+            <h2 id="gallery-title">Galeria del local</h2>
+            <div className="gallery-grid">
+              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[0], alt: 'Mesa de flores en el vivero De Raiz' })}>
+                <img src={STORE_IMAGES[0]} alt="Mesa de flores en el vivero De Raiz" loading="lazy" decoding="async" />
+              </button>
+              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[1], alt: 'Sansevieria y cartel de De Raiz en el local' })}>
+                <img src={STORE_IMAGES[1]} alt="Sansevieria y cartel de De Raiz en el local" loading="lazy" decoding="async" />
+              </button>
+              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[2], alt: 'Espacio de plantas en la tienda De Raiz' })}>
+                <img src={STORE_IMAGES[2]} alt="Espacio de plantas en la tienda De Raiz" loading="lazy" decoding="async" />
+              </button>
+              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[3], alt: 'Sector de exhibicion botanica en De Raiz' })}>
+                <img src={STORE_IMAGES[3]} alt="Sector de exhibicion botanica en De Raiz" loading="lazy" decoding="async" />
+              </button>
+              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[4], alt: 'Vista general del vivero De Raiz' })}>
+                <img src={STORE_IMAGES[4]} alt="Vista general del vivero De Raiz" loading="lazy" decoding="async" />
+              </button>
+              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[5], alt: 'Detalle de plantas y macetas en De Raiz' })}>
+                <img src={STORE_IMAGES[5]} alt="Detalle de plantas y macetas en De Raiz" loading="lazy" decoding="async" />
+              </button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      {selectedImage && (
+        <div className="gallery-lightbox" onClick={() => setSelectedImage(null)}>
+          <div className="gallery-lightbox-inner" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="gallery-lightbox-close" onClick={() => setSelectedImage(null)} aria-label="Cerrar imagen completa">×</button>
+            <img src={selectedImage.src} alt={selectedImage.alt} />
+          </div>
+        </div>
+      )}
+    </article>
   );
 };
 
 export default Contact;
+  const [selectedImage, setSelectedImage] = useState(null);

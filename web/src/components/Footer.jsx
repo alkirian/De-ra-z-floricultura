@@ -28,6 +28,7 @@ const Footer = () => {
             <li><Link to="/">Inicio</Link></li>
             <li><Link to="/catalogo">Catálogo</Link></li>
             <li><Link to="/asesoramiento">Te ayudo a elegir</Link></li>
+            <li><Link to="/aprende-de-raiz">Aprende de Raiz</Link></li>
             <li><Link to="/regalos">Regalos</Link></li>
             <li><Link to="/contacto">Contacto</Link></li>
           </ul>

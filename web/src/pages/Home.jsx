@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, MessageCircle, Sparkles, Leaf, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { generateWaLink, WA_MESSAGES } from '../data/mockData';
+import SEO from '../components/SEO';
 import './Home.css';
 
 /* SVG de hoja decorativa */
@@ -193,12 +194,18 @@ const Home = () => {
 
   return (
     <div className="home-page">
+      <SEO
+        title="De Raiz Floricultura | Plantas, flores y asesoramiento en Las Piedras"
+        description="Vivero local en Las Piedras, Uruguay. Venta de plantas de interior, exterior, macetas e insumos con asesoramiento botanico personalizado."
+        path="/"
+      />
 
       {/* ══════════════════════════
           HERO SPLIT ORGÁNICO
       ══════════════════════════ */}
       <section className="hero split-hero">
         <div className="hero-content-left animate-fade-in">
+          <h1 className="sr-only">De Raiz Floricultura - Vivero en Las Piedras, Uruguay</h1>
           <span className="hero-eyebrow">
             <MapPin size={14} /> Las Piedras, Uruguay
           </span>
@@ -244,26 +251,32 @@ const Home = () => {
           <div className="container">
             <div className="text-center mb-8">
               <span className="section-label">Empezá por acá</span>
-              <h2>¿Qué necesitás hoy?</h2>
+              <h2>Lo mas buscado</h2>
             </div>
             <div className="quick-actions-grid">
-              <Link to="/catalogo?cat=Interior" className="quick-action-card">
-                <span className="quick-action-kicker">Quiero algo fácil</span>
-                <h3>Plantas para principiantes</h3>
-                <p>Opciones nobles para arrancar sin complicarte.</p>
-                <span className="quick-action-link">Ver plantas <ArrowRight size={16} /></span>
+              <Link to="/catalogo" className="quick-action-card">
+                <span className="quick-action-kicker">Top consultas</span>
+                <h3>Catalogo completo</h3>
+                <p>Plantas, macetas, sustratos e insumos en un solo lugar.</p>
+                <span className="quick-action-link">Ver catalogo <ArrowRight size={16} /></span>
               </Link>
               <Link to="/regalos" className="quick-action-card">
-                <span className="quick-action-kicker">Tengo un regalo</span>
-                <h3>Armá un combo en 2 pasos</h3>
-                <p>Te guiamos según ocasión y presupuesto.</p>
+                <span className="quick-action-kicker">Top consultas</span>
+                <h3>Regalos guiados</h3>
+                <p>Elegi rapido segun ocasion, presupuesto y estilo.</p>
                 <span className="quick-action-link">Ir a regalos <ArrowRight size={16} /></span>
               </Link>
-              <Link to="/asesoramiento" className="quick-action-card">
-                <span className="quick-action-kicker">No sé cuál elegir</span>
-                <h3>Hacé el diagnóstico</h3>
-                <p>Te lleva 1 minuto y te sugiere plantas concretas.</p>
-                <span className="quick-action-link">Empezar test <ArrowRight size={16} /></span>
+              <Link to="/catalogo?cat=Macetas" className="quick-action-card">
+                <span className="quick-action-kicker">Top consultas</span>
+                <h3>Macetas y tierra</h3>
+                <p>Explora opciones de drenaje, tamanos y mezclas recomendadas.</p>
+                <span className="quick-action-link">Ver insumos <ArrowRight size={16} /></span>
+              </Link>
+              <Link to="/aprende-de-raiz" className="quick-action-card">
+                <span className="quick-action-kicker">Nuevo</span>
+                <h3>Aprende de Raiz</h3>
+                <p>Guia botanica para Uruguay: estaciones, riego y cuidados.</p>
+                <span className="quick-action-link">Ir a la guia <ArrowRight size={16} /></span>
               </Link>
             </div>
           </div>

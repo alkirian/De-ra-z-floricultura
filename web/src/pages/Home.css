@@ -1010,7 +1010,7 @@
    RESPONSIVE
 ══════════════════════════════════════ */
 @media (min-width: 720px) {
-  .quick-actions-grid { grid-template-columns: repeat(3, 1fr); }
+  .quick-actions-grid { grid-template-columns: repeat(2, 1fr); }
   .solutions-grid { grid-template-columns: repeat(2, 1fr); }
   .how-to-buy-steps { grid-template-columns: repeat(3, 1fr); }
   .ops-strip {
@@ -1029,6 +1029,10 @@
     width: auto;
     min-width: 280px;
   }
+}
+
+@media (min-width: 1200px) {
+  .quick-actions-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
 @media (max-width: 719px) {

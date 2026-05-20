@@ -1,5 +1,6 @@
 import { memo } from 'react';
-import { Sun, Droplets, Ruler, Package, Sprout, ArrowRight } from 'lucide-react';
+import { Sun, Droplets, Ruler, Package, Sprout, ArrowRight, ShoppingCart } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 import './ProductCard.css';
 
 const getAttributeIcon = (type) => {
@@ -14,13 +15,24 @@ const getAttributeIcon = (type) => {
 
 const ProductCard = ({ product, onClick }) => {
   const { name, category, image, attributes, price } = product;
+  const { addToCart } = useCart();
+  const difficulty = attributes.find((attr) => attr.type === 'dificultad')?.value;
+  const difficultyTone = difficulty?.toLowerCase() || 'media';
 
   return (
     <article className="product-card" onClick={() => onClick(product)}>
       {/* Imagen con arco editorial */}
       <div className="product-image-wrap">
         <span className="product-cat-badge">{category}</span>
-        <img src={image} alt={name} className="product-image" loading="lazy" decoding="async" fetchPriority="low" />
+        {difficulty && <span className={`product-difficulty-badge is-${difficultyTone}`}>{difficulty}</span>}
+        <img
+          src={image}
+          alt={`Planta ${name} de categoria ${category} en De Raiz`}
+          className="product-image"
+          loading="lazy"
+          decoding="async"
+          fetchPriority="low"
+        />
       </div>
 
       {/* Info */}
@@ -44,6 +56,16 @@ const ProductCard = ({ product, onClick }) => {
 
         <button className="product-btn">
           Ver detalle <ArrowRight size={16} />
+        </button>
+        <button
+          className="product-cart-mini"
+          onClick={(e) => {
+            e.stopPropagation();
+            addToCart(product);
+          }}
+          aria-label={`Agregar ${name} a mi consulta`}
+        >
+          <ShoppingCart size={14} /> Agregar
         </button>
       </div>
     </article>

@@ -18,6 +18,45 @@
   transition: transform var(--t-fast), box-shadow var(--t-fast);
 }
 
+.wa-bubble {
+  position: fixed;
+  right: 16px;
+  bottom: 74px;
+  z-index: 1899;
+  max-width: 280px;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: #fffaf2;
+  border: 1px solid rgba(143, 168, 120, 0.45);
+  box-shadow: var(--shadow-sm);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  animation: wa-bubble-in 0.25s var(--ease-natural);
+}
+
+.wa-bubble p {
+  font-size: 0.84rem;
+  color: var(--texto-oscuro);
+  line-height: 1.45;
+}
+
+.wa-bubble button {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(166, 95, 58, 0.12);
+  color: var(--terracota);
+}
+
+@keyframes wa-bubble-in {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
 .wa-float:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 26px rgba(20, 56, 35, 0.34);

@@ -4,6 +4,45 @@
 
 .gifts-page { width: 100%; overflow-x: hidden; }
 
+.gift-progress-wrap {
+  margin-bottom: 16px;
+}
+
+.gift-progress-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+  margin-bottom: 8px;
+}
+
+.gift-progress-bar {
+  width: 100%;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: rgba(29, 52, 45, 0.12);
+  overflow: hidden;
+}
+
+.gift-progress-bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--verde-salvia), var(--terracota));
+  transition: width 0.35s ease;
+}
+
+.gift-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  background: transparent;
+  color: var(--texto-suave);
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
 /* Hero Regalos */
 .gifts-hero {
   position: relative;
@@ -18,6 +57,10 @@
 }
 
 @media (min-width: 640px) {
+  .gift-step-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 980px) {
   .gift-step-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
@@ -58,8 +101,62 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
+}
+
+.gift-pair-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.gift-pair-card {
+  padding: 20px;
+}
+
+.gift-pair-card h3 {
+  font-size: 1rem;
+  margin-bottom: 12px;
+  color: var(--verde-profundo);
+}
+
+.gift-preferences {
+  padding: 24px;
+  max-width: 740px;
+  margin: 0 auto;
+  display: grid;
+  gap: 20px;
+}
+
+.gift-pref-group h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--terracota);
+  margin-bottom: 10px;
+}
+
+.gift-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.gift-chip {
+  border: 1px solid rgba(166, 95, 58, 0.32);
+  background: rgba(166, 95, 58, 0.08);
+  color: var(--verde-profundo);
+  padding: 10px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.gift-chip.is-active,
+.gift-chip:hover {
+  background: var(--terracota);
+  color: var(--crema);
 }
 
 .presupuesto-card {
@@ -122,9 +219,97 @@
 
 /* Combo Result */
 .combo-result {
-  padding: 48px;
-  max-width: 700px;
+  padding: 28px;
+  max-width: 100%;
   margin: 0 auto;
+}
+
+.combo-result.is-segura {
+  border-color: rgba(101, 133, 82, 0.35);
+}
+
+.combo-result.is-vistosa {
+  border-color: rgba(166, 95, 58, 0.35);
+}
+
+.combo-result.is-premium {
+  border-color: rgba(170, 140, 57, 0.35);
+}
+
+.combo-image-wrap {
+  width: calc(100% + 56px);
+  margin: -28px -28px 16px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(29, 52, 45, 0.09);
+}
+
+.combo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.combo-head-button {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.combo-toggle {
+  color: var(--terracota);
+  opacity: 0.6;
+  transition: transform 0.25s ease;
+}
+
+.combo-toggle.is-open {
+  transform: rotate(90deg);
+  opacity: 1;
+}
+
+.combo-metas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 4px;
+}
+
+.combo-metas span {
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--verde-profundo);
+  background: rgba(101, 133, 82, 0.11);
+  border: 1px solid rgba(101, 133, 82, 0.32);
+  padding: 4px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+}
+
+.combo-body {
+  display: none;
+  padding-top: 10px;
+}
+
+.combo-body.is-open {
+  display: block;
+}
+
+.gift-results-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.combo-result-footer {
+  max-width: 840px;
 }
 
 .combo-header {
@@ -147,75 +332,101 @@
 }
 
 .combo-title {
-  font-size: 1.8rem;
+  font-size: 1.25rem;
   color: var(--verde-profundo);
 }
 
+.combo-kicker {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--terracota);
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
 .combo-description {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--texto-medio);
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   line-height: 1.6;
   font-style: italic;
 }
 
-.combo-details {
+.combo-simple-info {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 32px;
-  margin-bottom: 40px;
-  padding: 32px;
-  background: var(--crema);
-  border-radius: var(--radius-md);
-  border: 1px dashed var(--beige-medio);
-}
-
-@media (min-width: 640px) {
-  .combo-details { grid-template-columns: 1fr 1fr; }
-}
-
-.combo-col h4 {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--terracota);
-  margin-bottom: 16px;
-}
-
-.combo-col ul {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.combo-col li {
-  font-size: 0.95rem;
-  color: var(--texto-oscuro);
-  display: flex;
-  align-items: flex-start;
   gap: 10px;
+  margin: 14px 0 18px;
 }
 
-.combo-col li::before {
-  content: '🌿';
-  font-size: 0.9rem;
-  opacity: 0.8;
+.combo-simple-info p {
+  margin: 0;
+  font-size: 0.96rem;
+  color: var(--texto-oscuro);
+  line-height: 1.5;
+}
+
+.combo-simple-info strong {
+  color: var(--terracota);
 }
 
 .combo-cta {
   text-align: center;
-  padding-top: 16px;
+  padding-top: 4px;
 }
 
 .combo-cta p {
   font-size: 0.9rem;
   color: var(--texto-suave);
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .combo-cta p strong {
   color: var(--verde-profundo);
+}
+
+.gift-disclaimer {
+  margin-top: 14px;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 960px) {
+  .gift-pair-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .gift-results-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .combo-result {
+    padding: 30px;
+  }
+
+  .combo-image-wrap {
+    width: calc(100% + 60px);
+    margin: -30px -30px 16px;
+  }
+
+  .combo-body {
+    display: block;
+  }
+
+  .combo-head-button {
+    cursor: default;
+  }
+
+  .combo-toggle {
+    display: none;
+  }
+}
+
+@media (min-width: 1360px) {
+  .gift-results-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 480px) {

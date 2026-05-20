@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import { MOCK_PRODUCTS, CATEGORIES, generateWaLink, WA_MESSAGES } from '../data/mockData';
 import { Search, X, MessageCircle } from 'lucide-react';
+import SEO from '../components/SEO';
+import { useCart } from '../context/CartContext';
 import './Catalog.css';
 
 const MAIN_FILTERS = [
@@ -67,6 +69,7 @@ const Catalog = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeNeed, setActiveNeed] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const { addToCart, setIsCartOpen } = useCart();
 
   // Parse category from URL if present
   useEffect(() => {
@@ -136,6 +139,11 @@ const Catalog = () => {
 
   return (
     <div className="catalog-page catalog-page--fade">
+      <SEO
+        title="Catalogo de plantas, macetas e insumos en Las Piedras | De Raiz"
+        description="Explora nuestra variedad de plantas de interior, exterior, aromaticas para huerta y macetas con drenaje en Las Piedras, Canelones."
+        path="/catalogo"
+      />
       <div className="container">
         
         <div className="catalog-header text-center mb-8">
@@ -174,6 +182,16 @@ const Catalog = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               aria-label="Buscar productos"
             />
+            {searchQuery.trim() && (
+              <button
+                type="button"
+                className="catalog-search-clear"
+                onClick={() => setSearchQuery('')}
+                aria-label="Borrar busqueda"
+              >
+                <X size={14} />
+              </button>
+            )}
           </div>
           <button type="button" className="catalog-clear-btn" onClick={handleClearFilters}>
             Limpiar filtros
@@ -301,14 +319,17 @@ const Catalog = () => {
                 )}
 
 
-                <a 
-                  href={generateWaLink(WA_MESSAGES.disponibilidad(selectedProduct.name))} 
-                  target="_blank" 
-                  rel="noreferrer" 
+                <button
+                  type="button"
                   className="btn btn-primary w-full"
+                  onClick={() => {
+                    addToCart(selectedProduct);
+                    setIsCartOpen(true);
+                    setSelectedProduct(null);
+                  }}
                 >
-                  <MessageCircle size={20} style={{marginRight: '8px'}} /> Consultar stock
-                </a>
+                  Agregar a mi consulta
+                </button>
               </div>
             </div>
           </div>

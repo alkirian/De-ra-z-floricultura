@@ -17,7 +17,30 @@ export const WA_MESSAGES = {
   disponibilidad: (producto) => `¡Hola! Quiero consultar disponibilidad y precio de "${producto}".`,
   producto: (producto) => `¡Hola! Me encantó el producto "${producto}" que vi en la web. ¿Tienen stock?`,
   asesoramiento: (ubicacion, luz, proposito, sugeridas) => `¡Hola! Hice el test en la web. Busco una planta para un espacio de ${ubicacion} con ${luz} luz natural. Mi nivel de experiencia es: ${proposito}. La web me sugirió: ${sugeridas}. ¿Me pueden ayudar?`,
-  regalo: (tipo, presupuesto) => `¡Hola! Quiero armar un regalo de plantas. La ocasión es: ${tipo}. Mi presupuesto es: ${presupuesto}. ¿Qué combo me recomiendan?`,
+  regalo: (input, presupuestoLegacy) => {
+    if (typeof input === 'string') {
+      return `¡Hola! Quiero armar un regalo de plantas. La ocasion es: ${input}. Mi presupuesto es: ${presupuestoLegacy}. ¿Que combo me recomiendan?`;
+    }
+
+    const data = input || {};
+    return [
+      '¡Hola De Raiz! Complete la guia de regalos en la web y quiero avanzar con esta opcion:',
+      `${data.opcionElegida || 'Opcion sin especificar'}`,
+      `Tipo de opcion: ${data.opcionTipo || 'No indicado'}`,
+      `Referencia interna: ${data.opcionId || 'No indicado'}`,
+      `Ocasion: ${data.ocasion || 'No indicado'}`,
+      `Presupuesto: ${data.presupuesto || 'No indicado'}`,
+      `Experiencia de quien recibe: ${data.experiencia || 'No indicado'}`,
+      `Espacio: ${data.espacio || 'No indicado'}`,
+      `Luz: ${data.luz || 'No indicado'}`,
+      `Tamano preferido: ${data.tamano || 'No indicado'}`,
+      `Estilo: ${data.estilo || 'No indicado'}`,
+      `Preferencia con flor: ${data.flor || 'No indicado'}`,
+      `Hogar con mascotas: ${data.petFriendly || 'No indicado'}`,
+      `Urgencia: ${data.urgencia || 'No indicado'}`,
+      '¿Me confirman disponibilidad real y precio final?',
+    ].join('\n');
+  },
   ubicacion: "¡Hola! ¿Me pasan la ubicación exacta del vivero para ir a visitarlos?",
   testimonios: "Hola, vi la web de De Raíz Floricultura y quiero que me ayuden a elegir una planta."
 };
@@ -92,6 +115,24 @@ const SAFE_PLANT_IMAGES = {
 
 const getPlantImage = (name) => SAFE_PLANT_IMAGES[name] || `${BASE}images/placeholder_white.png`;
 
+const EASY_PLANTS = [
+  'sansevieria', 'potus', 'peperomia', 'dracena', 'spathiphyllum', 'hiedra',
+  'lavanda', 'gazania', 'copete', 'petunia', 'romero', 'menta', 'ruda', 'tomillo', 'albahaca'
+];
+const HARD_PLANTS = ['anthurium', 'aphelandra', 'croton', 'dieffenbachia', 'ficus lyrata'];
+
+const normalizePlantName = (value = '') => value
+  .toLowerCase()
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '');
+
+const getDifficulty = (name) => {
+  const normalized = normalizePlantName(name);
+  if (EASY_PLANTS.some((term) => normalized.includes(term))) return 'Baja';
+  if (HARD_PLANTS.some((term) => normalized.includes(term))) return 'Alta';
+  return 'Media';
+};
+
 const interiorPlants = [
   "Anthurium", "Aphelandra", "Areca", "Chamaedorea", "Croton", "Dieffenbachia", "Drácena", 
   "Ficus elástica", "Ficus lyrata", "Ficus variado", "Monstera", "Monstera Monkey", 
@@ -128,7 +169,8 @@ interiorPlants.forEach((name, i) => {
     description: `Planta de interior ${name}. Ideal para decorar tus espacios con vida.`,
     attributes: [
       { type: 'luz', value: 'Media a mucha (sin sol)' },
-      { type: 'riego', value: 'Riego moderado' }
+      { type: 'riego', value: 'Riego moderado' },
+      { type: 'dificultad', value: getDifficulty(name) }
     ],
     careTips: "Limpiar las hojas con un paño húmedo para mantenerlas brillantes. Evitar corrientes de aire frío y cambios bruscos de temperatura.",
     pests: "Cochinilla algodonosa, arañuela roja (en ambientes muy secos)."
@@ -147,7 +189,8 @@ exteriorPlants.forEach((name, i) => {
     description: `Planta de exterior ${name}. Perfecta para darle color a tu jardín o balcón.`,
     attributes: [
       { type: 'luz', value: 'Sol directo o semisombra' },
-      { type: 'riego', value: 'Riego frecuente' }
+      { type: 'riego', value: 'Riego frecuente' },
+      { type: 'dificultad', value: getDifficulty(name) }
     ],
     careTips: "Abonar a principios de primavera y verano. Podar ramas secas o flores marchitas para fomentar nuevo crecimiento.",
     pests: "Pulgones (especialmente en primavera), trips y hormigas cortadoras."
@@ -166,7 +209,8 @@ huertaPlants.forEach((name) => {
     description: `${name} perfecta para tu huerta orgánica en casa. Aromática y noble.`,
     attributes: [
       { type: 'luz', value: 'Pleno sol' },
-      { type: 'riego', value: 'Riego diario en verano' }
+      { type: 'riego', value: 'Riego diario en verano' },
+      { type: 'dificultad', value: getDifficulty(name) }
     ],
     careTips: "Cosechar regularmente para estimular el crecimiento y evitar que la planta semille prematuramente.",
     pests: "Mosca blanca, pulgones y orugas. Recomendamos preventivos orgánicos como aceite de Neem o jabón potásico."
