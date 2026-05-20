@@ -204,26 +204,26 @@
 
 .category-filters {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   width: max-content;
-  margin: 0 auto;
+  margin: 0;
   padding: 4px;
 }
 
 .category-scroll-hint {
   display: block;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--texto-suave);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .filter-btn {
-  padding: 8px 20px;
+  padding: 6px 14px;
   border-radius: var(--radius-full);
   border: 1.5px solid var(--beige-medio);
   background: transparent;
   color: var(--texto-medio);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   transition: all 0.25s ease;
   white-space: nowrap;
@@ -238,6 +238,10 @@
   background: var(--verde-profundo);
   border-color: var(--verde-profundo);
   color: var(--crema);
+}
+
+.catalog-load-more .btn {
+  min-width: 240px;
 }
 
 .catalog-results-head p {

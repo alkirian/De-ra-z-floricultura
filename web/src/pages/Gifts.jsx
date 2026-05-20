@@ -152,8 +152,8 @@ const GIFT_COMBOS = [
 ];
 
 const OCASIONES = [
-  { id: 'cumpleanos', label: '🎂 Cumpleaños', img: 'https://images.unsplash.com/photo-1603436326446-73e0c0c00499?auto=format&fit=crop&w=400&q=80' },
-  { id: 'casa', label: '🏡 Casa Nueva', img: 'https://images.unsplash.com/photo-1599427380126-e77a11129b85?auto=format&fit=crop&w=400&q=80' },
+  { id: 'cumpleanos', label: '🎂 Cumpleaños', img: `${CATALOG_IMAGES_BASE}/violeta_africana.png` },
+  { id: 'casa', label: '🏡 Casa Nueva', img: `${CATALOG_IMAGES_BASE}/monstera_deliciosa.png` },
   { id: 'oficina', label: '💻 Oficina / Trabajo', img: 'https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=400&q=80' },
   { id: 'aniversario', label: '💞 Aniversario', img: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=400&q=80' },
   { id: 'agradecimiento', label: '🙏 Agradecimiento', img: 'https://images.unsplash.com/photo-1534567110243-8875d64ca8ff?auto=format&fit=crop&w=400&q=80' },
@@ -310,14 +310,14 @@ const Gifts = () => {
   return (
     <div className="gifts-page">
       <SEO
-        title="Regalos con plantas y combos listos en Las Piedras | De Raiz"
-        description="Regala vida. Encontra combos listos de plantas con maceta para cumpleanos, casas nuevas y ocasiones especiales con atencion local."
+        title="Regalos con Plantas y Combos Preparados | De Raíz"
+        description="Regalá vida. Encontrá combos preparados de plantas con maceta para cumpleaños, inauguraciones y ocasiones especiales con atención local en Las Piedras."
         path="/regalos"
       />
       {/* ══════════════════════════
           HERO REGALOS (DARK)
       ══════════════════════════ */}
-      <section className="gifts-hero section-dark section-padding" style={{paddingTop: '160px'}}>
+      <section className="gifts-hero section-dark">
         <div className="hero-leaf hero-leaf--tl" style={{color: 'var(--verde-salvia)', opacity: 0.2}}>
           <LeafSVG />
         </div>
@@ -580,7 +580,7 @@ const Gifts = () => {
               <div className="combo-result card combo-result-footer">
                 <div className="combo-cta">
                   <p>
-                    Si preferis, te asesoramos segun estas respuestas y te proponemos disponibilidad real del momento.
+                    Si preferís, te asesoramos según estas respuestas y te proponemos disponibilidad real del momento.
                   </p>
                   <a
                     href={generateWaLink(WA_MESSAGES.regalo({ ...waPayload, opcionElegida: 'Necesito asesoramiento para elegir entre las 3 opciones' }))}
@@ -589,13 +589,13 @@ const Gifts = () => {
                     className="btn btn-secondary w-full"
                   >
                     <MessageCircle size={20} />
-                    Asesorenme por WhatsApp
+                    Asesorame por WhatsApp
                   </a>
                   <button className="btn btn-secondary w-full mt-4" onClick={reset}>
                     <RefreshCcw size={16} /> Armar otro regalo
                   </button>
                   <p className="gift-disclaimer">
-                    Los precios son rangos orientativos y pueden variar segun stock, tamano y maceta disponible.
+                    Los precios son rangos orientativos y pueden variar según stock, tamaño y maceta disponible.
                   </p>
                 </div>
               </div>

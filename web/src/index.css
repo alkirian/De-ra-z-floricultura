@@ -414,3 +414,14 @@ ul, ol { list-style: none; }
   height: 1px;
   background: var(--beige-medio);
 }
+
+/* Evitar desborde de texto en botones en pantallas móviles pequeñas */
+@media (max-width: 480px) {
+  .btn {
+    white-space: normal;
+    text-align: center;
+    font-size: 0.88rem;
+    padding: 12px 20px;
+  }
+}
+

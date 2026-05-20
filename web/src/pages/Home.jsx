@@ -195,8 +195,8 @@ const Home = () => {
   return (
     <div className="home-page">
       <SEO
-        title="De Raiz Floricultura | Plantas, flores y asesoramiento en Las Piedras"
-        description="Vivero local en Las Piedras, Uruguay. Venta de plantas de interior, exterior, macetas e insumos con asesoramiento botanico personalizado."
+        title="De Raíz Floricultura | Venta de Plantas y Macetas en Las Piedras"
+        description="Tu vivero de confianza en Las Piedras, Canelones. Encontrá la mejor selección de plantas de interior y exterior, tierra, sustratos y asesoramiento botánico personalizado en Ruta 48."
         path="/"
       />
 
@@ -258,25 +258,25 @@ const Home = () => {
                 <span className="quick-action-kicker">Top consultas</span>
                 <h3>Catalogo completo</h3>
                 <p>Plantas, macetas, sustratos e insumos en un solo lugar.</p>
-                <span className="quick-action-link">Ver catalogo <ArrowRight size={16} /></span>
+                <span className="quick-action-link">Ver catálogo <ArrowRight size={16} /></span>
               </Link>
               <Link to="/regalos" className="quick-action-card">
                 <span className="quick-action-kicker">Top consultas</span>
                 <h3>Regalos guiados</h3>
-                <p>Elegi rapido segun ocasion, presupuesto y estilo.</p>
+                <p>Elegí rápido según ocasión, presupuesto y estilo.</p>
                 <span className="quick-action-link">Ir a regalos <ArrowRight size={16} /></span>
               </Link>
               <Link to="/catalogo?cat=Macetas" className="quick-action-card">
                 <span className="quick-action-kicker">Top consultas</span>
                 <h3>Macetas y tierra</h3>
-                <p>Explora opciones de drenaje, tamanos y mezclas recomendadas.</p>
+                <p>Explorá opciones de drenaje, tamaños y mezclas recomendadas.</p>
                 <span className="quick-action-link">Ver insumos <ArrowRight size={16} /></span>
               </Link>
               <Link to="/aprende-de-raiz" className="quick-action-card">
                 <span className="quick-action-kicker">Nuevo</span>
-                <h3>Aprende de Raiz</h3>
-                <p>Guia botanica para Uruguay: estaciones, riego y cuidados.</p>
-                <span className="quick-action-link">Ir a la guia <ArrowRight size={16} /></span>
+                <h3>Aprendé de Raíz</h3>
+                <p>Guía botánica para Uruguay: estaciones, riego y cuidados.</p>
+                <span className="quick-action-link">Ir a la guía <ArrowRight size={16} /></span>
               </Link>
             </div>
           </div>

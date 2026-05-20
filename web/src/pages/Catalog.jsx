@@ -69,6 +69,7 @@ const Catalog = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeNeed, setActiveNeed] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(12);
   const { addToCart, setIsCartOpen } = useCart();
 
   // Parse category from URL if present
@@ -80,6 +81,7 @@ const Catalog = () => {
 
     setSearchQuery(queryParam || '');
     setActiveNeed(NEED_FILTERS[needParam] ? needParam : '');
+    setVisibleCount(12);
 
     if (catParam) {
       if (CATEGORIES.plantas.includes(catParam)) {
@@ -100,6 +102,7 @@ const Catalog = () => {
     setActiveCategory('Todas');
     setSearchQuery('');
     setActiveNeed('');
+    setVisibleCount(12);
   };
 
   const handleMainFilterChange = (filterId) => {
@@ -108,6 +111,7 @@ const Catalog = () => {
     if (filterId === 'macetas') {
       setActiveCategory('Todas');
     }
+    setVisibleCount(12);
   };
 
   const filteredProducts = useMemo(() => {
@@ -140,8 +144,8 @@ const Catalog = () => {
   return (
     <div className="catalog-page catalog-page--fade">
       <SEO
-        title="Catalogo de plantas, macetas e insumos en Las Piedras | De Raiz"
-        description="Explora nuestra variedad de plantas de interior, exterior, aromaticas para huerta y macetas con drenaje en Las Piedras, Canelones."
+        title="Catálogo de Plantas, Macetas e Insumos en Las Piedras | De Raíz"
+        description="Explorá nuestra variedad de plantas de interior y exterior, tierra, sustratos y macetas modernas en Las Piedras, Canelones. Hacé tu consulta de stock hoy."
         path="/catalogo"
       />
       <div className="container">
@@ -187,7 +191,7 @@ const Catalog = () => {
                 type="button"
                 className="catalog-search-clear"
                 onClick={() => setSearchQuery('')}
-                aria-label="Borrar busqueda"
+                aria-label="Borrar búsqueda"
               >
                 <X size={14} />
               </button>
@@ -239,7 +243,7 @@ const Catalog = () => {
 
         {/* Products Grid */}
         <div className="products-grid">
-          {filteredProducts.map(product => (
+          {filteredProducts.slice(0, visibleCount).map(product => (
             <ProductCard 
               key={product.id} 
               product={product} 
@@ -247,6 +251,18 @@ const Catalog = () => {
             />
           ))}
         </div>
+
+        {visibleCount < filteredProducts.length && (
+          <div className="catalog-load-more text-center mt-8 mb-10">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => setVisibleCount((prev) => prev + 12)}
+            >
+              Mostrar más ({filteredProducts.length - visibleCount} restantes)
+            </button>
+          </div>
+        )}
 
         {filteredProducts.length === 0 && (
           <div className="text-center mt-12" style={{color: 'var(--color-text-light)'}}>
@@ -328,7 +344,7 @@ const Catalog = () => {
                     setSelectedProduct(null);
                   }}
                 >
-                  Agregar a mi consulta
+                  Agregar para consultar stock y precio
                 </button>
               </div>
             </div>

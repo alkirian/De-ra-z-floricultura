@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ScrollToTop from './components/ScrollToTop';
@@ -6,21 +6,14 @@ import WhatsAppFloat from './components/WhatsAppFloat';
 import CartPanel from './components/CartPanel';
 import CartFloatButton from './components/CartFloatButton';
 import Home from './pages/Home';
+import Catalog from './pages/Catalog';
+import Advice from './pages/Advice';
+import Gifts from './pages/Gifts';
+import Contact from './pages/Contact';
+import LearnRoot from './pages/LearnRoot';
+import LearnTopic from './pages/LearnTopic';
 import Footer from './components/Footer';
 import './index.css';
-
-const Catalog = lazy(() => import('./pages/Catalog'));
-const Advice = lazy(() => import('./pages/Advice'));
-const Gifts = lazy(() => import('./pages/Gifts'));
-const Contact = lazy(() => import('./pages/Contact'));
-const LearnRoot = lazy(() => import('./pages/LearnRoot'));
-const LearnTopic = lazy(() => import('./pages/LearnTopic'));
-
-const RouteFallback = () => (
-  <div className="route-fallback" aria-live="polite">
-    Cargando...
-  </div>
-);
 
 function App() {
   const basename = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -31,17 +24,15 @@ function App() {
       <div className="app-container">
         <Navbar />
         <main>
-          <Suspense fallback={<RouteFallback />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/catalogo" element={<Catalog />} />
-              <Route path="/asesoramiento" element={<Advice />} />
-              <Route path="/regalos" element={<Gifts />} />
-              <Route path="/aprende-de-raiz" element={<LearnRoot />} />
-              <Route path="/aprende-de-raiz/:topicSlug" element={<LearnTopic />} />
-              <Route path="/contacto" element={<Contact />} />
-            </Routes>
-          </Suspense>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/catalogo" element={<Catalog />} />
+            <Route path="/asesoramiento" element={<Advice />} />
+            <Route path="/regalos" element={<Gifts />} />
+            <Route path="/aprende-de-raiz" element={<LearnRoot />} />
+            <Route path="/aprende-de-raiz/:topicSlug" element={<LearnTopic />} />
+            <Route path="/contacto" element={<Contact />} />
+          </Routes>
         </main>
         <Footer />
         <CartPanel />

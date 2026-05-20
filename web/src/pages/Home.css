@@ -597,7 +597,8 @@
 .accordion-item:hover,
 .accordion-item--active {
   flex: 2.8;
-  height: 420px;
+  height: auto;
+  min-height: 280px;
   box-shadow: var(--shadow-md);
   border-color: var(--cat-color);
 }

@@ -19,21 +19,21 @@ export const WA_MESSAGES = {
   asesoramiento: (ubicacion, luz, proposito, sugeridas) => `¡Hola! Hice el test en la web. Busco una planta para un espacio de ${ubicacion} con ${luz} luz natural. Mi nivel de experiencia es: ${proposito}. La web me sugirió: ${sugeridas}. ¿Me pueden ayudar?`,
   regalo: (input, presupuestoLegacy) => {
     if (typeof input === 'string') {
-      return `¡Hola! Quiero armar un regalo de plantas. La ocasion es: ${input}. Mi presupuesto es: ${presupuestoLegacy}. ¿Que combo me recomiendan?`;
+      return `¡Hola! Quiero armar un regalo de plantas. La ocasión es: ${input}. Mi presupuesto es: ${presupuestoLegacy}. ¿Qué combo me recomiendan?`;
     }
 
     const data = input || {};
     return [
-      '¡Hola De Raiz! Complete la guia de regalos en la web y quiero avanzar con esta opcion:',
-      `${data.opcionElegida || 'Opcion sin especificar'}`,
-      `Tipo de opcion: ${data.opcionTipo || 'No indicado'}`,
+      '¡Hola De Raíz! Completé la guía de regalos en la web y quiero avanzar con esta opción:',
+      `${data.opcionElegida || 'Opción sin especificar'}`,
+      `Tipo de opción: ${data.opcionTipo || 'No indicado'}`,
       `Referencia interna: ${data.opcionId || 'No indicado'}`,
-      `Ocasion: ${data.ocasion || 'No indicado'}`,
+      `Ocasión: ${data.ocasion || 'No indicado'}`,
       `Presupuesto: ${data.presupuesto || 'No indicado'}`,
       `Experiencia de quien recibe: ${data.experiencia || 'No indicado'}`,
       `Espacio: ${data.espacio || 'No indicado'}`,
       `Luz: ${data.luz || 'No indicado'}`,
-      `Tamano preferido: ${data.tamano || 'No indicado'}`,
+      `Tamaño preferido: ${data.tamano || 'No indicado'}`,
       `Estilo: ${data.estilo || 'No indicado'}`,
       `Preferencia con flor: ${data.flor || 'No indicado'}`,
       `Hogar con mascotas: ${data.petFriendly || 'No indicado'}`,

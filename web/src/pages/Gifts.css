@@ -47,6 +47,16 @@
 .gifts-hero {
   position: relative;
   overflow: hidden;
+  padding-top: 80px;
+  padding-bottom: 48px;
+  background: linear-gradient(155deg, #1b3020 0%, var(--verde-profundo) 40%, #3a5c38 100%);
+}
+
+@media (min-width: 820px) {
+  .gifts-hero {
+    padding-top: 100px;
+    padding-bottom: 64px;
+  }
 }
 
 /* Grid de Ocasiones */

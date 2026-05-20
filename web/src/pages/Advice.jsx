@@ -265,8 +265,8 @@ const Advice = () => {
   return (
     <div className="advice-page">
       <SEO
-        title="Asesoramiento botanico personalizado gratuito | De Raiz"
-        description="No sabes que planta elegir? Hace nuestro test rapido de 1 minuto y recibi recomendaciones ideales segun la luz y el espacio de tu hogar."
+        title="Asesoramiento Botánico Personalizado y Diagnóstico | De Raíz"
+        description="¿No sabés qué planta elegir? Hacé nuestro test rápido de 1 minuto y recibí recomendaciones ideales según la luz y el espacio de tu hogar en Uruguay."
         path="/asesoramiento"
       />
       {/* ══════════════════════════
@@ -277,7 +277,7 @@ const Advice = () => {
           <span className="section-label">Asesoramiento</span>
           <h1 className="page-title">Consultorio Botánico</h1>
           <p className="page-subtitle mb-8 mx-auto" style={{maxWidth: '600px'}}>
-            Te ayudamos a elegir la planta correcta segun tu luz, tu espacio y tu tiempo de cuidado.
+            Te ayudamos a elegir la planta correcta según tu luz, tu espacio y tu tiempo de cuidado.
           </p>
           <div className="title-underline"></div>
         </div>
@@ -300,7 +300,7 @@ const Advice = () => {
             </a>
             <a href={generateWaLink(WA_MESSAGES.regaloRapido)} target="_blank" rel="noreferrer" className="advice-service-card">
               <h3>Regalo armado</h3>
-              <p>Te recomendamos opciones segun ocasion y presupuesto.</p>
+              <p>Te recomendamos opciones según ocasión y presupuesto.</p>
             </a>
           </div>
         </div>

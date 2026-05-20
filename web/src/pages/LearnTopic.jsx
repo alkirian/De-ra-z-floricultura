@@ -59,6 +59,8 @@ const LearnTopic = () => {
     ? visibleTopics[(topicIndex + 1) % visibleTopics.length]
     : null;
 
+  const isCustomTopic = topic.slug === 'luz-y-ubicacion' || topic.slug === 'guia-ficus-lyrata';
+
   return (
     <div className="learn-topic-page">
       <SEO
@@ -67,37 +69,49 @@ const LearnTopic = () => {
         path={`/aprende-de-raiz/${topic.slug}`}
         jsonLd={articleJsonLd}
       />
-      <section className="learn-topic-hero section-padding--sm" style={{ paddingTop: '140px' }}>
-        <div className="container learn-topic-hero-grid">
-          <div>
-            <Link to="/aprende-de-raiz" className="learn-topic-back">
-              <ArrowLeft size={14} /> Volver a Aprende de Raiz
-            </Link>
-            <span className="badge badge-terra">{topic.tag}</span>
-            <h1>{topic.title}</h1>
-            <p>{topic.intro}</p>
-            <div className="learn-topic-bullets">
-              {topic.highlights.map((item) => (
-                <span key={item}>{item}</span>
-              ))}
+      {isCustomTopic ? (
+        <header className="learn-topic-minimal-header container" style={{ paddingTop: '110px', paddingBottom: '10px' }}>
+          <Link to="/aprende-de-raiz" className="learn-topic-back">
+            <ArrowLeft size={14} /> Volver a Aprende de Raiz
+          </Link>
+        </header>
+      ) : (
+        <section className="learn-topic-hero section-padding--sm" style={{ paddingTop: '140px' }}>
+          <div className="container learn-topic-hero-grid">
+            <div>
+              <Link to="/aprende-de-raiz" className="learn-topic-back">
+                <ArrowLeft size={14} /> Volver a Aprende de Raiz
+              </Link>
+              <span className="badge badge-terra">{topic.tag}</span>
+              <h1>{topic.title}</h1>
+              <p>{topic.intro}</p>
+              <div className="learn-topic-bullets">
+                {topic.highlights.map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
+              </div>
+            </div>
+            <div className="learn-topic-cover-wrap card">
+              <img src={topic.image} alt={topic.title} className="learn-topic-cover" />
+              <p>Tiempo de lectura estimado: <strong>{topic.readTime}</strong></p>
             </div>
           </div>
-          <div className="learn-topic-cover-wrap card">
-            <img src={topic.image} alt={topic.title} className="learn-topic-cover" />
-            <p>Tiempo de lectura estimado: <strong>{topic.readTime}</strong></p>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      <section className="section-padding" style={{ background: 'var(--crema)' }}>
-        <div className="container learn-topic-layout">
-          <div className="learn-topic-main">
-            {topic.slug === 'luz-y-ubicacion' ? (
-              <BotanicaLuzUruguay />
-            ) : topic.slug === 'guia-ficus-lyrata' ? (
-              <DefinitiveGuideArticle topic={topic} />
-            ) : (
-              <>
+      <section className="section-padding" style={{ background: 'var(--crema)', paddingTop: isCustomTopic ? '10px' : undefined }}>
+        <div className="container">
+          {isCustomTopic ? (
+            <div className="learn-topic-custom-container">
+              {topic.slug === 'luz-y-ubicacion' ? (
+                <BotanicaLuzUruguay />
+              ) : (
+                <DefinitiveGuideArticle topic={topic} />
+              )}
+            </div>
+          ) : (
+            <div className="learn-topic-layout">
+              <div className="learn-topic-main">
                 {topic.sections.map((section) => (
                   <article key={section.id} id={section.id} className="learn-topic-section card">
                     <h2>{section.title}</h2>
@@ -131,39 +145,39 @@ const LearnTopic = () => {
                     </div>
                   </article>
                 )}
-              </>
-            )}
-          </div>
+              </div>
 
-          <aside className="learn-topic-side card">
-            <h3>Indice rapido</h3>
-            <ul>
-              {topic.sections.map((section) => (
-                <li key={section.id}>
-                  <a href={`#${section.id}`}>{section.title}</a>
-                </li>
-              ))}
-              {topic.seasonNotes && (
-                <li>
-                  <a href="#ajustes-estacion">Ajustes por estacion</a>
-                </li>
-              )}
-            </ul>
+              <aside className="learn-topic-side card">
+                <h3>Indice rapido</h3>
+                <ul>
+                  {topic.sections.map((section) => (
+                    <li key={section.id}>
+                      <a href={`#${section.id}`}>{section.title}</a>
+                    </li>
+                  ))}
+                  {topic.seasonNotes && (
+                    <li>
+                      <a href="#ajustes-estacion">Ajustes por estacion</a>
+                    </li>
+                  )}
+                </ul>
 
-            <div className="learn-topic-side-block">
-              <h4>Relacionado en catalogo</h4>
-              {topic.relatedCatalog.map((linkItem) => (
-                <Link key={linkItem.to} to={linkItem.to} className="learn-topic-side-link">
-                  {linkItem.label} <ArrowRight size={14} />
-                </Link>
-              ))}
+                <div className="learn-topic-side-block">
+                  <h4>Relacionado en catalogo</h4>
+                  {topic.relatedCatalog.map((linkItem) => (
+                    <Link key={linkItem.to} to={linkItem.to} className="learn-topic-side-link">
+                      {linkItem.label} <ArrowRight size={14} />
+                    </Link>
+                  ))}
+                </div>
+
+                <a href={generateWaLink(waMessage)} target="_blank" rel="noreferrer" className="btn btn-primary w-full">
+                  <MessageCircle size={18} />
+                  Quiero ayuda con este tema
+                </a>
+              </aside>
             </div>
-
-            <a href={generateWaLink(waMessage)} target="_blank" rel="noreferrer" className="btn btn-primary w-full">
-              <MessageCircle size={18} />
-              Quiero ayuda con este tema
-            </a>
-          </aside>
+          )}
         </div>
 
         {nextTopic && (

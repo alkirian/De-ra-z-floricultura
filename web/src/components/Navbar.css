@@ -175,3 +175,22 @@
   .nav-cta   { display: inline-flex; }
   .nav-toggle { display: none; }
 }
+
+/* Estado abierto en móvil: fuerza fondo crema sólido y colores verdes profundos legibles */
+.navbar.navbar--open {
+  background: var(--crema) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: 1px solid rgba(229, 211, 186, 0.7);
+  box-shadow: 0 4px 24px rgba(43, 36, 28, 0.06);
+  padding: 12px 0 !important;
+}
+
+.navbar.navbar--open .nav-logo-text {
+  color: var(--verde-profundo) !important;
+}
+
+.navbar.navbar--open .nav-toggle {
+  color: var(--verde-profundo) !important;
+}
+

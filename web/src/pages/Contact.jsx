@@ -13,6 +13,7 @@ const LeafSVG = ({ className }) => (
 );
 
 const Contact = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
   const BASE = import.meta.env.BASE_URL;
   const STORE_IMAGES = [
     `${BASE}images/Instagram/641159597_18569292976036794_7285793248818445959_n.jpg`,
@@ -27,20 +28,20 @@ const Contact = () => {
   const localBusinessJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'GardenStore',
-    name: 'De Raiz',
+    name: 'De Raíz Floricultura',
     url: 'https://alkirian.github.io/De-ra-z-floricultura/contacto',
     telephone: `+${BIZ_INFO.phone}`,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'TODO_CALLE_Y_NUMERO',
-      addressLocality: 'TODO_CIUDAD',
-      addressRegion: 'TODO_DEPARTAMENTO',
+      streetAddress: 'Ruta 48, Las Piedras',
+      addressLocality: 'Las Piedras',
+      addressRegion: 'Canelones',
       addressCountry: 'UY',
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 'TODO_LATITUD',
-      longitude: 'TODO_LONGITUD',
+      latitude: -34.7291,
+      longitude: -56.2201,
     },
     openingHoursSpecification: [
       {
@@ -59,17 +60,17 @@ const Contact = () => {
   };
 
   const serviceCards = [
-    { icon: Leaf, title: 'Plantas de interior y exterior', text: 'Seleccion local con especies adaptadas a cada tipo de luz.' },
-    { icon: Sprout, title: 'Asesoria botanica', text: 'Te guiamos segun espacio, riego y estacionalidad en Uruguay.' },
-    { icon: Shovel, title: 'Sustratos y cuidado', text: 'Mezclas, fertilizantes y productos para mantener plantas saludables.' },
+    { icon: Leaf, title: 'Plantas de interior y exterior', text: 'Selección local con especies adaptadas a cada tipo de luz.' },
+    { icon: Sprout, title: 'Asesoría botánica', text: 'Te guiamos según espacio, riego y estacionalidad en Uruguay.' },
+    { icon: Shovel, title: 'Sustratos y cuidado', text: 'Mezclas, fertilizantes y productos para mantener tus plantas saludables.' },
     { icon: Package, title: 'Macetas y armado', text: 'Opciones con drenaje y armado de combos para regalo.' },
   ];
 
   return (
     <article className="contact-page animate-fade-in">
       <SEO
-        title="Visita nuestra tienda de plantas en Las Piedras | De Raiz"
-        description="Ubicacion, horarios y contacto de De Raiz en Las Piedras. Abri Google Maps, escribinos por WhatsApp y visita el local botanico."
+        title="Visita nuestra tienda de plantas en Las Piedras | De Raíz"
+        description="Ubicación, horarios y contacto de De Raíz en Las Piedras. Abrí Google Maps, escribinos por WhatsApp y visitá nuestro local botánico."
         path="/contacto"
         jsonLd={localBusinessJsonLd}
       />
@@ -78,7 +79,7 @@ const Contact = () => {
         <script type="application/ld+json">{...}</script>
       */}
 
-      <section className="contact-hero section-padding--sm" style={{ paddingTop: '140px' }}>
+      <section className="contact-hero section-padding--sm" style={{ paddingTop: '80px' }}>
         <div className="container contact-hero-shell card">
           <div className="contact-hero-copy">
             <span className="section-label">Nuestra tienda</span>
@@ -88,7 +89,7 @@ const Contact = () => {
           <div className="contact-hero-image">
             <img
               src={STORE_IMAGES[0]}
-              alt="Fachada y exhibicion exterior del local De Raiz"
+              alt="Fachada y exhibición exterior del local De Raíz"
               loading="eager"
               decoding="async"
             />
@@ -104,7 +105,7 @@ const Contact = () => {
         <div className="container">
           <div className="contact-main-grid">
             <section className="contact-nap card" aria-labelledby="nap-title">
-              <h2 id="nap-title">Informacion del local</h2>
+              <h2 id="nap-title">Información del local</h2>
               <address className="nap-address" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
                 <p className="nap-row"><MapPin size={16} /> {BIZ_INFO.location}</p>
                 <p className="nap-row"><Phone size={16} /> <a href={`tel:+${BIZ_INFO.phone}`}>+{BIZ_INFO.phone}</a></p>
@@ -113,7 +114,7 @@ const Contact = () => {
               <div className="nap-hours" aria-label="Horarios de apertura">
                 <h3><Clock size={16} /> Horarios</h3>
                 <ul>
-                  <li><span>Lunes a Sabado</span><strong>09:00 - 18:00</strong></li>
+                  <li><span>Lunes a Sábado</span><strong>09:00 - 18:00</strong></li>
                   <li><span>Domingo</span><strong>09:00 - 13:00</strong></li>
                 </ul>
               </div>
@@ -129,9 +130,31 @@ const Contact = () => {
             </section>
 
             <section className="contact-map card" aria-labelledby="map-title">
-              <h2 id="map-title">Mapa interactivo</h2>
-              <div className="map-frame-placeholder" role="region" aria-label="Contenedor para iframe de Google Maps">
-                <span>Placeholder para iframe Google Maps</span>
+              <h2 id="map-title">Ubicación y Visita</h2>
+              <div className="botanical-visit-card">
+                <div className="botanical-visit-badge">
+                  <Leaf size={14} /> ¡Visitanos!
+                </div>
+                <h3>Nuestro Local en Canelones</h3>
+                <p className="botanical-visit-text">
+                  Ruta 48, Las Piedras, Uruguay. Te esperamos con la mejor selección y asesoramiento personalizado de plantas en Canelones. Escribinos por WhatsApp para coordinar tu visita o conocer la mejor forma de llegar.
+                </p>
+                <div className="botanical-visit-map-art">
+                  <div className="map-art-route">Ruta 48</div>
+                  <div className="map-art-city">Las Piedras</div>
+                  <div className="map-art-pin">
+                    <MapPin size={24} className="animate-bounce" />
+                    <span>De Raíz</span>
+                  </div>
+                </div>
+                <div className="botanical-visit-ctas">
+                  <a href={mapsUrl} target="_blank" rel="noreferrer" className="btn btn-primary">
+                    <Navigation size={16} /> Abrir Google Maps
+                  </a>
+                  <a href={generateWaLink(WA_MESSAGES.ayudaElegir)} target="_blank" rel="noreferrer" className="btn btn-secondary">
+                    <MessageCircle size={16} /> Chat por WhatsApp
+                  </a>
+                </div>
               </div>
             </section>
           </div>
@@ -141,7 +164,7 @@ const Contact = () => {
       <section className="section-padding--sm" style={{ background: 'var(--crema)' }}>
         <div className="container">
           <section className="local-services" aria-labelledby="services-title">
-            <h2 id="services-title">Que encontraras en el local</h2>
+            <h2 id="services-title">Qué encontrarás en el local</h2>
             <div className="services-grid">
               {serviceCards.map((service) => {
                 const Icon = service.icon;
@@ -157,7 +180,7 @@ const Contact = () => {
           </section>
 
           <section className="local-gallery" aria-labelledby="gallery-title">
-            <h2 id="gallery-title">Galeria del local</h2>
+            <h2 id="gallery-title">Galería del local</h2>
             <div className="gallery-grid">
               <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[0], alt: 'Mesa de flores en el vivero De Raiz' })}>
                 <img src={STORE_IMAGES[0]} alt="Mesa de flores en el vivero De Raiz" loading="lazy" decoding="async" />
@@ -195,4 +218,3 @@ const Contact = () => {
 };
 
 export default Contact;
-  const [selectedImage, setSelectedImage] = useState(null);
