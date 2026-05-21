@@ -196,7 +196,7 @@
   }
 
   .hero-wave {
-    height: 78%;
+    height: 88%;
   }
 
   .hero-bottom-separator {
@@ -213,6 +213,9 @@
 
   .hero-content-left {
     width: min(100%, 500px);
+    margin-inline: auto;
+    align-items: center;
+    text-align: center;
     padding: 120px 1.35rem 1.8rem;
   }
 
@@ -229,7 +232,7 @@
 
   .hero-subtitle {
     max-width: 330px;
-    margin-bottom: 18px;
+    margin: 0 auto 18px;
     font-size: 0.98rem;
     line-height: 1.52;
   }
@@ -239,6 +242,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    justify-content: center;
   }
 
   .hero-actions .btn {
@@ -798,7 +802,7 @@
   }
 
   .hero-subtitle {
-    margin-bottom: 14px;
+    margin: 0 auto 14px;
     font-size: 0.95rem;
     line-height: 1.48;
   }
@@ -808,6 +812,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    justify-content: center;
   }
 
   .hero-actions .btn {
