@@ -236,14 +236,16 @@
 
   .hero-actions {
     width: 100%;
-    gap: 10px;
+    gap: 8px;
   }
 
   .hero-actions .btn {
     width: 100%;
     justify-content: center;
-    min-height: 48px;
-    padding: 11px 14px;
+    min-height: 44px;
+    padding: 9px 14px;
+    font-size: 0.9rem;
+    border-radius: 999px;
   }
 }
 /* ══════════════════════════════════════
@@ -801,15 +803,15 @@
 
   .hero-actions {
     width: 100%;
-    gap: 9px;
+    gap: 7px;
   }
 
   .hero-actions .btn {
     width: 100%;
     justify-content: center;
-    min-height: 48px;
-    padding: 10px 12px;
-    font-size: 0.93rem;
+    min-height: 42px;
+    padding: 8px 12px;
+    font-size: 0.86rem;
   }
 
   .quick-action-card {
