@@ -223,3 +223,93 @@
 .product-card:hover .product-btn svg {
   transform: translateX(4px);
 }
+
+@media (max-width: 639px) {
+  .product-card {
+    padding: 9px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(255, 249, 239, 0.94), rgba(246, 236, 224, 0.86));
+    border: 1px solid rgba(229, 211, 186, 0.9);
+    box-shadow: 0 10px 20px rgba(43, 36, 28, 0.08);
+    overflow: hidden;
+  }
+
+  .product-card:hover {
+    transform: none;
+  }
+
+  .product-image-wrap {
+    aspect-ratio: 1 / 1.08;
+    border-radius: 18px;
+    margin-bottom: 10px;
+  }
+
+  .product-image {
+    width: 94%;
+    height: 94%;
+    filter: drop-shadow(0 14px 18px rgba(47, 74, 46, 0.15));
+  }
+
+  .product-cat-badge {
+    top: 9px;
+    right: 9px;
+    max-width: calc(100% - 18px);
+    padding: 5px 9px;
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 12px;
+  }
+
+  .product-difficulty-badge {
+    top: auto;
+    bottom: 8px;
+    left: 8px;
+    padding: 4px 8px;
+    font-size: 0.56rem;
+  }
+
+  .product-body {
+    padding: 0 2px 4px;
+  }
+
+  .product-name {
+    font-size: 1.04rem;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    min-height: 2.45em;
+  }
+
+  .product-price-wrap {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+  }
+
+  .product-price {
+    font-size: 0.98rem;
+  }
+
+  .product-attrs {
+    margin-bottom: 12px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .product-attr {
+    font-size: 0.72rem;
+    gap: 5px;
+  }
+
+  .product-btn {
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+  }
+
+  .product-cart-mini {
+    margin-top: 8px;
+    font-size: 0.7rem;
+    padding: 5px 8px;
+  }
+}

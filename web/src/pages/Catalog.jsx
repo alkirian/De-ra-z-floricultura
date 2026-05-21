@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+﻿import { useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import { MOCK_PRODUCTS, CATEGORIES, generateWaLink, WA_MESSAGES } from '../data/mockData';
@@ -8,15 +8,15 @@ import { useCart } from '../context/CartContext';
 import './Catalog.css';
 
 const MAIN_FILTERS = [
-  { id: 'plantas', label: '🌱 Plantas' },
-  { id: 'macetas', label: '🪴 Macetas' },
-  { id: 'insumos', label: '🛠️ Insumos' },
+  { id: 'plantas', label: 'Plantas' },
+  { id: 'macetas', label: 'Macetas' },
+  { id: 'insumos', label: 'Insumos' },
 ];
 
 const INSUMOS_SUBCATEGORIES = CATEGORIES.insumos.filter((cat) => cat !== 'Macetas');
 
 const NEED_FILTERS = {
-  'planta-facil': 'Plantas fáciles',
+  'planta-facil': 'Plantas fÃ¡ciles',
   'poca-luz': 'Poca luz',
   'mucha-luz': 'Mucha luz',
   'poco-riego': 'Poco riego',
@@ -59,7 +59,7 @@ const matchesNeed = (product, need) => {
 const getCategoriesByMainFilter = (filter) => {
   if (filter === 'plantas') return CATEGORIES.plantas;
   if (filter === 'macetas') return ['Todas'];
-  return INSUMOS_SUBCATEGORIES;
+  return ['Todos', ...INSUMOS_SUBCATEGORIES];
 };
 
 const Catalog = () => {
@@ -144,26 +144,26 @@ const Catalog = () => {
   return (
     <div className="catalog-page catalog-page--fade">
       <SEO
-        title="Catálogo de Plantas, Macetas e Insumos en Las Piedras | De Raíz"
-        description="Explorá nuestra variedad de plantas de interior y exterior, tierra, sustratos y macetas modernas en Las Piedras, Canelones. Hacé tu consulta de stock hoy."
+        title="CatÃ¡logo de Plantas, Macetas e Insumos en Las Piedras | De RaÃ­z"
+        description="ExplorÃ¡ nuestra variedad de plantas de interior y exterior, tierra, sustratos y macetas modernas en Las Piedras, Canelones. HacÃ© tu consulta de stock hoy."
         path="/catalogo"
       />
       <div className="container">
         
         <div className="catalog-header text-center mb-8">
           <span className="section-label">Tienda</span>
-          <h1>Nuestro Catálogo</h1>
-          <p style={{marginTop: '8px', color: 'var(--texto-suave)'}}>Explorá todo lo que necesitás para darle vida a tu espacio.</p>
+          <h1>Nuestro CatÃ¡logo</h1>
+          <p style={{marginTop: '8px', color: 'var(--texto-suave)'}}>ExplorÃ¡ todo lo que necesitÃ¡s para darle vida a tu espacio.</p>
         </div>
 
         <div className="catalog-help-banner mb-8">
-          <p>¿No sabés cuál elegir? Te recomendamos opciones según tu luz y espacio.</p>
+          <p>Â¿No sabÃ©s cuÃ¡l elegir? Te recomendamos opciones segÃºn tu luz y espacio.</p>
           <div className="catalog-help-actions">
             <a href={generateWaLink(WA_MESSAGES.ayudaElegir)} target="_blank" rel="noreferrer" className="btn btn-primary">
               <MessageCircle size={18} /> Quiero ayuda para elegir
             </a>
             <a href={generateWaLink(WA_MESSAGES.diagnostico)} target="_blank" rel="noreferrer" className="btn btn-secondary">
-              <MessageCircle size={18} /> Tengo una planta decaída
+              <MessageCircle size={18} /> Tengo una planta decaÃ­da
             </a>
           </div>
         </div>
@@ -191,7 +191,7 @@ const Catalog = () => {
                 type="button"
                 className="catalog-search-clear"
                 onClick={() => setSearchQuery('')}
-                aria-label="Borrar búsqueda"
+                aria-label="Borrar bÃºsqueda"
               >
                 <X size={14} />
               </button>
@@ -219,7 +219,7 @@ const Catalog = () => {
 
         {/* Sub-Categories Scroll */}
         <div className="category-filters-container mb-12">
-          <p className="category-scroll-hint">Deslizá para ver más categorías</p>
+          <p className="category-scroll-hint">DeslizÃ¡ para ver mÃ¡s categorÃ­as</p>
           <div className="category-filters">
             {activeCategoriesList.map(cat => (
               <button 
@@ -259,7 +259,7 @@ const Catalog = () => {
               className="btn btn-secondary"
               onClick={() => setVisibleCount((prev) => prev + 12)}
             >
-              Mostrar más ({filteredProducts.length - visibleCount} restantes)
+              Mostrar mÃ¡s ({filteredProducts.length - visibleCount} restantes)
             </button>
           </div>
         )}
@@ -279,7 +279,7 @@ const Catalog = () => {
                 </a>
               </>
             ) : (
-              <p>Pronto agregaremos más opciones a esta categoría.</p>
+              <p>Pronto agregaremos mÃ¡s opciones a esta categorÃ­a.</p>
             )}
           </div>
         )}
@@ -321,13 +321,13 @@ const Catalog = () => {
                   <div className="modal-extra-info">
                     {selectedProduct.careTips && (
                       <div className="info-block">
-                        <h4 className="info-title">✨ Tips de Cuidado</h4>
+                        <h4 className="info-title">âœ¨ Tips de Cuidado</h4>
                         <p className="info-text">{selectedProduct.careTips}</p>
                       </div>
                     )}
                     {selectedProduct.pests && (
                       <div className="info-block pests-block">
-                        <h4 className="info-title">🐛 Posibles Plagas</h4>
+                        <h4 className="info-title">ðŸ› Posibles Plagas</h4>
                         <p className="info-text">{selectedProduct.pests}</p>
                       </div>
                     )}
@@ -356,3 +356,4 @@ const Catalog = () => {
 };
 
 export default Catalog;
+
