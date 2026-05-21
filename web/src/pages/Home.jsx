@@ -200,8 +200,8 @@ const Home = () => {
 
     const revealObserver = new IntersectionObserver(revealCallback, {
       root: null,
-      threshold: 0.08, // Se activa pronto para mayor fluidez
-      rootMargin: '0px 0px -30px 0px',
+      threshold: 0.01, // Se activa al más mínimo contacto con el búfer para máxima fluidez
+      rootMargin: '120px 0px 120px 0px', // Búfer de 120px arriba y abajo para animar de antemano
     });
 
     const elementsToReveal = document.querySelectorAll('.reveal-on-scroll');

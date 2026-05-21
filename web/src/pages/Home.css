@@ -1948,3 +1948,172 @@
     transform: none !important;
   }
 }
+
+/* ══════════════════════════════════════
+   OPTIMIZACIONES MÓVILES PREMIUM V5
+   ══════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* 1. Reducción de rellenos de sección y espaciados generales */
+  :root {
+    --section-py: 40px !important;
+    --section-py-sm: 28px !important;
+  }
+  
+  .section-padding {
+    padding: 40px 0 !important;
+  }
+  
+  .section-padding--sm {
+    padding: 28px 0 !important;
+  }
+
+  .text-center.mb-12, 
+  .text-center.mb-16 {
+    margin-bottom: 24px !important;
+  }
+
+  /* Reducir el tamaño de títulos h2 en móvil y ajustar interlineado */
+  h2 {
+    font-size: clamp(1.6rem, 5vw, 1.95rem) !important;
+    line-height: 1.25 !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* 2. Atajos Rápidos (.quick-actions-grid) -> Carrusel Horizontal Bleed & Snap */
+  .quick-actions-grid {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important; /* Firefox */
+    margin: 0 -20px !important; /* Bleed de borde a borde */
+    padding: 8px 20px 24px !important;
+    gap: 16px !important;
+  }
+
+  .quick-actions-grid::-webkit-scrollbar {
+    display: none !important; /* Chrome, Safari, Opera */
+  }
+
+  .quick-action-card {
+    width: 290px !important;
+    min-width: 290px !important;
+    flex-shrink: 0 !important;
+    scroll-snap-align: center !important;
+    margin: 0 !important;
+    box-shadow: 0 8px 20px rgba(47, 74, 46, 0.08) !important;
+    /* Forzar opacidad total y remover transformaciones para el observer en móviles */
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    transition: transform var(--t-fast) !important;
+  }
+
+  /* 3. Propuesta de Valor (.value-grid) -> Carrusel Horizontal Bleed & Snap */
+  .value-grid {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    margin: 0 -20px !important;
+    padding: 8px 20px 24px !important;
+    gap: 16px !important;
+    margin-top: 24px !important;
+  }
+
+  .value-grid::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .value-item {
+    width: 260px !important;
+    min-width: 260px !important;
+    flex-shrink: 0 !important;
+    scroll-snap-align: center !important;
+    margin: 0 !important;
+    padding: 24px 20px !important;
+    /* Desactivar transformaciones de scroll para prevenir interferencia táctil */
+    --scroll-shift: 0px !important;
+    --scroll-rotate: 0deg !important;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    box-shadow: 0 8px 20px rgba(43, 36, 28, 0.08) !important;
+  }
+
+  .value-text {
+    margin: 10px auto 24px !important;
+    font-size: 1rem !important;
+    padding: 0 16px;
+  }
+
+  /* 4. Combos de Inspiración (.combos-grid) -> Carrusel Horizontal Bleed & Snap */
+  .combos-grid {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    margin: 0 -20px !important;
+    padding: 8px 20px 24px !important;
+    gap: 16px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .combos-grid::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .combo-card {
+    width: 280px !important;
+    min-width: 280px !important;
+    flex-shrink: 0 !important;
+    scroll-snap-align: center !important;
+    margin: 0 !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    box-shadow: 0 8px 20px rgba(47, 74, 46, 0.08) !important;
+  }
+
+  /* Reducir el tamaño de títulos h3 y espaciados de combos */
+  .combos-subtitle {
+    margin-top: 8px !important;
+    margin-bottom: 24px !important;
+  }
+
+  .combo-custom-cta {
+    margin-top: 24px !important;
+    padding: 24px 20px !important;
+  }
+}
+
+@media (max-width: 520px) {
+  /* Ajustes más específicos para pantallas extra pequeñas */
+  .quick-action-card {
+    width: 275px !important;
+    min-width: 275px !important;
+  }
+
+  .value-item {
+    width: 245px !important;
+    min-width: 245px !important;
+  }
+
+  .combo-card {
+    width: 265px !important;
+    min-width: 265px !important;
+  }
+
+  .quick-actions-grid,
+  .value-grid,
+  .combos-grid {
+    margin: 0 -16px !important;
+    padding: 8px 16px 20px !important;
+    gap: 12px !important;
+  }
+}
