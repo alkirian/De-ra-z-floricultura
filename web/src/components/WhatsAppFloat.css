@@ -67,3 +67,31 @@
     display: none;
   }
 }
+
+@media (max-width: 639px) {
+  .wa-float {
+    right: 1rem;
+    bottom: 1rem;
+    padding: 0;
+    width: 46px;
+    height: 46px;
+    justify-content: center;
+    box-shadow: 0 6px 14px rgba(20, 56, 35, 0.22);
+  }
+
+  .wa-float span {
+    display: none;
+  }
+
+  .wa-bubble {
+    right: 1rem;
+    bottom: 4.4rem;
+    max-width: 230px;
+    padding: 10px 12px;
+    border-radius: 12px;
+  }
+
+  .wa-bubble p {
+    font-size: 0.78rem;
+  }
+}
