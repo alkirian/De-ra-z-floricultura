@@ -1,116 +1,152 @@
 /* ========================================
-   HOME - HERO HORIZONTAL CON OLA
-======================================== */
+   HOME - HERO SAGE GREEN Y BOTÁNICA FLOTANTE
+   ======================================== */
 .home-page { overflow-x: hidden; }
 
 .split-hero {
   position: relative;
   min-height: clamp(760px, 100svh, 980px);
   overflow: hidden;
-  background-color: var(--verde-profundo);
+  /* Base Sage Green con un sutil gradiente radial para darle volumen y textura editorial */
+  background: radial-gradient(circle at 50% 45%, #9bbb84 0%, var(--verde-salvia) 70%, #839d6e 100%);
   isolation: isolate;
   display: flex;
-  align-items: flex-end;
+  align-items: center; /* Centrado vertical completo */
+  justify-content: center; /* Centrado horizontal completo */
 }
 
-.hero-bg {
+/* Canvas que contiene las hojas flotantes */
+.hero-botanical-canvas {
   position: absolute;
   inset: 0;
-  background-image: var(--hero-bg-image);
-  background-size: cover;
-  background-position: center 24%;
-  transform: scale(1.02);
-  transition: transform 10s ease-out;
-  z-index: 0;
-}
-
-.split-hero:hover .hero-bg {
-  transform: scale(1.06);
-}
-
-.hero-bg-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(112deg, rgba(15, 35, 23, 0.28) 0%, rgba(15, 35, 23, 0.08) 48%, rgba(15, 35, 23, 0.18) 100%);
   z-index: 1;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
 }
 
-.hero-wave {
+/* Reglas comunes de las hojas botánicas */
+.botanical-leaf {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  width: 100%;
-  height: 58%;
+  pointer-events: none;
+  /* Color verde profundo de la marca para mantener la coherencia cromática */
   color: var(--verde-profundo);
+  will-change: transform;
+}
+
+/* NIVELES DE PROFUNDIDAD (Efecto Lente 3D Depth of Field) */
+/* Primer plano: muy grandes y con blur alto */
+.leaf-depth-foreground {
+  z-index: 10;
+  opacity: 0.22;
+  filter: blur(5px);
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Plano medio: nítidos y reaccionan al viento */
+.leaf-depth-midground {
   z-index: 2;
-  pointer-events: none;
+  opacity: 0.16;
+  filter: blur(0px);
+  transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.hero-bottom-separator {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  width: 100%;
-  height: clamp(56px, 7.2vw, 106px);
-  display: block;
-  z-index: 3;
-  pointer-events: none;
+/* Fondo lejano: más pequeños y sutilmente desenfocados */
+.leaf-depth-background {
+  z-index: 1;
+  opacity: 0.08;
+  filter: blur(2px);
+  transition: transform 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.wave-transition {
-  display: block;
+/* POSICIONAMIENTO RESPONSIVE DE CADA HOJA (Diseño Editorial) */
+.leaf-top-left {
+  top: -4%;
+  left: -2%;
+  width: clamp(140px, 16vw, 240px);
+  transform: rotate(-15deg);
+  animation: sway-slow 12s ease-in-out infinite alternate;
+}
+
+.leaf-top-right {
+  top: -5%;
+  right: -3%;
+  width: clamp(160px, 18vw, 270px);
+  transform: rotate(20deg);
+  animation: sway-medium 10s ease-in-out infinite alternate-reverse;
+}
+
+.leaf-mid-left {
+  top: 35%;
+  left: -4%;
+  width: clamp(130px, 12vw, 190px);
+  transform: rotate(-45deg);
+  animation: sway-fast 7s ease-in-out infinite alternate;
+}
+
+.leaf-mid-right {
+  top: 40%;
+  right: -5%;
+  width: clamp(140px, 13vw, 200px);
+  transform: rotate(40deg);
+  animation: sway-slow 14s ease-in-out infinite alternate;
+}
+
+.leaf-bottom-left {
+  bottom: 8%;
+  left: -3%;
+  width: clamp(150px, 15vw, 220px);
+  transform: rotate(-25deg);
+  animation: sway-medium 9s ease-in-out infinite alternate;
+}
+
+.leaf-bottom-right {
+  bottom: 6%;
+  right: -4%;
+  width: clamp(180px, 17vw, 260px);
+  transform: rotate(30deg);
+  animation: sway-fast 8s ease-in-out infinite alternate-reverse;
+}
+
+/* ANIMACIONES DE BALANCEO Y BRISA BOTÁNICA */
+@keyframes sway-slow {
+  0% { transform: rotate(-15deg) translate(0, 0); }
+  100% { transform: rotate(-8deg) translate(-10px, 12px); }
+}
+
+@keyframes sway-medium {
+  0% { transform: rotate(20deg) translate(0, 0); }
+  100% { transform: rotate(28deg) translate(15px, -8px); }
+}
+
+@keyframes sway-fast {
+  0% { transform: rotate(-45deg) translate(0, 0); }
+  100% { transform: rotate(-38deg) translate(-8px, 15px); }
+}
+
+/* EFECTO RÁFAGA INTERACTIVA (Breeze Hover Reactive Effect) */
+/* Cuando el usuario hace hover en cualquier botón del Hero, las hojas de plano medio oscilan más rápido y se inclinan */
+.hero-sage-botanicals:has(.hero-actions .btn:hover) .leaf-depth-midground {
+  animation-duration: 3.5s !important;
+  transform: scale(1.06) rotate(6deg) translateY(-5px);
+}
+
+.hero-sage-botanicals:has(.hero-actions .btn:hover) .leaf-depth-foreground {
+  animation-duration: 4.5s !important;
+  transform: scale(1.1) rotate(-4deg) translateY(6px);
+}
+
+/* CONTENIDOS CENTRADOS DEL HERO */
+.hero-content-centered {
   position: relative;
-  overflow: hidden;
-  line-height: 0;
-  font-size: 0;
-  isolation: isolate;
-}
-
-.wave-transition svg {
-  display: block;
-  width: calc(100% + 2px);
-  height: auto;
-  margin-left: -1px;
-  shape-rendering: geometricPrecision;
-}
-
-.wave-transition--top {
-  margin-bottom: -1px;
-}
-
-.wave-transition--bottom {
-  margin-top: -1px;
-}
-
-.wave-transition--advice-to-categories {
-  margin-bottom: -1px;
-}
-
-.wave-transition--categories-to-testimonials {
-  margin-bottom: -1px;
-}
-
-.hero-wave-desktop {
-  display: block;
-}
-
-.hero-wave-mobile {
-  display: none;
-}
-
-.hero-content-left {
-  position: relative;
-  z-index: 4;
-  width: min(100%, 620px);
-  margin-left: clamp(1.75rem, 7vw, 8.5rem);
-  padding: clamp(132px, 18vh, 184px) 0 clamp(64px, 12vh, 110px);
+  z-index: 5;
+  width: min(100%, 780px);
+  padding: clamp(140px, 20vh, 220px) 1.5rem clamp(100px, 14vh, 160px);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
-  text-align: left;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .hero-eyebrow {
@@ -122,141 +158,277 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(244, 235, 221, 0.78);
-  margin-bottom: clamp(18px, 3.4vh, 34px);
+  margin-bottom: clamp(18px, 3vh, 28px);
+  animation: fadeInDown 0.8s ease-out;
 }
 
 .hero-brand-logo {
   display: block;
-  width: clamp(280px, 41vw, 560px);
+  width: clamp(280px, 38vw, 540px);
   height: auto;
-  margin: 0 0 clamp(14px, 2.6vh, 24px) 0;
-  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.34));
+  margin: 0 auto clamp(20px, 3.4vh, 32px) auto;
+  filter: drop-shadow(0 14px 34px rgba(27, 46, 26, 0.22));
+  animation: fadeInUp 1s cubic-bezier(0.25, 0.8, 0.25, 1) both;
 }
 
 .hero-subtitle {
-  font-size: clamp(1rem, 1.3vw, 1.2rem);
-  color: rgba(244, 235, 221, 0.88);
-  max-width: 420px;
-  margin: 0 0 clamp(20px, 4vh, 38px) 0;
-  line-height: 1.6;
+  font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.94);
+  max-width: 580px;
+  margin: 0 auto clamp(24px, 4vh, 38px) auto;
+  line-height: 1.62;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  animation: fadeInUp 1s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s both;
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
-  justify-content: flex-start;
+  gap: 16px;
+  justify-content: center;
+  animation: fadeInUp 1s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s both;
 }
 
 .hero-actions .btn {
   min-height: 52px;
-  padding: 13px 28px;
+  padding: 13px 32px;
   font-size: 0.96rem;
+  border-radius: 999px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-@media (min-width: 1366px) {
-  .hero-wave {
-    height: 56%;
+.hero-actions .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* SEPARADOR DE ONDAS CON HOJA INTEGRADA */
+.hero-bottom-separator-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  width: 100%;
+  height: clamp(56px, 7.2vw, 106px);
+  display: block;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.hero-bottom-separator {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* Hoja caída que reposa sobre el separador de onda inferior */
+.separator-fallen-leaf {
+  position: absolute;
+  bottom: 24%;
+  left: 36%;
+  width: clamp(48px, 4.5vw, 68px);
+  color: var(--verde-profundo);
+  opacity: 0.22;
+  transform: rotate(-142deg) scaleX(-1);
+  will-change: transform;
+  filter: blur(0.3px);
+  animation: fallen-leaf-float 6s ease-in-out infinite alternate;
+}
+
+@keyframes fallen-leaf-float {
+  0% { transform: rotate(-142deg) scaleX(-1) translate(0, 0); }
+  100% { transform: rotate(-138deg) scaleX(-1) translate(2px, 5px); }
+}
+
+/* INDICADOR BOTÁNICO DE SCROLL */
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: clamp(68px, 9.5vw, 118px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.72);
+  pointer-events: none;
+  font-family: var(--font-base);
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  animation: fadeIn 1.2s ease-out 1s both;
+}
+
+.scroll-leaf-bounce {
+  width: 18px;
+  height: 24px;
+  color: currentColor;
+  animation: leaf-bounce 2.2s infinite ease-in-out;
+}
+
+.scroll-text {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes leaf-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* ANIMACIONES COMPLEMENTARIAS */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* AJUSTES DE MEDIA QUERIES (Responsive Coherente) */
 @media (max-width: 991px) {
   .split-hero {
     min-height: clamp(700px, 92svh, 800px);
   }
 
-  .hero-bg {
-    background-position: 58% 18%;
+  .leaf-top-left {
+    top: -2%;
+    left: -4%;
+    width: 180px;
   }
 
-  .hero-wave {
-    height: 63%;
-  }
-
-  .hero-content-left {
-    width: min(100%, 540px);
-    margin-left: 0;
-    padding: clamp(124px, 19vh, 164px) 1.55rem 2.6rem;
+  .leaf-top-right {
+    top: -3%;
+    right: -4%;
+    width: 200px;
   }
 }
 
 @media (max-width: 768px) {
   .split-hero {
-    min-height: clamp(680px, 88svh, 730px);
-    align-items: flex-end;
+    min-height: clamp(660px, 86svh, 720px);
   }
 
-  .hero-bg {
-    background-position: 62% top;
-    transform: scale(1.01);
-  }
-
-  .hero-bg-overlay {
-    background: linear-gradient(180deg, rgba(8, 18, 12, 0.08) 0%, rgba(8, 18, 12, 0.2) 54%, rgba(8, 18, 12, 0.3) 100%);
-  }
-
-  .hero-wave {
-    height: 88%;
-  }
-
-  .hero-bottom-separator {
-    height: clamp(46px, 11.5vw, 82px);
-  }
-
-  .hero-wave-desktop {
-    display: none;
-  }
-
-  .hero-wave-mobile {
-    display: block;
-  }
-
-  .hero-content-left {
-    width: min(100%, 500px);
-    margin-inline: auto;
-    align-items: center;
-    text-align: center;
-    padding: 120px 1.35rem 1.8rem;
+  .hero-content-centered {
+    width: 100%;
+    padding: 100px 1.25rem 1.6rem;
   }
 
   .hero-eyebrow {
     margin-bottom: 12px;
     font-size: 0.78rem;
-    letter-spacing: 0.12em;
   }
 
   .hero-brand-logo {
-    width: min(210px, 68vw);
-    margin-bottom: 8px;
+    width: min(220px, 66vw);
+    margin-bottom: clamp(14px, 2vh, 20px);
   }
 
   .hero-subtitle {
-    max-width: 330px;
-    margin: 0 auto 18px;
+    max-width: 380px;
+    margin-bottom: 24px;
     font-size: 0.98rem;
-    line-height: 1.52;
+    line-height: 1.56;
   }
 
   .hero-actions {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
     gap: 10px;
-    justify-content: center;
   }
 
   .hero-actions .btn {
     width: auto;
-    justify-content: center;
-    min-height: 38px;
-    padding: 8px 16px;
-    font-size: 0.82rem;
-    border-radius: 999px;
+    min-height: 42px;
+    padding: 10px 22px;
+    font-size: 0.86rem;
+  }
+
+  .leaf-top-left {
+    top: -1%;
+    left: -8%;
+    width: 120px;
+  }
+
+  .leaf-top-right {
+    top: -2%;
+    right: -8%;
+    width: 140px;
+  }
+
+  .leaf-mid-left, .leaf-mid-right {
+    display: none;
+  }
+
+  .leaf-bottom-left {
+    bottom: 6%;
+    left: -8%;
+    width: 130px;
+  }
+
+  .leaf-bottom-right {
+    bottom: 4%;
+    right: -8%;
+    width: 140px;
+  }
+
+  .hero-scroll-indicator {
+    bottom: clamp(54px, 8vw, 78px);
+  }
+
+  .separator-fallen-leaf {
+    left: 20%;
+    bottom: 20%;
+    width: 42px;
   }
 }
-/* ══════════════════════════════════════
-   ATAJOS + CÓMO COMPRAR
-══════════════════════════════════════ */
+
+@media (max-width: 480px) {
+  .split-hero {
+    min-height: clamp(630px, 84svh, 680px);
+  }
+
+  .hero-subtitle {
+    max-width: 310px;
+  }
+
+  .leaf-top-left {
+    width: 90px;
+  }
+
+  .leaf-top-right {
+    width: 110px;
+  }
+
+  .leaf-bottom-left {
+    width: 100px;
+  }
+
+  .leaf-bottom-right {
+    width: 110px;
+  }
+}
+
 .quick-actions-grid {
   display: grid;
   grid-template-columns: 1fr;

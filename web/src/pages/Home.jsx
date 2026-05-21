@@ -5,15 +5,52 @@ import { generateWaLink, WA_MESSAGES } from '../data/mockData';
 import SEO from '../components/SEO';
 import './Home.css';
 
-/* SVG de hoja decorativa */
-const LeafSVG = ({ className }) => (
+/* SVG de hoja clásica decorativa */
+const LeafClassic = ({ className }) => (
   <svg className={className} viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M60 170 C60 170 10 130 10 80 C10 30 60 10 60 10 C60 10 110 30 110 80 C110 130 60 170 60 170Z" fill="currentColor"/>
-    <path d="M60 170 L60 10" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5"/>
-    <path d="M60 100 Q35 85 20 60" stroke="rgba(255,255,255,0.3)" strokeWidth="1" strokeLinecap="round"/>
-    <path d="M60 100 Q85 85 100 60" stroke="rgba(255,255,255,0.3)" strokeWidth="1" strokeLinecap="round"/>
-    <path d="M60 140 Q40 128 28 108" stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeLinecap="round"/>
-    <path d="M60 140 Q80 128 92 108" stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeLinecap="round"/>
+    <path d="M60 170 L60 10" stroke="rgba(255,255,255,0.35)" strokeWidth="1.5"/>
+    <path d="M60 100 Q35 85 20 60" stroke="rgba(255,255,255,0.25)" strokeWidth="1.0" strokeLinecap="round"/>
+    <path d="M60 100 Q85 85 100 60" stroke="rgba(255,255,255,0.25)" strokeWidth="1.0" strokeLinecap="round"/>
+    <path d="M60 140 Q40 128 28 108" stroke="rgba(255,255,255,0.18)" strokeWidth="1.0" strokeLinecap="round"/>
+    <path d="M60 140 Q80 128 92 108" stroke="rgba(255,255,255,0.18)" strokeWidth="1.0" strokeLinecap="round"/>
+  </svg>
+);
+
+/* SVG de hoja Monstera */
+const LeafMonstera = ({ className }) => (
+  <svg className={className} viewBox="0 0 100 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M50 5C25.1 5 5 25.1 5 50C5 67 14.5 81.8 28.5 89.2L24 98L32.5 98L36.5 90.2C40.8 93.3 45.2 95 50 95C74.9 95 95 74.9 95 50C95 25.1 74.9 5 50 5ZM25 50C25 45 30 42 34 44C32 38 29 32 32 26C38 30 42 35 44 41C48 35 52 30 58 27C57 32 55 38 56 43C62 36 68 31 75 28C73 33 71 39 72 44C78 38 85 34 91 32C88 39 83 46 76 50C80 53 85 55 89 57C83 61 76 63 68 64C71 68 74 71 77 74C70 77 62 78 54 78C55 81 55 84 53 87C49 87 46 87 43 86.5C45 82 46 77 45 72C38 72 31 69 26 65C29 61 33 58 37 56C31 55 25 53 25 50Z" />
+  </svg>
+);
+
+/* SVG de helecho (Fern Frond) */
+const LeafFern = ({ className }) => (
+  <svg className={className} viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M50 110 L50 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    <path d="M50 90 Q30 85 20 70 Q30 75 50 82" fill="currentColor"/>
+    <path d="M50 90 Q70 85 80 70 Q70 75 50 82" fill="currentColor"/>
+    <path d="M50 75 Q25 70 12 52 Q25 58 50 66" fill="currentColor"/>
+    <path d="M50 75 Q75 70 88 52 Q75 58 50 66" fill="currentColor"/>
+    <path d="M50 60 Q20 52 8 32 Q22 40 50 48" fill="currentColor"/>
+    <path d="M50 60 Q80 52 92 32 Q78 40 50 48" fill="currentColor"/>
+    <path d="M50 45 Q18 35 10 12 Q20 22 50 31" fill="currentColor"/>
+    <path d="M50 45 Q82 35 90 12 Q80 22 50 31" fill="currentColor"/>
+    <path d="M50 30 Q22 18 16 2 Q22 8 50 16" fill="currentColor"/>
+    <path d="M50 30 Q78 18 84 2 Q78 8 50 16" fill="currentColor"/>
+  </svg>
+);
+
+/* SVG de rama de eucalipto (Eucalyptus Branch) */
+const LeafEucalyptus = ({ className }) => (
+  <svg className={className} viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M50 115 C50 115 50 80 50 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    <path d="M50 95 C30 92 25 75 42 68 C48 65 50 75 50 95 Z" fill="currentColor"/>
+    <path d="M50 80 C70 77 75 60 58 53 C52 50 50 60 50 80 Z" fill="currentColor"/>
+    <path d="M50 65 C32 62 27 45 44 38 C50 35 50 45 50 65 Z" fill="currentColor"/>
+    <path d="M50 50 C68 47 73 30 56 23 C50 20 50 30 50 50 Z" fill="currentColor"/>
+    <path d="M50 35 C34 32 30 18 45 12 C50 10 50 20 50 35 Z" fill="currentColor"/>
+    <path d="M50 20 C64 17 68 5 55 2 C50 0 50 10 50 20 Z" fill="currentColor"/>
   </svg>
 );
 
@@ -298,28 +335,19 @@ const Home = () => {
       {/* ══════════════════════════
           HERO SPLIT ORGÁNICO
       ══════════════════════════ */}
-      <section className="hero split-hero" style={{ '--hero-bg-image': `url(${BASE}images/hero_bg.png)` }}>
-        <div className="hero-bg" aria-hidden="true"></div>
-        <div className="hero-bg-overlay" aria-hidden="true"></div>
-        <svg className="hero-wave hero-wave-desktop" viewBox="0 0 1440 520" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0,170 C220,80 420,90 620,180 C830,275 1010,365 1210,315 C1320,285 1390,220 1440,160 L1440,520 L0,520 Z" fill="currentColor" />
-        </svg>
-        <svg className="hero-wave hero-wave-mobile" viewBox="0 0 1440 520" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0,200 C240,190 430,190 620,200 C840,210 1040,210 1240,200 C1330,195 1390,195 1440,190 L1440,520 L0,520 Z" fill="currentColor" />
-        </svg>
-        <svg
-          className="hero-bottom-separator"
-          viewBox="0 0 1440 120"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M0,72 C180,48 340,38 520,52 C742,70 940,102 1142,88 C1258,80 1358,62 1440,46 L1440,120 L0,120 Z"
-            fill="var(--crema)"
-          />
-        </svg>
+      <section className="hero split-hero hero-sage-botanicals">
+        {/* Canvas de Botánica Flotante (3D Parallax & Swaying) */}
+        <div className="hero-botanical-canvas" aria-hidden="true">
+          <LeafMonstera className="botanical-leaf leaf-top-left leaf-depth-foreground" />
+          <LeafClassic className="botanical-leaf leaf-top-right leaf-depth-midground" />
+          <LeafFern className="botanical-leaf leaf-mid-left leaf-depth-background" />
+          <LeafEucalyptus className="botanical-leaf leaf-mid-right leaf-depth-midground" />
+          <LeafMonstera className="botanical-leaf leaf-bottom-left leaf-depth-midground" />
+          <LeafClassic className="botanical-leaf leaf-bottom-right leaf-depth-foreground" />
+        </div>
 
-        <div className="hero-content-left animate-fade-in">
+        {/* Contenido principal centrado */}
+        <div className="hero-content-centered animate-fade-in">
           <h1 className="sr-only">De Raiz Floricultura - Vivero en Las Piedras, Uruguay</h1>
           <span className="hero-eyebrow">
             <MapPin size={14} /> Las Piedras, Uruguay
@@ -344,6 +372,27 @@ const Home = () => {
           </div>
         </div>
 
+        {/* Separador inferior con hoja integrada que cruza el borde */}
+        <div className="hero-bottom-separator-container">
+          <svg
+            className="hero-bottom-separator"
+            viewBox="0 0 1440 120"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M0,72 C180,48 340,38 520,52 C742,70 940,102 1142,88 C1258,80 1358,62 1440,46 L1440,120 L0,120 Z"
+              fill="var(--crema)"
+            />
+          </svg>
+          <LeafClassic className="separator-fallen-leaf" />
+        </div>
+
+        {/* Indicador de scroll botánico */}
+        <div className="hero-scroll-indicator">
+          <LeafClassic className="scroll-leaf-bounce" />
+          <span className="scroll-text">Desliza para explorar</span>
+        </div>
       </section>
 
 
