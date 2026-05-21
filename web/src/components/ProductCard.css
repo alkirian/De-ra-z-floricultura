@@ -244,8 +244,8 @@
 
 @media (max-width: 639px) {
   .product-card {
-    padding: 9px;
-    border-radius: 22px;
+    padding: 7px;
+    border-radius: 16px;
     background: linear-gradient(180deg, rgba(255, 249, 239, 0.94), rgba(246, 236, 224, 0.86));
     border: 1px solid rgba(229, 211, 186, 0.9);
     box-shadow: 0 10px 20px rgba(43, 36, 28, 0.08);
@@ -258,79 +258,132 @@
   }
 
   .product-image-wrap {
-    aspect-ratio: 1 / 1.08;
-    border-radius: 18px;
-    margin-bottom: 10px;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    margin-bottom: 8px;
     transition: none !important;
   }
 
   .product-image {
-    width: 94%;
-    height: 94%;
-    filter: drop-shadow(0 14px 18px rgba(47, 74, 46, 0.15)) !important;
+    width: 96%;
+    height: 96%;
+    filter: drop-shadow(0 10px 14px rgba(47, 74, 46, 0.12)) !important;
     transition: none !important;
   }
 
   .product-cat-badge {
-    top: 9px;
-    right: 9px;
-    max-width: calc(100% - 18px);
-    padding: 5px 9px;
-    font-size: 0.55rem;
-    letter-spacing: 0.08em;
+    top: 6px;
+    right: 6px;
+    max-width: calc(100% - 12px);
+    padding: 4px 8px;
+    font-size: 0.52rem;
+    letter-spacing: 0.06em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    border-radius: 12px;
+    border-radius: 8px;
   }
 
   .product-difficulty-badge {
     top: auto;
-    bottom: 8px;
-    left: 8px;
-    padding: 4px 8px;
-    font-size: 0.56rem;
+    bottom: 6px;
+    left: 6px;
+    padding: 3px 6px;
+    font-size: 0.52rem;
   }
 
   .product-body {
-    padding: 0 2px 4px;
+    padding: 0 1px 2px;
   }
 
   .product-name {
-    font-size: 1.04rem;
-    line-height: 1.2;
-    margin-bottom: 8px;
-    min-height: 2.45em;
+    font-size: 0.92rem;
+    line-height: 1.25;
+    margin-bottom: 6px;
+    min-height: 2.5em;
   }
 
   .product-price-wrap {
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
   }
 
   .product-price {
-    font-size: 0.98rem;
+    font-size: 0.9rem;
   }
 
   .product-attrs {
-    margin-bottom: 12px;
-    gap: 8px;
+    margin-bottom: 10px;
+    gap: 6px;
     flex-wrap: wrap;
   }
 
   .product-attr {
-    font-size: 0.72rem;
-    gap: 5px;
+    font-size: 0.68rem;
+    gap: 4px;
   }
 
   .product-btn {
-    font-size: 0.72rem;
-    letter-spacing: 0.03em;
+    display: none !important; /* Entire card is clickable to open details, hide to save space */
   }
 
   .product-cart-mini {
-    margin-top: 8px;
-    font-size: 0.7rem;
-    padding: 5px 8px;
+    margin-top: 4px;
+    align-self: stretch;
+    justify-content: center;
+    font-size: 0.68rem;
+    padding: 6px 8px;
+  }
+}
+
+@media (max-width: 439px) {
+  .product-card {
+    padding: 5px;
+    border-radius: 12px;
+  }
+
+  .product-image-wrap {
+    border-radius: 8px;
+    margin-bottom: 6px;
+  }
+
+  .product-cat-badge {
+    top: 4px;
+    right: 4px;
+    padding: 3px 6px;
+    font-size: 0.48rem;
+  }
+
+  .product-difficulty-badge {
+    display: none !important; /* Hide difficulty badge on ultra-small screens to preserve image clarity */
+  }
+
+  .product-name {
+    font-size: 0.82rem;
+    margin-bottom: 4px;
+  }
+
+  .product-price-wrap {
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+  }
+
+  .product-price {
+    font-size: 0.8rem;
+  }
+
+  .product-attrs {
+    margin-bottom: 8px;
+    gap: 4px;
+  }
+
+  .product-attr {
+    font-size: 0.62rem;
+    gap: 3px;
+  }
+
+  .product-cart-mini {
+    font-size: 0.64rem;
+    padding: 5px 6px;
   }
 }
