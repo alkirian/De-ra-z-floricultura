@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
 import { ArrowRight, MessageCircle, Sparkles, Leaf, MapPin, ChevronLeft, ChevronRight, BookOpen, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { generateWaLink, WA_MESSAGES } from '../data/mockData';
@@ -205,10 +206,289 @@ const CATEGORIES = [
 ];
 
 const Home = () => {
+  const heroRef = useRef(null);
   const valueGridRef = useRef(null);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [activeAccordion, setActiveAccordion] = useState(null);
   const [activeComboIndex, setActiveComboIndex] = useState(null);
+
+  // --- MIGRACIÓN A GSAP (ANIMACIÓN PREMIUM BOTÁNICA) ---
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // 1. Animaciones base flotantes e independientes (Swaying Loops) para cada una de las 6 hojas
+      // Animamos 'x', 'y' y 'rotation' de forma asíncrona para lograr un movimiento totalmente caótico y natural.
+      
+      // Top Left (Monstera, Foreground)
+      gsap.to(".leaf-top-left", {
+        y: "+=12",
+        duration: 9.2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      gsap.to(".leaf-top-left", {
+        x: "-=8",
+        duration: 11.4,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      gsap.to(".leaf-top-left", {
+        rotation: "+=10",
+        duration: 8.3,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      // Top Right (Classic, Midground)
+      gsap.to(".leaf-top-right", {
+        y: "+=15",
+        duration: 10.1,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      gsap.to(".leaf-top-right", {
+        x: "+=6",
+        duration: 12.8,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      gsap.to(".leaf-top-right", {
+        rotation: "-=12",
+        duration: 9.4,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      // Mid Left (Fern, Background)
+      gsap.to(".leaf-mid-left", {
+        y: "+=10",
+        duration: 13.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      gsap.to(".leaf-mid-left", {
+        x: "+=6",
+        duration: 15.2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      gsap.to(".leaf-mid-left", {
+        rotation: "+=8",
+        duration: 11.1,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      // Mid Right (Eucalyptus, Midground)
+      gsap.to(".leaf-mid-right", {
+        y: "+=12",
+        duration: 11.9,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      gsap.to(".leaf-mid-right", {
+        x: "-=8",
+        duration: 14.1,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      gsap.to(".leaf-mid-right", {
+        rotation: "-=10",
+        duration: 10.3,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      // Bottom Left (Monstera, Midground)
+      gsap.to(".leaf-bottom-left", {
+        y: "+=14",
+        duration: 11.3,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      gsap.to(".leaf-bottom-left", {
+        x: "+=8",
+        duration: 13.2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      gsap.to(".leaf-bottom-left", {
+        rotation: "+=12",
+        duration: 8.7,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      // Bottom Right (Classic, Foreground)
+      gsap.to(".leaf-bottom-right", {
+        y: "+=16",
+        duration: 9.6,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      gsap.to(".leaf-bottom-right", {
+        x: "-=10",
+        duration: 11.8,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      gsap.to(".leaf-bottom-right", {
+        rotation: "-=14",
+        duration: 7.6,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      // Flotación lenta y flotante de la hoja caída en el separador
+      gsap.to(".separator-fallen-leaf", {
+        y: "+=5",
+        duration: 5.6,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      gsap.to(".separator-fallen-leaf", {
+        rotation: "+=6",
+        duration: 6.8,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      // Rebote vertical orgánico del scroll indicator
+      gsap.to(".scroll-leaf-bounce", {
+        y: 10,
+        duration: 1.3,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      // 2. Secuencia de Entrada Teatral de Elementos en el Hero (Entrance Timeline)
+      const tl = gsap.timeline();
+      
+      tl.from(".hero-eyebrow", {
+        opacity: 0,
+        y: -18,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+
+      tl.from(".hero-brand-logo", {
+        opacity: 0,
+        y: 30,
+        scale: 0.95,
+        duration: 1.1,
+        ease: "power4.out"
+      }, "-=0.6");
+
+      tl.from(".hero-subtitle", {
+        opacity: 0,
+        y: 18,
+        duration: 0.8,
+        ease: "power2.out"
+      }, "-=0.8");
+
+      tl.from(".hero-actions .btn", {
+        opacity: 0,
+        y: 12,
+        scale: 0.97,
+        duration: 0.8,
+        ease: "back.out(1.2)",
+        stagger: 0.15
+      }, "-=0.6");
+
+      // Suave float-in para todas las hojas desde los bordes de la pantalla
+      tl.from(".leaf-top-left, .leaf-mid-left, .leaf-bottom-left", {
+        x: -60,
+        opacity: 0,
+        scale: 0.8,
+        duration: 1.6,
+        ease: "power3.out",
+        stagger: 0.1
+      }, "-=1.2");
+
+      tl.from(".leaf-top-right, .leaf-mid-right, .leaf-bottom-right", {
+        x: 60,
+        opacity: 0,
+        scale: 0.8,
+        duration: 1.6,
+        ease: "power3.out",
+        stagger: 0.1
+      }, "-=1.6");
+
+      tl.from(".hero-scroll-indicator", {
+        opacity: 0,
+        y: 15,
+        duration: 0.8,
+        ease: "power2.out"
+      }, "-=0.6");
+
+      // 3. Efecto Breeze Hover interactivo (Ráfaga de viento al pasar el cursor)
+      const btns = heroRef.current?.querySelectorAll('.hero-actions .btn');
+      if (btns) {
+        const onEnter = () => {
+          // Desplazamos las hojas hacia afuera simulando una ráfaga
+          gsap.to(".leaf-top-left .botanical-leaf-inner, .leaf-bottom-left .botanical-leaf-inner", {
+            x: -22,
+            y: -8,
+            rotation: -12,
+            scale: 1.04,
+            duration: 0.7,
+            ease: "power2.out",
+            overwrite: "auto"
+          });
+          gsap.to(".leaf-top-right .botanical-leaf-inner, .leaf-mid-right .botanical-leaf-inner, .leaf-bottom-right .botanical-leaf-inner", {
+            x: 22,
+            y: -8,
+            rotation: 12,
+            scale: 1.04,
+            duration: 0.7,
+            ease: "power2.out",
+            overwrite: "auto"
+          });
+        };
+
+        const onLeave = () => {
+          // Retornan suavemente a su balanceo
+          gsap.to(".botanical-leaf-inner", {
+            x: 0,
+            y: 0,
+            rotation: 0,
+            scale: 1,
+            duration: 1.3,
+            ease: "power2.out",
+            overwrite: "auto"
+          });
+        };
+
+        btns.forEach(btn => {
+          btn.addEventListener('mouseenter', onEnter);
+          btn.addEventListener('mouseleave', onLeave);
+        });
+      }
+
+    }, heroRef);
+
+    return () => ctx.revert(); // Recolección de basura impecable al desmontar
+  }, []);
 
   const testimonials = [
     { name: 'Mariana R.', loc: 'Las Piedras', text: 'Me recomendaron una planta para poca luz y quedó perfecta. Muy buena atención.' },
@@ -314,19 +594,31 @@ const Home = () => {
       {/* ══════════════════════════
           HERO SPLIT ORGÁNICO
       ══════════════════════════ */}
-      <section className="hero split-hero hero-sage-botanicals">
+      <section className="hero split-hero hero-sage-botanicals" ref={heroRef}>
         {/* Canvas de Botánica Flotante (3D Parallax & Swaying) */}
         <div className="hero-botanical-canvas" aria-hidden="true">
-          <LeafMonstera className="botanical-leaf leaf-top-left leaf-depth-foreground" />
-          <LeafClassic className="botanical-leaf leaf-top-right leaf-depth-midground" />
-          <LeafFern className="botanical-leaf leaf-mid-left leaf-depth-background" />
-          <LeafEucalyptus className="botanical-leaf leaf-mid-right leaf-depth-midground" />
-          <LeafMonstera className="botanical-leaf leaf-bottom-left leaf-depth-midground" />
-          <LeafClassic className="botanical-leaf leaf-bottom-right leaf-depth-foreground" />
+          <div className="botanical-leaf leaf-top-left leaf-depth-foreground">
+            <LeafMonstera className="botanical-leaf-inner" />
+          </div>
+          <div className="botanical-leaf leaf-top-right leaf-depth-midground">
+            <LeafClassic className="botanical-leaf-inner" />
+          </div>
+          <div className="botanical-leaf leaf-mid-left leaf-depth-background">
+            <LeafFern className="botanical-leaf-inner" />
+          </div>
+          <div className="botanical-leaf leaf-mid-right leaf-depth-midground">
+            <LeafEucalyptus className="botanical-leaf-inner" />
+          </div>
+          <div className="botanical-leaf leaf-bottom-left leaf-depth-midground">
+            <LeafMonstera className="botanical-leaf-inner" />
+          </div>
+          <div className="botanical-leaf leaf-bottom-right leaf-depth-foreground">
+            <LeafClassic className="botanical-leaf-inner" />
+          </div>
         </div>
 
         {/* Contenido principal centrado */}
-        <div className="hero-content-centered animate-fade-in">
+        <div className="hero-content-centered">
           <h1 className="sr-only">De Raiz Floricultura - Vivero en Las Piedras, Uruguay</h1>
           <span className="hero-eyebrow">
             <MapPin size={14} /> Las Piedras, Uruguay
