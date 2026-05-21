@@ -565,66 +565,66 @@ const Home = () => {
         {/* Canvas de Botánica Flotante (3D Parallax & Swaying) */}
         <div className="hero-botanical-canvas" aria-hidden="true">
           {/* Borde Izquierdo (10 Hojas) */}
-          <div className="botanical-leaf leaf-l1 leaf-depth-foreground">
+          <div className="botanical-leaf leaf-l1 leaf-depth-foreground leaf-color-sage">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 4.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-l2 leaf-depth-midground">
+          <div className="botanical-leaf leaf-l2 leaf-depth-midground leaf-color-crema">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 14.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-l3 leaf-depth-background">
+          <div className="botanical-leaf leaf-l3 leaf-depth-background leaf-color-sage">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 15.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-l4 leaf-depth-background">
+          <div className="botanical-leaf leaf-l4 leaf-depth-background leaf-color-crema">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 7.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-l5 leaf-depth-midground">
+          <div className="botanical-leaf leaf-l5 leaf-depth-midground leaf-color-sage">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 9.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-l6 leaf-depth-midground">
+          <div className="botanical-leaf leaf-l6 leaf-depth-midground leaf-color-crema">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 16.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-l7 leaf-depth-background">
+          <div className="botanical-leaf leaf-l7 leaf-depth-background leaf-color-sage">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 22.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-l8 leaf-depth-midground">
+          <div className="botanical-leaf leaf-l8 leaf-depth-midground leaf-color-crema">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 10.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-l9 leaf-depth-foreground">
+          <div className="botanical-leaf leaf-l9 leaf-depth-foreground leaf-color-sage">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 18.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-l10 leaf-depth-midground">
+          <div className="botanical-leaf leaf-l10 leaf-depth-midground leaf-color-crema">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 24.svg`} className="botanical-leaf-inner" alt="" />
           </div>
 
           {/* Borde Derecho (10 Hojas) */}
-          <div className="botanical-leaf leaf-r1 leaf-depth-midground">
+          <div className="botanical-leaf leaf-r1 leaf-depth-midground leaf-color-sage">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 5.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-r2 leaf-depth-background">
+          <div className="botanical-leaf leaf-r2 leaf-depth-background leaf-color-crema">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 17.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-r3 leaf-depth-background">
+          <div className="botanical-leaf leaf-r3 leaf-depth-background leaf-color-sage">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 6.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-r4 leaf-depth-midground">
+          <div className="botanical-leaf leaf-r4 leaf-depth-midground leaf-color-crema">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 8.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-r5 leaf-depth-background">
+          <div className="botanical-leaf leaf-r5 leaf-depth-background leaf-color-sage">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 19.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-r6 leaf-depth-foreground">
+          <div className="botanical-leaf leaf-r6 leaf-depth-foreground leaf-color-crema">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 20.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-r7 leaf-depth-midground">
+          <div className="botanical-leaf leaf-r7 leaf-depth-midground leaf-color-sage">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 23.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-r8 leaf-depth-foreground">
+          <div className="botanical-leaf leaf-r8 leaf-depth-foreground leaf-color-crema">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 11.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-r9 leaf-depth-midground">
+          <div className="botanical-leaf leaf-r9 leaf-depth-midground leaf-color-sage">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 21.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-r10 leaf-depth-background">
+          <div className="botanical-leaf leaf-r10 leaf-depth-background leaf-color-crema">
             <img src={`${BASE}images/SVG Hero/SVG/Recurso 25.svg`} className="botanical-leaf-inner" alt="" />
           </div>
         </div>

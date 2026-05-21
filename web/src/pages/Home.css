@@ -44,28 +44,39 @@
 }
 
 /* NIVELES DE PROFUNDIDAD (Efecto Lente 3D Depth of Field) */
-/* Primer plano: muy grandes y con blur alto */
+/* Primer plano: muy grandes y con blur de lente sutil */
 .leaf-depth-foreground {
   z-index: 10;
-  opacity: 0.22;
-  filter: blur(5px);
+  opacity: 0.70;
+  filter: blur(3px);
   transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Plano medio: nítidos y reaccionan al viento */
+/* Plano medio: nítidos y reaccionan al viento de manera espectacular */
 .leaf-depth-midground {
   z-index: 2;
-  opacity: 0.16;
+  opacity: 0.90;
   filter: blur(0px);
   transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Fondo lejano: más pequeños y sutilmente desenfocados */
+/* Fondo lejano: más pequeños, con desenfoque de atmósfera sutil */
 .leaf-depth-background {
   z-index: 1;
-  opacity: 0.08;
-  filter: blur(2px);
+  opacity: 0.50;
+  filter: blur(1.5px);
   transition: transform 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* VARIACIONES DE COLOR BOTÁNICO (Para pop visual en fondo verde oscuro) */
+/* Verde Salvia Elegante (#8FA878) */
+.leaf-color-sage .botanical-leaf-inner {
+  filter: invert(72%) sepia(8%) saturate(795%) hue-rotate(53deg) brightness(91%) contrast(86%);
+}
+
+/* Crema Suave y Cálido (#F4EBDD) */
+.leaf-color-crema .botanical-leaf-inner {
+  filter: invert(96%) sepia(5%) saturate(452%) hue-rotate(330deg) brightness(103%) contrast(91%);
 }
 
 /* POSICIONAMIENTO RESPONSIVE DE CADA HOJA (Diseño Editorial) */
