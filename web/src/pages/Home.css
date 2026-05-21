@@ -7,8 +7,8 @@
   position: relative;
   min-height: clamp(760px, 100svh, 980px);
   overflow: hidden;
-  /* Base Sage Green con un sutil gradiente radial para darle volumen y textura editorial */
-  background: radial-gradient(circle at 50% 45%, #9bbb84 0%, var(--verde-salvia) 70%, #839d6e 100%);
+  /* Verde profundo de la marca con un gradiente radial premium para dar volumen */
+  background: radial-gradient(circle at 50% 45%, #3a5c39 0%, var(--verde-profundo) 70%, #1c301d 100%);
   isolation: isolate;
   display: flex;
   align-items: center; /* Centrado vertical completo */
@@ -38,8 +38,9 @@
   display: block;
   width: 100%;
   height: 100%;
-  color: inherit;
   will-change: transform;
+  /* Convierte el color negro original de los SVGs a var(--verde-profundo) (#2F4A2E) */
+  filter: invert(24%) sepia(19%) saturate(1048%) hue-rotate(71deg) brightness(93%) contrast(88%);
 }
 
 /* NIVELES DE PROFUNDIDAD (Efecto Lente 3D Depth of Field) */
@@ -68,46 +69,146 @@
 }
 
 /* POSICIONAMIENTO RESPONSIVE DE CADA HOJA (Diseño Editorial) */
-.leaf-top-left {
+/* Borde Izquierdo (10 Hojas) */
+.leaf-l1 {
   top: -4%;
   left: -2%;
   width: clamp(140px, 16vw, 240px);
   transform: rotate(-15deg);
 }
 
-.leaf-top-right {
+.leaf-l2 {
+  top: 8%;
+  left: -3%;
+  width: clamp(120px, 12vw, 180px);
+  transform: rotate(-25deg);
+}
+
+.leaf-l3 {
+  top: 20%;
+  left: -4%;
+  width: clamp(100px, 10vw, 150px);
+  transform: rotate(-35deg);
+}
+
+.leaf-l4 {
+  top: 32%;
+  left: -4%;
+  width: clamp(110px, 11vw, 160px);
+  transform: rotate(-45deg);
+}
+
+.leaf-l5 {
+  top: 45%;
+  left: -5%;
+  width: clamp(130px, 13vw, 190px);
+  transform: rotate(-30deg);
+}
+
+.leaf-l6 {
+  bottom: 35%;
+  left: -4%;
+  width: clamp(125px, 12vw, 185px);
+  transform: rotate(-20deg);
+}
+
+.leaf-l7 {
+  bottom: 22%;
+  left: -4%;
+  width: clamp(105px, 10vw, 155px);
+  transform: rotate(-40deg);
+}
+
+.leaf-l8 {
+  bottom: 10%;
+  left: -3%;
+  width: clamp(135px, 14vw, 205px);
+  transform: rotate(-15deg);
+}
+
+.leaf-l9 {
+  bottom: -2%;
+  left: -2%;
+  width: clamp(150px, 17vw, 250px);
+  transform: rotate(-10deg);
+}
+
+.leaf-l10 {
+  bottom: -5%;
+  left: 8%;
+  width: clamp(110px, 11vw, 160px);
+  transform: rotate(-5deg);
+}
+
+/* Borde Derecho (10 Hojas) */
+.leaf-r1 {
   top: -5%;
   right: -3%;
   width: clamp(160px, 18vw, 270px);
   transform: rotate(20deg);
 }
 
-.leaf-mid-left {
-  top: 35%;
-  left: -4%;
-  width: clamp(130px, 12vw, 190px);
-  transform: rotate(-45deg);
+.leaf-r2 {
+  top: 7%;
+  right: -4%;
+  width: clamp(110px, 11vw, 165px);
+  transform: rotate(15deg);
 }
 
-.leaf-mid-right {
-  top: 40%;
+.leaf-r3 {
+  top: 18%;
+  right: -3%;
+  width: clamp(120px, 12vw, 180px);
+  transform: rotate(25deg);
+}
+
+.leaf-r4 {
+  top: 30%;
   right: -5%;
-  width: clamp(140px, 13vw, 200px);
+  width: clamp(130px, 13vw, 195px);
+  transform: rotate(35deg);
+}
+
+.leaf-r5 {
+  top: 42%;
+  right: -4%;
+  width: clamp(100px, 10vw, 150px);
   transform: rotate(40deg);
 }
 
-.leaf-bottom-left {
-  bottom: 8%;
-  left: -3%;
-  width: clamp(150px, 15vw, 220px);
-  transform: rotate(-25deg);
+.leaf-r6 {
+  bottom: 38%;
+  right: -2%;
+  width: clamp(145px, 15vw, 215px);
+  transform: rotate(45deg);
 }
 
-.leaf-bottom-right {
-  bottom: 6%;
-  right: -4%;
-  width: clamp(180px, 17vw, 260px);
+.leaf-r7 {
+  bottom: 25%;
+  right: -3%;
+  width: clamp(125px, 12vw, 185px);
   transform: rotate(30deg);
+}
+
+.leaf-r8 {
+  bottom: 12%;
+  right: -3%;
+  width: clamp(155px, 16vw, 235px);
+  transform: rotate(20deg);
+}
+
+.leaf-r9 {
+  bottom: -1%;
+  right: -2%;
+  width: clamp(140px, 14vw, 210px);
+  transform: rotate(15deg);
+}
+
+.leaf-r10 {
+  bottom: -4%;
+  right: 9%;
+  width: clamp(115px, 11vw, 170px);
+  transform: rotate(10deg);
 }
 
 
@@ -200,11 +301,10 @@
   bottom: 24%;
   left: 36%;
   width: clamp(48px, 4.5vw, 68px);
-  color: var(--verde-profundo);
   opacity: 0.22;
   transform: rotate(-142deg) scaleX(-1);
   will-change: transform;
-  filter: blur(0.3px);
+  filter: invert(24%) sepia(19%) saturate(1048%) hue-rotate(71deg) brightness(93%) contrast(88%) blur(0.3px);
 }
 
 /* INDICADOR BOTÁNICO DE SCROLL */
@@ -230,7 +330,7 @@
 .scroll-leaf-bounce {
   width: 18px;
   height: 24px;
-  color: currentColor;
+  filter: invert(1) brightness(2);
 }
 
 .scroll-text {
@@ -243,13 +343,13 @@
     min-height: clamp(700px, 92svh, 800px);
   }
 
-  .leaf-top-left {
+  .leaf-l1 {
     top: -2%;
     left: -4%;
     width: 180px;
   }
 
-  .leaf-top-right {
+  .leaf-r1 {
     top: -3%;
     right: -4%;
     width: 200px;
@@ -295,32 +395,46 @@
     font-size: 0.86rem;
   }
 
-  .leaf-top-left {
+  /* Ocultar hojas intermedias para asegurar legibilidad */
+  .leaf-l2, .leaf-l3, .leaf-l4, .leaf-l5, .leaf-l6, .leaf-l7, .leaf-l10,
+  .leaf-r2, .leaf-r3, .leaf-r4, .leaf-r5, .leaf-r6, .leaf-r7, .leaf-r10 {
+    display: none;
+  }
+
+  .leaf-l1 {
     top: -1%;
     left: -8%;
     width: 120px;
   }
 
-  .leaf-top-right {
+  .leaf-r1 {
     top: -2%;
     right: -8%;
     width: 140px;
   }
 
-  .leaf-mid-left, .leaf-mid-right {
-    display: none;
-  }
-
-  .leaf-bottom-left {
-    bottom: 6%;
+  .leaf-l8 {
+    bottom: 8%;
     left: -8%;
-    width: 130px;
+    width: 110px;
   }
 
-  .leaf-bottom-right {
-    bottom: 4%;
+  .leaf-l9 {
+    bottom: -1%;
+    left: -8%;
+    width: 120px;
+  }
+
+  .leaf-r8 {
+    bottom: 10%;
     right: -8%;
-    width: 140px;
+    width: 115px;
+  }
+
+  .leaf-r9 {
+    bottom: -1%;
+    right: -8%;
+    width: 125px;
   }
 
   .hero-scroll-indicator {
@@ -343,20 +457,28 @@
     max-width: 310px;
   }
 
-  .leaf-top-left {
+  .leaf-l1 {
     width: 90px;
   }
 
-  .leaf-top-right {
+  .leaf-r1 {
     width: 110px;
   }
 
-  .leaf-bottom-left {
+  .leaf-l8 {
+    width: 80px;
+  }
+
+  .leaf-l9 {
+    width: 95px;
+  }
+
+  .leaf-r8 {
+    width: 85px;
+  }
+
+  .leaf-r9 {
     width: 100px;
-  }
-
-  .leaf-bottom-right {
-    width: 110px;
   }
 }
 

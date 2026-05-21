@@ -6,33 +6,7 @@ import { generateWaLink, WA_MESSAGES } from '../data/mockData';
 import SEO from '../components/SEO';
 import './Home.css';
 
-/* SVG de hoja clásica decorativa */
-const LeafClassic = ({ className }) => (
-  <svg className={className} viewBox="0 0 150.3 299.04" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path fill="currentColor" fillRule="evenodd" d="M146.46,298.95c.94.31,4.4-.16,3.77-2.83-.63-2.67-.16-13.98-4.87-20.89-4.71-6.91-9.42-16.33-9.42-20.89s-1.41-27.48-5.18-41.62c-3.77-14.13-9.74-23.87-10.36-38.94-.63-15.08,2.52-35.49-4.71-49.94-7.23-14.45-20.1-34.55-20.1-47.11s4.08-20.73-7.85-33.3c-11.93-12.56-24.5-13.19-30.15-21.67-5.65-8.48-12.56-17.27-22.61-20.42C24.92-1.78,16.75.73,12.98,6.7,9.21,12.67-1.15,15.18.1,38.11c1.26,22.93,16.65,43.34,23.87,60.62,7.22,17.27,15.7,44.91,24.81,51.51,9.11,6.6,27.95,13.19,28.89,17.75.94,4.55,1.1,10.84,4.87,13.66,3.77,2.83,3.61,2.2,6.91,8.32,3.3,6.12,8.48,20.88,13.66,23.71,5.18,2.83,6.44,6.91,10.36,13.82,3.93,6.91,11.94,22.45,15.86,29.05,3.93,6.6,7.22,10.84,10.05,18.85,2.83,8.01,6.28,12.4,7.06,23.56Z"/>
-  </svg>
-);
-
-/* SVG de hoja Monstera */
-const LeafMonstera = ({ className }) => (
-  <svg className={className} viewBox="0 0 773.84 575.31" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path fill="currentColor" fillRule="evenodd" d="M91.79,308.38s-23.25-32.61-45.24-78.28C24.57,184.44,8.48,121.69,13.4,120.96c4.92-.74,21.7-2.44,30.17-4.46,8.47-2.02,15.54-8.91,15.54-8.91,0,0-53.38-11.56-57.83-17.17-4.44-5.61,3.89-45.79,7.57-49.41,3.69-3.62,38.28-27.03,99.03-34.99,60.75-7.96,103.58-7.81,111.78-.85,8.2,6.96,51.66,63.48,55.49,57.53,3.83-5.96-15.26-48.54-15.26-48.54,0,0,34.74,6.78,82.92,31.71,48.17,24.93,69.61,39.44,72.43,45.52,2.82,6.08,19.74,42.53,20.99,49.73,1.25,7.2,4.13-38.84,4.13-38.84,0,0,70.44,53.65,108.05,87.41,37.61,33.76,49.32,71.31,74.67,129.64,25.35,58.33,2.16,131.92,2.16,131.92,0,0,19.4,18,40.35,32.71,20.96,14.71,72.58,49.33,84.86,55.46,12.28,6.13,21.75,6.18,22.29,8.79.55,2.61,2.33,24.37-.3,26.74-2.63,2.37-20.03-7.49-41.27-23.67-21.24-16.18-52.39-42.01-52.39-42.01,0,0-56.17-45.52-60.49-47.66-4.32-2.14-4.29,14.46-21.93,30.17-17.63,15.72-54.08,38.79-111.33,36.83-57.25-1.95-126.37-10.89-146.78-19.01-20.41-8.12-28.97-19.37-28.97-19.37,0,0,16.78,2.28,38.91-1.03,22.13-3.3,31.7-14.21,31.7-14.21,0,0-89.41.52-98.52-5.38-9.11-5.89-75.01-56.59-103.14-82-28.13-25.41-57.03-52.09-55.83-55.67,1.2-3.58,39.24-17.32,35.95-21.03-3.29-3.71-66.57-2.54-66.57-2.54h0ZM162.82,288.32c-10-.51,10.9,3.42,21.97,4.84,11.07,1.42,45.42-4.71,41.62-8.55s-63.59,3.71-63.59,3.71h0ZM554.64,337.08c8.48-9.99-2.09-86.46-9.39-114.73-7.29-28.28-16.75-42.44-19.2-35.94-2.45,6.51,8.51,59.38,14.25,80.82,5.74,21.44,14.34,69.85,14.34,69.85h0ZM230.18,314.51c-16.54.69,34.74,6.78,61.78,4.57,27.04-2.21,81.81-18.31,72.38-15.88-9.43,2.43-63.63,1.22-76.92.98-13.3-.24-44.68,5.65-57.24,10.33Z"/>
-  </svg>
-);
-
-/* SVG de helecho (Fern Frond) */
-const LeafFern = ({ className }) => (
-  <svg className={className} viewBox="0 0 367.01 666.15" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path fill="currentColor" fillRule="evenodd" d="M231.26,665.69c4.76,4.76,10.05-28.04,5.82-66.14-1.36-12.21-5.48-41.26-10.47-77.61,12.96-4.48,55.79-29.98,79.78-51.75,28.57-25.93,70.9-75.14,40.74-76.72-26.83-1.41-104.33,101.44-121.11,124.17-1.07-7.81-2.17-15.93-3.29-24.27,15.01-10.98,93.1-81.51,106.68-96.72,14.83-16.61,41.8-63.23,37.04-66.14-4.76-2.91-5.29.79-19.84,10.32-13.47,8.81-112.4,113.3-127.02,128.77-1.13-8.59-2.25-17.32-3.36-26.09,12.22-10.29,76.7-65.21,107.76-104.39,34.39-43.39,49.21-67.73,38.1-72.49-11.11-4.76-43.39,19.05-64.55,49.74-21.17,30.69-45.51,64.55-59.79,80.96-10.62,12.2-19.93,21.91-24,26.08-1.41-11.54-2.76-23.05-4.01-34.32,10.11-10.16,53.64-53.86,78.54-78.53,28.31-28.04,65.61-86.25,62.96-96.3-2.65-10.05-17.73-12.17-35.72,12.7-17.99,24.87-43.65,70.38-71.43,108.21-27.71,37.74-35.76,40.68-35.8,40.7-1.48-13.9-2.79-27.3-3.84-39.81,13.32-15.66,111.64-131.97,114.11-155.65,2.65-25.4-19.58-25.4-44.97,12.17-25.4,37.57-57.94,104.77-62.97,110.32-3,3.31-6,6.91-7.93,9.27-.67-10.92-1.04-20.72-1.04-29.03,0-11.69-.19-23.06-.52-33.94,8.53-9.35,37.76-41.65,57.9-66.93,23.81-29.9,60.05-88.36,47.09-94.45-12.96-6.08-35.71,11.38-54.23,48.95-18.52,37.57-21.97,41.54-33.61,61.91-7.94,13.9-14.65,22.99-18.11,27.37-.62-11.67-1.4-22.49-2.29-32.16,8.89-11.15,32.45-41.52,47.24-68.35,18.52-33.6,35.71-73.81,24.33-75.13-11.38-1.32-32.54,25.4-42.33,52.91-9.79,27.51-8.47,37.57-18.26,56.36-5.58,10.71-9.78,17.16-12.37,20.73-1.57-13.72-3.34-24.05-5.04-29.78,2.91-12.44,7.42-34.11,10.12-59.07C205.78,52.39,197.32,0,183.56,0s-14.29,26.46-14.29,60.32c0,27.67,12.16,72.57,16.6,88.07-3.21-7.08-12.39-26.98-21.36-43.63-11.11-20.64-34.66-79.63-46.83-74.34-12.17,5.29,11.65,53.44,29.11,85.98,13.8,25.72,32.89,45.83,40.29,53.12.48,14.54,1.73,33.82,3.08,52.48-5.72-9.61-19.96-33.48-44.67-74.66-33.33-55.56-62.7-90.75-72.75-76.72-10.05,14.02,14.81,54.77,27.51,70.9,11.63,14.78,80.71,97.99,92.26,111.9.92,12,1.67,21.86,1.97,27.33.2,3.59.57,9.59,1.08,17.42-6.65-7.9-23.81-28.39-39.99-48.72-20.64-25.93-76.46-99.47-94.98-110.06-18.52-10.58-29.63-10.58-21.69,15.61,7.94,26.19,76.46,97.63,107.94,125.94,31.48,28.31,50.65,45.31,50.65,45.31h0c.93,12.98,2.02,27.73,3.25,43.25-6.08-6.97-20.41-23.07-50.59-55.77-44.45-48.15-96.3-106.89-114.82-111.12-18.52-4.23-34.39,16.4,10.58,62.44,42.08,43.07,144.26,123.66,157.23,133.85.83,9.76,1.69,19.57,2.59,29.21-3.96-2.75-11.63-8.74-23.02-20.47-17.46-17.99-113.23-106.88-138.63-123.28-25.4-16.4-40.74-24.87-43.92-14.29-3.18,10.58,42.86,78.84,99.48,112.71,47.78,28.58,94.62,57.53,108.07,65.87.68,6.82,1.37,13.46,2.07,19.83-5.41-4.3-16.07-12.32-29.45-20.1-19.58-11.38-70.64-43.12-99.48-60.85-28.84-17.72-62.97-24.08-62.97-12.96s46.56,48.94,89.95,74.87c37.86,22.63,91.23,35.58,104.21,38.51.58,4.66,1.17,9.08,1.75,13.2.58,4.08,1.1,8.17,1.56,12.26-12.68-5.26-58.46-24.45-81.34-36.46-26.72-14.02-80.43-44.71-98.15-44.71s-7.67,23.81,27.78,44.71c35.45,20.9,106.79,39.84,129.9,44.45,21.94,4.38,22.8,1.98,22.84,1.73,5.44,56.33,2.7,111.68,14.88,142.57Z"/>
-  </svg>
-);
-
-/* SVG de rama de eucalipto (Eucalyptus Branch) */
-const LeafEucalyptus = ({ className }) => (
-  <svg className={className} viewBox="0 0 871.73 656.39" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path fill="currentColor" fillRule="evenodd" d="M863.83,594.28l7.9-21.27s-67.67-14.38-123.81-32.43c6.47-18.4,20.99-62.82,21.62-92.48.82-38.22-18.11-51.37-18.11-51.37,0,0-2.7,47.12-9.61,75.19-4.97,20.2-1.21,51.27,1.28,67.1-3.31-1.09-6.57-2.19-9.77-3.31-6.76-2.36-14.33-5.21-22.6-8.55-1.52-11.2-4.09-39.47,3.63-66.14,9.91-34.25,15.68-68.12,11.04-110.76-4.64-42.64-25.87-77.12-25.87-77.12,0,0,12.11,27.44,6.36,77.67-5.74,50.23-25.8,90.58-22.19,123.35,2.46,22.35,14.5,41.18,21.91,50.9-12.11-5.02-25.61-11.01-40.23-17.97-1.89-9.35-5.54-35.8,3.24-74.12,11.08-48.38,21.26-81.06,14.66-120.94-6.6-39.88-30.65-66.1-30.65-66.1,0,0,17.65,18.07,11.52,70.8-6.13,52.73-21.39,73.62-22.58,125.84-.77,33.88,9.85,52.52,17.41,61.44-16.15-7.82-33.57-16.76-51.94-26.81-2.57-10.44-7.03-36.88,4.45-64.86,14.79-36.05,27.59-79.05,22.84-117.62-4.75-38.57-29.53-70.02-29.53-70.02,0,0,12.06,37.66,6.55,79.75-5.51,42.09-24.56,75.95-23.33,110.9.91,26.06,11.78,50.25,17.25,60.88-14.56-7.99-29.7-16.66-45.26-26.01-5.12-11.27-10.78-32.06-2.76-60.6,12.54-44.58,23.84-87.82,19.12-123.31-4.72-35.5-30.65-66.1-30.65-66.1,0,0,12.69,20.37,8.83,68.34-3.86,47.97-19.68,74.15-17.16,120.55,1.49,27.45,11.09,47.19,18.68,58.75-15.22-9.21-30.83-19.06-46.69-29.54-3.01-9.91-8.94-37.76,3.29-77.51,15.46-50.26,19.77-87.94,13.59-120.59-6.18-32.65-25.59-59.18-25.59-59.18,0,0,14.91,25.83,6.25,75.1-8.66,49.27-25.17,73.29-23.14,112.98,1.53,30.04,16.22,56.55,23.26,67.66-16.78-11.14-33.82-22.98-50.95-35.51-.36-12.66.16-43.38,11.27-74.57,14.49-40.7,24.91-51.86,18.2-94.31-6.71-42.45-31.36-77.97-31.36-77.97,0,0,15.26,29.46,10.35,78.29-4.9,48.83-26.5,95.07-23.96,121.54,1.65,17.19,7.82,34.44,11.95,44.41-4.59-3.38-9.19-6.81-13.78-10.28l-21.08-15.95c-2.11-12.1-4.95-34.6-.67-50.73,6.14-23.08,24.74-37.57,23.8-84.24-.94-46.67-24.01-89.1-24.01-89.1,0,0,9.3,29.05,1.3,70.76-8,41.7-25.86,71.14-24.67,103.03.62,16.63,7.65,31.91,14.23,42.72-12.63-9.55-24.78-18.73-36.43-27.55,1.35-4.69,3.7-15.89,4.37-38.64.96-32.57,15.87-51.22,21.77-102.45,5.9-51.23-17.4-77.34-17.4-77.34,0,0,4.33,37.99-.04,62.88-4.37,24.88-21.11,47.09-31.48,84.33-7.33,26.32,3.57,50.23,10.61,61.99-10.85-8.23-21.25-16.14-31.17-23.72-.02-.18-2.56-24.32.95-50.27,3.53-26.04,15.11-44.69,27.23-89.85,12.11-45.16-2.74-51.55-2.74-51.55,0,0-2.41,22.12-9.19,39.48-6.78,17.36-25.62,33.35-33.08,71.56-7.43,38.08,16.66,80.33,16.83,80.63-12.09-9.23-23.48-17.99-34.15-26.27-3.11-12.6-7.29-36.94.02-57.41,10.39-29.06,26.86-89.14,19.71-112.23-7.15-23.09-23.68-48.41-23.68-48.41,0,0,9.01,40.76,4.52,69.72-4.49,28.96-18.97,26.71-18.07,76.95.58,32.25,8.62,56.02,14.3,68.9-8.21-6.39-15.98-12.49-23.3-18.32-.09-.24-4.63-12.65-6.18-48.33-1.57-36.03.8-61.22-.7-91.11-1.5-29.88-20.74-64.06-20.74-64.06,0,0,5.24,15.64.7,54.81-4.54,39.17-2.99,58.84-.57,89.38,2.4,30.25,27.01,58.76,27.48,59.3-10.41-8.28-19.91-16-28.48-23.16-.12-.25-11.24-23.35-12.62-50.51-1.39-27.31-4.8-64.65-8.92-90.85-4.12-26.2-4.34-31.35-10.39-45.07-6.05-13.72-11.91,4.28-10.85,46.89,1.06,42.58,15.48,115.55,42.74,139.51-10.49-8.77-19.59-16.73-27.25-23.89,0,0-16.82-34.54-20.41-50.94-3.59-16.41-7.85-54.9-17.38-82.45-9.53-27.55-37.7-50.32-37.7-50.32,0,0,10.89,15.49,17.84,49.8,6.95,34.31,12.67,56.87,24.63,85.11,11.78,27.8,32.36,48.16,33,48.79-3.28-3.07-6.3-5.99-9.04-8.77-22.37-22.64-50.32-46.75-68.12-61.64-15.28-17.65-38.95-44.64-51.5-57.12-19.49-19.38-29.85-31.72-49.72-48.61C13.18-2.88-2.57-.21.35.75c2.92.96,12.82,9.66,19.49,19.38,6.67,9.73,13.03,21.45,26.77,31.76,13.74,10.31,9.82,9.19,30.96,34.45,21.13,25.26,71.05,50.06,71.05,50.06,13.97,13.51,30.99,29.87,47.89,45.81-8.35-4.09-23.93-10.99-36.19-12.18-17.63-1.71-43.83-.92-58.09-2.88-14.27-1.96-31.75-9.53-31.75-9.53,0,0,25.9,27.53,48.71,32.09,21.84,4.36,54.39-9.05,79.89-5.1,11.01,10.37,21.9,20.5,31.79,29.48-7.08-5.12-20.06-11.5-39.76-10.16-32.04,2.19-46.9,2.44-62.58,4.61-15.67,2.17-35.8.07-35.8.07,0,0,37.92,19.17,64.54,22.28,26.61,3.1,67.99-20.92,80.14-10.89h0c9.7,8.7,18.12,15.95,24.29,20.78-14.42-5.45-32.22-9.5-46.72-4.51-29.7,10.22-48.96,18.99-64.6,24.24-15.64,5.24-35.26,3.22-35.26,3.22,0,0,45.49,19.84,73.77,15.53,28.27-4.31,52.77-22.02,68.48-26.19,7.04-1.87,13.97-1.92,19.47-1.42,5.41,4.01,11.98,9.09,19.32,14.88h0s0,0,0,0c6.86,5.41,14.38,11.45,22.26,17.81-13.54-3.42-33.59-7.11-50.37-4.56-28.28,4.31-35.16,12.44-71.47,19.08-36.31,6.64-59.49-8.71-59.49-8.71,0,0,10.16,16.91,43.53,22.6,33.37,5.69,55.93-4.62,83.1-18.3,18.27-9.2,43.7-8.53,58.4-7.11,11.88,9.61,24.43,19.85,36.61,29.77-12.83-3.61-32.06-7.79-43.14-4.39-17.72,5.43-29.44,18.44-73.52,28.99-44.07,10.55-74.12-9.96-74.12-9.96,0,0,20.94,29.83,56.04,34.25,35.1,4.42,70.65-10.52,94.26-30.88,15.48-13.35,33.68-15.17,44.37-14.84,13.1,10.66,25.65,20.83,36.3,29.28-11.83-1.58-27.3-2.14-42.78,1.67-31.89,7.83-39.89,19.89-78.28,33.36-38.39,13.48-66.14-2.08-66.14-2.08,0,0,27.47,27.26,65.03,29,37.56,1.73,69.66-17.32,89.43-39.3,11.28-12.54,27.17-16.68,38.73-17.93,6.91,5.42,12.77,9.88,17.12,12.97,6.18,4.39,16.62,11.85,30.01,21.28-13.54-3.01-30.1-4.47-44.06.9-29.35,11.29-43.2,21.42-74.41,38.05-31.21,16.63-68.49,3.18-68.49,3.18,0,0,27.48,20.62,66.7,21.59,39.22.97,61.44-17.06,84.78-39,14.03-13.19,33.47-16.37,46.75-16.82,8.67,6.06,18.23,12.7,28.42,19.68-8.05-1.77-18.63-2.32-27.07,3.45-15.85,10.83-27.26,37.31-70.87,51.51-43.61,14.2-86.65-1.68-86.65-1.68,0,0,47.05,32.86,87.12,28.34,40.07-4.52,55.7-28.44,76.04-55.18,12.19-16.03,21.86-20.88,27.64-22.19,13.53,9.23,28.04,18.98,42.97,28.78-11.58-1.78-26.55-1-44.05,6.74-42.81,18.93-55.44,47.64-86.41,56.13-30.97,8.49-61.32,12.99-43.92,16.19,0,0,62.25,10.68,97.46-11.98,35.21-22.66,39.57-34.25,57.86-46.75,11.06-7.56,25.38-9.56,34.97-9.97,7.29,4.7,14.63,9.38,21.97,13.97-8.6-1.54-17.17-1.22-21.42,4.32-10.31,13.42-16.07,33.3-47.37,53.24-31.31,19.93-113.66,19.19-113.66,19.19,0,0,71.27,15.14,98.24,12.68,26.97-2.46,68.2-14.21,85.12-49.43,8.04-16.74,13.77-24.77,17.57-28.58,16.45,10,32.58,19.36,47.66,27.46h0s1.69,16.35-20.66,38.45c-22.34,22.1-63.25,25.47-94.75,30.81-31.5,5.34-94.25-5.41-94.25-5.41,4.98,14.06,105,24.92,133.21,27.81,60.65,6.22,99.68-49,86.77-86.23,1.62.84,3.24,1.66,4.82,2.46,13.41,6.73,27.84,13.23,42.6,19.39-4.67,15.23-16.33,46.43-35.7,55.64-25.94,12.34-66.15,11.21-84.37,16.57-18.21,5.36-55.41,14.42-55.41,14.42,0,0,40.49-3.95,68.75,5.04,28.26,8.98,82.66,1.06,100.29-33.53,11.56-22.68,11.74-44.27,10.5-56.44,12.99,5.35,26.2,10.43,39.15,15.18-5.76,5.82-15.05,19.65-13.29,47.41,2.53,39.76,43.26,57.32,44.18,51.33.93-5.99-3.68-9.26-17.58-41.58-10.44-24.26-10.27-46.3-9.54-55.79,60.34,21.92,114.16,36.4,114.16,36.4h0ZM176.28,163.02s-29.66,7.96-56.57-6.44c-26.91-14.4-59.96-35.37-66.98-39.53-7.03-4.16,36.61-1.99,69.69,15.41,33.09,17.4,53.85,30.56,53.85,30.56h0ZM160.46,142.19s-26.11-36.3-44.28-64.16c-18.17-27.87-15.76-56.64-22.54-68.94-6.78-12.3,6.61-3.06,21.1,22.19,14.49,25.25,58.43,122.26,45.72,110.91Z"/>
-  </svg>
-);
+;
 
 /* SVG onda separadora */
 const WaveTop = ({ fill = '#F4EBDD', bg = 'transparent', className = '' }) => (
@@ -215,145 +189,54 @@ const Home = () => {
   // --- MIGRACIÓN A GSAP (ANIMACIÓN PREMIUM BOTÁNICA) ---
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Animaciones base flotantes e independientes (Swaying Loops) para cada una de las 6 hojas
+      // 1. Animaciones base flotantes e independientes (Swaying Loops) para cada una de las 20 hojas
       // Animamos 'x', 'y' y 'rotation' de forma asíncrona para lograr un movimiento totalmente caótico y natural.
-      
-      // Top Left (Monstera, Foreground)
-      gsap.to(".leaf-top-left", {
-        y: "+=12",
-        duration: 9.2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-      gsap.to(".leaf-top-left", {
-        x: "-=8",
-        duration: 11.4,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-      gsap.to(".leaf-top-left", {
-        rotation: "+=10",
-        duration: 8.3,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
+      const leavesConfig = [
+        { sel: ".leaf-l1", y: 12, x: -8, rot: 10, durY: 9.2, durX: 11.4, durR: 8.3 },
+        { sel: ".leaf-l2", y: 14, x: -6, rot: -8, durY: 10.5, durX: 12.1, durR: 9.0 },
+        { sel: ".leaf-l3", y: 10, x: -9, rot: 12, durY: 13.0, durX: 14.2, durR: 11.5 },
+        { sel: ".leaf-l4", y: 15, x: 7, rot: -10, durY: 11.8, durX: 13.5, durR: 10.2 },
+        { sel: ".leaf-l5", y: 11, x: -5, rot: 8, durY: 12.4, durX: 15.0, durR: 9.8 },
+        { sel: ".leaf-l6", y: 13, x: 8, rot: -12, durY: 10.9, durX: 12.8, durR: 11.1 },
+        { sel: ".leaf-l7", y: 9, x: -6, rot: 7, durY: 14.1, durX: 11.9, durR: 12.5 },
+        { sel: ".leaf-l8", y: 16, x: 10, rot: -14, durY: 9.8, durX: 13.2, durR: 8.7 },
+        { sel: ".leaf-l9", y: 18, x: -11, rot: 15, durY: 8.5, durX: 10.6, durR: 7.9 },
+        { sel: ".leaf-l10", y: 12, x: 6, rot: -9, durY: 11.2, durX: 14.0, durR: 10.6 },
+        
+        { sel: ".leaf-r1", y: 15, x: 6, rot: -12, durY: 10.1, durX: 12.8, durR: 9.4 },
+        { sel: ".leaf-r2", y: 11, x: -5, rot: 7, durY: 13.5, durX: 11.2, durR: 10.5 },
+        { sel: ".leaf-r3", y: 9, x: 5, rot: -6, durY: 14.3, durX: 12.1, durR: 10.5 },
+        { sel: ".leaf-r4", y: 13, x: -7, rot: 11, durY: 11.5, durX: 14.5, durR: 9.9 },
+        { sel: ".leaf-r5", y: 10, x: 6, rot: -8, durY: 12.8, durX: 13.9, durR: 11.3 },
+        { sel: ".leaf-r6", y: 14, x: -8, rot: 10, durY: 10.3, durX: 12.4, durR: 9.1 },
+        { sel: ".leaf-r7", y: 12, x: 7, rot: -9, durY: 12.0, durX: 13.6, durR: 10.8 },
+        { sel: ".leaf-r8", y: 16, x: -10, rot: 13, durY: 9.5, durX: 11.8, durR: 7.6 },
+        { sel: ".leaf-r9", y: 13, x: 8, rot: -10, durY: 11.1, durX: 13.0, durR: 9.6 },
+        { sel: ".leaf-r10", y: 10, x: -5, rot: 6, durY: 13.8, durX: 15.2, durR: 11.9 }
+      ];
 
-      // Top Right (Classic, Midground)
-      gsap.to(".leaf-top-right", {
-        y: "+=15",
-        duration: 10.1,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-      gsap.to(".leaf-top-right", {
-        x: "+=6",
-        duration: 12.8,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-      gsap.to(".leaf-top-right", {
-        rotation: "-=12",
-        duration: 9.4,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-
-      // Mid Left (Fern, Background)
-      gsap.to(".leaf-mid-left", {
-        y: "+=10",
-        duration: 13.5,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-      gsap.to(".leaf-mid-left", {
-        x: "+=6",
-        duration: 15.2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-      gsap.to(".leaf-mid-left", {
-        rotation: "+=8",
-        duration: 11.1,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-
-      // Mid Right (Eucalyptus, Midground)
-      gsap.to(".leaf-mid-right", {
-        y: "+=12",
-        duration: 11.9,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-      gsap.to(".leaf-mid-right", {
-        x: "-=8",
-        duration: 14.1,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-      gsap.to(".leaf-mid-right", {
-        rotation: "-=10",
-        duration: 10.3,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-
-      // Bottom Left (Monstera, Midground)
-      gsap.to(".leaf-bottom-left", {
-        y: "+=14",
-        duration: 11.3,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-      gsap.to(".leaf-bottom-left", {
-        x: "+=8",
-        duration: 13.2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-      gsap.to(".leaf-bottom-left", {
-        rotation: "+=12",
-        duration: 8.7,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-
-      // Bottom Right (Classic, Foreground)
-      gsap.to(".leaf-bottom-right", {
-        y: "+=16",
-        duration: 9.6,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-      gsap.to(".leaf-bottom-right", {
-        x: "-=10",
-        duration: 11.8,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-      gsap.to(".leaf-bottom-right", {
-        rotation: "-=14",
-        duration: 7.6,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
+      leavesConfig.forEach(cfg => {
+        gsap.to(cfg.sel, {
+          y: `+=${cfg.y}`,
+          duration: cfg.durY,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut"
+        });
+        gsap.to(cfg.sel, {
+          x: cfg.x > 0 ? `+=${cfg.x}` : `-=${Math.abs(cfg.x)}`,
+          duration: cfg.durX,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut"
+        });
+        gsap.to(cfg.sel, {
+          rotation: cfg.rot > 0 ? `+=${cfg.rot}` : `-=${Math.abs(cfg.rot)}`,
+          duration: cfg.durR,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut"
+        });
       });
 
       // Flotación lenta y flotante de la hoja caída en el separador
@@ -415,24 +298,24 @@ const Home = () => {
         stagger: 0.15
       }, "-=0.6");
 
-      // Suave float-in para todas las hojas desde los bordes de la pantalla
-      tl.from(".leaf-top-left, .leaf-mid-left, .leaf-bottom-left", {
-        x: -60,
+      // Suave float-in para todas las hojas desde los bordes de la pantalla (10 izquierdas, 10 derechas)
+      tl.from(".leaf-l1, .leaf-l2, .leaf-l3, .leaf-l4, .leaf-l5, .leaf-l6, .leaf-l7, .leaf-l8, .leaf-l9, .leaf-l10", {
+        x: -70,
         opacity: 0,
         scale: 0.8,
-        duration: 1.6,
+        duration: 1.8,
         ease: "power3.out",
-        stagger: 0.1
-      }, "-=1.2");
+        stagger: 0.06
+      }, "-=1.3");
 
-      tl.from(".leaf-top-right, .leaf-mid-right, .leaf-bottom-right", {
-        x: 60,
+      tl.from(".leaf-r1, .leaf-r2, .leaf-r3, .leaf-r4, .leaf-r5, .leaf-r6, .leaf-r7, .leaf-r8, .leaf-r9, .leaf-r10", {
+        x: 70,
         opacity: 0,
         scale: 0.8,
-        duration: 1.6,
+        duration: 1.8,
         ease: "power3.out",
-        stagger: 0.1
-      }, "-=1.6");
+        stagger: 0.06
+      }, "-=1.8");
 
       tl.from(".hero-scroll-indicator", {
         opacity: 0,
@@ -445,35 +328,45 @@ const Home = () => {
       const btns = heroRef.current?.querySelectorAll('.hero-actions .btn');
       if (btns) {
         const onEnter = () => {
-          // Desplazamos las hojas hacia afuera simulando una ráfaga
-          gsap.to(".leaf-top-left .botanical-leaf-inner, .leaf-bottom-left .botanical-leaf-inner", {
-            x: -22,
-            y: -8,
-            rotation: -12,
-            scale: 1.04,
-            duration: 0.7,
+          gsap.to([
+            ".leaf-l1 .botanical-leaf-inner", ".leaf-l2 .botanical-leaf-inner", 
+            ".leaf-l3 .botanical-leaf-inner", ".leaf-l4 .botanical-leaf-inner", 
+            ".leaf-l5 .botanical-leaf-inner", ".leaf-l6 .botanical-leaf-inner", 
+            ".leaf-l7 .botanical-leaf-inner", ".leaf-l8 .botanical-leaf-inner", 
+            ".leaf-l9 .botanical-leaf-inner", ".leaf-l10 .botanical-leaf-inner"
+          ], {
+            x: -25,
+            y: -6,
+            rotation: -10,
+            scale: 1.03,
+            duration: 0.8,
             ease: "power2.out",
             overwrite: "auto"
           });
-          gsap.to(".leaf-top-right .botanical-leaf-inner, .leaf-mid-right .botanical-leaf-inner, .leaf-bottom-right .botanical-leaf-inner", {
-            x: 22,
-            y: -8,
-            rotation: 12,
-            scale: 1.04,
-            duration: 0.7,
+          gsap.to([
+            ".leaf-r1 .botanical-leaf-inner", ".leaf-r2 .botanical-leaf-inner", 
+            ".leaf-r3 .botanical-leaf-inner", ".leaf-r4 .botanical-leaf-inner", 
+            ".leaf-r5 .botanical-leaf-inner", ".leaf-r6 .botanical-leaf-inner", 
+            ".leaf-r7 .botanical-leaf-inner", ".leaf-r8 .botanical-leaf-inner", 
+            ".leaf-r9 .botanical-leaf-inner", ".leaf-r10 .botanical-leaf-inner"
+          ], {
+            x: 25,
+            y: -6,
+            rotation: 10,
+            scale: 1.03,
+            duration: 0.8,
             ease: "power2.out",
             overwrite: "auto"
           });
         };
 
         const onLeave = () => {
-          // Retornan suavemente a su balanceo
           gsap.to(".botanical-leaf-inner", {
             x: 0,
             y: 0,
             rotation: 0,
             scale: 1,
-            duration: 1.3,
+            duration: 1.4,
             ease: "power2.out",
             overwrite: "auto"
           });
@@ -487,7 +380,81 @@ const Home = () => {
 
     }, heroRef);
 
-    return () => ctx.revert(); // Recolección de basura impecable al desmontar
+    // 4. Animación de viento reactiva al Scroll de alta performance basada en velocidad
+    let lastScrollY = window.scrollY || window.pageYOffset;
+    let lastTime = performance.now();
+    let scrollEndTimeout = null;
+
+    const handleScrollWind = () => {
+      const currentScrollY = window.scrollY || window.pageYOffset;
+      const currentTime = performance.now();
+      const deltaTime = currentTime - lastTime;
+
+      // Optimización premium: evitar cálculos innecesarios si el hero está fuera del viewport (scroll profundo)
+      if (currentScrollY > 1100) {
+        lastScrollY = currentScrollY;
+        lastTime = currentTime;
+        return;
+      }
+
+      if (deltaTime > 0) {
+        const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+        // Calcular velocidad de scroll (px/ms)
+        const speed = scrollDelta / deltaTime;
+        
+        // Escalamos la intensidad del viento de 0 a 2.8 como máximo (viento fuerte!)
+        const windIntensity = Math.min(2.8, speed * 0.85);
+
+        if (windIntensity > 0.05) {
+          // Hojas izquierdas deflectan hacia la izquierda con flexión y alabeo (skew/rotation)
+          gsap.to(".leaf-l1 .botanical-leaf-inner, .leaf-l2 .botanical-leaf-inner, .leaf-l3 .botanical-leaf-inner, .leaf-l4 .botanical-leaf-inner, .leaf-l5 .botanical-leaf-inner, .leaf-l6 .botanical-leaf-inner, .leaf-l7 .botanical-leaf-inner, .leaf-l8 .botanical-leaf-inner, .leaf-l9 .botanical-leaf-inner, .leaf-l10 .botanical-leaf-inner", {
+            x: -38 * windIntensity,
+            y: -10 * windIntensity,
+            skewX: -12 * windIntensity,
+            rotation: -18 * windIntensity,
+            duration: 0.22,
+            ease: "power1.out",
+            overwrite: "auto"
+          });
+
+          // Hojas derechas deflectan hacia la derecha con flexión y alabeo
+          gsap.to(".leaf-r1 .botanical-leaf-inner, .leaf-r2 .botanical-leaf-inner, .leaf-r3 .botanical-leaf-inner, .leaf-r4 .botanical-leaf-inner, .leaf-r5 .botanical-leaf-inner, .leaf-r6 .botanical-leaf-inner, .leaf-r7 .botanical-leaf-inner, .leaf-r8 .botanical-leaf-inner, .leaf-r9 .botanical-leaf-inner, .leaf-r10 .botanical-leaf-inner", {
+            x: 38 * windIntensity,
+            y: -10 * windIntensity,
+            skewX: 12 * windIntensity,
+            rotation: 18 * windIntensity,
+            duration: 0.22,
+            ease: "power1.out",
+            overwrite: "auto"
+          });
+        }
+      }
+
+      lastScrollY = currentScrollY;
+      lastTime = currentTime;
+
+      // Retorno elástico de viento con rebote premium amortiguado
+      if (scrollEndTimeout) clearTimeout(scrollEndTimeout);
+      scrollEndTimeout = setTimeout(() => {
+        gsap.to(".botanical-leaf-inner", {
+          x: 0,
+          y: 0,
+          skewX: 0,
+          rotation: 0,
+          duration: 1.5,
+          ease: "elastic.out(1.1, 0.6)",
+          overwrite: "auto"
+        });
+      }, 150);
+    };
+
+    window.addEventListener("scroll", handleScrollWind, { passive: true });
+
+    return () => {
+      ctx.revert(); // Recolección de basura impecable al desmontar
+      window.removeEventListener("scroll", handleScrollWind);
+      if (scrollEndTimeout) clearTimeout(scrollEndTimeout);
+    };
   }, []);
 
   const testimonials = [
@@ -597,23 +564,68 @@ const Home = () => {
       <section className="hero split-hero hero-sage-botanicals" ref={heroRef}>
         {/* Canvas de Botánica Flotante (3D Parallax & Swaying) */}
         <div className="hero-botanical-canvas" aria-hidden="true">
-          <div className="botanical-leaf leaf-top-left leaf-depth-foreground">
-            <LeafMonstera className="botanical-leaf-inner" />
+          {/* Borde Izquierdo (10 Hojas) */}
+          <div className="botanical-leaf leaf-l1 leaf-depth-foreground">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 4.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-top-right leaf-depth-midground">
-            <LeafClassic className="botanical-leaf-inner" />
+          <div className="botanical-leaf leaf-l2 leaf-depth-midground">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 14.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-mid-left leaf-depth-background">
-            <LeafFern className="botanical-leaf-inner" />
+          <div className="botanical-leaf leaf-l3 leaf-depth-background">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 15.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-mid-right leaf-depth-midground">
-            <LeafEucalyptus className="botanical-leaf-inner" />
+          <div className="botanical-leaf leaf-l4 leaf-depth-background">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 7.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-bottom-left leaf-depth-midground">
-            <LeafMonstera className="botanical-leaf-inner" />
+          <div className="botanical-leaf leaf-l5 leaf-depth-midground">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 9.svg`} className="botanical-leaf-inner" alt="" />
           </div>
-          <div className="botanical-leaf leaf-bottom-right leaf-depth-foreground">
-            <LeafClassic className="botanical-leaf-inner" />
+          <div className="botanical-leaf leaf-l6 leaf-depth-midground">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 16.svg`} className="botanical-leaf-inner" alt="" />
+          </div>
+          <div className="botanical-leaf leaf-l7 leaf-depth-background">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 22.svg`} className="botanical-leaf-inner" alt="" />
+          </div>
+          <div className="botanical-leaf leaf-l8 leaf-depth-midground">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 10.svg`} className="botanical-leaf-inner" alt="" />
+          </div>
+          <div className="botanical-leaf leaf-l9 leaf-depth-foreground">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 18.svg`} className="botanical-leaf-inner" alt="" />
+          </div>
+          <div className="botanical-leaf leaf-l10 leaf-depth-midground">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 24.svg`} className="botanical-leaf-inner" alt="" />
+          </div>
+
+          {/* Borde Derecho (10 Hojas) */}
+          <div className="botanical-leaf leaf-r1 leaf-depth-midground">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 5.svg`} className="botanical-leaf-inner" alt="" />
+          </div>
+          <div className="botanical-leaf leaf-r2 leaf-depth-background">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 17.svg`} className="botanical-leaf-inner" alt="" />
+          </div>
+          <div className="botanical-leaf leaf-r3 leaf-depth-background">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 6.svg`} className="botanical-leaf-inner" alt="" />
+          </div>
+          <div className="botanical-leaf leaf-r4 leaf-depth-midground">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 8.svg`} className="botanical-leaf-inner" alt="" />
+          </div>
+          <div className="botanical-leaf leaf-r5 leaf-depth-background">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 19.svg`} className="botanical-leaf-inner" alt="" />
+          </div>
+          <div className="botanical-leaf leaf-r6 leaf-depth-foreground">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 20.svg`} className="botanical-leaf-inner" alt="" />
+          </div>
+          <div className="botanical-leaf leaf-r7 leaf-depth-midground">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 23.svg`} className="botanical-leaf-inner" alt="" />
+          </div>
+          <div className="botanical-leaf leaf-r8 leaf-depth-foreground">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 11.svg`} className="botanical-leaf-inner" alt="" />
+          </div>
+          <div className="botanical-leaf leaf-r9 leaf-depth-midground">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 21.svg`} className="botanical-leaf-inner" alt="" />
+          </div>
+          <div className="botanical-leaf leaf-r10 leaf-depth-background">
+            <img src={`${BASE}images/SVG Hero/SVG/Recurso 25.svg`} className="botanical-leaf-inner" alt="" />
           </div>
         </div>
 
@@ -656,12 +668,12 @@ const Home = () => {
               fill="var(--crema)"
             />
           </svg>
-          <LeafClassic className="separator-fallen-leaf" />
+          <img src={`${BASE}images/SVG Hero/SVG/Recurso 12.svg`} className="separator-fallen-leaf" alt="" />
         </div>
 
         {/* Indicador de scroll botánico */}
         <div className="hero-scroll-indicator">
-          <LeafClassic className="scroll-leaf-bounce" />
+          <img src={`${BASE}images/SVG Hero/SVG/Recurso 13.svg`} className="scroll-leaf-bounce" alt="" />
           <span className="scroll-text">Desliza para explorar</span>
         </div>
       </section>
