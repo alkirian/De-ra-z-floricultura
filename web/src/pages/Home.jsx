@@ -181,10 +181,30 @@ const CATEGORIES = [
 
 const Home = () => {
   const heroRef = useRef(null);
+  const quickActionsRef = useRef(null);
   const valueGridRef = useRef(null);
+  const combosGridRef = useRef(null);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [activeAccordion, setActiveAccordion] = useState(null);
   const [activeComboIndex, setActiveComboIndex] = useState(null);
+
+  // Helper para mover los carruseles móviles suavemente con snapping al pulsar las flechas
+  const scrollCarousel = (ref, direction) => {
+    if (!ref.current) return;
+    const container = ref.current;
+    const firstCard = container.querySelector('.quick-action-card, .value-item, .combo-card');
+    if (!firstCard) return;
+    
+    const cardWidth = firstCard.clientWidth;
+    const gap = 16; // El gap que configuramos en CSS para mobile
+    const scrollAmount = direction === 'left' ? -(cardWidth + gap) : (cardWidth + gap);
+    
+    container.scrollBy({
+      left: scrollAmount,
+      behavior: 'smooth'
+    });
+  };
+
 
   // --- SISTEMA DE REVELADO DE ELEMENTOS AL SCROLL (UP & DOWN) ---
   useEffect(() => {
@@ -785,7 +805,7 @@ const Home = () => {
                 Te guiamos en cada paso para que lleves la naturaleza a tu vida, con la calidad y calidez de siempre.
               </p>
             </div>
-            <div className="quick-actions-grid">
+            <div className="quick-actions-grid" ref={quickActionsRef}>
               <Link to="/catalogo" className="quick-action-card quick-action-card--catalog reveal-on-scroll reveal-up">
                 <div className="quick-action-icon-wrapper">
                   <Leaf size={26} />
@@ -816,6 +836,27 @@ const Home = () => {
                 <span className="quick-action-link">Ver contacto y local <ArrowRight size={16} /></span>
               </Link>
             </div>
+
+            {/* Controles de navegación responsivos para carrusel en mobile */}
+            <div className="carousel-nav-controls">
+              <button 
+                type="button" 
+                className="carousel-nav-btn" 
+                onClick={() => scrollCarousel(quickActionsRef, 'left')}
+                aria-label="Deslizar carrusel de atajos a la izquierda"
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <button 
+                type="button" 
+                className="carousel-nav-btn" 
+                onClick={() => scrollCarousel(quickActionsRef, 'right')}
+                aria-label="Deslizar carrusel de atajos a la derecha"
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
+
           </div>
         </section>
         {/* ══════════════════════════
@@ -840,7 +881,7 @@ const Home = () => {
                 <div className="value-icon-wrap">
                   <div className="value-icon">🪴</div>
                 </div>
-                <h4>Plantas, flores y macetas</h4>
+                <h4>Plantas, flores and macetas</h4>
                 <p>Gran variedad de interior, exterior, flores y más.</p>
               </div>
               <div className="value-item reveal-on-scroll reveal-scale" style={{ '--reveal-delay': '0.3s' }}>
@@ -851,6 +892,27 @@ const Home = () => {
                 <p>Estamos en Las Piedras, Canelones. Visitanos.</p>
               </div>
             </div>
+
+            {/* Controles de navegación responsivos para carrusel en mobile */}
+            <div className="carousel-nav-controls">
+              <button 
+                type="button" 
+                className="carousel-nav-btn" 
+                onClick={() => scrollCarousel(valueGridRef, 'left')}
+                aria-label="Deslizar carrusel de propuesta a la izquierda"
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <button 
+                type="button" 
+                className="carousel-nav-btn" 
+                onClick={() => scrollCarousel(valueGridRef, 'right')}
+                aria-label="Deslizar carrusel de propuesta a la derecha"
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
+
           </div>
         </section>
       </div>
@@ -868,7 +930,7 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="combos-grid">
+          <div className="combos-grid" ref={combosGridRef}>
             {COMBO_INSPIRATIONS.map((combo, index) => (
               <article
                 key={combo.id}
@@ -914,6 +976,27 @@ const Home = () => {
               </article>
             ))}
           </div>
+
+          {/* Controles de navegación responsivos para carrusel en mobile */}
+          <div className="carousel-nav-controls">
+            <button 
+              type="button" 
+              className="carousel-nav-btn" 
+              onClick={() => scrollCarousel(combosGridRef, 'left')}
+              aria-label="Deslizar carrusel de combos a la izquierda"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button 
+              type="button" 
+              className="carousel-nav-btn" 
+              onClick={() => scrollCarousel(combosGridRef, 'right')}
+              aria-label="Deslizar carrusel de combos a la derecha"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
+
 
           <article className="combo-custom-cta reveal-on-scroll reveal-scale">
             <h3>Queres armar tu propio combo?</h3>
