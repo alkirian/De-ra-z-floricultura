@@ -224,10 +224,11 @@ const Home = () => {
     // Actualización de física a 60fps
     const updateWindPhysics = () => {
       // Lerp amortiguado de la velocidad real del viento persiguiendo al objetivo
-      currentWind += (targetWind - currentWind) * 0.08;
+      // 0.05 da una transición extremadamente suave y planeadora (inercia majestuosa)
+      currentWind += (targetWind - currentWind) * 0.05;
 
-      // Desaceleración y fricción continua del viento objetivo (decae suavemente)
-      targetWind *= 0.88;
+      // Desaceleración y fricción continua del viento objetivo (decae con suavidad premium de ~1.2s)
+      targetWind *= 0.95;
       if (targetWind < 0.001) targetWind = 0;
 
       // Si el viento se calma por completo, volvemos exactamente a cero y cortamos
@@ -271,7 +272,7 @@ const Home = () => {
     const handleScrollWind = () => {
       const currentScrollY = window.scrollY || window.pageYOffset;
       const currentTime = performance.now();
-      const deltaTime = currentTime - lastTime;
+      const timeDiff = currentTime - lastTime;
 
       // Detener cálculos si el usuario scrolla muy abajo del Hero (ahorro de CPU)
       if (currentScrollY > 1100) {
@@ -280,15 +281,23 @@ const Home = () => {
         return;
       }
 
-      if (deltaTime > 0) {
+      // Si ha pasado más de 120ms (pasa al pausar el scroll), reiniciamos baseline
+      // para evitar saltos de delta gigantescos tras una pausa
+      if (timeDiff > 120) {
+        lastScrollY = currentScrollY;
+        lastTime = currentTime;
+        return;
+      }
+
+      if (timeDiff > 0) {
         const scrollDelta = Math.abs(currentScrollY - lastScrollY);
-        const speed = scrollDelta / deltaTime; // velocidad en px/ms
+        const speed = scrollDelta / timeDiff; // velocidad real en px/ms
         
         // Sumamos a la ráfaga de viento objetivo (físicamente acumulable al scrollear de corrido)
-        targetWind += speed * 1.6;
+        targetWind += speed * 1.8;
         
         // Tope máximo para evitar deformaciones físicas absurdas en scrolls muy rápidos
-        if (targetWind > 2.8) targetWind = 2.8;
+        if (targetWind > 2.5) targetWind = 2.5;
       }
 
       lastScrollY = currentScrollY;
@@ -930,7 +939,7 @@ const Home = () => {
       <WaveTop fill="var(--verde-profundo)" bg="var(--crema)" />
       <section className="advice-section section-padding--sm">
         <div className="container advice-grid">
-          <div className="advice-text">
+          <div className="advice-text reveal-on-scroll reveal-left">
             <span className="section-label advice-label">Asesoramiento gratuito</span>
             <h2>¿No sabés qué planta elegir?</h2>
             <p>
@@ -964,7 +973,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="advice-image">
+          <div className="advice-image reveal-on-scroll reveal-right">
             <img
               src={ADVICE_FEATURED_IMAGE}
               alt="Planta destacada para asesoramiento personalizado"
@@ -985,7 +994,7 @@ const Home = () => {
         <img src={`${BASE}images/bg_leaves.png`} alt="" className="bg-leaf-blur bg-leaf-blur--right" aria-hidden="true" />
 
         <div className="container" style={{ position: 'relative', zIndex: 10 }}>
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 reveal-on-scroll reveal-up">
             <span className="section-label">Qué encontrás en De Raíz</span>
             <h2>Explorá nuestras categorías</h2>
             <div className="title-underline"></div>
@@ -994,12 +1003,12 @@ const Home = () => {
             {CATEGORIES.map((cat, i) => (
               <div
                 key={i}
-                className={`accordion-item ${activeAccordion === i ? 'accordion-item--active' : ''}`}
+                className={`accordion-item reveal-on-scroll reveal-scale ${activeAccordion === i ? 'accordion-item--active' : ''}`}
                 onClick={() => setActiveAccordion(i)}
                 style={{
                   '--cat-color': cat.color,
                   backgroundImage: `url(${cat.bgImage})`,
-                  animationDelay: `${i * 0.08}s`
+                  '--reveal-delay': `${i * 0.15}s`
                 }}
               >
                 <div className="accordion-overlay"></div>
@@ -1042,14 +1051,14 @@ const Home = () => {
         <img src={`${BASE}images/bg_eucalyptus.png`} alt="" className="bg-leaf-blur bg-leaf-blur--right" aria-hidden="true" />
 
         <div className="container" style={{ position: 'relative', zIndex: 10 }}>
-          <div className="text-center mb-12 testimonials-header">
+          <div className="text-center mb-12 testimonials-header reveal-on-scroll reveal-up">
             <span className="section-label">Clientes</span>
             <h2>Lo que dicen nuestros clientes</h2>
             <p className="testimonials-subtitle">
               Opiniones reales de clientes de Las Piedras.
             </p>
           </div>
-          <div className="testimonial-carousel">
+          <div className="testimonial-carousel reveal-on-scroll reveal-scale">
             <button type="button" className="testimonial-nav testimonial-nav--prev" onClick={goToPrevTestimonial} aria-label="Testimonio anterior">
               <ChevronLeft size={20} />
             </button>

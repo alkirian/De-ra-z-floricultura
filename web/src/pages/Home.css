@@ -47,8 +47,9 @@
   width: 100%;
   height: 100%;
   will-change: transform;
-  /* Verde claro primaveral/salvia brillante ultra premium de alto contraste */
-  filter: invert(86%) sepia(21%) saturate(543%) hue-rotate(76deg) brightness(97%) contrast(92%);
+  opacity: 1.0 !important;
+  /* Verde menta claro brillante de alto contraste (#86EFAC) */
+  filter: brightness(0) saturate(100%) invert(85%) sepia(21%) saturate(769%) hue-rotate(93deg) brightness(98%) contrast(93%);
 }
 
 /* NIVELES DE PROFUNDIDAD (Efecto Lente 3D Parallax - Opacidades Totales y Nitidez Máxima) */
@@ -56,165 +57,163 @@
   z-index: 10;
   opacity: 1.0;
   filter: none;
-  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .leaf-depth-midground {
   z-index: 2;
   opacity: 1.0;
   filter: none;
-  transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .leaf-depth-background {
   z-index: 1;
   opacity: 1.0;
   filter: none;
-  transition: transform 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 /* POSICIONAMIENTO RESPONSIVE DE CADA HOJA (Zig-Zag Follage Inteligente Anti-Colisiones) */
-/* Borde Izquierdo (10 Hojas) */
+/* Borde Izquierdo (10 Hojas distribuidas uniformemente al 11% vertical) */
 .leaf-l1 {
-  top: -3%;
-  left: -2%;
+  top: -4%;
+  left: -3%;
   width: clamp(140px, 15vw, 220px);
   transform: rotate(-15deg);
 }
 
 .leaf-l2 {
-  top: 12%;
-  left: -5%;
+  top: 7%;
+  left: -6%;
   width: clamp(110px, 11vw, 160px);
   transform: rotate(-25deg);
 }
 
 .leaf-l3 {
-  top: 24%;
+  top: 18%;
   left: -2%;
   width: clamp(100px, 10vw, 140px);
   transform: rotate(-35deg);
 }
 
 .leaf-l4 {
-  top: 38%;
-  left: -6%;
+  top: 29%;
+  left: -7%;
   width: clamp(110px, 11vw, 150px);
   transform: rotate(-45deg);
 }
 
 .leaf-l5 {
-  top: 50%;
+  top: 40%;
   left: -3%;
   width: clamp(120px, 12vw, 170px);
   transform: rotate(-30deg);
 }
 
 .leaf-l6 {
-  top: 63%;
-  left: -7%;
+  top: 51%;
+  left: -8%;
   width: clamp(115px, 11vw, 165px);
   transform: rotate(-20deg);
 }
 
 .leaf-l7 {
-  top: 75%;
-  left: -3%;
+  top: 62%;
+  left: -4%;
   width: clamp(100px, 10vw, 140px);
   transform: rotate(-40deg);
 }
 
 .leaf-l8 {
-  top: 86%;
-  left: -6%;
+  top: 73%;
+  left: -8%;
   width: clamp(125px, 12vw, 180px);
   transform: rotate(-15deg);
 }
 
 .leaf-l9 {
-  top: 96%;
-  left: -2%;
+  top: 84%;
+  left: -3%;
   width: clamp(140px, 14vw, 200px);
   transform: rotate(-10deg);
 }
 
 .leaf-l10 {
-  top: 97%;
-  left: 8%;
+  top: 95%;
+  left: -6%;
   width: clamp(100px, 10vw, 140px);
   transform: rotate(-5deg);
 }
 
-/* Borde Derecho (10 Hojas) */
+/* Borde Derecho (10 Hojas distribuidas uniformemente al 11% vertical) */
 .leaf-r1 {
   top: -4%;
-  right: -2%;
+  right: -3%;
   width: clamp(150px, 16vw, 240px);
   transform: rotate(20deg);
 }
 
 .leaf-r2 {
-  top: 10%;
-  right: -5%;
+  top: 7%;
+  right: -6%;
   width: clamp(105px, 10vw, 150px);
   transform: rotate(15deg);
 }
 
 .leaf-r3 {
-  top: 22%;
+  top: 18%;
   right: -2%;
   width: clamp(110px, 11vw, 160px);
   transform: rotate(25deg);
 }
 
 .leaf-r4 {
-  top: 35%;
-  right: -6%;
+  top: 29%;
+  right: -7%;
   width: clamp(120px, 12vw, 175px);
   transform: rotate(35deg);
 }
 
 .leaf-r5 {
-  top: 47%;
+  top: 40%;
   right: -3%;
   width: clamp(95px, 9vw, 135px);
   transform: rotate(40deg);
 }
 
 .leaf-r6 {
-  top: 60%;
-  right: -7%;
+  top: 51%;
+  right: -8%;
   width: clamp(130px, 13vw, 190px);
   transform: rotate(45deg);
 }
 
 .leaf-r7 {
-  top: 72%;
-  right: -3%;
+  top: 62%;
+  right: -4%;
   width: clamp(115px, 11vw, 165px);
   transform: rotate(30deg);
 }
 
 .leaf-r8 {
-  top: 84%;
-  right: -6%;
+  top: 73%;
+  right: -8%;
   width: clamp(140px, 14vw, 200px);
   transform: rotate(20deg);
 }
 
 .leaf-r9 {
-  top: 95%;
-  right: -2%;
+  top: 84%;
+  right: -3%;
   width: clamp(130px, 13vw, 185px);
   transform: rotate(15deg);
 }
 
 .leaf-r10 {
-  top: 96%;
-  right: 9%;
+  top: 95%;
+  right: -6%;
   width: clamp(105px, 10vw, 150px);
   transform: rotate(10deg);
 }
+
 
 
 
