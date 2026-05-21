@@ -49,6 +49,13 @@
   /* Sombra suave y realista directamente en la planta (asumiendo PNG transparente) */
   filter: drop-shadow(0 20px 25px rgba(47, 74, 46, 0.15));
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Forzamos aceleración por hardware (GPU) y aislamos la capa en Safari iOS 
+     para evitar que las imágenes se estiren extremadamente o causen zoom en el navegador al scrollar */
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 .product-card:hover .product-image {
@@ -234,7 +241,7 @@
   }
 
   .product-card:hover .product-image {
-    transform: none;
+    transform: translate3d(0, 0, 0);
     filter: drop-shadow(0 20px 25px rgba(47, 74, 46, 0.15));
   }
 

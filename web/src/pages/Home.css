@@ -196,7 +196,7 @@
   }
 
   .hero-wave {
-    height: 62%;
+    height: 78%;
   }
 
   .hero-bottom-separator {
@@ -213,7 +213,7 @@
 
   .hero-content-left {
     width: min(100%, 500px);
-    padding: 132px 1.35rem 2.1rem;
+    padding: 120px 1.35rem 1.8rem;
   }
 
   .hero-eyebrow {
@@ -223,8 +223,8 @@
   }
 
   .hero-brand-logo {
-    width: min(250px, 76vw);
-    margin-bottom: 10px;
+    width: min(210px, 68vw);
+    margin-bottom: 8px;
   }
 
   .hero-subtitle {
@@ -236,15 +236,17 @@
 
   .hero-actions {
     width: 100%;
-    gap: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
   .hero-actions .btn {
-    width: 100%;
+    width: auto;
     justify-content: center;
-    min-height: 44px;
-    padding: 9px 14px;
-    font-size: 0.9rem;
+    min-height: 38px;
+    padding: 8px 16px;
+    font-size: 0.82rem;
     border-radius: 999px;
   }
 }
@@ -781,12 +783,12 @@
 
 @media (max-width: 520px) {
   .hero-content-left {
-    padding: 126px 1.2rem 1.85rem;
+    padding: 110px 1.2rem 1.7rem;
   }
 
   .hero-brand-logo {
-    width: min(240px, 75vw);
-    margin-bottom: 9px;
+    width: min(190px, 64vw);
+    margin-bottom: 6px;
   }
 
   .hero-eyebrow {
@@ -803,15 +805,17 @@
 
   .hero-actions {
     width: 100%;
-    gap: 7px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .hero-actions .btn {
-    width: 100%;
+    width: auto;
     justify-content: center;
-    min-height: 42px;
-    padding: 8px 12px;
-    font-size: 0.86rem;
+    min-height: 36px;
+    padding: 7px 12px;
+    font-size: 0.78rem;
   }
 
   .quick-action-card {

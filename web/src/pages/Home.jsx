@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, MessageCircle, Sparkles, Leaf, MapPin, ChevronLeft, ChevronRight, BookOpen, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { generateWaLink, WA_MESSAGES } from '../data/mockData';
@@ -305,7 +305,7 @@ const Home = () => {
           <path d="M0,170 C220,80 420,90 620,180 C830,275 1010,365 1210,315 C1320,285 1390,220 1440,160 L1440,520 L0,520 Z" fill="currentColor" />
         </svg>
         <svg className="hero-wave hero-wave-mobile" viewBox="0 0 1440 520" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0,220 C240,192 430,188 620,220 C840,256 1036,288 1240,252 C1332,236 1398,208 1440,188 L1440,520 L0,520 Z" fill="currentColor" />
+          <path d="M0,200 C240,190 430,190 620,200 C840,210 1040,210 1240,200 C1330,195 1390,195 1440,190 L1440,520 L0,520 Z" fill="currentColor" />
         </svg>
         <svg
           className="hero-bottom-separator"
@@ -336,10 +336,10 @@ const Home = () => {
           </p>
           <div className="hero-actions stagger-3">
             <a href={generateWaLink(WA_MESSAGES.ayudaElegir)} target="_blank" rel="noreferrer" className="btn btn-light">
-              <MessageCircle size={18} /> Quiero ayuda para elegir
+              <MessageCircle size={16} /> Asesorate gratis
             </a>
             <Link to="/catalogo" className="btn btn-outline-light">
-              Ver plantas y combos <ArrowRight size={18} />
+              Ver catálogo <ArrowRight size={16} />
             </Link>
           </div>
         </div>
