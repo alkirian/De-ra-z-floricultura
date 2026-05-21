@@ -186,11 +186,120 @@ const Home = () => {
   const [activeAccordion, setActiveAccordion] = useState(null);
   const [activeComboIndex, setActiveComboIndex] = useState(null);
 
-  // --- MIGRACIÓN A GSAP (ANIMACIÓN PREMIUM BOTÁNICA) ---
+  // --- SISTEMA DE REVELADO DE ELEMENTOS AL SCROLL (UP & DOWN) ---
   useEffect(() => {
+    const revealCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-visible');
+        } else {
+          entry.target.classList.remove('reveal-visible');
+        }
+      });
+    };
+
+    const revealObserver = new IntersectionObserver(revealCallback, {
+      root: null,
+      threshold: 0.08, // Se activa pronto para mayor fluidez
+      rootMargin: '0px 0px -30px 0px',
+    });
+
+    const elementsToReveal = document.querySelectorAll('.reveal-on-scroll');
+    elementsToReveal.forEach((el) => revealObserver.observe(el));
+
+    return () => {
+      elementsToReveal.forEach((el) => revealObserver.unobserve(el));
+      revealObserver.disconnect();
+    };
+  }, []);
+
+  // --- MIGRACIÓN A GSAP (ANIMACIÓN PREMIUM BOTÁNICA V4) ---
+  useEffect(() => {
+    // 1. Inercia física y Lerp para animación de viento continua a 60fps
+    let targetWind = 0;
+    let currentWind = 0;
+    let lastScrollY = window.scrollY || window.pageYOffset;
+    let lastTime = performance.now();
+
+    // Actualización de física a 60fps
+    const updateWindPhysics = () => {
+      // Lerp amortiguado de la velocidad real del viento persiguiendo al objetivo
+      currentWind += (targetWind - currentWind) * 0.08;
+
+      // Desaceleración y fricción continua del viento objetivo (decae suavemente)
+      targetWind *= 0.88;
+      if (targetWind < 0.001) targetWind = 0;
+
+      // Si el viento se calma por completo, volvemos exactamente a cero y cortamos
+      if (Math.abs(currentWind) < 0.001) {
+        currentWind = 0;
+      }
+
+      // Aplicar transformaciones al wrapper intermedio de viento
+      // Borde izquierdo (hacia la izquierda y arriba)
+      gsap.set([
+        ".leaf-l1 .botanical-leaf-wind-wrapper", ".leaf-l2 .botanical-leaf-wind-wrapper", 
+        ".leaf-l3 .botanical-leaf-wind-wrapper", ".leaf-l4 .botanical-leaf-wind-wrapper", 
+        ".leaf-l5 .botanical-leaf-wind-wrapper", ".leaf-l6 .botanical-leaf-wind-wrapper", 
+        ".leaf-l7 .botanical-leaf-wind-wrapper", ".leaf-l8 .botanical-leaf-wind-wrapper", 
+        ".leaf-l9 .botanical-leaf-wind-wrapper", ".leaf-l10 .botanical-leaf-wind-wrapper"
+      ], {
+        x: -30 * currentWind,
+        y: -8 * currentWind,
+        skewX: -8 * currentWind,
+        rotation: -14 * currentWind,
+      });
+
+      // Borde derecho (hacia la derecha y arriba)
+      gsap.set([
+        ".leaf-r1 .botanical-leaf-wind-wrapper", ".leaf-r2 .botanical-leaf-wind-wrapper", 
+        ".leaf-r3 .botanical-leaf-wind-wrapper", ".leaf-r4 .botanical-leaf-wind-wrapper", 
+        ".leaf-r5 .botanical-leaf-wind-wrapper", ".leaf-r6 .botanical-leaf-wind-wrapper", 
+        ".leaf-r7 .botanical-leaf-wind-wrapper", ".leaf-r8 .botanical-leaf-wind-wrapper", 
+        ".leaf-r9 .botanical-leaf-wind-wrapper", ".leaf-r10 .botanical-leaf-wind-wrapper"
+      ], {
+        x: 30 * currentWind,
+        y: -8 * currentWind,
+        skewX: 8 * currentWind,
+        rotation: 14 * currentWind,
+      });
+    };
+
+    // Añadir el ticker de GSAP a 60fps
+    gsap.ticker.add(updateWindPhysics);
+
+    const handleScrollWind = () => {
+      const currentScrollY = window.scrollY || window.pageYOffset;
+      const currentTime = performance.now();
+      const deltaTime = currentTime - lastTime;
+
+      // Detener cálculos si el usuario scrolla muy abajo del Hero (ahorro de CPU)
+      if (currentScrollY > 1100) {
+        lastScrollY = currentScrollY;
+        lastTime = currentTime;
+        return;
+      }
+
+      if (deltaTime > 0) {
+        const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+        const speed = scrollDelta / deltaTime; // velocidad en px/ms
+        
+        // Sumamos a la ráfaga de viento objetivo (físicamente acumulable al scrollear de corrido)
+        targetWind += speed * 1.6;
+        
+        // Tope máximo para evitar deformaciones físicas absurdas en scrolls muy rápidos
+        if (targetWind > 2.8) targetWind = 2.8;
+      }
+
+      lastScrollY = currentScrollY;
+      lastTime = currentTime;
+    };
+
+    window.addEventListener("scroll", handleScrollWind, { passive: true });
+
+    // GSAP Context para los loops de balanceo y entradas
     const ctx = gsap.context(() => {
       // 1. Animaciones base flotantes e independientes (Swaying Loops) para cada una de las 20 hojas
-      // Animamos 'x', 'y' y 'rotation' de forma asíncrona para lograr un movimiento totalmente caótico y natural.
       const leavesConfig = [
         { sel: ".leaf-l1", y: 12, x: -8, rot: 10, durY: 9.2, durX: 11.4, durR: 8.3 },
         { sel: ".leaf-l2", y: 14, x: -6, rot: -8, durY: 10.5, durX: 12.1, durR: 9.0 },
@@ -380,80 +489,10 @@ const Home = () => {
 
     }, heroRef);
 
-    // 4. Animación de viento reactiva al Scroll de alta performance basada en velocidad
-    let lastScrollY = window.scrollY || window.pageYOffset;
-    let lastTime = performance.now();
-    let scrollEndTimeout = null;
-
-    const handleScrollWind = () => {
-      const currentScrollY = window.scrollY || window.pageYOffset;
-      const currentTime = performance.now();
-      const deltaTime = currentTime - lastTime;
-
-      // Optimización premium: evitar cálculos innecesarios si el hero está fuera del viewport (scroll profundo)
-      if (currentScrollY > 1100) {
-        lastScrollY = currentScrollY;
-        lastTime = currentTime;
-        return;
-      }
-
-      if (deltaTime > 0) {
-        const scrollDelta = Math.abs(currentScrollY - lastScrollY);
-        // Calcular velocidad de scroll (px/ms)
-        const speed = scrollDelta / deltaTime;
-        
-        // Escalamos la intensidad del viento de 0 a 2.8 como máximo (viento fuerte!)
-        const windIntensity = Math.min(2.8, speed * 0.85);
-
-        if (windIntensity > 0.05) {
-          // Hojas izquierdas deflectan hacia la izquierda con flexión y alabeo (skew/rotation)
-          gsap.to(".leaf-l1 .botanical-leaf-inner, .leaf-l2 .botanical-leaf-inner, .leaf-l3 .botanical-leaf-inner, .leaf-l4 .botanical-leaf-inner, .leaf-l5 .botanical-leaf-inner, .leaf-l6 .botanical-leaf-inner, .leaf-l7 .botanical-leaf-inner, .leaf-l8 .botanical-leaf-inner, .leaf-l9 .botanical-leaf-inner, .leaf-l10 .botanical-leaf-inner", {
-            x: -38 * windIntensity,
-            y: -10 * windIntensity,
-            skewX: -12 * windIntensity,
-            rotation: -18 * windIntensity,
-            duration: 0.22,
-            ease: "power1.out",
-            overwrite: "auto"
-          });
-
-          // Hojas derechas deflectan hacia la derecha con flexión y alabeo
-          gsap.to(".leaf-r1 .botanical-leaf-inner, .leaf-r2 .botanical-leaf-inner, .leaf-r3 .botanical-leaf-inner, .leaf-r4 .botanical-leaf-inner, .leaf-r5 .botanical-leaf-inner, .leaf-r6 .botanical-leaf-inner, .leaf-r7 .botanical-leaf-inner, .leaf-r8 .botanical-leaf-inner, .leaf-r9 .botanical-leaf-inner, .leaf-r10 .botanical-leaf-inner", {
-            x: 38 * windIntensity,
-            y: -10 * windIntensity,
-            skewX: 12 * windIntensity,
-            rotation: 18 * windIntensity,
-            duration: 0.22,
-            ease: "power1.out",
-            overwrite: "auto"
-          });
-        }
-      }
-
-      lastScrollY = currentScrollY;
-      lastTime = currentTime;
-
-      // Retorno elástico de viento con rebote premium amortiguado
-      if (scrollEndTimeout) clearTimeout(scrollEndTimeout);
-      scrollEndTimeout = setTimeout(() => {
-        gsap.to(".botanical-leaf-inner", {
-          x: 0,
-          y: 0,
-          skewX: 0,
-          rotation: 0,
-          duration: 1.5,
-          ease: "elastic.out(1.1, 0.6)",
-          overwrite: "auto"
-        });
-      }, 150);
-    };
-
-    window.addEventListener("scroll", handleScrollWind, { passive: true });
-
     return () => {
       ctx.revert(); // Recolección de basura impecable al desmontar
       window.removeEventListener("scroll", handleScrollWind);
-      if (scrollEndTimeout) clearTimeout(scrollEndTimeout);
+      gsap.ticker.remove(updateWindPhysics);
     };
   }, []);
 
@@ -565,67 +604,108 @@ const Home = () => {
         {/* Canvas de Botánica Flotante (3D Parallax & Swaying) */}
         <div className="hero-botanical-canvas" aria-hidden="true">
           {/* Borde Izquierdo (10 Hojas) */}
-          <div className="botanical-leaf leaf-l1 leaf-depth-foreground leaf-color-sage">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 4.svg`} className="botanical-leaf-inner" alt="" />
+          {/* Borde Izquierdo (10 Hojas) */}
+          <div className="botanical-leaf leaf-l1 leaf-depth-foreground">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 4.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-l2 leaf-depth-midground leaf-color-crema">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 14.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-l2 leaf-depth-midground">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 14.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-l3 leaf-depth-background leaf-color-sage">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 15.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-l3 leaf-depth-background">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 15.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-l4 leaf-depth-background leaf-color-crema">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 7.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-l4 leaf-depth-background">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 7.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-l5 leaf-depth-midground leaf-color-sage">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 9.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-l5 leaf-depth-midground">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 9.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-l6 leaf-depth-midground leaf-color-crema">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 16.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-l6 leaf-depth-midground">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 16.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-l7 leaf-depth-background leaf-color-sage">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 22.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-l7 leaf-depth-background">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 22.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-l8 leaf-depth-midground leaf-color-crema">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 10.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-l8 leaf-depth-midground">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 10.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-l9 leaf-depth-foreground leaf-color-sage">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 18.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-l9 leaf-depth-foreground">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 18.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-l10 leaf-depth-midground leaf-color-crema">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 24.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-l10 leaf-depth-midground">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 24.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
 
           {/* Borde Derecho (10 Hojas) */}
-          <div className="botanical-leaf leaf-r1 leaf-depth-midground leaf-color-sage">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 5.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-r1 leaf-depth-midground">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 5.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-r2 leaf-depth-background leaf-color-crema">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 17.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-r2 leaf-depth-background">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 17.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-r3 leaf-depth-background leaf-color-sage">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 6.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-r3 leaf-depth-background">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 6.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-r4 leaf-depth-midground leaf-color-crema">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 8.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-r4 leaf-depth-midground">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 8.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-r5 leaf-depth-background leaf-color-sage">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 19.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-r5 leaf-depth-background">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 19.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-r6 leaf-depth-foreground leaf-color-crema">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 20.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-r6 leaf-depth-foreground">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 20.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-r7 leaf-depth-midground leaf-color-sage">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 23.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-r7 leaf-depth-midground">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 23.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-r8 leaf-depth-foreground leaf-color-crema">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 11.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-r8 leaf-depth-foreground">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 11.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-r9 leaf-depth-midground leaf-color-sage">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 21.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-r9 leaf-depth-midground">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 21.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
-          <div className="botanical-leaf leaf-r10 leaf-depth-background leaf-color-crema">
-            <img src={`${BASE}images/SVG Hero/SVG/Recurso 25.svg`} className="botanical-leaf-inner" alt="" />
+          <div className="botanical-leaf leaf-r10 leaf-depth-background">
+            <div className="botanical-leaf-wind-wrapper">
+              <img src={`${BASE}images/SVG Hero/SVG/Recurso 25.svg`} className="botanical-leaf-inner" alt="" />
+            </div>
           </div>
         </div>
 
@@ -689,7 +769,7 @@ const Home = () => {
         <span className="proposal-corner proposal-corner--bottom-right" aria-hidden="true"></span>
         <section className="quick-actions-section section-padding--sm">
           <div className="container">
-            <div className="text-center mb-12 quick-actions-header">
+            <div className="text-center mb-12 quick-actions-header reveal-on-scroll reveal-up">
               <span className="section-label">Comenzá por acá</span>
               <h2>Explorá el universo De Raíz</h2>
               <p className="quick-actions-subtitle">
@@ -697,7 +777,7 @@ const Home = () => {
               </p>
             </div>
             <div className="quick-actions-grid">
-              <Link to="/catalogo" className="quick-action-card quick-action-card--catalog">
+              <Link to="/catalogo" className="quick-action-card quick-action-card--catalog reveal-on-scroll reveal-up">
                 <div className="quick-action-icon-wrapper">
                   <Leaf size={26} />
                 </div>
@@ -707,7 +787,7 @@ const Home = () => {
                 <span className="quick-action-link">Explorar catálogo <ArrowRight size={16} /></span>
               </Link>
 
-              <Link to="/aprende-de-raiz" className="quick-action-card quick-action-card--learn">
+              <Link to="/aprende-de-raiz" className="quick-action-card quick-action-card--learn reveal-on-scroll reveal-up" style={{ '--reveal-delay': '0.15s' }}>
                 <div className="quick-action-icon-wrapper">
                   <BookOpen size={26} />
                 </div>
@@ -717,7 +797,7 @@ const Home = () => {
                 <span className="quick-action-link">Ir a la guía botánica <ArrowRight size={16} /></span>
               </Link>
 
-              <Link to="/contacto" className="quick-action-card quick-action-card--contact">
+              <Link to="/contacto" className="quick-action-card quick-action-card--contact reveal-on-scroll reveal-up" style={{ '--reveal-delay': '0.3s' }}>
                 <div className="quick-action-icon-wrapper">
                   <MapPin size={26} />
                 </div>
@@ -733,28 +813,28 @@ const Home = () => {
             PROPUESTA DE VALOR
         ══════════════════════════ */}
         <section className="value-section section-padding--sm">
-          <div className="container container--narrow text-center">
+          <div className="container container--narrow text-center reveal-on-scroll reveal-up">
             <span className="section-label">Nuestra propuesta</span>
             <h2>No solo vendemos plantas.</h2>
             <p className="value-text">
               Plantas, flores, macetas e insumos con atencion local en Las Piedras.
             </p>
             <div className="value-grid" ref={valueGridRef}>
-              <div className="value-item">
+              <div className="value-item reveal-on-scroll reveal-scale">
                 <div className="value-icon-wrap">
                   <div className="value-icon">🌿</div>
                 </div>
                 <h4>Asesoramiento personalizado</h4>
                 <p>Te orientamos según tu espacio, luz y experiencia.</p>
               </div>
-              <div className="value-item">
+              <div className="value-item reveal-on-scroll reveal-scale" style={{ '--reveal-delay': '0.15s' }}>
                 <div className="value-icon-wrap">
                   <div className="value-icon">🪴</div>
                 </div>
                 <h4>Plantas, flores y macetas</h4>
                 <p>Gran variedad de interior, exterior, flores y más.</p>
               </div>
-              <div className="value-item">
+              <div className="value-item reveal-on-scroll reveal-scale" style={{ '--reveal-delay': '0.3s' }}>
                 <div className="value-icon-wrap">
                   <div className="value-icon">📍</div>
                 </div>
@@ -771,7 +851,7 @@ const Home = () => {
       -------------------------- */}
       <section className="combos-section section-padding--sm" aria-labelledby="combos-title">
         <div className="container">
-          <div className="text-center combos-header">
+          <div className="text-center combos-header reveal-on-scroll reveal-up">
             <span className="section-label">Inspiracion real</span>
             <h2 id="combos-title">Combos verdes para regalar o decorar</h2>
             <p className="combos-subtitle">
@@ -783,7 +863,8 @@ const Home = () => {
             {COMBO_INSPIRATIONS.map((combo, index) => (
               <article
                 key={combo.id}
-                className="combo-card"
+                className="combo-card reveal-on-scroll reveal-up"
+                style={{ '--reveal-delay': `${(index % 3) * 0.15}s` }}
                 role="button"
                 tabIndex={0}
                 onClick={() => openComboLightbox(index)}
@@ -825,7 +906,7 @@ const Home = () => {
             ))}
           </div>
 
-          <article className="combo-custom-cta">
+          <article className="combo-custom-cta reveal-on-scroll reveal-scale">
             <h3>Queres armar tu propio combo?</h3>
             <p>
               Elegi una planta, una maceta y el estilo que mas te guste. Nosotros te ayudamos a
