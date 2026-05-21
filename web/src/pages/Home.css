@@ -47,28 +47,28 @@
   width: 100%;
   height: 100%;
   will-change: transform;
-  opacity: 1.0 !important;
-  /* Verde menta claro brillante de alto contraste (#86EFAC) */
-  filter: brightness(0) saturate(100%) invert(85%) sepia(21%) saturate(769%) hue-rotate(93deg) brightness(98%) contrast(93%);
+  opacity: inherit;
+  /* Verde salvia sutil y suave (#8FA878) de la marca para integrarse con el fondo */
+  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%);
 }
 
-/* NIVELES DE PROFUNDIDAD (Efecto Lente 3D Parallax - Opacidades Totales y Nitidez Máxima) */
+/* NIVELES DE PROFUNDIDAD (Efecto Lente Cinemático 3D Parallax - Desenfoques y Sombras Flotantes) */
 .leaf-depth-foreground {
   z-index: 10;
-  opacity: 1.0;
-  filter: none;
+  opacity: 0.45; /* Muy sutil, permitiendo que el texto y fondo respiren */
+  filter: blur(5px) drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.45));
 }
 
 .leaf-depth-midground {
   z-index: 2;
-  opacity: 1.0;
-  filter: none;
+  opacity: 0.35; /* Mezclado armoniosamente con el gradiente del Hero */
+  filter: blur(1.5px) drop-shadow(8px 15px 12px rgba(0, 0, 0, 0.35));
 }
 
 .leaf-depth-background {
   z-index: 1;
-  opacity: 1.0;
-  filter: none;
+  opacity: 0.22; /* Fusión de fondo para máxima sutileza premium */
+  filter: blur(3.2px) drop-shadow(4px 8px 6px rgba(0, 0, 0, 0.25));
 }
 
 /* POSICIONAMIENTO RESPONSIVE DE CADA HOJA (Zig-Zag Follage Inteligente Anti-Colisiones) */
