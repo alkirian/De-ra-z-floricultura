@@ -12,12 +12,8 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   padding: 10px;
-}
-
-.product-card:hover {
-  transform: translateY(-8px);
 }
 
 /* Imagen y su fondo (sin recuadro duro) */
@@ -32,12 +28,7 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 8px; /* Menos espacio entre imagen y texto */
-  transition: all 0.5s ease;
-}
-
-.product-card:hover .product-image-wrap {
-  background: 
-    linear-gradient(180deg, rgba(229, 211, 186, 0.4) 0%, rgba(229, 211, 186, 0.9) 100%);
+  transition: background 0.5s ease;
 }
 
 .product-image {
@@ -55,12 +46,6 @@
   transform: translate3d(0, 0, 0);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  will-change: transform;
-}
-
-.product-card:hover .product-image {
-  transform: scale(1.08) translateY(-5px);
-  filter: drop-shadow(0 30px 35px rgba(47, 74, 46, 0.25));
 }
 
 /* Badge de categoría - Flotante y elegante */
@@ -128,9 +113,7 @@
   transition: color 0.3s ease;
 }
 
-.product-card:hover .product-name {
-  color: var(--terracota);
-}
+/* El hover del nombre del producto se maneja en la query de hover superior */
 
 /* Precio - Estilo anillo/sello o minimalista */
 .product-price-wrap {
@@ -200,9 +183,7 @@
   transition: width 0.3s ease;
 }
 
-.product-card:hover .product-btn::after {
-  width: 100%;
-}
+/* El hover de la línea decorativa se maneja en la query de hover superior */
 
 .product-btn svg {
   transition: transform 0.3s ease;
@@ -227,34 +208,37 @@
   background: var(--verde-salvia-light);
 }
 
-.product-card:hover .product-btn svg {
-  transform: translateX(4px);
-}
+/* El hover del icono del botón se maneja en la query de hover superior */
 
-@media (hover: none), (pointer: coarse) {
+/* ══════════════════════════════════════
+   MEDIA QUERY EXCLUSIVA PARA DISPOSITIVOS CON PUNTERO (HOVER REAL)
+   Protege de tirones y zooms extraños en pantallas táctiles y scroll de móviles.
+   ══════════════════════════════════════ */
+@media (hover: hover) {
   .product-card:hover {
-    transform: none;
+    transform: translateY(-8px);
   }
 
   .product-card:hover .product-image-wrap {
-    background: linear-gradient(180deg, rgba(244, 235, 221, 0.3) 0%, rgba(244, 235, 221, 0.8) 100%);
+    background: 
+      linear-gradient(180deg, rgba(229, 211, 186, 0.4) 0%, rgba(229, 211, 186, 0.9) 100%);
   }
 
   .product-card:hover .product-image {
-    transform: translate3d(0, 0, 0);
-    filter: drop-shadow(0 20px 25px rgba(47, 74, 46, 0.15));
+    transform: scale(1.08) translateY(-5px);
+    filter: drop-shadow(0 30px 35px rgba(47, 74, 46, 0.25));
   }
 
   .product-card:hover .product-name {
-    color: var(--verde-profundo);
+    color: var(--terracota);
   }
 
   .product-card:hover .product-btn::after {
-    width: 0;
+    width: 100%;
   }
 
   .product-card:hover .product-btn svg {
-    transform: none;
+    transform: translateX(4px);
   }
 }
 
@@ -266,22 +250,25 @@
     border: 1px solid rgba(229, 211, 186, 0.9);
     box-shadow: 0 10px 20px rgba(43, 36, 28, 0.08);
     overflow: hidden;
+    transition: none !important;
   }
 
   .product-card:hover {
-    transform: none;
+    transform: none !important;
   }
 
   .product-image-wrap {
     aspect-ratio: 1 / 1.08;
     border-radius: 18px;
     margin-bottom: 10px;
+    transition: none !important;
   }
 
   .product-image {
     width: 94%;
     height: 94%;
-    filter: drop-shadow(0 14px 18px rgba(47, 74, 46, 0.15));
+    filter: drop-shadow(0 14px 18px rgba(47, 74, 46, 0.15)) !important;
+    transition: none !important;
   }
 
   .product-cat-badge {
