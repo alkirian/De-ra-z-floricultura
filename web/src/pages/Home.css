@@ -2514,6 +2514,8 @@
     flex-direction: column !important;
     align-items: flex-start !important;
     width: 100% !important;
+    position: relative !important;
+    z-index: 2 !important;
   }
 
   .mobile-category-icon-wrap {
