@@ -335,6 +335,50 @@ const renderExplanationText = (text) => {
   });
 };
 
+const getRemainingCount = (step, answers) => {
+  let list = MOCK_PRODUCTS.filter(p => p.section === 'plantas');
+  
+  if (step > 1 && answers.placement) {
+    const catMap = { interior: 'Interior', exterior: 'Exterior', huerta: 'Huerta' };
+    list = list.filter(p => p.category === catMap[answers.placement]);
+  }
+  
+  if (step > 2 && answers.light) {
+    list = list.filter(plant => {
+      const plantLight = plant.attributes.find(a => a.type === 'luz')?.value || '';
+      const lightVal = plantLight.toLowerCase();
+      if (answers.light === 'poca') {
+        return !(lightVal.includes('sol directo') || lightVal.includes('pleno sol'));
+      }
+      if (answers.light === 'directa') {
+        return !lightVal.includes('sin sol');
+      }
+      return true;
+    });
+  }
+  
+  if (step > 3 && answers.care) {
+    if (answers.care === 'flores') {
+      list = list.filter(plant => {
+        const nameNorm = plant.name.toLowerCase();
+        const descNorm = plant.description.toLowerCase();
+        return nameNorm.includes('azalea') || nameNorm.includes('petunia') || nameNorm.includes('clavel') || 
+               nameNorm.includes('viola') || nameNorm.includes('sapito') || nameNorm.includes('azucar') || 
+               nameNorm.includes('copete') || nameNorm.includes('boca de sapo') || descNorm.includes('flor') || 
+               descNorm.includes('colores') || descNorm.includes('aromatica') || plant.category === 'Huerta';
+      });
+    } else if (answers.care === 'principiante') {
+      list = list.filter(plant => (plant.attributes.find(a => a.type === 'dificultad')?.value || 'Baja') === 'Baja');
+    }
+  }
+  
+  if (step > 4 && answers.pets && answers.pets === 'si') {
+    list = list.filter(plant => isPetSafe(plant.name));
+  }
+  
+  return list.length;
+};
+
 const Home = () => {
   const heroRef = useRef(null);
   const quickActionsRef = useRef(null);
@@ -352,7 +396,7 @@ const Home = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   // Estados para el recomendador interactivo
-  const [quizActive, setQuizActive] = useState(false);
+  const [quizActive, setQuizActive] = useState(true);
   const [quizStep, setQuizStep] = useState(1);
   const [quizAnswers, setQuizAnswers] = useState({
     placement: '',
