@@ -1618,7 +1618,7 @@ const Home = () => {
                             <div className="quiz-result-card-actions">
                               <button
                                 type="button"
-                                className="btn btn-primary btn-sm quiz-card-add-btn"
+                                className="btn btn-primary quiz-card-add-btn"
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   addToCart(product);
@@ -1630,7 +1630,7 @@ const Home = () => {
                                 href={generateWaLink(WA_MESSAGES.producto(product.name))}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="btn btn-outline btn-sm quiz-card-wa-btn"
+                                className="btn btn-secondary quiz-card-wa-btn"
                                 onClick={(e) => e.stopPropagation()}
                               >
                                 <MessageCircle size={14} /> Stock
@@ -1654,7 +1654,7 @@ const Home = () => {
                     </a>
                     <button
                       type="button"
-                      className="btn btn-outline quiz-restart-btn"
+                      className="btn btn-secondary quiz-restart-btn"
                       onClick={() => {
                         setQuizStep(1);
                         setQuizAnswers({
