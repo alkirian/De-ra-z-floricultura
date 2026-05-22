@@ -1707,7 +1707,6 @@ const Home = () => {
                       <button
                         type="button"
                         className="btn-mobile-category-tip"
-                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.25)', borderColor: `${cat.color}40` }}
                         onClick={(e) => {
                           e.stopPropagation();
                           e.preventDefault();
