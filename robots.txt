@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+# Evitar indexación de variantes de filtros del catálogo (contenido duplicado)
+Disallow: /De-ra-z-floricultura/catalogo?
+
 Sitemap: https://alkirian.github.io/De-ra-z-floricultura/sitemap.xml
