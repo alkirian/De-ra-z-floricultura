@@ -83,7 +83,7 @@
   backface-visibility: hidden;
   /* Verde salvia sutil y suave (#8FA878) de la marca para integrarse con el fondo */
   -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%);
-  filter: brightness(0) saturate(100%) invert(100%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%);
+  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%);
 }
 
 /* NIVELES DE PROFUNDIDAD (Efecto Lente Cinemático 3D Parallax - Desenfoques y Sombras Flotantes) */
@@ -92,12 +92,8 @@
 }
 .leaf-depth-foreground .botanical-leaf-inner {
   opacity: 0.45; /* Muy sutil, permitiendo que el texto y fondo respiren */
-  /* Fallback: 2% de ancho típico de 200px es 4px */
   -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(4px) drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.45));
   filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(4px) drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.45));
-  /* Modern: Filtro SVG nativo del 2% */
-  -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) url(#leaf-blur-filter) drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.45));
-  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) url(#leaf-blur-filter) drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.45));
 }
 
 .leaf-depth-midground {
@@ -105,12 +101,8 @@
 }
 .leaf-depth-midground .botanical-leaf-inner {
   opacity: 0.35; /* Mezclado armoniosamente con el gradiente del Hero */
-  /* Fallback: 2% de ancho típico de 150px es 3px */
   -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(3px) drop-shadow(8px 15px 12px rgba(0, 0, 0, 0.35));
   filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(3px) drop-shadow(8px 15px 12px rgba(0, 0, 0, 0.35));
-  /* Modern: Filtro SVG nativo del 2% */
-  -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) url(#leaf-blur-filter) drop-shadow(8px 15px 12px rgba(0, 0, 0, 0.35));
-  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) url(#leaf-blur-filter) drop-shadow(8px 15px 12px rgba(0, 0, 0, 0.35));
 }
 
 .leaf-depth-background {
@@ -118,12 +110,8 @@
 }
 .leaf-depth-background .botanical-leaf-inner {
   opacity: 0.22; /* Fusión de fondo para máxima sutileza premium */
-  /* Fallback: 2% de ancho típico de 100px es 2px */
   -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(2px) drop-shadow(4px 8px 6px rgba(0, 0, 0, 0.25));
   filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(2px) drop-shadow(4px 8px 6px rgba(0, 0, 0, 0.25));
-  /* Modern: Filtro SVG nativo del 2% */
-  -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) url(#leaf-blur-filter) drop-shadow(4px 8px 6px rgba(0, 0, 0, 0.25));
-  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) url(#leaf-blur-filter) drop-shadow(4px 8px 6px rgba(0, 0, 0, 0.25));
 }
 
 /* POSICIONAMIENTO RESPONSIVE DE CADA HOJA (Zig-Zag Follage Inteligente Anti-Colisiones) */
@@ -3316,10 +3304,7 @@
 /* Estado activo revelado por IntersectionObserver */
 .section-bg-leaf.reveal-visible {
   opacity: var(--leaf-opacity, 0.15);
-  /* Fallback: Desenfoque de pixel según el tamaño de la pantalla y sección */
   filter: blur(var(--leaf-blur, 8px));
-  /* Modern: Filtro SVG nativo del 2% proporcional */
-  filter: url(#leaf-blur-filter);
 }
 
 /* Contenedor intermedio de balanceo dinámico por GSAP (idéntico al del Hero) */

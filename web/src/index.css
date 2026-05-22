@@ -311,10 +311,7 @@ ul, ol { list-style: none; }
   opacity: 0.18;
   width: clamp(120px, 15vw, 240px);
   height: auto;
-  /* Fallback: 2% de ancho típico de 180px es 3.6px */
   filter: blur(3.6px);
-  /* Modern: Filtro SVG nativo del 2% proporcional */
-  filter: url(#leaf-blur-filter);
 }
 
 .leaf-deco svg {
