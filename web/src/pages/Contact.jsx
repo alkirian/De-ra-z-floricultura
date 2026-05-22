@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Clock, MessageCircle, Navigation, Phone, Leaf, Sprout, Shovel, Package } from 'lucide-react';
+import { MapPin, Clock, MessageCircle, Navigation, Phone, Leaf, Sprout, Shovel, Package, X } from 'lucide-react';
 import { BIZ_INFO, generateWaLink, WA_MESSAGES } from '../data/mockData';
 import SEO from '../components/SEO';
 import './Contact.css';
@@ -14,6 +14,7 @@ const LeafSVG = ({ className }) => (
 
 const Contact = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [expandedService, setExpandedService] = useState(null);
   const BASE = import.meta.env.BASE_URL;
   const STORE_IMAGES = [
     `${BASE}images/Instagram/641159597_18569292976036794_7285793248818445959_n.jpg`,
@@ -60,10 +61,30 @@ const Contact = () => {
   };
 
   const serviceCards = [
-    { icon: Leaf, title: 'Plantas de interior y exterior', text: 'Selección local con especies adaptadas a cada tipo de luz.' },
-    { icon: Sprout, title: 'Asesoría botánica', text: 'Te guiamos según espacio, riego y estacionalidad en Uruguay.' },
-    { icon: Shovel, title: 'Sustratos y cuidado', text: 'Mezclas, fertilizantes y productos para mantener tus plantas saludables.' },
-    { icon: Package, title: 'Macetas y armado', text: 'Opciones con drenaje y armado de combos para regalo.' },
+    { 
+      icon: Leaf, 
+      title: 'Plantas de interior y exterior', 
+      text: 'Selección local con especies adaptadas a cada tipo de luz.',
+      details: 'En nuestro local vas a encontrar una selección curada de plantas de interior y exterior. Cada especie está adaptada al clima de Canelones y Montevideo. Te ayudamos a elegir según la iluminación natural de tu hogar y el tiempo que le puedas dedicar.'
+    },
+    { 
+      icon: Sprout, 
+      title: 'Asesoría botánica', 
+      text: 'Te guiamos según espacio, riego y estacionalidad en Uruguay.',
+      details: 'Creemos que cada planta tiene su espacio ideal. Vení con fotos de tus ambientes y te asesoramos de forma personalizada sobre riego, tipo de suelo, ventilación y cuidados específicos para cada estación del año.'
+    },
+    { 
+      icon: Shovel, 
+      title: 'Sustratos y cuidado', 
+      text: 'Mezclas, fertilizantes y productos para mantener tus plantas saludables.',
+      details: 'El secreto de una planta feliz está en sus raíces. Contamos con sustratos premium formulados por nosotros, abonos orgánicos, fertilizantes y productos de prevención contra plagas comunes.'
+    },
+    { 
+      icon: Package, 
+      title: 'Macetas y armado', 
+      text: 'Opciones con drenaje y armado de combos para regalo.',
+      details: 'Elegí la maceta que mejor combine con tu estilo y te la entregamos armada con el sustrato adecuado y piedras de drenaje. Ideal para regalar o renovar tus rincones favoritos al instante.'
+    },
   ];
 
   return (
@@ -166,13 +187,26 @@ const Contact = () => {
           <section className="local-services" aria-labelledby="services-title">
             <h2 id="services-title">Qué encontrarás en el local</h2>
             <div className="services-grid">
-              {serviceCards.map((service) => {
+              {serviceCards.map((service, i) => {
                 const Icon = service.icon;
                 return (
-                  <article key={service.title} className="service-card card">
+                  <article 
+                    key={service.title} 
+                    className="service-card card interactable-card"
+                    onClick={() => setExpandedService(i)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setExpandedService(i);
+                      }
+                    }}
+                  >
                     <div className="service-icon"><Icon size={18} /></div>
                     <h3>{service.title}</h3>
-                    <p>{service.text}</p>
+                    <p className="service-short-text">{service.text}</p>
+                    <span className="service-more-btn">Ver más</span>
                   </article>
                 );
               })}
@@ -213,6 +247,51 @@ const Contact = () => {
           </div>
         </div>
       )}
+
+      {/* Drawer responsivo para detalles del servicio en celular */}
+      {serviceCards.map((service, i) => {
+        const Icon = service.icon;
+        return (
+          <div
+            key={`service-drawer-${i}`}
+            className={`service-detail-drawer ${expandedService === i ? 'service-detail-drawer--open' : ''}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="service-detail-drawer-overlay" onClick={() => setExpandedService(null)}></div>
+            <div className="service-detail-drawer-content">
+              <button
+                type="button"
+                className="btn-close-service-drawer"
+                onClick={() => setExpandedService(null)}
+                aria-label="Cerrar detalle"
+              >
+                <X size={20} />
+              </button>
+              <div className="service-drawer-header">
+                <div className="service-drawer-icon-wrap">
+                  <Icon size={24} />
+                </div>
+                <div>
+                  <span className="service-drawer-subtitle" style={{ color: 'var(--verde-profundo)' }}>Qué encontrarás</span>
+                  <h3>{service.title}</h3>
+                </div>
+              </div>
+              <div className="service-drawer-body">
+                <p>{service.details}</p>
+              </div>
+              <div className="service-drawer-footer">
+                <button
+                  type="button"
+                  className="btn btn-primary btn-block"
+                  onClick={() => setExpandedService(null)}
+                >
+                  Entendido
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      })}
     </article>
   );
 };

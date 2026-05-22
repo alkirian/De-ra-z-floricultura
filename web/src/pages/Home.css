@@ -2205,3 +2205,293 @@
   display: none;
 }
 
+/* ==========================================================================
+   CARRUSEL DE CATEGORÍAS MÓVIL Y DRAWER DE TIPS (INTERACTIVO)
+   ========================================================================== */
+.categories-carousel-mobile {
+  display: none;
+}
+
+@media (max-width: 859px) {
+  .categories-accordion-desktop {
+    display: none !important;
+  }
+
+  .categories-carousel-mobile {
+    display: block !important;
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+    z-index: 10;
+  }
+
+  /* Carrusel horizontal fluido con snap */
+  .carousel-track-mobile {
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-behavior: smooth !important;
+    scroll-snap-type: x mandatory !important;
+    gap: 16px !important;
+    padding: 16px 24px 28px 24px !important;
+    margin: 0 -24px !important; /* Sangrado lateral (bleeding) */
+    scrollbar-width: none !important; /* Ocultar barra en Firefox */
+    -webkit-overflow-scrolling: touch !important; /* Inercia en iOS */
+  }
+
+  .carousel-track-mobile::-webkit-scrollbar {
+    display: none !important; /* Ocultar barra en Chrome/Safari */
+  }
+
+  .carousel-slide-mobile {
+    flex: 0 0 82% !important; /* Las tarjetas ocupan el 82% para dejar ver la siguiente */
+    max-width: 300px !important;
+    height: 380px !important;
+    background-size: cover !important;
+    background-position: center !important;
+    border-radius: 28px !important;
+    position: relative !important;
+    overflow: hidden !important;
+    scroll-snap-align: center !important;
+    border: 1px solid var(--beige-medio) !important;
+    box-shadow: 0 8px 24px rgba(47, 74, 46, 0.08) !important;
+    transition: transform 0.3s ease !important;
+  }
+
+  .mobile-category-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.25) 60%, rgba(0, 0, 0, 0.4) 100%) !important;
+    z-index: 1 !important;
+  }
+
+  .mobile-category-card-main {
+    position: relative !important;
+    z-index: 2 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 28px 20px !important;
+    text-decoration: none !important;
+    color: white !important;
+  }
+
+  .mobile-category-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+  }
+
+  .mobile-category-icon-wrap {
+    width: 52px !important;
+    height: 52px !important;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-bottom: 18px !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+  }
+
+  .mobile-category-icon-wrap svg {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .mobile-category-title {
+    font-family: var(--font-base) !important;
+    font-size: 1.6rem !important;
+    font-weight: 800 !important;
+    margin-bottom: 6px !important;
+    color: white !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+    text-align: left !important;
+  }
+
+  .mobile-category-desc {
+    font-size: 0.95rem !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    margin-bottom: 20px !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
+    line-height: 1.4 !important;
+    text-align: left !important;
+  }
+
+  .btn-mobile-category-tip {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 10px 18px !important;
+    border-radius: 20px !important;
+    color: white !important;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    border: 1px solid rgba(255,255,255,0.4) !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+  }
+
+  .btn-mobile-category-tip:active {
+    transform: scale(0.96) !important;
+    background: rgba(255, 255, 255, 0.3) !important;
+  }
+
+  /* =======================================
+     DRAWER / BOTTOM SHEET TIP BOTANICO
+     ======================================= */
+  .mobile-category-advice-drawer {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 1200 !important; /* Mayor que el header/nav */
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: visibility 0.4s !important;
+  }
+
+  .mobile-category-advice-drawer--open {
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .mobile-category-advice-drawer-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    opacity: 0 !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    pointer-events: auto !important;
+  }
+
+  .mobile-category-advice-drawer--open .mobile-category-advice-drawer-overlay {
+    opacity: 1 !important;
+  }
+
+  .mobile-category-advice-drawer-content {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: var(--crema) !important;
+    border-radius: 32px 32px 0 0 !important;
+    padding: 32px 24px 40px 24px !important;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.15) !important;
+    transform: translateY(100%) !important;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    z-index: 2 !important;
+  }
+
+  .mobile-category-advice-drawer--open .mobile-category-advice-drawer-content {
+    transform: translateY(0) !important;
+  }
+
+  /* Botón de cierre en forma de cruz flotante */
+  .btn-close-advice-drawer {
+    position: absolute !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    background: rgba(0,0,0,0.05) !important;
+    border: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--verde-profundo) !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .btn-close-advice-drawer:active {
+    background: rgba(0,0,0,0.1) !important;
+    transform: scale(0.9) !important;
+  }
+
+  .advice-drawer-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+    margin-bottom: 24px !important;
+    padding-right: 40px !important; /* Para no chocar con la cruz */
+    text-align: left !important;
+  }
+
+  .advice-drawer-icon {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .advice-drawer-icon svg {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .advice-drawer-subtitle {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 0.85rem !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    margin-bottom: 4px !important;
+    text-align: left !important;
+  }
+
+  .advice-drawer-title {
+    font-family: var(--font-base) !important;
+    font-size: 1.5rem !important;
+    font-weight: 800 !important;
+    color: var(--verde-profundo) !important;
+    margin: 0 !important;
+    text-align: left !important;
+  }
+
+  .advice-drawer-body {
+    margin-bottom: 32px !important;
+    text-align: left !important;
+  }
+
+  .advice-drawer-body p {
+    font-size: 1.05rem !important;
+    line-height: 1.65 !important;
+    color: var(--texto-medio) !important;
+    margin: 0 !important;
+    text-align: left !important;
+  }
+
+  .advice-drawer-footer .btn-block {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    padding: 16px !important;
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    border-radius: 50px !important;
+    color: white !important;
+    text-decoration: none !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .advice-drawer-footer .btn-block:active {
+    transform: scale(0.98) !important;
+  }
+}
+

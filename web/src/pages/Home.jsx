@@ -1,12 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { ArrowRight, MessageCircle, Sparkles, Leaf, MapPin, ChevronLeft, ChevronRight, BookOpen, X } from 'lucide-react';
+import { ArrowRight, MessageCircle, Sparkles, Leaf, MapPin, ChevronLeft, ChevronRight, BookOpen, X, ShoppingCart, Sun, Droplets, Ruler, Package, Sprout } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { generateWaLink, WA_MESSAGES } from '../data/mockData';
+import { generateWaLink, WA_MESSAGES, MOCK_PRODUCTS } from '../data/mockData';
+import { useCart } from '../context/CartContext';
+import ProductModal from '../components/ProductModal';
 import SEO from '../components/SEO';
 import './Home.css';
-
-;
+const getAttributeIcon = (type) => {
+  switch (type) {
+    case 'luz':      return <Sun size={14} />;
+    case 'riego':    return <Droplets size={14} />;
+    case 'tamano':   return <Ruler size={14} />;
+    case 'material': return <Package size={14} />;
+    default:         return <Sprout size={14} />;
+  }
+};
 
 /* SVG onda separadora */
 const WaveTop = ({ fill = '#F4EBDD', bg = 'transparent', className = '' }) => (
@@ -187,6 +196,7 @@ const Home = () => {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [activeAccordion, setActiveAccordion] = useState(null);
   const [activeComboIndex, setActiveComboIndex] = useState(null);
+  const [expandedCategory, setExpandedCategory] = useState(null);
 
   // Helper para mover los carruseles móviles suavemente con snapping al pulsar las flechas
   const scrollCarousel = (ref, direction) => {
@@ -1176,37 +1186,119 @@ const Home = () => {
             <h2>Explorá nuestras categorías</h2>
             <div className="title-underline"></div>
           </div>
-          <div className="accordion-container">
+          <div className="categories-accordion-desktop">
+            <div className="accordion-container">
+              {CATEGORIES.map((cat, i) => (
+                <div
+                  key={i}
+                  className={`accordion-item reveal-on-scroll reveal-scale ${activeAccordion === i ? 'accordion-item--active' : ''}`}
+                  onClick={() => setActiveAccordion(i)}
+                  style={{
+                    '--cat-color': cat.color,
+                    backgroundImage: `url(${cat.bgImage})`,
+                    '--reveal-delay': `${i * 0.15}s`
+                  }}
+                >
+                  <div className="accordion-overlay"></div>
+                  <div className="accordion-content-wrapper">
+                    <div className="accordion-icon-wrap" style={{ color: cat.color }}>
+                      <div className="accordion-icon">{cat.icon}</div>
+                    </div>
+                    <div className="accordion-content">
+                      <div className="accordion-header">
+                        <h4>{cat.title}</h4>
+                        <p className="accordion-short-desc">{cat.shortDesc}</p>
+                      </div>
+                      <div className="accordion-details">
+                        <div className="advice-box" style={{ borderColor: `${cat.color}60`, backgroundColor: `rgba(255, 255, 255, 0.65)` }}>
+                          <span className="advice-title" style={{ color: cat.color }}><Sparkles size={14} /> {cat.adviceTitle}</span>
+                          <p>{cat.advice}</p>
+                        </div>
+                        <Link to={cat.link} className="btn-accordion" style={{ backgroundColor: cat.color }}>
+                          Ver {cat.title} <ArrowRight size={16} />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="categories-carousel-mobile">
+            <div className="carousel-track-mobile">
+              {CATEGORIES.map((cat, i) => (
+                <div
+                  key={i}
+                  className="carousel-slide-mobile"
+                  style={{
+                    '--cat-color': cat.color,
+                    backgroundImage: `url(${cat.bgImage})`
+                  }}
+                >
+                  <Link className="mobile-category-card-main" to={cat.link}>
+                    <div className="mobile-category-overlay"></div>
+                    <div className="mobile-category-content">
+                      <div className="mobile-category-icon-wrap" style={{ color: cat.color }}>
+                        {cat.icon}
+                      </div>
+                      <h3 className="mobile-category-title">{cat.title}</h3>
+                      <p className="mobile-category-desc">{cat.shortDesc}</p>
+                      <button
+                        type="button"
+                        className="btn-mobile-category-tip"
+                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.25)', borderColor: `${cat.color}40` }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          setExpandedCategory(i);
+                        }}
+                      >
+                        <Sparkles size={14} /> Tip Botánico
+                      </button>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
+
             {CATEGORIES.map((cat, i) => (
               <div
-                key={i}
-                className={`accordion-item reveal-on-scroll reveal-scale ${activeAccordion === i ? 'accordion-item--active' : ''}`}
-                onClick={() => setActiveAccordion(i)}
-                style={{
-                  '--cat-color': cat.color,
-                  backgroundImage: `url(${cat.bgImage})`,
-                  '--reveal-delay': `${i * 0.15}s`
-                }}
+                key={`drawer-${i}`}
+                className={`mobile-category-advice-drawer ${expandedCategory === i ? 'mobile-category-advice-drawer--open' : ''}`}
+                onClick={(e) => e.stopPropagation()}
               >
-                <div className="accordion-overlay"></div>
-                <div className="accordion-content-wrapper">
-                  <div className="accordion-icon-wrap" style={{ color: cat.color }}>
-                    <div className="accordion-icon">{cat.icon}</div>
+                <div className="mobile-category-advice-drawer-overlay" onClick={() => setExpandedCategory(null)}></div>
+                <div className="mobile-category-advice-drawer-content" style={{ borderTop: `4px solid ${cat.color}` }}>
+                  <button
+                    type="button"
+                    className="btn-close-advice-drawer"
+                    onClick={() => setExpandedCategory(null)}
+                    aria-label="Cerrar tip botánico"
+                  >
+                    <X size={20} />
+                  </button>
+                  <div className="advice-drawer-header">
+                    <div className="advice-drawer-icon" style={{ backgroundColor: `${cat.color}20`, color: cat.color }}>
+                      {cat.icon}
+                    </div>
+                    <div>
+                      <span className="advice-drawer-subtitle" style={{ color: cat.color }}>{cat.adviceTitle}</span>
+                      <h4 className="advice-drawer-title">{cat.title}</h4>
+                    </div>
                   </div>
-                  <div className="accordion-content">
-                    <div className="accordion-header">
-                      <h4>{cat.title}</h4>
-                      <p className="accordion-short-desc">{cat.shortDesc}</p>
-                    </div>
-                    <div className="accordion-details">
-                      <div className="advice-box" style={{ borderColor: `${cat.color}60`, backgroundColor: `rgba(255, 255, 255, 0.65)` }}>
-                        <span className="advice-title" style={{ color: cat.color }}><Sparkles size={14} /> {cat.adviceTitle}</span>
-                        <p>{cat.advice}</p>
-                      </div>
-                      <Link to={cat.link} className="btn-accordion" style={{ backgroundColor: cat.color }}>
-                        Ver {cat.title} <ArrowRight size={16} />
-                      </Link>
-                    </div>
+                  <div className="advice-drawer-body">
+                    <p>{cat.advice}</p>
+                  </div>
+                  <div className="advice-drawer-footer">
+                    <Link
+                      to={cat.link}
+                      className="btn btn-primary btn-block"
+                      style={{ backgroundColor: cat.color, borderColor: cat.color }}
+                      onClick={() => setExpandedCategory(null)}
+                    >
+                      Ver catálogo <ArrowRight size={16} />
+                    </Link>
                   </div>
                 </div>
               </div>
