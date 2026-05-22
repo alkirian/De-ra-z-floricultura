@@ -114,7 +114,15 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
 p { color: var(--color-text-light); line-height: 1.7; }
 
 a { color: inherit; text-decoration: none; }
-button { font-family: var(--font-base); border: none; cursor: pointer; background: none; }
+button {
+  font-family: var(--font-base);
+  border: none;
+  cursor: pointer;
+  background: none;
+  /* Elimina el delay de 300ms en iOS Safari y mejora la sensación de respuesta táctil */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
 img { max-width: 100%; display: block; }
 ul, ol { list-style: none; }
 
@@ -163,6 +171,8 @@ ul, ol { list-style: none; }
   transition: all var(--t-normal);
   white-space: nowrap;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn-primary {
@@ -275,10 +285,13 @@ ul, ol { list-style: none; }
   transition: all var(--t-normal);
 }
 
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--verde-salvia);
+/* Solo activa hover effects en dispositivos con mouse real (no touch) */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--verde-salvia);
+  }
 }
 
 /* =====================================================
@@ -426,6 +439,26 @@ ul, ol { list-style: none; }
     text-align: center;
     font-size: 0.88rem;
     padding: 12px 20px;
+  }
+  /* Aumentar padding del container en pantallas muy pequeñas */
+  .container {
+    padding: 0 16px;
+  }
+}
+
+/* Desactivar animaciones costosas para usuarios con preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .animate-fade-in {
+    animation: none !important;
+  }
+  .animate-float-slow {
+    animation: none !important;
   }
 }
 

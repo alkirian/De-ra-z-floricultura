@@ -279,7 +279,7 @@ const getRecommendations = (answers) => {
     return 0.5 - Math.random();
   });
   
-  return sorted.slice(0, 2).map(item => item.plant);
+  return sorted.slice(0, 1).map(item => item.plant);
 };
 
 const getExplanation = (plant, answers) => {
@@ -1411,8 +1411,8 @@ const Home = () => {
           <div className="text-center mb-8 reveal-on-scroll reveal-up">
             <span className="section-label">Asesoramiento Interactivo 🌿</span>
             <h2>¿No sabés qué planta elegir?</h2>
-            <p className="quiz-section-intro" style={{ maxWidth: '600px', margin: '12px auto 0', color: 'var(--texto-medio)', fontSize: '1.05rem', lineHeight: '1.6' }}>
-              Completá nuestro test botánico interactivo en 15 segundos. Nuestro sistema irá descartando plantas de nuestro cultivo en tiempo real para encontrar tus 2 compañeras ideales.
+            <p className="quiz-section-intro" style={{ maxWidth: '600px', margin: '12px auto 0', color: '#ffffff', fontSize: '1.05rem', lineHeight: '1.6' }}>
+              Completá nuestro test botánico interactivo en 15 segundos. Nuestro sistema irá descartando plantas de nuestro cultivo en tiempo real para encontrar tu planta ideal.
             </p>
           </div>
 
@@ -1443,7 +1443,7 @@ const Home = () => {
                 <div className="quiz-step-content animate-fade-in">
                   <h3>¿Dónde vas a ubicar tu planta? 🏠</h3>
                   <p className="quiz-step-subtitle">Definir el ambiente correcto es clave para que tu planta crezca sana.</p>
-                  <div className="quiz-cards-grid">
+                  <div className="quiz-cards-grid quiz-cards-grid--two">
                     <button
                       type="button"
                       className="quiz-card-option"
@@ -1461,15 +1461,6 @@ const Home = () => {
                       <div className="quiz-card-icon">☀️</div>
                       <h4>Exterior</h4>
                       <p>Jardín, patio o balcón abierto.</p>
-                    </button>
-                    <button
-                      type="button"
-                      className="quiz-card-option"
-                      onClick={() => handleSelectOption('placement', 'huerta')}
-                    >
-                      <div className="quiz-card-icon">🥬</div>
-                      <h4>Huerta o Cocina</h4>
-                      <p>Aromáticas y frutales para cultivar.</p>
                     </button>
                   </div>
                 </div>
@@ -1578,16 +1569,16 @@ const Home = () => {
                 <div className="quiz-step-content quiz-results-content animate-fade-in">
                   <div className="quiz-results-header">
                     <span className="section-label">¡Tu resultado botánico! 🏆</span>
-                    <h3>Encontramos tus 2 plantas ideales</h3>
+                    <h3>Encontramos tu planta ideal 🌿</h3>
                     <p className="quiz-results-subtitle">
-                      En base a tus respuestas: <span className="quiz-summary-pill">{quizAnswers.placement === 'interior' ? 'Interior' : quizAnswers.placement === 'exterior' ? 'Exterior' : 'Huerta'}</span> 
+                      En base a tus respuestas: <span className="quiz-summary-pill">{quizAnswers.placement === 'interior' ? 'Interior' : 'Exterior'}</span> 
                       <span className="quiz-summary-pill">{quizAnswers.light === 'poca' ? 'Poca luz' : quizAnswers.light === 'indirecta' ? 'Luz indirecta' : 'Sol directo'}</span> 
                       <span className="quiz-summary-pill">{quizAnswers.care === 'principiante' ? 'Principiante' : quizAnswers.care === 'entusiasta' ? 'Entusiasta' : 'Con flores'}</span> 
                       {quizAnswers.pets === 'si' && <span className="quiz-summary-pill quiz-summary-pill--pet">🐾 Pet-Friendly</span>}
                     </p>
                   </div>
 
-                  <div className="quiz-results-grid">
+                  <div className={`quiz-results-grid ${quizResults.length === 1 ? 'quiz-results-grid--single' : ''}`}>
                     {quizResults.map((product) => {
                       const explanation = getExplanation(product, quizAnswers);
                       return (
@@ -1613,6 +1604,15 @@ const Home = () => {
                             <p className="quiz-result-card-explanation">
                               {renderExplanationText(explanation)}
                             </p>
+
+                            {/* Botón Ver Similares en Catálogo */}
+                            <Link
+                              to="/catalogo"
+                              className="quiz-card-similar-btn"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              Ver similares
+                            </Link>
 
                             {/* Botones de acción */}
                             <div className="quiz-result-card-actions">
@@ -1650,7 +1650,7 @@ const Home = () => {
                       rel="noreferrer"
                       className="btn btn-primary quiz-wa-cta"
                     >
-                      <MessageCircle size={18} /> Consultar stock de ambas por WhatsApp
+                      <MessageCircle size={18} /> Consultar stock por WhatsApp
                     </a>
                     <button
                       type="button"

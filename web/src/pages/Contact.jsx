@@ -100,23 +100,7 @@ const Contact = () => {
         <script type="application/ld+json">{...}</script>
       */}
 
-      <section className="contact-hero section-padding--sm" style={{ paddingTop: '80px' }}>
-        <div className="container contact-hero-shell card">
-          <div className="contact-hero-copy">
-            <span className="section-label">Nuestra tienda</span>
-            <h1>Visita nuestra tienda de plantas en Las Piedras</h1>
-            <h2>Acercate al local y te ayudamos a elegir la planta ideal para tu espacio</h2>
-          </div>
-          <div className="contact-hero-image">
-            <img
-              src={STORE_IMAGES[0]}
-              alt="Fachada y exhibición exterior del local De Raíz"
-              loading="eager"
-              decoding="async"
-            />
-          </div>
-        </div>
-      </section>
+
 
       <section className="section-padding" style={{ background: 'var(--blanco-calido)', position: 'relative' }}>
         <div className="leaf-deco" style={{left: '-40px', top: '10%', color: 'var(--verde-salvia)', opacity: 0.15}}>

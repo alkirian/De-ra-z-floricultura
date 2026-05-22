@@ -119,15 +119,19 @@
   padding: 10px 20px;
 }
 
-/* Mobile toggle */
+/* Mobile toggle — mínimo 44×44px de área táctil (estándar Apple/Google) */
 .nav-toggle {
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--verde-profundo);
-  padding: 6px;
+  padding: 10px;        /* 10px padding + ~24px icon = 44px total */
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 8px;
   transition: background var(--t-fast);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .navbar--transparent .nav-toggle {
@@ -165,6 +169,12 @@
   color: var(--texto-oscuro);
   border-bottom: 1px solid var(--beige-claro);
   transition: color var(--t-fast);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  /* Mínimo 44px de altura táctil */
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 
 .nav-mobile-link:hover {
