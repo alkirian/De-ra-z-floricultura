@@ -198,6 +198,28 @@ const Home = () => {
   const [activeComboIndex, setActiveComboIndex] = useState(null);
   const [expandedCategory, setExpandedCategory] = useState(null);
 
+  // Sistema de recomendaciones de catálogo aleatorio
+  const { addToCart } = useCart();
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
+  const [currentRecIndex, setCurrentRecIndex] = useState(0);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  useEffect(() => {
+    const plants = MOCK_PRODUCTS.filter((p) => p.section === 'plantas');
+    if (plants.length > 0) {
+      const shuffled = [...plants].sort(() => 0.5 - Math.random());
+      setRecommendedProducts(shuffled.slice(0, 3));
+    }
+  }, []);
+
+  const nextRec = () => {
+    setCurrentRecIndex((prev) => (prev + 1) % recommendedProducts.length);
+  };
+
+  const prevRec = () => {
+    setCurrentRecIndex((prev) => (prev - 1 + recommendedProducts.length) % recommendedProducts.length);
+  };
+
   // Helper para mover los carruseles móviles suavemente con snapping al pulsar las flechas
   const scrollCarousel = (ref, direction) => {
     if (!ref.current) return;
@@ -1159,14 +1181,94 @@ const Home = () => {
               </Link>
             </div>
           </div>
-
           <div className="advice-image reveal-on-scroll reveal-right">
-            <img
-              src={ADVICE_FEATURED_IMAGE}
-              alt="Planta destacada para asesoramiento personalizado"
-              loading="lazy"
-              decoding="async"
-            />
+            {recommendedProducts.length > 0 && (
+              <div className="advice-rec-carousel">
+                {/* Cabecera / Sugerencia */}
+                <div className="advice-rec-header">
+                  <span className="advice-rec-badge">💡 Recomendación De Raíz</span>
+                  <span className="advice-rec-counter">{currentRecIndex + 1} de {recommendedProducts.length}</span>
+                </div>
+
+                {/* Contenido de la Planta */}
+                <div className="advice-rec-content-wrapper">
+                  {recommendedProducts.map((product, idx) => {
+                    const isActive = idx === currentRecIndex;
+                    return (
+                      <div 
+                        key={product.id} 
+                        className={`advice-rec-slide ${isActive ? 'active' : ''}`}
+                        style={{ display: isActive ? 'flex' : 'none' }}
+                      >
+                        <div className="advice-rec-product-info" onClick={() => setSelectedProduct(product)}>
+                          {/* Imagen */}
+                          <div className="advice-rec-image-wrap">
+                            <img src={product.image} alt={product.name} />
+                          </div>
+                          
+                          {/* Textos */}
+                          <div className="advice-rec-details">
+                            <span className="advice-rec-category">{product.category}</span>
+                            <h3 className="advice-rec-name">{product.name}</h3>
+                            <p className="advice-rec-desc">{product.description}</p>
+                            
+                            {/* Atributos cortos */}
+                            <div className="advice-rec-attrs">
+                              {product.attributes.slice(0, 2).map((attr, aIdx) => (
+                                <span key={aIdx} className="advice-rec-attr-item">
+                                  {getAttributeIcon(attr.type)} {attr.value}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Botones de acción */}
+                        <div className="advice-rec-actions">
+                          <button 
+                            type="button" 
+                            className="btn btn-primary advice-rec-add-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              addToCart(product);
+                            }}
+                          >
+                            <ShoppingCart size={16} /> Agregar
+                          </button>
+                          <a 
+                            href={generateWaLink(WA_MESSAGES.producto(product.name))}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="btn btn-outline advice-rec-stock-btn"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <MessageCircle size={16} /> Consultar Stock
+                          </a>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Flechas de navegación */}
+                <button 
+                  type="button" 
+                  className="advice-rec-nav advice-rec-nav--prev" 
+                  onClick={prevRec}
+                  aria-label="Recomendación anterior"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <button 
+                  type="button" 
+                  className="advice-rec-nav advice-rec-nav--next" 
+                  onClick={nextRec}
+                  aria-label="Siguiente recomendación"
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -1419,6 +1521,13 @@ const Home = () => {
             </button>
           </div>
         </div>
+      )}
+
+      {selectedProduct && (
+        <ProductModal 
+          product={selectedProduct} 
+          onClose={() => setSelectedProduct(null)} 
+        />
       )}
 
     </div>
