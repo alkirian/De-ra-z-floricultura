@@ -16,7 +16,7 @@ const MAIN_FILTERS = [
 const INSUMOS_SUBCATEGORIES = CATEGORIES.insumos.filter((cat) => cat !== 'Macetas');
 
 const NEED_FILTERS = {
-  'planta-facil': 'Plantas fáciles',
+  'planta-facil': 'Plantas fÃ¡ciles',
   'poca-luz': 'Poca luz',
   'mucha-luz': 'Mucha luz',
   'poco-riego': 'Poco riego',
@@ -42,15 +42,14 @@ const matchesNeed = (product, need) => {
   const name = normalizeText(product.name);
 
   if (need === 'poca-luz') return light.includes('poca') || light.includes('sombra');
-  if (need === 'mucha-luz') return light.includes('mucha') || light.includes('pleno sol') || light.includes('sol directo');
+  if (need === 'mucha-luz') return light.includes('mucha') || light.includes('pleno sol') || (light.includes('sol directo') && !light.includes('sin sol directo'));
   if (need === 'poco-riego') return water.includes('moderado') || water.includes('poca') || name.includes('sansevieria');
   if (need === 'planta-facil') {
     const easyNames = ['sansevieria', 'potus', 'peperomia', 'dracena', 'dracena', 'lavanda', 'gazania', 'hiedra', 'areca'];
     return easyNames.some((item) => name.includes(item));
   }
   if (need === 'pet-friendly') {
-    const petFriendlyNames = ['areca', 'helecho', 'calathea', 'calatea', 'raphis', 'violeta africana'];
-    return petFriendlyNames.some((item) => name.includes(item));
+    return !!product.isPetFriendly;
   }
 
   return true;
@@ -111,6 +110,9 @@ const Catalog = () => {
     if (filterId === 'macetas') {
       setActiveCategory('Todas');
     }
+    if (filterId !== 'plantas') {
+      setActiveNeed('');
+    }
     setVisibleCount(12);
   };
 
@@ -144,29 +146,11 @@ const Catalog = () => {
   return (
     <div className="catalog-page catalog-page--fade">
       <SEO
-        title="Catálogo de Plantas, Macetas e Insumos en Las Piedras | De Raíz"
-        description="Explorá nuestra variedad de plantas de interior y exterior, tierra, sustratos y macetas modernas en Las Piedras, Canelones. Hacé tu consulta de stock hoy."
+        title="CatÃ¡logo de Plantas, Macetas e Insumos en Las Piedras | De RaÃ­z"
+        description="ExplorÃ¡ nuestra variedad de plantas de interior y exterior, tierra, sustratos y macetas modernas en Las Piedras, Canelones. HacÃ© tu consulta de stock hoy."
         path="/catalogo"
       />
       <div className="container">
-        
-        <div className="catalog-header text-center mb-8">
-          <span className="section-label">Tienda</span>
-          <h1>Nuestro Catálogo</h1>
-          <p style={{marginTop: '8px', color: 'var(--texto-suave)'}}>Explorá todo lo que necesitás para darle vida a tu espacio.</p>
-        </div>
-
-        <div className="catalog-help-banner mb-8">
-          <p>¿No sabés cuál elegir? Te recomendamos opciones según tu luz y espacio.</p>
-          <div className="catalog-help-actions">
-            <a href={generateWaLink(WA_MESSAGES.ayudaElegir)} target="_blank" rel="noreferrer" className="btn btn-primary">
-              <MessageCircle size={18} /> Quiero ayuda para elegir
-            </a>
-            <a href={generateWaLink(WA_MESSAGES.diagnostico)} target="_blank" rel="noreferrer" className="btn btn-secondary">
-              <MessageCircle size={18} /> Tengo una planta decaída
-            </a>
-          </div>
-        </div>
 
         {activeNeed && (
           <div className="catalog-need-chip mb-6">
@@ -191,7 +175,7 @@ const Catalog = () => {
                 type="button"
                 className="catalog-search-clear"
                 onClick={() => setSearchQuery('')}
-                aria-label="Borrar búsqueda"
+                aria-label="Borrar bÃºsqueda"
               >
                 <X size={14} />
               </button>
@@ -219,7 +203,7 @@ const Catalog = () => {
 
         {/* Sub-Categories Scroll */}
         <div className="category-filters-container mb-12">
-          <p className="category-scroll-hint">Deslizá para ver más categorías</p>
+          <p className="category-scroll-hint">DeslizÃ¡ para ver mÃ¡s categorÃ­as</p>
           <div className="category-filters">
             {activeCategoriesList.map(cat => (
               <button 
@@ -232,6 +216,7 @@ const Catalog = () => {
             ))}
           </div>
         </div>
+
 
         <div className="catalog-results-head mb-6">
           <p>
@@ -259,7 +244,7 @@ const Catalog = () => {
               className="btn btn-secondary"
               onClick={() => setVisibleCount((prev) => prev + 12)}
             >
-              Mostrar más ({filteredProducts.length - visibleCount} restantes)
+              Mostrar mÃ¡s ({filteredProducts.length - visibleCount} restantes)
             </button>
           </div>
         )}
@@ -279,7 +264,7 @@ const Catalog = () => {
                 </a>
               </>
             ) : (
-              <p>Pronto agregaremos más opciones a esta categoría.</p>
+              <p>Pronto agregaremos mÃ¡s opciones a esta categorÃ­a.</p>
             )}
           </div>
         )}
@@ -302,7 +287,7 @@ const Catalog = () => {
               <div className="modal-info">
                 <span className="badge mb-4">{selectedProduct.category}</span>
                 <h2 className="modal-title">{selectedProduct.name}</h2>
-                {selectedProduct.price !== "Consultar" && (
+                {selectedProduct.price && selectedProduct.price !== "Consultar" && (
                   <p className="modal-price">{selectedProduct.price}</p>
                 )}
                 <p className="modal-description">{selectedProduct.description}</p>
@@ -314,6 +299,12 @@ const Catalog = () => {
                       <span>{attr.value}</span>
                     </div>
                   ))}
+                  {selectedProduct.isPetFriendly && (
+                    <div className="spec-item pet-friendly-spec">
+                      <strong>Mascotas</strong>
+                      <span className="pet-safe-value">ðŸ¾ Apto Mascotas</span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Extra info (Tips y Plagas) */}
@@ -321,13 +312,13 @@ const Catalog = () => {
                   <div className="modal-extra-info">
                     {selectedProduct.careTips && (
                       <div className="info-block">
-                        <h4 className="info-title">✨ Tips de Cuidado</h4>
+                        <h4 className="info-title">âœ¨ Tips de Cuidado</h4>
                         <p className="info-text">{selectedProduct.careTips}</p>
                       </div>
                     )}
                     {selectedProduct.pests && (
                       <div className="info-block pests-block">
-                        <h4 className="info-title">🐛 Posibles Plagas</h4>
+                        <h4 className="info-title">ðŸ› Posibles Plagas</h4>
                         <p className="info-text">{selectedProduct.pests}</p>
                       </div>
                     )}
@@ -356,4 +347,5 @@ const Catalog = () => {
 };
 
 export default Catalog;
+
 

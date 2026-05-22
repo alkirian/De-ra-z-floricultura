@@ -94,6 +94,19 @@
   display: flex;
 }
 
+.pet-friendly-icon-wrapper {
+  background-color: rgba(143, 168, 120, 0.15) !important;
+}
+
+.pet-icon {
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
 .modal-attribute strong {
   display: block;
   font-size: 0.875rem;
@@ -106,6 +119,10 @@
   font-weight: 600;
   color: var(--color-text);
   margin: 0;
+}
+
+.pet-friendly-text {
+  color: var(--verde-profundo) !important;
 }
 
 .modal-actions {

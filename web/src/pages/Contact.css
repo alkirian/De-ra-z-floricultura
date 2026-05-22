@@ -1,6 +1,7 @@
 .contact-page {
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 .contact-hero {
@@ -685,4 +686,44 @@
 
 .service-drawer-footer .btn-block:active {
   transform: scale(0.98) !important;
+}
+
+/* ══════════════════════════════════════
+   CORRECCIONES iOS / TOUCH ESPECÍFICAS
+   ══════════════════════════════════════ */
+
+/* Prevenir zoom automático de iOS Safari en inputs con font-size < 16px */
+input,
+textarea,
+select {
+  font-size: 16px !important;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ampliar botón de cierre del lightbox a 44×44px (mínimo táctil) */
+.gallery-lightbox-close {
+  width: 44px !important;
+  height: 44px !important;
+  top: 8px;
+  right: 8px;
+}
+
+/* Touch feedback activo en tarjetas de galería */
+.gallery-item {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Touch feedback visual en tarjetas del servicio drawer */
+.btn-close-service-drawer {
+  min-width: 44px !important;
+  min-height: 44px !important;
+}
+
+/* Prevenir hover persistente en galería en dispositivos touch */
+@media (hover: none) {
+  .gallery-item:hover img {
+    transform: none;
+  }
 }

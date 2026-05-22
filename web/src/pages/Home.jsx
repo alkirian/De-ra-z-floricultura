@@ -20,7 +20,7 @@ const getAttributeIcon = (type) => {
 /* SVG onda separadora */
 const WaveTop = ({ fill = '#F4EBDD', bg = 'transparent', className = '' }) => (
   <div className={`wave-transition wave-transition--top ${className}`.trim()} style={{ background: bg }}>
-    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
       <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill={fill}/>
     </svg>
   </div>
@@ -28,7 +28,7 @@ const WaveTop = ({ fill = '#F4EBDD', bg = 'transparent', className = '' }) => (
 
 const WaveBottom = ({ fill = '#F4EBDD', bg = 'transparent', className = '' }) => (
   <div className={`wave-transition wave-transition--bottom ${className}`.trim()} style={{ background: bg }}>
-    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
       <path d="M0,30 C360,0 1080,60 1440,30 L1440,0 L0,0 Z" fill={fill}/>
     </svg>
   </div>
@@ -675,22 +675,6 @@ const Home = () => {
         });
       });
 
-      // Flotación lenta y flotante de la hoja caída en el separador
-      gsap.to(".separator-fallen-leaf", {
-        y: "+=5",
-        duration: 5.6,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-      gsap.to(".separator-fallen-leaf", {
-        rotation: "+=6",
-        duration: 6.8,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-
       // Rebote vertical orgánico del scroll indicator
       gsap.to(".scroll-leaf-bounce", {
         y: 10,
@@ -1163,7 +1147,6 @@ const Home = () => {
               fill="var(--crema)"
             />
           </svg>
-          <img src={`${BASE}images/SVG Hero/SVG/Recurso 12.svg`} className="separator-fallen-leaf" alt="" />
         </div>
 
         {/* Indicador de scroll botánico */}
@@ -1405,7 +1388,7 @@ const Home = () => {
       {/* ══════════════════════════
           ASESORAMIENTO GRATUITO
       ══════════════════════════ */}
-      <WaveTop fill="var(--verde-profundo)" bg="var(--crema)" />
+      <WaveTop fill="var(--verde-profundo)" bg="var(--crema)" className="wave-transition--combos-to-advice" />
       <section className="advice-section section-padding--sm">
         <div className="container">
           <div className="text-center mb-8 reveal-on-scroll reveal-up">
@@ -1680,10 +1663,6 @@ const Home = () => {
           CATEGORÍAS ILUSTRADAS
       ══════════════════════════ */}
       <section className="categories-section section-padding" style={{background: 'var(--beige-claro)', position: 'relative', overflow: 'hidden'}}>
-        {/* Hojas decorativas sutiles desenfocadas en los bordes */}
-        <img src={`${BASE}images/bg_leaves.png`} alt="" className="bg-leaf-blur bg-leaf-blur--left" aria-hidden="true" loading="lazy" decoding="async" />
-        <img src={`${BASE}images/bg_leaves.png`} alt="" className="bg-leaf-blur bg-leaf-blur--right" aria-hidden="true" loading="lazy" decoding="async" />
-
         <div className="container" style={{ position: 'relative', zIndex: 10 }}>
           <div className="text-center mb-12 reveal-on-scroll reveal-up">
             <span className="section-label">Qué encontrás en De Raíz</span>
@@ -1695,7 +1674,7 @@ const Home = () => {
               {CATEGORIES.map((cat, i) => (
                 <div
                   key={i}
-                  className={`accordion-item reveal-on-scroll reveal-scale ${activeAccordion === i ? 'accordion-item--active' : ''}`}
+                  className={`accordion-item ${activeAccordion === i ? 'accordion-item--active' : ''}`}
                   onClick={() => setActiveAccordion(i)}
                   style={{
                     '--cat-color': cat.color,
@@ -1818,10 +1797,6 @@ const Home = () => {
           TESTIMONIOS
       ══════════════════════════ */}
       <section className="testimonials-section section-padding">
-        {/* Hojas de eucalipto decorativas desenfocadas */}
-        <img src={`${BASE}images/bg_eucalyptus.png`} alt="" className="bg-leaf-blur bg-leaf-blur--left" aria-hidden="true" loading="lazy" decoding="async" />
-        <img src={`${BASE}images/bg_eucalyptus.png`} alt="" className="bg-leaf-blur bg-leaf-blur--right" aria-hidden="true" loading="lazy" decoding="async" />
-
         <div className="container" style={{ position: 'relative', zIndex: 10 }}>
           <div className="text-center mb-12 testimonials-header reveal-on-scroll reveal-up">
             <span className="section-label">Clientes</span>

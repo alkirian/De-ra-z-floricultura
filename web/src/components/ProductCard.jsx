@@ -5,16 +5,18 @@ import './ProductCard.css';
 
 const getAttributeIcon = (type) => {
   switch (type) {
-    case 'luz':      return <Sun size={15} />;
-    case 'riego':    return <Droplets size={15} />;
-    case 'tamano':   return <Ruler size={15} />;
-    case 'material': return <Package size={15} />;
-    default:         return <Sprout size={15} />;
+    case 'luz':          return <Sun size={15} />;
+    case 'riego':        return <Droplets size={15} />;
+    case 'tamano':       return <Ruler size={15} />;
+    case 'material':     return <Package size={15} />;
+    case 'presentacion': return <Package size={15} />;
+    case 'uso':          return <Sprout size={15} />;
+    default:             return <Sprout size={15} />;
   }
 };
 
 const ProductCard = ({ product, onClick }) => {
-  const { name, category, image, attributes, price } = product;
+  const { name, category, image, attributes, price, isPetFriendly } = product;
   const { addToCart } = useCart();
   const difficulty = attributes.find((attr) => attr.type === 'dificultad')?.value;
   const difficultyTone = difficulty?.toLowerCase() || 'media';
@@ -25,6 +27,7 @@ const ProductCard = ({ product, onClick }) => {
       <div className="product-image-wrap">
         <span className="product-cat-badge">{category}</span>
         {difficulty && <span className={`product-difficulty-badge is-${difficultyTone}`}>{difficulty}</span>}
+        {isPetFriendly && <span className="product-pet-badge">🐾 Apto Mascotas</span>}
         <img
           src={image}
           alt={`Planta ${name} de categoria ${category} en De Raiz`}
@@ -39,7 +42,7 @@ const ProductCard = ({ product, onClick }) => {
       <div className="product-body">
         <h3 className="product-name">{name}</h3>
         
-        {price !== "Consultar" && (
+        {price && price !== "Consultar" && (
           <div className="product-price-wrap">
             <span className="product-price">{price}</span>
           </div>

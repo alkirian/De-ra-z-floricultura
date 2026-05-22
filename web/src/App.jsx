@@ -42,6 +42,13 @@ function App() {
         </React.Suspense>
         <CartFloatButton />
         <WhatsAppFloat />
+
+        {/* Filtro SVG global para desenfoque botánico uniforme de 2% en todas las páginas */}
+        <svg style={{ position: 'absolute', width: 0, height: 0, pointerEvents: 'none' }} aria-hidden="true">
+          <filter id="leaf-blur-filter" filterUnits="objectBoundingBox" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="0.02" />
+          </filter>
+        </svg>
       </div>
     </Router>
   );

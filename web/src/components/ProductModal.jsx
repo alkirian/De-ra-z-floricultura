@@ -6,9 +6,11 @@ import './ProductModal.css';
 const ProductModal = ({ product, onClose }) => {
   // Prevent body scroll when modal is open
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
+    document.documentElement.classList.add('scroll-locked');
+    document.body.classList.add('scroll-locked');
     return () => {
-      document.body.style.overflow = 'unset';
+      document.documentElement.classList.remove('scroll-locked');
+      document.body.classList.remove('scroll-locked');
     };
   }, []);
 
@@ -19,6 +21,11 @@ const ProductModal = ({ product, onClose }) => {
       onClose();
     }
   };
+
+  const light = product.light || product.attributes?.find(a => a.type === 'luz')?.value || "N/A";
+  const water = product.water || product.attributes?.find(a => a.type === 'riego')?.value || "N/A";
+  const difficulty = product.difficulty || product.attributes?.find(a => a.type === 'dificultad')?.value || "N/A";
+  const isPetFriendly = product.isPetFriendly;
 
   return (
     <div className="modal-backdrop animate-fade-in" onClick={handleBackdropClick}>
@@ -39,30 +46,41 @@ const ProductModal = ({ product, onClose }) => {
             <p className="modal-description">{product.description}</p>
             
             <div className="modal-attributes-list">
-              {product.light !== "N/A" && (
+              {light !== "N/A" && (
                 <div className="modal-attribute">
                   <div className="modal-icon-wrapper"><Sun size={20} color="var(--color-primary)"/></div>
                   <div>
                     <strong>Luz</strong>
-                    <p>{product.light}</p>
+                    <p>{light}</p>
                   </div>
                 </div>
               )}
-              {product.water !== "N/A" && (
+              {water !== "N/A" && (
                 <div className="modal-attribute">
                   <div className="modal-icon-wrapper"><Droplets size={20} color="var(--color-primary)"/></div>
                   <div>
                     <strong>Riego</strong>
-                    <p>{product.water}</p>
+                    <p>{water}</p>
                   </div>
                 </div>
               )}
-              {product.difficulty !== "N/A" && (
+              {difficulty !== "N/A" && (
                 <div className="modal-attribute">
                   <div className="modal-icon-wrapper"><Leaf size={20} color="var(--color-primary)"/></div>
                   <div>
                     <strong>Dificultad</strong>
-                    <p>{product.difficulty}</p>
+                    <p>{difficulty}</p>
+                  </div>
+                </div>
+              )}
+              {isPetFriendly && (
+                <div className="modal-attribute pet-friendly-attr">
+                  <div className="modal-icon-wrapper pet-friendly-icon-wrapper">
+                    <span className="pet-icon">🐾</span>
+                  </div>
+                  <div>
+                    <strong>Mascotas</strong>
+                    <p className="pet-friendly-text">Seguro para perros y gatos</p>
                   </div>
                 </div>
               )}

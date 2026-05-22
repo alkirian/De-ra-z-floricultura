@@ -1,15 +1,17 @@
 /* ========================================
    HOME - HERO SAGE GREEN Y BOTÁNICA FLOTANTE
    ======================================== */
-.home-page { overflow-x: hidden; }
+.home-page {
+  overflow-x: clip;
+  overflow-y: visible;
+}
 
 .split-hero {
   position: relative;
   min-height: clamp(760px, 100svh, 980px);
-  overflow: hidden;
+  overflow: visible;
   /* Verde profundo de la marca con un gradiente radial premium para dar volumen */
   background: radial-gradient(circle at 50% 45%, #3a5c39 0%, var(--verde-profundo) 70%, #1c301d 100%);
-  isolation: isolate;
   display: flex;
   align-items: center; /* Centrado vertical completo */
   justify-content: center; /* Centrado horizontal completo */
@@ -28,7 +30,8 @@
 /* Reglas comunes de las hojas botánicas */
 .botanical-leaf {
   position: absolute;
-  pointer-events: none;
+  pointer-events: none !important;
+  overflow-anchor: none !important;
   color: var(--verde-profundo);
   will-change: transform;
   -webkit-transform-style: preserve-3d;
@@ -44,6 +47,8 @@
   display: block;
   width: 100%;
   height: 100%;
+  pointer-events: none !important;
+  overflow-anchor: none !important;
   will-change: transform;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
@@ -56,6 +61,8 @@
   display: block;
   width: 100%;
   height: 100%;
+  pointer-events: none !important;
+  overflow-anchor: none !important;
   will-change: transform;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
@@ -76,7 +83,7 @@
   backface-visibility: hidden;
   /* Verde salvia sutil y suave (#8FA878) de la marca para integrarse con el fondo */
   -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%);
-  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%);
+  filter: brightness(0) saturate(100%) invert(100%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%);
 }
 
 /* NIVELES DE PROFUNDIDAD (Efecto Lente Cinemático 3D Parallax - Desenfoques y Sombras Flotantes) */
@@ -85,8 +92,12 @@
 }
 .leaf-depth-foreground .botanical-leaf-inner {
   opacity: 0.45; /* Muy sutil, permitiendo que el texto y fondo respiren */
-  -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(5px) drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.45));
-  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(5px) drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.45));
+  /* Fallback: 2% de ancho típico de 200px es 4px */
+  -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(4px) drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.45));
+  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(4px) drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.45));
+  /* Modern: Filtro SVG nativo del 2% */
+  -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) url(#leaf-blur-filter) drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.45));
+  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) url(#leaf-blur-filter) drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.45));
 }
 
 .leaf-depth-midground {
@@ -94,8 +105,12 @@
 }
 .leaf-depth-midground .botanical-leaf-inner {
   opacity: 0.35; /* Mezclado armoniosamente con el gradiente del Hero */
-  -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(1.5px) drop-shadow(8px 15px 12px rgba(0, 0, 0, 0.35));
-  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(1.5px) drop-shadow(8px 15px 12px rgba(0, 0, 0, 0.35));
+  /* Fallback: 2% de ancho típico de 150px es 3px */
+  -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(3px) drop-shadow(8px 15px 12px rgba(0, 0, 0, 0.35));
+  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(3px) drop-shadow(8px 15px 12px rgba(0, 0, 0, 0.35));
+  /* Modern: Filtro SVG nativo del 2% */
+  -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) url(#leaf-blur-filter) drop-shadow(8px 15px 12px rgba(0, 0, 0, 0.35));
+  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) url(#leaf-blur-filter) drop-shadow(8px 15px 12px rgba(0, 0, 0, 0.35));
 }
 
 .leaf-depth-background {
@@ -103,15 +118,19 @@
 }
 .leaf-depth-background .botanical-leaf-inner {
   opacity: 0.22; /* Fusión de fondo para máxima sutileza premium */
-  -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(3.2px) drop-shadow(4px 8px 6px rgba(0, 0, 0, 0.25));
-  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(3.2px) drop-shadow(4px 8px 6px rgba(0, 0, 0, 0.25));
+  /* Fallback: 2% de ancho típico de 100px es 2px */
+  -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(2px) drop-shadow(4px 8px 6px rgba(0, 0, 0, 0.25));
+  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(2px) drop-shadow(4px 8px 6px rgba(0, 0, 0, 0.25));
+  /* Modern: Filtro SVG nativo del 2% */
+  -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) url(#leaf-blur-filter) drop-shadow(4px 8px 6px rgba(0, 0, 0, 0.25));
+  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) url(#leaf-blur-filter) drop-shadow(4px 8px 6px rgba(0, 0, 0, 0.25));
 }
 
 /* POSICIONAMIENTO RESPONSIVE DE CADA HOJA (Zig-Zag Follage Inteligente Anti-Colisiones) */
 /* Borde Izquierdo (10 Hojas distribuidas uniformemente al 11% vertical) */
 .leaf-l1 {
-  top: -4%;
-  left: -3%;
+  top: -18%;
+  left: 1;
   width: clamp(140px, 15vw, 220px);
   transform: rotate(-15deg);
 }
@@ -124,21 +143,21 @@
 }
 
 .leaf-l3 {
-  top: 18%;
+  top: 13%;
   left: -2%;
   width: clamp(100px, 10vw, 140px);
   transform: rotate(-35deg);
 }
 
 .leaf-l4 {
-  top: 29%;
+  top: 19%;
   left: -7%;
   width: clamp(110px, 11vw, 150px);
   transform: rotate(-45deg);
 }
 
 .leaf-l5 {
-  top: 40%;
+  top: 35%;
   left: -3%;
   width: clamp(120px, 12vw, 170px);
   transform: rotate(-30deg);
@@ -167,7 +186,7 @@
 
 .leaf-l9 {
   top: 84%;
-  left: -3%;
+  left: 5%;
   width: clamp(140px, 14vw, 200px);
   transform: rotate(-10deg);
 }
@@ -181,8 +200,8 @@
 
 /* Borde Derecho (10 Hojas distribuidas uniformemente al 11% vertical) */
 .leaf-r1 {
-  top: -4%;
-  right: -3%;
+  top: -18%;
+  right: 5%;
   width: clamp(150px, 16vw, 240px);
   transform: rotate(20deg);
 }
@@ -195,21 +214,21 @@
 }
 
 .leaf-r3 {
-  top: 18%;
+  top: 10%;
   right: -2%;
   width: clamp(110px, 11vw, 160px);
   transform: rotate(25deg);
 }
 
 .leaf-r4 {
-  top: 29%;
+  top: 23%;
   right: -7%;
   width: clamp(120px, 12vw, 175px);
   transform: rotate(35deg);
 }
 
 .leaf-r5 {
-  top: 40%;
+  top: 45%;
   right: -3%;
   width: clamp(95px, 9vw, 135px);
   transform: rotate(40deg);
@@ -223,14 +242,14 @@
 }
 
 .leaf-r7 {
-  top: 62%;
+  top: 72%;
   right: -4%;
   width: clamp(115px, 11vw, 165px);
   transform: rotate(30deg);
 }
 
 .leaf-r8 {
-  top: 73%;
+  top: 83%;
   right: -8%;
   width: clamp(140px, 14vw, 200px);
   transform: rotate(20deg);
@@ -238,7 +257,7 @@
 
 .leaf-r9 {
   top: 84%;
-  right: -3%;
+  right: 10%;
   width: clamp(130px, 13vw, 185px);
   transform: rotate(15deg);
 }
@@ -333,18 +352,6 @@
   height: 100%;
   display: block;
   pointer-events: none;
-}
-
-/* Hoja caída que reposa sobre el separador de onda inferior */
-.separator-fallen-leaf {
-  position: absolute;
-  bottom: 24%;
-  left: 36%;
-  width: clamp(48px, 4.5vw, 68px);
-  opacity: 0.22;
-  transform: rotate(-142deg) scaleX(-1);
-  will-change: transform;
-  filter: invert(24%) sepia(19%) saturate(1048%) hue-rotate(71deg) brightness(93%) contrast(88%) blur(0.3px);
 }
 
 /* INDICADOR BOTÁNICO DE SCROLL */
@@ -481,11 +488,6 @@
     bottom: clamp(54px, 8vw, 78px);
   }
 
-  .separator-fallen-leaf {
-    left: 20%;
-    bottom: 20%;
-    width: 42px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -537,8 +539,7 @@
 
 .proposal-block {
   position: relative;
-  overflow: hidden;
-  isolation: isolate;
+  overflow: visible;
 }
 
 .proposal-block .container {
@@ -1254,8 +1255,6 @@
 
 .value-item {
   position: relative;
-  --scroll-shift: 0px;
-  --scroll-rotate: 0deg;
   padding: 32px 24px;
   background:
     radial-gradient(circle at 88% 10%, rgba(143, 168, 120, 0.17), rgba(143, 168, 120, 0) 40%),
@@ -1265,14 +1264,14 @@
   text-align: center;
   transition: transform var(--t-normal), box-shadow var(--t-normal), border-color var(--t-normal);
   will-change: transform, box-shadow;
-  transform: translateY(var(--scroll-shift)) rotate(var(--scroll-rotate));
+  transform: translateY(0) rotate(0deg);
   transform-origin: center;
   box-shadow: 0 14px 26px rgba(43, 36, 28, 0.1);
   overflow: hidden;
 }
 
 .value-item:hover {
-  transform: translateY(calc(var(--scroll-shift) - 11px)) rotate(0deg) scale(1.015);
+  transform: translateY(-11px) rotate(0deg) scale(1.015);
   box-shadow: 0 24px 44px rgba(26, 58, 39, 0.19);
   border-color: rgba(47, 74, 46, 0.45);
 }
@@ -1375,26 +1374,7 @@
 
 .section-leaf--right { right: -40px; }
 .section-leaf--left  { left: -40px; transform: translateY(-50%) scaleX(-1); }
-.bg-leaf-blur {
-  position: absolute;
-  z-index: 0;
-  opacity: 0.35;
-  filter: blur(10px) sepia(0.3) saturate(0.8) brightness(0.9);
-  pointer-events: none;
-  width: clamp(250px, 40vw, 550px);
-}
 
-.bg-leaf-blur--left {
-  top: -5%;
-  left: -15%;
-  transform: rotate(-15deg);
-}
-
-.bg-leaf-blur--right {
-  bottom: -15%;
-  right: -10%;
-  transform: rotate(145deg) scaleX(-1);
-}
 
 .accordion-container {
   display: flex;
@@ -1623,7 +1603,7 @@
 ══════════════════════════════════════ */
 .advice-section {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   background: var(--verde-profundo);
   border: 0;
   box-shadow: none;
@@ -2008,7 +1988,7 @@
 ══════════════════════════════════════ */
 .testimonials-section {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   background-color: var(--verde-profundo);
   background-image: none;
   border: 0;
@@ -2029,10 +2009,7 @@
   color: rgba(244, 235, 221, 0.88);
 }
 
-.testimonials-section .bg-leaf-blur {
-  opacity: 0.22;
-  filter: blur(8px) saturate(0.7) brightness(1.08);
-}
+
 
 .testimonial-carousel {
   position: relative;
@@ -2100,7 +2077,7 @@
   background: rgba(244, 235, 221, 0.09);
   border: none;
   border-radius: var(--radius-lg);
-  box-shadow: 0 16px 32px rgba(17, 30, 16, 0.24);
+  box-shadow: 0 6px 14px rgba(17, 30, 16, 0.12);
   position: relative;
   transition: all var(--t-normal);
   backdrop-filter: blur(2px);
@@ -2108,7 +2085,7 @@
 
 .testimonial-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 38px rgba(17, 30, 16, 0.3);
+  box-shadow: 0 10px 20px rgba(17, 30, 16, 0.16);
 }
 
 .testimonial-stars {
@@ -3316,6 +3293,144 @@
     gap: 10px;
   }
 }
+
+/* ==========================================================================
+   HOJAS DECORATIVAS SVG CON BLUR & ANIMACIÓN EN SCROLL
+   ========================================================================== */
+.section-bg-leaf {
+  position: absolute;
+  pointer-events: none !important;
+  overflow-anchor: none !important;
+  z-index: 1; /* Dibujado sobre el fondo de sección pero debajo de .container (z-index: 10) */
+  width: clamp(220px, 28vw, 500px);
+  height: clamp(220px, 28vw, 500px);
+  
+  /* Filtros y Opacidades base iniciales para revelar-on-scroll */
+  opacity: 0;
+  filter: blur(8px);
+  
+  will-change: opacity, filter;
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Estado activo revelado por IntersectionObserver */
+.section-bg-leaf.reveal-visible {
+  opacity: var(--leaf-opacity, 0.15);
+  /* Fallback: Desenfoque de pixel según el tamaño de la pantalla y sección */
+  filter: blur(var(--leaf-blur, 8px));
+  /* Modern: Filtro SVG nativo del 2% proporcional */
+  filter: url(#leaf-blur-filter);
+}
+
+/* Contenedor intermedio de balanceo dinámico por GSAP (idéntico al del Hero) */
+.section-bg-leaf-sway-wrapper {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none !important;
+  overflow-anchor: none !important;
+  will-change: transform;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Elemento interno que realiza la rotación base y máscara SVG */
+.section-bg-leaf-inner {
+  width: 100%;
+  height: 100%;
+  pointer-events: none !important;
+  overflow-anchor: none !important;
+  background-color: var(--leaf-color, currentColor);
+  
+  /* Máscaras para el SVG */
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+
+  /* Rotación base */
+  transform: rotate(var(--leaf-rotation, 0deg));
+}
+
+/* Configuraciones Iniciales de Posición, Rotación y Opacidad */
+.leaf-pos--top-left {
+  top: -8%;
+  left: -10%;
+  --leaf-rotation: -15deg;
+}
+
+.leaf-pos--bottom-right {
+  bottom: -10%;
+  right: -8%;
+  --leaf-rotation: 145deg;
+}
+
+.leaf-pos--mid-left {
+  top: 35%;
+  left: -12%;
+  --leaf-rotation: 35deg;
+}
+
+.leaf-pos--mid-right {
+  top: 30%;
+  right: -10%;
+  --leaf-rotation: -120deg;
+}
+
+/* Colores y Opacidades de Hojas por Sección */
+.quick-actions-section .section-bg-leaf {
+  --leaf-color: var(--beige-medio);
+  --leaf-blur: 8px;
+  --leaf-opacity: 0.5;
+}
+
+.value-section .section-bg-leaf {
+  --leaf-color: var(--verde-salvia-light);
+  --leaf-blur: 8px;
+  --leaf-opacity: 0.35;
+}
+
+.combos-section .section-bg-leaf {
+  --leaf-color: var(--beige-medio);
+  --leaf-blur: 8px;
+  --leaf-opacity: 0.45;
+}
+
+.combos-section .leaf-pos--top-left {
+  top: 4%;
+}
+
+.advice-section .section-bg-leaf {
+  --leaf-color: var(--verde-salvia);
+  --leaf-blur: 8px;
+  --leaf-opacity: 0.18;
+}
+
+.categories-section .section-bg-leaf {
+  --leaf-color: var(--beige-medio);
+  --leaf-blur: 8px;
+  --leaf-opacity: 0.45;
+}
+
+.testimonials-section .section-bg-leaf {
+  --leaf-color: var(--verde-salvia-light);
+  --leaf-blur: 8px;
+  --leaf-opacity: 0.14;
+}
+
+/* Ajustes Responsivos */
+@media (max-width: 768px) {
+  .section-bg-leaf {
+    width: clamp(160px, 40vw, 260px);
+    height: clamp(160px, 40vw, 260px);
+    --leaf-blur: 5px;
+  }
+}
+
 
 
 
