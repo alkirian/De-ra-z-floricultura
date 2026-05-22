@@ -241,8 +241,22 @@ const Home = () => {
     let lastScrollY = window.scrollY || window.pageYOffset;
     let lastTime = performance.now();
 
-    // Actualización de física a 60fps
+    // Clasificación de hojas por profundidad para el efecto de paralaje 3D
+    const leftForeground = [".leaf-l1", ".leaf-l9"];
+    const leftMidground = [".leaf-l2", ".leaf-l5", ".leaf-l6", ".leaf-l8", ".leaf-l10"];
+    const leftBackground = [".leaf-l3", ".leaf-l4", ".leaf-l7"];
+
+    const rightForeground = [".leaf-r6", ".leaf-r8"];
+    const rightMidground = [".leaf-r1", ".leaf-r4", ".leaf-r7", ".leaf-r9"];
+    const rightBackground = [".leaf-r2", ".leaf-r3", ".leaf-r5", ".leaf-r10"];
+
+    // Actualización de física y paralaje a 60fps
     const updateWindPhysics = () => {
+      const currentScrollY = window.scrollY || window.pageYOffset;
+      
+      // Detener actualizaciones pesadas si el usuario ya bajó del todo del Hero
+      if (currentScrollY > 1100) return;
+
       // Lerp amortiguado de la velocidad real del viento persiguiendo al objetivo
       // 0.05 da una transición extremadamente suave y planeadora (inercia majestuosa)
       currentWind += (targetWind - currentWind) * 0.05;
@@ -256,31 +270,49 @@ const Home = () => {
         currentWind = 0;
       }
 
-      // Aplicar transformaciones al wrapper intermedio de viento
-      // Borde izquierdo (hacia la izquierda y arriba)
-      gsap.set([
-        ".leaf-l1 .botanical-leaf-wind-wrapper", ".leaf-l2 .botanical-leaf-wind-wrapper", 
-        ".leaf-l3 .botanical-leaf-wind-wrapper", ".leaf-l4 .botanical-leaf-wind-wrapper", 
-        ".leaf-l5 .botanical-leaf-wind-wrapper", ".leaf-l6 .botanical-leaf-wind-wrapper", 
-        ".leaf-l7 .botanical-leaf-wind-wrapper", ".leaf-l8 .botanical-leaf-wind-wrapper", 
-        ".leaf-l9 .botanical-leaf-wind-wrapper", ".leaf-l10 .botanical-leaf-wind-wrapper"
-      ], {
+      // Parallax offsets: al scrollear hacia abajo (scrollY aumenta), las hojas se mueven hacia arriba (y negativo)
+      // Primer plano se mueve rápido, plano medio velocidad media, fondo de manera lenta
+      const yFore = -0.45 * currentScrollY;
+      const yMid = -0.26 * currentScrollY;
+      const yBack = -0.12 * currentScrollY;
+
+      // Aplicar transformaciones combinadas de viento + paralaje al wrapper intermedio de viento
+      // Hojas del borde izquierdo
+      gsap.set(leftForeground.map(sel => `${sel} .botanical-leaf-wind-wrapper`), {
         x: -30 * currentWind,
-        y: -8 * currentWind,
+        y: -8 * currentWind + yFore,
+        skewX: -8 * currentWind,
+        rotation: -14 * currentWind,
+      });
+      gsap.set(leftMidground.map(sel => `${sel} .botanical-leaf-wind-wrapper`), {
+        x: -30 * currentWind,
+        y: -8 * currentWind + yMid,
+        skewX: -8 * currentWind,
+        rotation: -14 * currentWind,
+      });
+      gsap.set(leftBackground.map(sel => `${sel} .botanical-leaf-wind-wrapper`), {
+        x: -30 * currentWind,
+        y: -8 * currentWind + yBack,
         skewX: -8 * currentWind,
         rotation: -14 * currentWind,
       });
 
-      // Borde derecho (hacia la derecha y arriba)
-      gsap.set([
-        ".leaf-r1 .botanical-leaf-wind-wrapper", ".leaf-r2 .botanical-leaf-wind-wrapper", 
-        ".leaf-r3 .botanical-leaf-wind-wrapper", ".leaf-r4 .botanical-leaf-wind-wrapper", 
-        ".leaf-r5 .botanical-leaf-wind-wrapper", ".leaf-r6 .botanical-leaf-wind-wrapper", 
-        ".leaf-r7 .botanical-leaf-wind-wrapper", ".leaf-r8 .botanical-leaf-wind-wrapper", 
-        ".leaf-r9 .botanical-leaf-wind-wrapper", ".leaf-r10 .botanical-leaf-wind-wrapper"
-      ], {
+      // Hojas del borde derecho
+      gsap.set(rightForeground.map(sel => `${sel} .botanical-leaf-wind-wrapper`), {
         x: 30 * currentWind,
-        y: -8 * currentWind,
+        y: -8 * currentWind + yFore,
+        skewX: 8 * currentWind,
+        rotation: 14 * currentWind,
+      });
+      gsap.set(rightMidground.map(sel => `${sel} .botanical-leaf-wind-wrapper`), {
+        x: 30 * currentWind,
+        y: -8 * currentWind + yMid,
+        skewX: 8 * currentWind,
+        rotation: 14 * currentWind,
+      });
+      gsap.set(rightBackground.map(sel => `${sel} .botanical-leaf-wind-wrapper`), {
+        x: 30 * currentWind,
+        y: -8 * currentWind + yBack,
         skewX: 8 * currentWind,
         rotation: 14 * currentWind,
       });
@@ -354,21 +386,21 @@ const Home = () => {
       ];
 
       leavesConfig.forEach(cfg => {
-        gsap.to(cfg.sel, {
+        gsap.to(`${cfg.sel} .botanical-leaf-sway-wrapper`, {
           y: `+=${cfg.y}`,
           duration: cfg.durY,
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut"
         });
-        gsap.to(cfg.sel, {
+        gsap.to(`${cfg.sel} .botanical-leaf-sway-wrapper`, {
           x: cfg.x > 0 ? `+=${cfg.x}` : `-=${Math.abs(cfg.x)}`,
           duration: cfg.durX,
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut"
         });
-        gsap.to(cfg.sel, {
+        gsap.to(`${cfg.sel} .botanical-leaf-sway-wrapper`, {
           rotation: cfg.rot > 0 ? `+=${cfg.rot}` : `-=${Math.abs(cfg.rot)}`,
           duration: cfg.durR,
           repeat: -1,
@@ -636,104 +668,144 @@ const Home = () => {
           {/* Borde Izquierdo (10 Hojas) */}
           <div className="botanical-leaf leaf-l1 leaf-depth-foreground">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 4.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 4.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-l2 leaf-depth-midground">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 14.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 14.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-l3 leaf-depth-background">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 15.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 15.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-l4 leaf-depth-background">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 7.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 7.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-l5 leaf-depth-midground">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 9.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 9.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-l6 leaf-depth-midground">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 16.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 16.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-l7 leaf-depth-background">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 22.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 22.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-l8 leaf-depth-midground">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 10.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 10.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-l9 leaf-depth-foreground">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 18.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 18.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-l10 leaf-depth-midground">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 24.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 24.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
 
           {/* Borde Derecho (10 Hojas) */}
           <div className="botanical-leaf leaf-r1 leaf-depth-midground">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 5.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 5.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-r2 leaf-depth-background">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 17.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 17.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-r3 leaf-depth-background">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 6.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 6.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-r4 leaf-depth-midground">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 8.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 8.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-r5 leaf-depth-background">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 19.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 19.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-r6 leaf-depth-foreground">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 20.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 20.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-r7 leaf-depth-midground">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 23.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 23.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-r8 leaf-depth-foreground">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 11.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 11.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-r9 leaf-depth-midground">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 21.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 21.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
           <div className="botanical-leaf leaf-r10 leaf-depth-background">
             <div className="botanical-leaf-wind-wrapper">
-              <img src={`${BASE}images/SVG Hero/SVG/Recurso 25.svg`} className="botanical-leaf-inner" alt="" />
+              <div className="botanical-leaf-sway-wrapper">
+                <img src={`${BASE}images/SVG Hero/SVG/Recurso 25.svg`} className="botanical-leaf-inner" alt="" />
+              </div>
             </div>
           </div>
         </div>

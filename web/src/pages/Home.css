@@ -41,6 +41,14 @@
   will-change: transform;
 }
 
+/* Contenedor intermedio de balanceo continuo */
+.botanical-leaf-sway-wrapper {
+  display: block;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
 /* Imagen del SVG */
 .botanical-leaf-inner {
   display: block;
