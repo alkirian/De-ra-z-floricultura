@@ -38,6 +38,7 @@
   /* Tipografía */
   --font-heading: 'Plus Jakarta Sans', 'Nunito', system-ui, sans-serif;
   --font-base:    'Nunito', system-ui, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
 
   /* Espaciado */
   --section-py:   96px;

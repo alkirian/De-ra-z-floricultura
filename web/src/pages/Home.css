@@ -31,6 +31,12 @@
   pointer-events: none;
   color: var(--verde-profundo);
   will-change: transform;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
 }
 
 /* Contenedor intermedio de físicas de viento */
@@ -39,6 +45,10 @@
   width: 100%;
   height: 100%;
   will-change: transform;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* Contenedor intermedio de balanceo continuo */
@@ -47,6 +57,10 @@
   width: 100%;
   height: 100%;
   will-change: transform;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* Imagen del SVG */
@@ -56,27 +70,41 @@
   height: 100%;
   will-change: transform;
   opacity: inherit;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   /* Verde salvia sutil y suave (#8FA878) de la marca para integrarse con el fondo */
+  -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%);
   filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%);
 }
 
 /* NIVELES DE PROFUNDIDAD (Efecto Lente Cinemático 3D Parallax - Desenfoques y Sombras Flotantes) */
 .leaf-depth-foreground {
   z-index: 10;
+}
+.leaf-depth-foreground .botanical-leaf-inner {
   opacity: 0.45; /* Muy sutil, permitiendo que el texto y fondo respiren */
-  filter: blur(5px) drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.45));
+  -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(5px) drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.45));
+  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(5px) drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.45));
 }
 
 .leaf-depth-midground {
   z-index: 2;
+}
+.leaf-depth-midground .botanical-leaf-inner {
   opacity: 0.35; /* Mezclado armoniosamente con el gradiente del Hero */
-  filter: blur(1.5px) drop-shadow(8px 15px 12px rgba(0, 0, 0, 0.35));
+  -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(1.5px) drop-shadow(8px 15px 12px rgba(0, 0, 0, 0.35));
+  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(1.5px) drop-shadow(8px 15px 12px rgba(0, 0, 0, 0.35));
 }
 
 .leaf-depth-background {
   z-index: 1;
+}
+.leaf-depth-background .botanical-leaf-inner {
   opacity: 0.22; /* Fusión de fondo para máxima sutileza premium */
-  filter: blur(3.2px) drop-shadow(4px 8px 6px rgba(0, 0, 0, 0.25));
+  -webkit-filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(3.2px) drop-shadow(4px 8px 6px rgba(0, 0, 0, 0.25));
+  filter: brightness(0) saturate(100%) invert(69%) sepia(9%) saturate(830%) hue-rotate(49deg) brightness(96%) contrast(85%) blur(3.2px) drop-shadow(4px 8px 6px rgba(0, 0, 0, 0.25));
 }
 
 /* POSICIONAMIENTO RESPONSIVE DE CADA HOJA (Zig-Zag Follage Inteligente Anti-Colisiones) */
