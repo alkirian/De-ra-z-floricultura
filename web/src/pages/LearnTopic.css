@@ -206,3 +206,30 @@
     top: 108px;
   }
 }
+
+/* =====================================================
+   CARGADOR DE GUÍA BOTÁNICA (TRANSICIÓN PREMIUM)
+   ===================================================== */
+.guide-loading {
+  padding: 80px 20px;
+  text-align: center;
+  font-family: var(--font-heading);
+  color: var(--verde-profundo);
+  font-size: 1.15rem;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: var(--blanco-calido);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  animation: pulse-loading 1.8s infinite ease-in-out;
+}
+
+@keyframes pulse-loading {
+  0%, 100% { opacity: 0.65; transform: scale(0.99); }
+  50% { opacity: 1; transform: scale(1); }
+}
+

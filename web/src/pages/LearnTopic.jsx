@@ -4,9 +4,10 @@ import { ArrowLeft, ArrowRight, MessageCircle } from 'lucide-react';
 import { generateWaLink } from '../data/mockData';
 import { getLearnTopicBySlug, LEARN_TOPICS } from '../data/learnTopics';
 import SEO from '../components/SEO';
-import BotanicaLuzUruguay from '../components/BotanicaLuzUruguay';
-import DefinitiveGuideArticle from '../components/DefinitiveGuideArticle';
 import './LearnTopic.css';
+
+const BotanicaLuzUruguay = React.lazy(() => import('../components/BotanicaLuzUruguay'));
+const DefinitiveGuideArticle = React.lazy(() => import('../components/DefinitiveGuideArticle'));
 
 const LearnTopic = () => {
   const { topicSlug } = useParams();
@@ -106,11 +107,13 @@ const LearnTopic = () => {
         <div className="container">
           {isCustomTopic ? (
             <div className="learn-topic-custom-container">
-              {topic.slug === 'luz-y-ubicacion' ? (
-                <BotanicaLuzUruguay />
-              ) : (
-                <DefinitiveGuideArticle topic={topic} />
-              )}
+              <React.Suspense fallback={<div className="guide-loading">Cargando guía botánica...</div>}>
+                {topic.slug === 'luz-y-ubicacion' ? (
+                  <BotanicaLuzUruguay />
+                ) : (
+                  <DefinitiveGuideArticle topic={topic} />
+                )}
+              </React.Suspense>
             </div>
           ) : (
             <div className="learn-topic-layout">

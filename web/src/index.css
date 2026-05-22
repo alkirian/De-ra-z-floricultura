@@ -515,3 +515,24 @@ ul, ol { list-style: none; }
 .animate-float-slow {
   animation: softFloat 6s ease-in-out infinite;
 }
+
+/* =====================================================
+   CARGADOR DE RUTA DE SUSPENSE (TRANSICIÓN PREMIUM)
+   ===================================================== */
+.page-loader-fade {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--verde-salvia) 0%, var(--terracota) 50%, var(--verde-profundo) 100%);
+  z-index: 9999;
+  animation: page-loader-anim 1.5s infinite linear;
+  background-size: 200% 100%;
+}
+
+@keyframes page-loader-anim {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+

@@ -318,9 +318,6 @@ const Home = () => {
       });
     };
 
-    // Añadir el ticker de GSAP a 60fps
-    gsap.ticker.add(updateWindPhysics);
-
     const handleScrollWind = () => {
       const currentScrollY = window.scrollY || window.pageYOffset;
       const currentTime = performance.now();
@@ -356,7 +353,29 @@ const Home = () => {
       lastTime = currentTime;
     };
 
-    window.addEventListener("scroll", handleScrollWind, { passive: true });
+    // Usar IntersectionObserver para activar el ticker y scroll listener solo cuando el Hero es visible
+    let isSubscribed = false;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (!isSubscribed) {
+            window.addEventListener("scroll", handleScrollWind, { passive: true });
+            gsap.ticker.add(updateWindPhysics);
+            isSubscribed = true;
+          }
+        } else {
+          if (isSubscribed) {
+            window.removeEventListener("scroll", handleScrollWind);
+            gsap.ticker.remove(updateWindPhysics);
+            isSubscribed = false;
+          }
+        }
+      });
+    }, { threshold: 0 });
+
+    if (heroRef.current) {
+      observer.observe(heroRef.current);
+    }
 
     // GSAP Context para los loops de balanceo y entradas
     const ctx = gsap.context(() => {
@@ -552,8 +571,11 @@ const Home = () => {
 
     return () => {
       ctx.revert(); // Recolección de basura impecable al desmontar
-      window.removeEventListener("scroll", handleScrollWind);
-      gsap.ticker.remove(updateWindPhysics);
+      observer.disconnect();
+      if (isSubscribed) {
+        window.removeEventListener("scroll", handleScrollWind);
+        gsap.ticker.remove(updateWindPhysics);
+      }
     };
   }, []);
 
@@ -1145,8 +1167,8 @@ const Home = () => {
       ══════════════════════════ */}
       <section className="categories-section section-padding" style={{background: 'var(--beige-claro)', position: 'relative', overflow: 'hidden'}}>
         {/* Hojas decorativas sutiles desenfocadas en los bordes */}
-        <img src={`${BASE}images/bg_leaves.png`} alt="" className="bg-leaf-blur bg-leaf-blur--left" aria-hidden="true" />
-        <img src={`${BASE}images/bg_leaves.png`} alt="" className="bg-leaf-blur bg-leaf-blur--right" aria-hidden="true" />
+        <img src={`${BASE}images/bg_leaves.png`} alt="" className="bg-leaf-blur bg-leaf-blur--left" aria-hidden="true" loading="lazy" decoding="async" />
+        <img src={`${BASE}images/bg_leaves.png`} alt="" className="bg-leaf-blur bg-leaf-blur--right" aria-hidden="true" loading="lazy" decoding="async" />
 
         <div className="container" style={{ position: 'relative', zIndex: 10 }}>
           <div className="text-center mb-12 reveal-on-scroll reveal-up">
@@ -1202,8 +1224,8 @@ const Home = () => {
       ══════════════════════════ */}
       <section className="testimonials-section section-padding">
         {/* Hojas de eucalipto decorativas desenfocadas */}
-        <img src={`${BASE}images/bg_eucalyptus.png`} alt="" className="bg-leaf-blur bg-leaf-blur--left" aria-hidden="true" />
-        <img src={`${BASE}images/bg_eucalyptus.png`} alt="" className="bg-leaf-blur bg-leaf-blur--right" aria-hidden="true" />
+        <img src={`${BASE}images/bg_eucalyptus.png`} alt="" className="bg-leaf-blur bg-leaf-blur--left" aria-hidden="true" loading="lazy" decoding="async" />
+        <img src={`${BASE}images/bg_eucalyptus.png`} alt="" className="bg-leaf-blur bg-leaf-blur--right" aria-hidden="true" loading="lazy" decoding="async" />
 
         <div className="container" style={{ position: 'relative', zIndex: 10 }}>
           <div className="text-center mb-12 testimonials-header reveal-on-scroll reveal-up">
