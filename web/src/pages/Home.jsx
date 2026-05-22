@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { ArrowRight, MessageCircle, Sparkles, Leaf, MapPin, ChevronLeft, ChevronRight, BookOpen, X, ShoppingCart, Sun, Droplets, Ruler, Package, Sprout } from 'lucide-react';
+import { ArrowRight, MessageCircle, Sparkles, Leaf, MapPin, ChevronLeft, ChevronRight, BookOpen, X, ShoppingCart, Sun, Droplets, Ruler, Package, Sprout, RotateCcw } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { generateWaLink, WA_MESSAGES, MOCK_PRODUCTS } from '../data/mockData';
 import { useCart } from '../context/CartContext';
@@ -188,6 +188,153 @@ const CATEGORIES = [
   },
 ];
 
+const PET_SAFE_PLANTS = [
+  'areca', 'chamaedorea', 'peperomia', 'raphis', 'violeta africana',
+  'helecho', 'lavanda', 'romero', 'tomillo', 'albahaca', 'menta', 'limon', 'mandarino'
+];
+
+const isPetSafe = (name) => {
+  const normalized = name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return PET_SAFE_PLANTS.some(term => normalized.includes(term));
+};
+
+const getDifficultyText = (diff) => {
+  if (diff === 'Baja') return 'Muy fácil';
+  if (diff === 'Media') return 'Cuidado moderado';
+  return 'Para expertos';
+};
+
+const getRecommendations = (answers) => {
+  const { placement, light, care, pets } = answers;
+  const plants = MOCK_PRODUCTS.filter(p => p.section === 'plantas');
+  
+  const scored = plants.map(plant => {
+    let score = 0;
+    
+    // 1. Placement (Category)
+    if (placement === 'interior' && plant.category === 'Interior') score += 12;
+    if (placement === 'exterior' && plant.category === 'Exterior') score += 12;
+    if (placement === 'huerta' && plant.category === 'Huerta') score += 12;
+    
+    // 2. Light
+    const plantLight = plant.attributes.find(a => a.type === 'luz')?.value || '';
+    const lightVal = plantLight.toLowerCase();
+    
+    if (light === 'poca') {
+      if (lightVal.includes('poca') || lightVal.includes('sin sol') || lightVal.includes('sombra') || lightVal.includes('moderado') || lightVal.includes('media')) {
+        score += 10;
+      }
+      if (lightVal.includes('sol directo') || lightVal.includes('pleno sol')) {
+        score -= 20;
+      }
+    } else if (light === 'indirecta') {
+      if (lightVal.includes('sin sol') || lightVal.includes('indirecta') || lightVal.includes('semisombra') || lightVal.includes('media a mucha')) {
+        score += 10;
+      }
+    } else if (light === 'directa') {
+      if (lightVal.includes('sol directo') || lightVal.includes('pleno sol') || lightVal.includes('semisombra')) {
+        score += 10;
+      }
+      if (lightVal.includes('sin sol')) {
+        score -= 20;
+      }
+    }
+    
+    // 3. Care / Difficulty
+    const plantDiff = plant.attributes.find(a => a.type === 'dificultad')?.value || 'Media';
+    
+    if (care === 'principiante') {
+      if (plantDiff === 'Baja') score += 10;
+      if (plantDiff === 'Alta') score -= 10;
+    } else if (care === 'entusiasta') {
+      if (plantDiff === 'Media' || plantDiff === 'Alta') score += 10;
+      if (plantDiff === 'Baja') score += 5;
+    } else if (care === 'flores') {
+      const nameNorm = plant.name.toLowerCase();
+      const descNorm = plant.description.toLowerCase();
+      const hasFlowers = nameNorm.includes('azalea') || nameNorm.includes('petunia') || nameNorm.includes('clavel') || 
+                         nameNorm.includes('viola') || nameNorm.includes('sapito') || nameNorm.includes('azucar') || 
+                         nameNorm.includes('copete') || nameNorm.includes('boca de sapo') || descNorm.includes('flor') || 
+                         descNorm.includes('colores') || descNorm.includes('aromatica') || plant.category === 'Huerta';
+      if (hasFlowers) score += 10;
+    }
+    
+    // 4. Pets (Pet-Friendly)
+    if (pets === 'si') {
+      const safe = isPetSafe(plant.name);
+      if (safe) {
+        score += 15;
+      } else {
+        score -= 30;
+      }
+    }
+    
+    return { plant, score };
+  });
+  
+  const sorted = scored.sort((a, b) => {
+    if (b.score !== a.score) {
+      return b.score - a.score;
+    }
+    return 0.5 - Math.random();
+  });
+  
+  return sorted.slice(0, 2).map(item => item.plant);
+};
+
+const getExplanation = (plant, answers) => {
+  const { placement, light, care, pets } = answers;
+  const plantDiff = plant.attributes.find(a => a.type === 'dificultad')?.value || 'Media';
+  const isSafe = isPetSafe(plant.name);
+  
+  let text = `Elegimos el **${plant.name}** porque es ideal para tu espacio de **${plant.category}**`;
+  
+  if (light === 'poca') {
+    text += ` con poca luz natural, ya que tolera rincones de sombra excelente.`;
+  } else if (light === 'indirecta') {
+    text += ` con mucha luz indirecta, donde sus hojas crecerán hermosas sin quemarse por el sol.`;
+  } else {
+    text += ` con sol directo, aprovechando los rayos de sol para su pleno crecimiento y vigor.`;
+  }
+  
+  if (care === 'principiante') {
+    text += ` Al ser de dificultad **Baja**, es súper resistente y perdona olvidos de riego, ideal para arrancar sin presiones.`;
+  } else if (care === 'entusiasta') {
+    text += ` Su nivel de cuidado es **${plantDiff}**, perfecto para vos que disfrutás observarlas y regar con regularidad.`;
+  } else if (care === 'flores') {
+    text += ` Al ser una variedad muy vistosa, aportará hermosas flores o colores vibrantes para alegrar tu rincón.`;
+  }
+  
+  if (pets === 'si' && isSafe) {
+    text += ` ¡Y lo mejor es que es 100% Pet-Friendly 🐾, totalmente segura para tus compañeros peludos!`;
+  }
+  
+  return text;
+};
+
+const generateQuizWhatsAppMessage = (plants, answers) => {
+  const { placement, light, care, pets } = answers;
+  const plantNames = plants.map(p => p.name).join(' y ');
+  
+  const placementText = placement === 'interior' ? 'Interior' : (placement === 'exterior' ? 'Exterior' : 'Huerta');
+  const lightText = light === 'poca' ? 'poca luz' : (light === 'indirecta' ? 'mucha luz indirecta' : 'sol directo');
+  const careText = care === 'principiante' ? 'principiante' : (care === 'entusiasta' ? 'entusiasta' : 'amante de las flores');
+  const petsText = pets === 'si' ? 'tengo mascotas (Pet-Friendly)' : 'sin problemas de mascotas';
+  
+  return `¡Hola De Raíz! Hice el test interactivo en su web y me recomendó la planta ${plantNames} para un espacio de ${placementText} con ${lightText}. Mi perfil de cuidado es ${careText} y ${petsText}. ¿Tienen stock de alguna de las dos para ir a buscarla?`;
+};
+
+const renderExplanationText = (text) => {
+  if (!text) return '';
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={index}>{part.slice(2, -2)}</strong>;
+    }
+    return part;
+  });
+};
+
 const Home = () => {
   const heroRef = useRef(null);
   const quickActionsRef = useRef(null);
@@ -203,6 +350,30 @@ const Home = () => {
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [currentRecIndex, setCurrentRecIndex] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  // Estados para el recomendador interactivo
+  const [quizActive, setQuizActive] = useState(false);
+  const [quizStep, setQuizStep] = useState(1);
+  const [quizAnswers, setQuizAnswers] = useState({
+    placement: '',
+    light: '',
+    care: '',
+    pets: ''
+  });
+  const [quizResults, setQuizResults] = useState([]);
+
+  const handleSelectOption = (stepName, value) => {
+    const updatedAnswers = { ...quizAnswers, [stepName]: value };
+    setQuizAnswers(updatedAnswers);
+    
+    if (quizStep < 4) {
+      setQuizStep(prev => prev + 1);
+    } else {
+      const results = getRecommendations(updatedAnswers);
+      setQuizResults(results);
+      setQuizStep(5); // Paso de resultados
+    }
+  };
 
   useEffect(() => {
     const plants = MOCK_PRODUCTS.filter((p) => p.section === 'plantas');
@@ -707,9 +878,54 @@ const Home = () => {
   return (
     <div className="home-page">
       <SEO
-        title="De Raíz Floricultura | Venta de Plantas y Macetas en Las Piedras"
+        title="Vivero De Raíz | Plantas y Macetas en Las Piedras, Uruguay"
         description="Tu vivero de confianza en Las Piedras, Canelones. Encontrá la mejor selección de plantas de interior y exterior, tierra, sustratos y asesoramiento botánico personalizado en Ruta 48."
         path="/"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': ['Florist', 'GardenStore'],
+          name: 'De Raíz Floricultura',
+          description: 'Vivero especializado en plantas de interior y exterior, macetas e insumos con asesoramiento botánico personalizado en Las Piedras, Canelones.',
+          image: [
+            'https://alkirian.github.io/De-ra-z-floricultura/images/logo-hero-white.png',
+            'https://alkirian.github.io/De-ra-z-floricultura/images/Instagram/641159597_18569292976036794_7285793248818445959_n.jpg',
+          ],
+          url: 'https://alkirian.github.io/De-ra-z-floricultura',
+          telephone: '+59893307699',
+          priceRange: '$$',
+          currenciesAccepted: 'UYU',
+          paymentAccepted: 'Cash, MercadoPago',
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: 'Ruta 48',
+            addressLocality: 'Las Piedras',
+            addressRegion: 'Canelones',
+            addressCountry: 'UY',
+          },
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: '-34.7291',
+            longitude: '-56.2201',
+          },
+          hasMap: 'https://www.google.com/maps/search/?api=1&query=De+Raiz+Floricultura+Las+Piedras',
+          openingHoursSpecification: [
+            {
+              '@type': 'OpeningHoursSpecification',
+              dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+              opens: '09:00',
+              closes: '18:00',
+            },
+            {
+              '@type': 'OpeningHoursSpecification',
+              dayOfWeek: 'Sunday',
+              opens: '09:00',
+              closes: '13:00',
+            },
+          ],
+          sameAs: [
+            'https://www.instagram.com/deraizfloricultura',
+          ],
+        }}
       />
 
       {/* ══════════════════════════
@@ -1007,7 +1223,7 @@ const Home = () => {
                 <div className="value-icon-wrap">
                   <div className="value-icon">🪴</div>
                 </div>
-                <h4>Plantas, flores and macetas</h4>
+                <h4>Plantas, flores y macetas</h4>
                 <p>Gran variedad de interior, exterior, flores y más.</p>
               </div>
               <div className="value-item reveal-on-scroll reveal-scale" style={{ '--reveal-delay': '0.3s' }}>
@@ -1147,129 +1363,393 @@ const Home = () => {
       ══════════════════════════ */}
       <WaveTop fill="var(--verde-profundo)" bg="var(--crema)" />
       <section className="advice-section section-padding--sm">
-        <div className="container advice-grid">
-          <div className="advice-text reveal-on-scroll reveal-left">
-            <span className="section-label advice-label">Asesoramiento gratuito</span>
-            <h2>¿No sabés qué planta elegir?</h2>
-            <p>
-              Te guiamos en 1 minuto y te mostramos opciones reales para vos.
-            </p>
+        <div className="container">
+          {!quizActive ? (
+            <div className="advice-grid">
+              <div className="advice-text reveal-on-scroll reveal-left">
+                <span className="section-label advice-label">Asesoramiento gratuito</span>
+                <h2>¿No sabés qué planta elegir?</h2>
+                <p>
+                  Te guiamos en 1 minuto y te mostramos opciones reales para vos.
+                </p>
 
-            <div className="advice-steps" aria-label="Cómo te ayudamos a elegir">
-              {ADVICE_STEPS.map((step, index) => (
-                <div key={step.title} className="advice-step-item">
-                  <span className="advice-step-number">{index + 1}</span>
-                  <div>
-                    <strong>{step.title}</strong>
-                    <p>{step.detail}</p>
+                <div className="advice-steps" aria-label="Cómo te ayudamos a elegir">
+                  {ADVICE_STEPS.map((step, index) => (
+                    <div key={step.title} className="advice-step-item">
+                      <span className="advice-step-number">{index + 1}</span>
+                      <div>
+                        <strong>{step.title}</strong>
+                        <p>{step.detail}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="advice-actions">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setQuizActive(true);
+                      setQuizStep(1);
+                    }}
+                    className="btn btn-light"
+                  >
+                    <Sparkles size={18} /> Comenzar Test 🌿
+                  </button>
+                  <Link to="/catalogo" className="advice-secondary-link">
+                    <MessageCircle size={16} /> Ver catálogo primero
+                  </Link>
+                </div>
+              </div>
+              <div className="advice-image reveal-on-scroll reveal-right">
+                {recommendedProducts.length > 0 && (
+                  <div className="advice-rec-carousel">
+                    {/* Cabecera / Sugerencia */}
+                    <div className="advice-rec-header">
+                      <span className="advice-rec-badge">💡 Recomendación De Raíz</span>
+                      <span className="advice-rec-counter">{currentRecIndex + 1} de {recommendedProducts.length}</span>
+                    </div>
+
+                    {/* Contenido de la Planta */}
+                    <div className="advice-rec-content-wrapper">
+                      {recommendedProducts.map((product, idx) => {
+                        const isActive = idx === currentRecIndex;
+                        return (
+                          <div 
+                            key={product.id} 
+                            className={`advice-rec-slide ${isActive ? 'active' : ''}`}
+                            style={{ display: isActive ? 'flex' : 'none' }}
+                          >
+                            <div className="advice-rec-product-info" onClick={() => setSelectedProduct(product)}>
+                              {/* Imagen */}
+                              <div className="advice-rec-image-wrap">
+                                <img src={product.image} alt={product.name} />
+                              </div>
+                              
+                              {/* Textos */}
+                              <div className="advice-rec-details">
+                                <span className="advice-rec-category">{product.category}</span>
+                                <h3 className="advice-rec-name">{product.name}</h3>
+                                <p className="advice-rec-desc">{product.description}</p>
+                                
+                                {/* Atributos cortos */}
+                                <div className="advice-rec-attrs">
+                                  {product.attributes.slice(0, 2).map((attr, aIdx) => (
+                                    <span key={aIdx} className="advice-rec-attr-item">
+                                      {getAttributeIcon(attr.type)} {attr.value}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Botones de acción */}
+                            <div className="advice-rec-actions">
+                              <button 
+                                type="button" 
+                                className="btn btn-primary advice-rec-add-btn"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  addToCart(product);
+                                }}
+                              >
+                                <ShoppingCart size={16} /> Agregar
+                              </button>
+                              <a 
+                                href={generateWaLink(WA_MESSAGES.producto(product.name))}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="btn btn-outline advice-rec-stock-btn"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <MessageCircle size={16} /> Consultar Stock
+                              </a>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* Flechas de navegación */}
+                    <button 
+                      type="button" 
+                      className="advice-rec-nav advice-rec-nav--prev" 
+                      onClick={prevRec}
+                      aria-label="Recomendación anterior"
+                    >
+                      <ChevronLeft size={18} />
+                    </button>
+                    <button 
+                      type="button" 
+                      className="advice-rec-nav advice-rec-nav--next" 
+                      onClick={nextRec}
+                      aria-label="Siguiente recomendación"
+                    >
+                      <ChevronRight size={18} />
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="advice-quiz-container animate-fade-in">
+              {/* Header del Quiz */}
+              <div className="quiz-header">
+                <button
+                  type="button"
+                  className="quiz-back-btn"
+                  onClick={() => {
+                    if (quizStep === 1) {
+                      setQuizActive(false);
+                      setQuizStep(1);
+                    } else {
+                      setQuizStep(prev => prev - 1);
+                    }
+                  }}
+                  aria-label="Volver al paso anterior"
+                >
+                  <ArrowRight size={16} style={{ transform: 'rotate(180deg)', marginRight: '8px' }} /> Volver
+                </button>
+                <div className="quiz-progress-wrapper">
+                  <div className="quiz-progress-bar" style={{ width: `${(quizStep / 4) * 100}%` }}></div>
+                </div>
+                {quizStep <= 4 && <span className="quiz-step-indicator">Paso {quizStep} de 4</span>}
+              </div>
+
+              {quizStep === 1 && (
+                <div className="quiz-step-content animate-fade-in">
+                  <h3>¿Dónde vas a ubicar tu planta? 🏠</h3>
+                  <p className="quiz-step-subtitle">Definir el ambiente correcto es clave para que tu planta crezca sana.</p>
+                  <div className="quiz-cards-grid">
+                    <button
+                      type="button"
+                      className="quiz-card-option"
+                      onClick={() => handleSelectOption('placement', 'interior')}
+                    >
+                      <div className="quiz-card-icon">🏠</div>
+                      <h4>Interior</h4>
+                      <p>Living, dormitorio, cocina u oficina.</p>
+                    </button>
+                    <button
+                      type="button"
+                      className="quiz-card-option"
+                      onClick={() => handleSelectOption('placement', 'exterior')}
+                    >
+                      <div className="quiz-card-icon">☀️</div>
+                      <h4>Exterior</h4>
+                      <p>Jardín, patio o balcón abierto.</p>
+                    </button>
+                    <button
+                      type="button"
+                      className="quiz-card-option"
+                      onClick={() => handleSelectOption('placement', 'huerta')}
+                    >
+                      <div className="quiz-card-icon">🥬</div>
+                      <h4>Huerta o Cocina</h4>
+                      <p>Aromáticas y frutales para cultivar.</p>
+                    </button>
                   </div>
                 </div>
-              ))}
-            </div>
+              )}
 
-            <div className="advice-actions">
-              <a
-                href={generateWaLink(WA_MESSAGES.ayudaElegir)}
-                target="_blank"
-                rel="noreferrer"
-                className="btn btn-light"
-              >
-                <Sparkles size={18} /> Quiero mi recomendación
-              </a>
-              <Link to="/catalogo" className="advice-secondary-link">
-                <MessageCircle size={16} /> Ver catálogo primero
-              </Link>
-            </div>
-          </div>
-          <div className="advice-image reveal-on-scroll reveal-right">
-            {recommendedProducts.length > 0 && (
-              <div className="advice-rec-carousel">
-                {/* Cabecera / Sugerencia */}
-                <div className="advice-rec-header">
-                  <span className="advice-rec-badge">💡 Recomendación De Raíz</span>
-                  <span className="advice-rec-counter">{currentRecIndex + 1} de {recommendedProducts.length}</span>
+              {quizStep === 2 && (
+                <div className="quiz-step-content animate-fade-in">
+                  <h3>¿Cómo es la luz natural en ese lugar? ⛅</h3>
+                  <p className="quiz-step-subtitle">La iluminación es vital. Elegí la opción más cercana a tu espacio real.</p>
+                  <div className="quiz-cards-grid">
+                    <button
+                      type="button"
+                      className="quiz-card-option"
+                      onClick={() => handleSelectOption('light', 'poca')}
+                    >
+                      <div className="quiz-card-icon">🕶️</div>
+                      <h4>Poca luz / Sombra</h4>
+                      <p>Espacios con sombra o luz tenue.</p>
+                    </button>
+                    <button
+                      type="button"
+                      className="quiz-card-option"
+                      onClick={() => handleSelectOption('light', 'indirecta')}
+                    >
+                      <div className="quiz-card-icon">⛅</div>
+                      <h4>Luz indirecta brillante</h4>
+                      <p>Mucha luz natural, sin sol directo.</p>
+                    </button>
+                    <button
+                      type="button"
+                      className="quiz-card-option"
+                      onClick={() => handleSelectOption('light', 'directa')}
+                    >
+                      <div className="quiz-card-icon">☀️</div>
+                      <h4>Sol directo</h4>
+                      <p>Rayos de sol de lleno varias horas.</p>
+                    </button>
+                  </div>
                 </div>
+              )}
 
-                {/* Contenido de la Planta */}
-                <div className="advice-rec-content-wrapper">
-                  {recommendedProducts.map((product, idx) => {
-                    const isActive = idx === currentRecIndex;
-                    return (
-                      <div 
-                        key={product.id} 
-                        className={`advice-rec-slide ${isActive ? 'active' : ''}`}
-                        style={{ display: isActive ? 'flex' : 'none' }}
-                      >
-                        <div className="advice-rec-product-info" onClick={() => setSelectedProduct(product)}>
-                          {/* Imagen */}
-                          <div className="advice-rec-image-wrap">
+              {quizStep === 3 && (
+                <div className="quiz-step-content animate-fade-in">
+                  <h3>¿Cómo te definirías cuidando plantas? 💧</h3>
+                  <p className="quiz-step-subtitle">Elegí la planta que se adapte mejor a tus tiempos y a tu rutina diaria.</p>
+                  <div className="quiz-cards-grid">
+                    <button
+                      type="button"
+                      className="quiz-card-option"
+                      onClick={() => handleSelectOption('care', 'principiante')}
+                    >
+                      <div className="quiz-card-icon">🟢</div>
+                      <h4>Principiante / Poco tiempo</h4>
+                      <p>Plantas súper guerreras de bajo cuidado.</p>
+                    </button>
+                    <button
+                      type="button"
+                      className="quiz-card-option"
+                      onClick={() => handleSelectOption('care', 'entusiasta')}
+                    >
+                      <div className="quiz-card-icon">💧</div>
+                      <h4>Entusiasta / Con tiempo</h4>
+                      <p>Me gusta mimarlas y regar seguido.</p>
+                    </button>
+                    <button
+                      type="button"
+                      className="quiz-card-option"
+                      onClick={() => handleSelectOption('care', 'flores')}
+                    >
+                      <div className="quiz-card-icon">🌸</div>
+                      <h4>Quiero flores y color</h4>
+                      <p>Variedades que aporten tonos alegres.</p>
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {quizStep === 4 && (
+                <div className="quiz-step-content animate-fade-in">
+                  <h3>¿Tenés mascotas curiosas en casa? 🐾</h3>
+                  <p className="quiz-step-subtitle">Algunas plantas son tóxicas. Protegemos a tus mejores amigos.</p>
+                  <div className="quiz-cards-grid quiz-cards-grid--two">
+                    <button
+                      type="button"
+                      className="quiz-card-option"
+                      onClick={() => handleSelectOption('pets', 'si')}
+                    >
+                      <div className="quiz-card-icon">🐱🐶</div>
+                      <h4>Sí, necesito Pet-Friendly</h4>
+                      <p>Variedades 100% seguras para perros y gatos.</p>
+                    </button>
+                    <button
+                      type="button"
+                      className="quiz-card-option"
+                      onClick={() => handleSelectOption('pets', 'no')}
+                    >
+                      <div className="quiz-card-icon">🏡</div>
+                      <h4>No tengo / No me preocupa</h4>
+                      <p>Cualquier variedad me sirve perfectamente.</p>
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {quizStep === 5 && (
+                <div className="quiz-step-content quiz-results-content animate-fade-in">
+                  <div className="quiz-results-header">
+                    <span className="section-label">¡Tu resultado botánico! 🏆</span>
+                    <h3>Encontramos tus 2 plantas ideales</h3>
+                    <p className="quiz-results-subtitle">
+                      En base a tus respuestas: <span className="quiz-summary-pill">{quizAnswers.placement === 'interior' ? 'Interior' : quizAnswers.placement === 'exterior' ? 'Exterior' : 'Huerta'}</span> 
+                      <span className="quiz-summary-pill">{quizAnswers.light === 'poca' ? 'Poca luz' : quizAnswers.light === 'indirecta' ? 'Luz indirecta' : 'Sol directo'}</span> 
+                      <span className="quiz-summary-pill">{quizAnswers.care === 'principiante' ? 'Principiante' : quizAnswers.care === 'entusiasta' ? 'Entusiasta' : 'Con flores'}</span> 
+                      {quizAnswers.pets === 'si' && <span className="quiz-summary-pill quiz-summary-pill--pet">🐾 Pet-Friendly</span>}
+                    </p>
+                  </div>
+
+                  <div className="quiz-results-grid">
+                    {quizResults.map((product) => {
+                      const explanation = getExplanation(product, quizAnswers);
+                      return (
+                        <div key={product.id} className="quiz-result-card">
+                          <div className="quiz-result-card-image" onClick={() => setSelectedProduct(product)}>
                             <img src={product.image} alt={product.name} />
+                            <span className="quiz-result-card-badge">{product.category}</span>
                           </div>
                           
-                          {/* Textos */}
-                          <div className="advice-rec-details">
-                            <span className="advice-rec-category">{product.category}</span>
-                            <h3 className="advice-rec-name">{product.name}</h3>
-                            <p className="advice-rec-desc">{product.description}</p>
+                          <div className="quiz-result-card-body">
+                            <h4 className="quiz-result-card-title">{product.name}</h4>
                             
                             {/* Atributos cortos */}
-                            <div className="advice-rec-attrs">
-                              {product.attributes.slice(0, 2).map((attr, aIdx) => (
-                                <span key={aIdx} className="advice-rec-attr-item">
+                            <div className="quiz-result-card-attrs">
+                              {product.attributes.slice(0, 3).map((attr, aIdx) => (
+                                <span key={aIdx} className="quiz-result-card-attr-item">
                                   {getAttributeIcon(attr.type)} {attr.value}
                                 </span>
                               ))}
                             </div>
+
+                            {/* Explicación personalizada */}
+                            <p className="quiz-result-card-explanation">
+                              {renderExplanationText(explanation)}
+                            </p>
+
+                            {/* Botones de acción */}
+                            <div className="quiz-result-card-actions">
+                              <button
+                                type="button"
+                                className="btn btn-primary btn-sm quiz-card-add-btn"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  addToCart(product);
+                                }}
+                              >
+                                <ShoppingCart size={14} /> Agregar
+                              </button>
+                              <a
+                                href={generateWaLink(WA_MESSAGES.producto(product.name))}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="btn btn-outline btn-sm quiz-card-wa-btn"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <MessageCircle size={14} /> Stock
+                              </a>
+                            </div>
                           </div>
                         </div>
+                      );
+                    })}
+                  </div>
 
-                        {/* Botones de acción */}
-                        <div className="advice-rec-actions">
-                          <button 
-                            type="button" 
-                            className="btn btn-primary advice-rec-add-btn"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              addToCart(product);
-                            }}
-                          >
-                            <ShoppingCart size={16} /> Agregar
-                          </button>
-                          <a 
-                            href={generateWaLink(WA_MESSAGES.producto(product.name))}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="btn btn-outline advice-rec-stock-btn"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <MessageCircle size={16} /> Consultar Stock
-                          </a>
-                        </div>
-                      </div>
-                    );
-                  })}
+                  {/* Acciones globales */}
+                  <div className="quiz-results-footer-actions">
+                    <a
+                      href={generateWaLink(generateQuizWhatsAppMessage(quizResults, quizAnswers))}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn btn-primary quiz-wa-cta"
+                    >
+                      <MessageCircle size={18} /> Consultar stock de ambas por WhatsApp
+                    </a>
+                    <button
+                      type="button"
+                      className="btn btn-outline quiz-restart-btn"
+                      onClick={() => {
+                        setQuizStep(1);
+                        setQuizAnswers({
+                          placement: '',
+                          light: '',
+                          care: '',
+                          pets: ''
+                        });
+                        setQuizResults([]);
+                      }}
+                    >
+                      <RotateCcw size={16} /> Volver a empezar
+                    </button>
+                  </div>
                 </div>
-
-                {/* Flechas de navegación */}
-                <button 
-                  type="button" 
-                  className="advice-rec-nav advice-rec-nav--prev" 
-                  onClick={prevRec}
-                  aria-label="Recomendación anterior"
-                >
-                  <ChevronLeft size={18} />
-                </button>
-                <button 
-                  type="button" 
-                  className="advice-rec-nav advice-rec-nav--next" 
-                  onClick={nextRec}
-                  aria-label="Siguiente recomendación"
-                >
-                  <ChevronRight size={18} />
-                </button>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
       <WaveBottom fill="var(--verde-profundo)" bg="var(--beige-claro)" className="wave-transition--advice-to-categories" />

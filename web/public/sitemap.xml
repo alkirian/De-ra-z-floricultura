@@ -2,42 +2,75 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://alkirian.github.io/De-ra-z-floricultura/</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.00</priority>
   </url>
   <url>
     <loc>https://alkirian.github.io/De-ra-z-floricultura/catalogo</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://alkirian.github.io/De-ra-z-floricultura/aprende-de-raiz</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://alkirian.github.io/De-ra-z-floricultura/contacto</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alkirian.github.io/De-ra-z-floricultura/aprende-de-raiz/riego-por-estacion</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://alkirian.github.io/De-ra-z-floricultura/aprende-de-raiz/sustratos-y-mezclas</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://alkirian.github.io/De-ra-z-floricultura/aprende-de-raiz/macetas-y-drenaje</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://alkirian.github.io/De-ra-z-floricultura/aprende-de-raiz/luz-y-ubicacion</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://alkirian.github.io/De-ra-z-floricultura/aprende-de-raiz/plagas-comunes-uruguay</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://alkirian.github.io/De-ra-z-floricultura/aprende-de-raiz/calendario-botanico-uruguay</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
+  <url>
+    <loc>https://alkirian.github.io/De-ra-z-floricultura/aprende-de-raiz/guia-ficus-lyrata</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://alkirian.github.io/De-ra-z-floricultura/aprende-de-raiz/guia-espada-de-san-jorge</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
 </urlset>
+

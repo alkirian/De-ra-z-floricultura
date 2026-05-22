@@ -35,8 +35,8 @@ const LearnRoot = () => {
   return (
     <div className="learn-page">
       <SEO
-        title="Guias de cuidado de plantas en Uruguay | Aprende de Raiz"
-        description="Biblioteca botanica gratuita. Aprende sobre riego por estacion en Uruguay, sustratos recomendados, plagas y macetas ideales."
+        title="Guías de cuidado de plantas en Uruguay | Aprende de Raíz"
+        description="Biblioteca botánica gratuita de De Raíz. Aprendé sobre riego por estación en Uruguay, sustratos recomendados, plagas comunes y macetas ideales."
         path="/aprende-de-raiz"
       />
       <section className="learn-hero section-padding--sm" style={{ paddingTop: '140px' }}>

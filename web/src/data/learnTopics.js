@@ -4,7 +4,7 @@ const GUIDE_IMG = `${BASE}images/Gu%C3%ADa`;
 export const LEARN_TOPICS = [
   {
     slug: 'riego-por-estacion',
-    isVisible: false,
+    isVisible: true,
     tag: 'Riego',
     title: 'Riego por estación en Uruguay',
     summary: 'Cómo ajustar el agua según verano, otoño, invierno y primavera.',
@@ -52,7 +52,7 @@ export const LEARN_TOPICS = [
   },
   {
     slug: 'sustratos-y-mezclas',
-    isVisible: false,
+    isVisible: true,
     tag: 'Sustratos',
     title: 'Sustratos y mezclas recomendadas',
     summary: 'Qué tierra usar según la planta, la maceta y el nivel de drenaje.',
@@ -99,7 +99,7 @@ export const LEARN_TOPICS = [
   },
   {
     slug: 'macetas-y-drenaje',
-    isVisible: false,
+    isVisible: true,
     tag: 'Macetas',
     title: 'Macetas y drenaje sin errores',
     summary: 'Cómo elegir el material, tamaño y drenaje para cada planta.',
@@ -132,7 +132,7 @@ export const LEARN_TOPICS = [
   },
   {
     slug: 'luz-y-ubicacion',
-    isVisible: false,
+    isVisible: true,
     tag: 'Luz',
     title: 'Luz y ubicación de plantas',
     summary: 'Cómo identificar si tu espacio tiene mucha, media o poca luz.',
@@ -168,7 +168,7 @@ export const LEARN_TOPICS = [
   },
   {
     slug: 'plagas-comunes-uruguay',
-    isVisible: false,
+    isVisible: true,
     tag: 'Plagas',
     title: 'Plagas comunes en Uruguay',
     summary: 'Cómo prevenir y actuar a tiempo sin complicaciones.',
@@ -202,7 +202,7 @@ export const LEARN_TOPICS = [
   },
   {
     slug: 'calendario-botanico-uruguay',
-    isVisible: false,
+    isVisible: true,
     tag: 'Calendario',
     title: 'Calendario botánico en Uruguay',
     summary: 'Qué conviene hacer cada mes para mantener tus plantas fuertes.',
@@ -241,6 +241,8 @@ export const LEARN_TOPICS = [
     isVisible: true,
     tag: 'Guía definitiva',
     title: 'Guía completa del Ficus Lyrata',
+    seoTitle: 'Cuidados del Ficus Lyrata en Uruguay | De Raíz Floricultura',
+    seoDescription: 'Guía completa del Ficus Lyrata: luz ideal, cuándo regar, sustrato y problemas comunes. Consejos adaptados al clima uruguayo de De Raíz.',
     summary: 'De hojas caídas a follaje exuberante: luz, riego, suelo y soluciones concretas.',
     readTime: '10 min',
     image: `${BASE}images/Gu%C3%ADas/san%20seivieria.jpeg`,

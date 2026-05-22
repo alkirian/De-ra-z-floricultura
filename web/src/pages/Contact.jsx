@@ -216,23 +216,23 @@ const Contact = () => {
           <section className="local-gallery" aria-labelledby="gallery-title">
             <h2 id="gallery-title">Galería del local</h2>
             <div className="gallery-grid">
-              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[0], alt: 'Mesa de flores en el vivero De Raiz' })}>
-                <img src={STORE_IMAGES[0]} alt="Mesa de flores en el vivero De Raiz" loading="lazy" decoding="async" />
+              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[0], alt: 'Exposición de flores y plantas en el vivero De Raíz, Las Piedras Uruguay' })}>
+                <img src={STORE_IMAGES[0]} alt="Exposición de flores y plantas en el vivero De Raíz, Las Piedras Uruguay" loading="lazy" decoding="async" />
               </button>
-              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[1], alt: 'Sansevieria y cartel de De Raiz en el local' })}>
-                <img src={STORE_IMAGES[1]} alt="Sansevieria y cartel de De Raiz en el local" loading="lazy" decoding="async" />
+              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[1], alt: 'Sansevieria y cartel del vivero De Raíz Floricultura en Las Piedras, Canelones' })}>
+                <img src={STORE_IMAGES[1]} alt="Sansevieria y cartel del vivero De Raíz Floricultura en Las Piedras, Canelones" loading="lazy" decoding="async" />
               </button>
-              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[2], alt: 'Espacio de plantas en la tienda De Raiz' })}>
-                <img src={STORE_IMAGES[2]} alt="Espacio de plantas en la tienda De Raiz" loading="lazy" decoding="async" />
+              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[2], alt: 'Espacio de plantas de interior en la tienda De Raíz, Ruta 48 Las Piedras' })}>
+                <img src={STORE_IMAGES[2]} alt="Espacio de plantas de interior en la tienda De Raíz, Ruta 48 Las Piedras" loading="lazy" decoding="async" />
               </button>
-              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[3], alt: 'Sector de exhibicion botanica en De Raiz' })}>
-                <img src={STORE_IMAGES[3]} alt="Sector de exhibicion botanica en De Raiz" loading="lazy" decoding="async" />
+              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[3], alt: 'Sector de exhibición botánica del vivero De Raíz en Canelones' })}>
+                <img src={STORE_IMAGES[3]} alt="Sector de exhibición botánica del vivero De Raíz en Canelones" loading="lazy" decoding="async" />
               </button>
-              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[4], alt: 'Vista general del vivero De Raiz' })}>
-                <img src={STORE_IMAGES[4]} alt="Vista general del vivero De Raiz" loading="lazy" decoding="async" />
+              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[4], alt: 'Vista general del vivero y floricultura De Raíz en Las Piedras Uruguay' })}>
+                <img src={STORE_IMAGES[4]} alt="Vista general del vivero y floricultura De Raíz en Las Piedras Uruguay" loading="lazy" decoding="async" />
               </button>
-              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[5], alt: 'Detalle de plantas y macetas en De Raiz' })}>
-                <img src={STORE_IMAGES[5]} alt="Detalle de plantas y macetas en De Raiz" loading="lazy" decoding="async" />
+              <button type="button" className="gallery-item card" onClick={() => setSelectedImage({ src: STORE_IMAGES[5], alt: 'Detalle de plantas y macetas decorativas en De Raíz Floricultura, Canelones' })}>
+                <img src={STORE_IMAGES[5]} alt="Detalle de plantas y macetas decorativas en De Raíz Floricultura, Canelones" loading="lazy" decoding="async" />
               </button>
             </div>
           </section>
