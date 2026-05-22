@@ -1989,7 +1989,7 @@
     scrollbar-width: none !important; /* Firefox */
     margin: 0 -20px !important; /* Bleed de borde a borde */
     padding: 8px 20px 24px !important;
-    gap: 16px !important;
+    gap: 20px !important; /* Aumentado a 20px para ocultar perfectamente la siguiente card */
   }
 
   .quick-actions-grid::-webkit-scrollbar {
@@ -1997,8 +1997,8 @@
   }
 
   .quick-action-card {
-    width: 290px !important;
-    min-width: 290px !important;
+    width: calc(100vw - 40px) !important; /* Ancho dinámico para ver exactamente una sola tarjeta */
+    min-width: calc(100vw - 40px) !important;
     flex-shrink: 0 !important;
     scroll-snap-align: center !important;
     margin: 0 !important;
@@ -2020,7 +2020,7 @@
     scrollbar-width: none !important;
     margin: 0 -20px !important;
     padding: 8px 20px 24px !important;
-    gap: 16px !important;
+    gap: 20px !important; /* Aumentado a 20px para ocultar perfectamente la siguiente card */
     margin-top: 24px !important;
   }
 
@@ -2029,8 +2029,8 @@
   }
 
   .value-item {
-    width: 260px !important;
-    min-width: 260px !important;
+    width: calc(100vw - 40px) !important; /* Ancho dinámico para ver exactamente una sola tarjeta */
+    min-width: calc(100vw - 40px) !important;
     flex-shrink: 0 !important;
     scroll-snap-align: center !important;
     margin: 0 !important;
@@ -2060,7 +2060,7 @@
     scrollbar-width: none !important;
     margin: 0 -20px !important;
     padding: 8px 20px 24px !important;
-    gap: 16px !important;
+    gap: 20px !important; /* Aumentado a 20px para ocultar perfectamente la siguiente card */
     margin-bottom: 20px !important;
   }
 
@@ -2069,8 +2069,8 @@
   }
 
   .combo-card {
-    width: 280px !important;
-    min-width: 280px !important;
+    width: calc(100vw - 40px) !important; /* Ancho dinámico para ver exactamente una sola tarjeta */
+    min-width: calc(100vw - 40px) !important;
     flex-shrink: 0 !important;
     scroll-snap-align: center !important;
     margin: 0 !important;
@@ -2095,18 +2095,18 @@
 @media (max-width: 520px) {
   /* Ajustes más específicos para pantallas extra pequeñas */
   .quick-action-card {
-    width: 275px !important;
-    min-width: 275px !important;
+    width: calc(100vw - 32px) !important; /* Margen de 16px a cada lado */
+    min-width: calc(100vw - 32px) !important;
   }
 
   .value-item {
-    width: 245px !important;
-    min-width: 245px !important;
+    width: calc(100vw - 32px) !important; /* Margen de 16px a cada lado */
+    min-width: calc(100vw - 32px) !important;
   }
 
   .combo-card {
-    width: 265px !important;
-    min-width: 265px !important;
+    width: calc(100vw - 32px) !important; /* Margen de 16px a cada lado */
+    min-width: calc(100vw - 32px) !important;
   }
 
   .quick-actions-grid,
@@ -2114,7 +2114,7 @@
   .combos-grid {
     margin: 0 -16px !important;
     padding: 8px 16px 20px !important;
-    gap: 12px !important;
+    gap: 16px !important; /* Ajustado para ocultar la siguiente card perfectamente con márgenes de 16px */
   }
 }
 

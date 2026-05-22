@@ -196,7 +196,7 @@ const Home = () => {
     if (!firstCard) return;
     
     const cardWidth = firstCard.clientWidth;
-    const gap = 16; // El gap que configuramos en CSS para mobile
+    const gap = parseFloat(getComputedStyle(container).gap) || 20;
     const scrollAmount = direction === 'left' ? -(cardWidth + gap) : (cardWidth + gap);
     
     container.scrollBy({
