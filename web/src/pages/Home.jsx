@@ -382,7 +382,6 @@ const getRemainingCount = (step, answers) => {
 const Home = () => {
   const heroRef = useRef(null);
   const quickActionsRef = useRef(null);
-  const valueGridRef = useRef(null);
   const combosGridRef = useRef(null);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [activeAccordion, setActiveAccordion] = useState(null);
@@ -814,44 +813,6 @@ const Home = () => {
     { name: 'Mariana R.', loc: 'Las Piedras', text: 'Me recomendaron una planta para poca luz y quedó perfecta. Muy buena atención.' },
     { name: 'Andrés P.', loc: 'Canelones', text: 'Fui por un regalo y me armaron una opción linda y rápida. Recomiendo.' },
   ];
-  useEffect(() => {
-    const cards = valueGridRef.current?.querySelectorAll('.value-item');
-    if (!cards || cards.length === 0) return undefined;
-
-    let rafId = null;
-
-    const animateOnScroll = () => {
-      const viewportHeight = window.innerHeight;
-
-      cards.forEach((card, index) => {
-        const rect = card.getBoundingClientRect();
-        const center = rect.top + rect.height * 0.5;
-        const distance = (center - viewportHeight * 0.55) / viewportHeight;
-        const shift = Math.max(-16, Math.min(16, distance * (14 + index * 2)));
-        const rotate = Math.max(-1.2, Math.min(1.2, distance * (1.4 + index * 0.15)));
-        card.style.setProperty('--scroll-shift', `${shift}px`);
-        card.style.setProperty('--scroll-rotate', `${rotate}deg`);
-      });
-    };
-
-    const onScroll = () => {
-      if (rafId) return;
-      rafId = window.requestAnimationFrame(() => {
-        animateOnScroll();
-        rafId = null;
-      });
-    };
-
-    animateOnScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-
-    return () => {
-      if (rafId) window.cancelAnimationFrame(rafId);
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, []);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -1221,62 +1182,6 @@ const Home = () => {
                 className="carousel-nav-btn" 
                 onClick={() => scrollCarousel(quickActionsRef, 'right')}
                 aria-label="Deslizar carrusel de atajos a la derecha"
-              >
-                <ChevronRight size={20} />
-              </button>
-            </div>
-
-          </div>
-        </section>
-        {/* ══════════════════════════
-            PROPUESTA DE VALOR
-        ══════════════════════════ */}
-        <section className="value-section section-padding--sm">
-          <div className="container container--narrow text-center reveal-on-scroll reveal-up">
-            <span className="section-label">Nuestra propuesta</span>
-            <h2>No solo vendemos plantas.</h2>
-            <p className="value-text">
-              Plantas, flores, macetas e insumos con atencion local en Las Piedras.
-            </p>
-            <div className="value-grid" ref={valueGridRef}>
-              <div className="value-item reveal-on-scroll reveal-scale">
-                <div className="value-icon-wrap">
-                  <div className="value-icon">🌿</div>
-                </div>
-                <h4>Asesoramiento personalizado</h4>
-                <p>Te orientamos según tu espacio, luz y experiencia.</p>
-              </div>
-              <div className="value-item reveal-on-scroll reveal-scale" style={{ '--reveal-delay': '0.15s' }}>
-                <div className="value-icon-wrap">
-                  <div className="value-icon">🪴</div>
-                </div>
-                <h4>Plantas, flores y macetas</h4>
-                <p>Gran variedad de interior, exterior, flores y más.</p>
-              </div>
-              <div className="value-item reveal-on-scroll reveal-scale" style={{ '--reveal-delay': '0.3s' }}>
-                <div className="value-icon-wrap">
-                  <div className="value-icon">📍</div>
-                </div>
-                <h4>Atención local</h4>
-                <p>Estamos en Las Piedras, Canelones. Visitanos.</p>
-              </div>
-            </div>
-
-            {/* Controles de navegación responsivos para carrusel en mobile */}
-            <div className="carousel-nav-controls">
-              <button 
-                type="button" 
-                className="carousel-nav-btn" 
-                onClick={() => scrollCarousel(valueGridRef, 'left')}
-                aria-label="Deslizar carrusel de propuesta a la izquierda"
-              >
-                <ChevronLeft size={20} />
-              </button>
-              <button 
-                type="button" 
-                className="carousel-nav-btn" 
-                onClick={() => scrollCarousel(valueGridRef, 'right')}
-                aria-label="Deslizar carrusel de propuesta a la derecha"
               >
                 <ChevronRight size={20} />
               </button>
@@ -1789,6 +1694,76 @@ const Home = () => {
         </div>
       </section>
 
+
+      {/* ══════════════════════════
+          LOCAL EN LAS PIEDRAS
+      ══════════════════════════ */}
+      <section className="home-local-section section-padding" style={{background: 'var(--beige-claro)', paddingTop: 0}}>
+        <div className="container">
+          <div className="home-local-grid">
+            
+            <div className="home-local-info reveal-on-scroll reveal-up">
+              <span className="section-label">Visítanos</span>
+              <h2>Visítanos en Las Piedras</h2>
+              <div className="title-underline" style={{ margin: '8px 0 0' }}></div>
+              <p className="home-local-intro">
+                Vení a conocer nuestro vivero y cultivo en persona. Encontrá todas las variedades en un espacio natural único y recibí asesoramiento botánico directo de nuestro equipo.
+              </p>
+              
+              <div className="home-local-details">
+                <div className="local-detail-item">
+                  <div className="local-detail-icon">
+                    <MapPin size={20} />
+                  </div>
+                  <div>
+                    <h4>Dirección</h4>
+                    <p>Ruta 48, Las Piedras, Canelones, Uruguay</p>
+                  </div>
+                </div>
+
+                <div className="local-detail-item">
+                  <div className="local-detail-icon">
+                    <Clock size={20} />
+                  </div>
+                  <div>
+                    <h4>Horarios de Atención</h4>
+                    <p>Lunes a Sábados: 09:00 a 18:00 hs</p>
+                    <p>Domingos: 09:00 a 13:00 hs</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="home-local-ctas">
+                <a 
+                  href="https://www.google.com/maps/search/?api=1&query=De+Raiz+Floricultura+Las+Piedras" 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="btn btn-primary"
+                >
+                  Ver en Google Maps
+                </a>
+                <Link to="/contacto" className="btn btn-outline">
+                  Cómo llegar
+                </Link>
+              </div>
+            </div>
+
+            <div className="home-local-visual reveal-on-scroll reveal-scale">
+              <div className="local-preview-card">
+                <span className="local-preview-badge">🌿 ¡Visítanos!</span>
+                <h3>De Raíz Floricultura</h3>
+                <p>Ubicación local y vivero de cultivo propio en Las Piedras.</p>
+                
+                <div className="local-preview-map-placeholder">
+                  <div className="preview-route-art">RUTA 48</div>
+                  <span className="preview-pin-art" role="img" aria-label="Pin de mapa">📍</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
 
       <WaveBottom fill="var(--beige-claro)" bg="var(--verde-profundo)" className="wave-transition--categories-to-testimonials" />
 
