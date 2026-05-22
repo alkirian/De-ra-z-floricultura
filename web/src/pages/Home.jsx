@@ -1364,157 +1364,36 @@ const Home = () => {
       <WaveTop fill="var(--verde-profundo)" bg="var(--crema)" />
       <section className="advice-section section-padding--sm">
         <div className="container">
-          {!quizActive ? (
-            <div className="advice-grid">
-              <div className="advice-text reveal-on-scroll reveal-left">
-                <span className="section-label advice-label">Asesoramiento gratuito</span>
-                <h2>¿No sabés qué planta elegir?</h2>
-                <p>
-                  Te guiamos en 1 minuto y te mostramos opciones reales para vos.
-                </p>
+          <div className="text-center mb-8 reveal-on-scroll reveal-up">
+            <span className="section-label">Asesoramiento Interactivo 🌿</span>
+            <h2>¿No sabés qué planta elegir?</h2>
+            <p className="quiz-section-intro" style={{ maxWidth: '600px', margin: '12px auto 0', color: 'var(--texto-medio)', fontSize: '1.05rem', lineHeight: '1.6' }}>
+              Completá nuestro test botánico interactivo en 15 segundos. Nuestro sistema irá descartando plantas de nuestro cultivo en tiempo real para encontrar tus 2 compañeras ideales.
+            </p>
+          </div>
 
-                <div className="advice-steps" aria-label="Cómo te ayudamos a elegir">
-                  {ADVICE_STEPS.map((step, index) => (
-                    <div key={step.title} className="advice-step-item">
-                      <span className="advice-step-number">{index + 1}</span>
-                      <div>
-                        <strong>{step.title}</strong>
-                        <p>{step.detail}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="advice-actions">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setQuizActive(true);
-                      setQuizStep(1);
-                    }}
-                    className="btn btn-light"
-                  >
-                    <Sparkles size={18} /> Comenzar Test 🌿
-                  </button>
-                  <Link to="/catalogo" className="advice-secondary-link">
-                    <MessageCircle size={16} /> Ver catálogo primero
-                  </Link>
-                </div>
-              </div>
-              <div className="advice-image reveal-on-scroll reveal-right">
-                {recommendedProducts.length > 0 && (
-                  <div className="advice-rec-carousel">
-                    {/* Cabecera / Sugerencia */}
-                    <div className="advice-rec-header">
-                      <span className="advice-rec-badge">💡 Recomendación De Raíz</span>
-                      <span className="advice-rec-counter">{currentRecIndex + 1} de {recommendedProducts.length}</span>
-                    </div>
-
-                    {/* Contenido de la Planta */}
-                    <div className="advice-rec-content-wrapper">
-                      {recommendedProducts.map((product, idx) => {
-                        const isActive = idx === currentRecIndex;
-                        return (
-                          <div 
-                            key={product.id} 
-                            className={`advice-rec-slide ${isActive ? 'active' : ''}`}
-                            style={{ display: isActive ? 'flex' : 'none' }}
-                          >
-                            <div className="advice-rec-product-info" onClick={() => setSelectedProduct(product)}>
-                              {/* Imagen */}
-                              <div className="advice-rec-image-wrap">
-                                <img src={product.image} alt={product.name} />
-                              </div>
-                              
-                              {/* Textos */}
-                              <div className="advice-rec-details">
-                                <span className="advice-rec-category">{product.category}</span>
-                                <h3 className="advice-rec-name">{product.name}</h3>
-                                <p className="advice-rec-desc">{product.description}</p>
-                                
-                                {/* Atributos cortos */}
-                                <div className="advice-rec-attrs">
-                                  {product.attributes.slice(0, 2).map((attr, aIdx) => (
-                                    <span key={aIdx} className="advice-rec-attr-item">
-                                      {getAttributeIcon(attr.type)} {attr.value}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
-
-                            {/* Botones de acción */}
-                            <div className="advice-rec-actions">
-                              <button 
-                                type="button" 
-                                className="btn btn-primary advice-rec-add-btn"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  addToCart(product);
-                                }}
-                              >
-                                <ShoppingCart size={16} /> Agregar
-                              </button>
-                              <a 
-                                href={generateWaLink(WA_MESSAGES.producto(product.name))}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="btn btn-outline advice-rec-stock-btn"
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                <MessageCircle size={16} /> Consultar Stock
-                              </a>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-
-                    {/* Flechas de navegación */}
-                    <button 
-                      type="button" 
-                      className="advice-rec-nav advice-rec-nav--prev" 
-                      onClick={prevRec}
-                      aria-label="Recomendación anterior"
-                    >
-                      <ChevronLeft size={18} />
-                    </button>
-                    <button 
-                      type="button" 
-                      className="advice-rec-nav advice-rec-nav--next" 
-                      onClick={nextRec}
-                      aria-label="Siguiente recomendación"
-                    >
-                      <ChevronRight size={18} />
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          ) : (
-            <div className="advice-quiz-container animate-fade-in">
-              {/* Header del Quiz */}
-              <div className="quiz-header">
+          <div className="advice-quiz-container animate-fade-in">
+            {/* Header del Quiz */}
+            <div className="quiz-header">
+              {quizStep > 1 && quizStep <= 4 && (
                 <button
                   type="button"
                   className="quiz-back-btn"
-                  onClick={() => {
-                    if (quizStep === 1) {
-                      setQuizActive(false);
-                      setQuizStep(1);
-                    } else {
-                      setQuizStep(prev => prev - 1);
-                    }
-                  }}
+                  onClick={() => setQuizStep(prev => prev - 1)}
                   aria-label="Volver al paso anterior"
                 >
                   <ArrowRight size={16} style={{ transform: 'rotate(180deg)', marginRight: '8px' }} /> Volver
                 </button>
-                <div className="quiz-progress-wrapper">
-                  <div className="quiz-progress-bar" style={{ width: `${(quizStep / 4) * 100}%` }}></div>
-                </div>
-                {quizStep <= 4 && <span className="quiz-step-indicator">Paso {quizStep} de 4</span>}
+              )}
+              <div className="quiz-progress-wrapper">
+                <div className="quiz-progress-bar" style={{ width: `${(quizStep / 4) * 100}%` }}></div>
               </div>
+              {quizStep <= 4 && (
+                <span className="quiz-step-indicator">
+                  Paso {quizStep} de 4 • {getRemainingCount(quizStep, quizAnswers)} {getRemainingCount(quizStep, quizAnswers) === 1 ? 'planta compatible' : 'plantas compatibles'}
+                </span>
+              )}
+            </div>
 
               {quizStep === 1 && (
                 <div className="quiz-step-content animate-fade-in">
@@ -1749,7 +1628,6 @@ const Home = () => {
                 </div>
               )}
             </div>
-          )}
         </div>
       </section>
       <WaveBottom fill="var(--verde-profundo)" bg="var(--beige-claro)" className="wave-transition--advice-to-categories" />
