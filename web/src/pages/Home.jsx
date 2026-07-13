@@ -1,9 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { ArrowRight, MessageCircle, Sparkles, Leaf, MapPin, ChevronLeft, ChevronRight, BookOpen, X, ShoppingCart, Sun, Droplets, Ruler, Package, Sprout, RotateCcw, Clock } from 'lucide-react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+import { ArrowRight, MessageCircle, Sparkles, Leaf, MapPin, ChevronLeft, ChevronRight, BookOpen, X, ShoppingCart, Sun, Droplets, Ruler, Package, Sprout, RotateCcw, Clock, Phone, Navigation, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { generateWaLink, WA_MESSAGES, MOCK_PRODUCTS } from '../data/mockData';
+import { generateWaLink, WA_MESSAGES } from '../data/mockData';
+import { useCatalog } from '../context/CatalogContext';
 import { useCart } from '../context/CartContext';
+import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
 import SEO from '../components/SEO';
 import './Home.css';
@@ -44,27 +49,7 @@ const IconInterior = () => (
   </svg>
 );
 
-const IconFlor = () => (
-  <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="cat-icon">
-    <circle cx="32" cy="32" r="6" stroke="currentColor" strokeWidth="2"/>
-    <path d="M32 8 C32 8 28 18 32 26 C36 18 32 8 32 8Z" fill="currentColor" opacity="0.25" stroke="currentColor" strokeWidth="1.5"/>
-    <path d="M32 38 C32 38 28 48 32 56 C36 48 32 38 32 38Z" fill="currentColor" opacity="0.25" stroke="currentColor" strokeWidth="1.5"/>
-    <path d="M8 32 C8 32 18 28 26 32 C18 36 8 32 8 32Z" fill="currentColor" opacity="0.25" stroke="currentColor" strokeWidth="1.5"/>
-    <path d="M38 32 C38 32 48 28 56 32 C48 36 38 32 38 32Z" fill="currentColor" opacity="0.25" stroke="currentColor" strokeWidth="1.5"/>
-    <path d="M14 14 C14 14 20 22 26 26 C22 20 14 14 14 14Z" fill="currentColor" opacity="0.2" stroke="currentColor" strokeWidth="1.5"/>
-    <path d="M38 38 C38 38 44 46 50 50 C46 44 38 38 38 38Z" fill="currentColor" opacity="0.2" stroke="currentColor" strokeWidth="1.5"/>
-  </svg>
-);
 
-const IconRegalo = () => (
-  <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="cat-icon">
-    <rect x="10" y="28" width="44" height="28" rx="3" stroke="currentColor" strokeWidth="2"/>
-    <rect x="10" y="20" width="44" height="10" rx="3" stroke="currentColor" strokeWidth="2"/>
-    <path d="M32 20 L32 56" stroke="currentColor" strokeWidth="2"/>
-    <path d="M32 20 C32 20 24 14 20 10 C24 8 32 14 32 20Z" fill="currentColor" opacity="0.25" stroke="currentColor" strokeWidth="1.5"/>
-    <path d="M32 20 C32 20 40 14 44 10 C40 8 32 14 32 20Z" fill="currentColor" opacity="0.25" stroke="currentColor" strokeWidth="1.5"/>
-  </svg>
-);
 
 const IconJardineria = () => (
   <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="cat-icon">
@@ -83,23 +68,140 @@ const IconMaceta = () => (
     <path d="M32 14 C32 14 40 8 44 4 C38 4 32 10 32 14Z" fill="currentColor" opacity="0.25" stroke="currentColor" strokeWidth="1.5"/>
   </svg>
 );
-
-const IconAsesoramiento = () => (
-  <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="cat-icon">
-    <path d="M12 40 C12 40 12 20 32 14 C52 8 54 28 44 36 C36 42 28 38 28 38 L20 52 Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
-    <circle cx="26" cy="28" r="2" fill="currentColor"/>
-    <circle cx="32" cy="28" r="2" fill="currentColor"/>
-    <circle cx="38" cy="28" r="2" fill="currentColor"/>
+// Iconos e Ilustraciones SVG personalizadas para el Asesor Botánico (Quiz)
+const SvgHome = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+    <polyline points="9 22 9 12 15 12 15 22" />
   </svg>
 );
 
-const BASE = import.meta.env.BASE_URL;
-// Reemplazar por el numero final de WhatsApp en formato internacional (sin + ni espacios).
-const WHATSAPP_NUMBER = 'AQUI_COLOCAR_NUMERO';
-// Si queres cambiar imagenes, edita solo el campo image de cada objeto en COMBO_INSPIRATIONS.
+const SvgSun = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v2" />
+    <path d="M12 20v2" />
+    <path d="m4.93 4.93 1.41 1.41" />
+    <path d="m17.66 17.66 1.41 1.41" />
+    <path d="M2 12h2" />
+    <path d="M20 12h2" />
+    <path d="m6.34 17.66-1.41 1.41" />
+    <path d="m19.07 4.93-1.41 1.41" />
+  </svg>
+);
 
-const createWhatsAppLink = (message) =>
-  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+const SvgDroplets = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.09 3 12.25c0 2.22 1.8 4.05 4 4.05z" />
+    <path d="M17 18.5c1.37 0 2.5-1.14 2.5-2.53 0-.72-.35-1.41-1.07-1.99s-1.43-1.4-1.61-2.31c-.18.91-.71 1.77-1.43 2.35s-1.07 1.09-1.07 1.81c0 1.39 1.13 2.53 2.5 2.53z" />
+  </svg>
+);
+
+const SvgPaw = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 14c-1.66 0-3-1.12-3-2.5S10.34 9 12 9s3 1.12 3 2.5-1.34 2.5-3 2.5z" />
+    <path d="M5.5 10c-.83 0-1.5-.67-1.5-1.5S4.67 7 5.5 7 7 7.67 7 8.5 6.33 10 5.5 10z" />
+    <path d="M18.5 10c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
+    <path d="M9 6c-.83 0-1.5-.67-1.5-1.5S8.17 3 9 3s1.5.67 1.5 1.5S9.83 6 9 6z" />
+    <path d="M15 6c-.83 0-1.5-.67-1.5-1.5S14.17 3 15 3s1.5.67 1.5 1.5S15.83 6 15 6z" />
+  </svg>
+);
+
+const SvgInteriorOption = () => (
+  <svg viewBox="0 0 64 64" className="quiz-card-svg" fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="20" y="44" width="24" height="12" rx="3" strokeWidth="2" />
+    <path d="M32 44 V30" strokeWidth="2.5" strokeLinecap="round" />
+    <path d="M32 32 C26 24 24 16 32 10 C40 16 38 24 32 32Z" fill="var(--verde-salvia)" opacity="0.2" strokeWidth="1.5" />
+    <path d="M22 30 H42" strokeWidth="1.5" opacity="0.4" />
+  </svg>
+);
+
+const SvgExteriorOption = () => (
+  <svg viewBox="0 0 64 64" className="quiz-card-svg" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M16 54 C16 42 22 32 32 32 C42 32 48 42 48 54" strokeWidth="2" />
+    <circle cx="32" cy="22" r="10" strokeWidth="2" fill="var(--verde-salvia)" opacity="0.2" />
+    <path d="M32 32 V54" strokeWidth="2.5" />
+    <path d="M10 54 H54" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+);
+
+const SvgLowLight = () => (
+  <svg viewBox="0 0 64 64" className="quiz-card-svg" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="28" cy="28" r="16" strokeDasharray="4 4" />
+    <path d="M36 16 A16 16 0 0 1 48 36 A18 18 0 1 0 36 16 Z" fill="var(--verde-salvia)" opacity="0.3" strokeWidth="2" />
+  </svg>
+);
+
+const SvgIndirectLight = () => (
+  <svg viewBox="0 0 64 64" className="quiz-card-svg" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="38" cy="24" r="12" strokeWidth="1.5" strokeDasharray="3 3" />
+    <path d="M16 48 C16 40 24 36 30 40 C34 32 46 34 46 44 C50 44 54 46 54 52 H14 C14 52 16 50 16 48Z" fill="var(--verde-salvia)" opacity="0.25" strokeWidth="2" />
+  </svg>
+);
+
+const SvgDirectLight = () => (
+  <svg viewBox="0 0 64 64" className="quiz-card-svg" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="32" cy="32" r="12" fill="var(--verde-salvia)" opacity="0.2" strokeWidth="2" />
+    <path d="M32 8 V14 M32 50 V56 M8 32 H14 M50 32 H56" strokeWidth="2.5" strokeLinecap="round" />
+    <path d="M15 15 L19.2 19.2 M44.8 44.8 L49 49 M15 49 L19.2 44.8 M44.8 19.2 L49 15" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+);
+
+const SvgBeginner = () => (
+  <svg viewBox="0 0 64 64" className="quiz-card-svg" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M32 54 V26" strokeWidth="2.5" strokeLinecap="round" />
+    <path d="M32 34 C32 34 22 28 18 18 C28 18 32 26 32 34Z" fill="var(--verde-salvia)" opacity="0.3" strokeWidth="1.5" />
+    <path d="M32 40 C32 40 42 34 46 24 C36 24 32 32 32 40Z" fill="var(--verde-salvia)" opacity="0.3" strokeWidth="1.5" />
+    <circle cx="32" cy="54" r="4" fill="currentColor" />
+  </svg>
+);
+
+const SvgEnthusiast = () => (
+  <svg viewBox="0 0 64 64" className="quiz-card-svg" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M32 12 C32 12 16 32 16 42 A16 16 0 0 0 48 42 C48 32 32 12 32 12Z" fill="var(--verde-salvia)" opacity="0.2" strokeWidth="2" />
+    <path d="M26 42 Q32 46 38 42" strokeWidth="2" strokeLinecap="round" />
+    <circle cx="32" cy="28" r="3" fill="currentColor" opacity="0.5" />
+  </svg>
+);
+
+const SvgFlowers = () => (
+  <svg viewBox="0 0 64 64" className="quiz-card-svg" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="32" cy="32" r="8" fill="var(--verde-salvia)" opacity="0.25" strokeWidth="2" />
+    <circle cx="32" cy="18" r="6" strokeWidth="1.5" />
+    <circle cx="32" cy="46" r="6" strokeWidth="1.5" />
+    <circle cx="18" cy="32" r="6" strokeWidth="1.5" />
+    <circle cx="46" cy="32" r="6" strokeWidth="1.5" />
+    <path d="M32 46 V56" strokeWidth="2" />
+  </svg>
+);
+
+const SvgPetsYes = () => (
+  <svg viewBox="0 0 64 64" className="quiz-card-svg" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M32 40 C32 35 24 35 24 42 C24 48 32 50 32 50 C32 50 40 48 40 42 C40 35 32 35 32 40Z" fill="var(--verde-salvia)" opacity="0.2" strokeWidth="2" />
+    <circle cx="20" cy="28" r="4" strokeWidth="1.5" />
+    <circle cx="28" cy="22" r="4" strokeWidth="1.5" />
+    <circle cx="36" cy="22" r="4" strokeWidth="1.5" />
+    <circle cx="44" cy="28" r="4" strokeWidth="1.5" />
+    <path d="M48 44 C46 42 42 42 42 46 C42 50 48 54 48 54 C48 54 54 50 54 46 C54 42 50 42 48 44Z" stroke="var(--naranja-floral)" fill="var(--naranja-floral)" opacity="0.3" />
+  </svg>
+);
+
+const SvgPetsNo = () => (
+  <svg viewBox="0 0 64 64" className="quiz-card-svg" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M14 18 L32 8 L50 18 L50 42 C50 50 32 56 32 56 C32 56 14 50 14 42 Z" fill="var(--verde-salvia)" opacity="0.2" strokeWidth="2" />
+    <path d="M24 32 L30 38 L42 26" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const QUIZ_STEPS_METADATA = [
+  { step: 1, label: 'Ubicación', field: 'placement', icon: <SvgHome size={16} /> },
+  { step: 2, label: 'Luz', field: 'light', icon: <SvgSun size={16} /> },
+  { step: 3, label: 'Cuidado', field: 'care', icon: <SvgDroplets size={16} /> },
+  { step: 4, label: 'Mascotas', field: 'pets', icon: <SvgPaw size={16} /> }
+];
+
+const BASE = import.meta.env.BASE_URL;
+// Si queres cambiar imagenes, edita solo el campo image de cada objeto en COMBO_INSPIRATIONS.
 
 const COMBO_CUSTOM_MESSAGE =
   'Hola De Raíz, quiero armar un combo personalizado con planta y maceta. ¿Me pueden ayudar?';
@@ -108,7 +210,7 @@ const COMBO_INSPIRATIONS = [
   {
     id: 'toque-natural',
     title: 'Combo Toque Natural',
-    description: 'Un toque de naturaleza que transforma tu espacio.',
+    description: 'Una combinación clásica de planta vistosa con una maceta de diseño para renovar cualquier rincón.',
     includes: 'Planta + maceta',
     image: `${BASE}images/Combos/662883861_18084336809621436_14415400890110370_n.webp`,
     alt: 'Combo Toque Natural con planta ornamental y maceta blanca texturada.',
@@ -118,7 +220,7 @@ const COMBO_INSPIRATIONS = [
   {
     id: 'selva-mini',
     title: 'Combo Selva Mini',
-    description: 'Sumá verde y frescura a tus espacios.',
+    description: 'Ideal para armar tu rinconcito selvático en repisas, escritorios o mesas de luz.',
     includes: 'Monstera adansonii + maceta a elección',
     image: `${BASE}images/Combos/681808372_18084336797621436_6574950320876914164_n.webp`,
     alt: 'Combo Selva Mini con Monstera adansonii y maceta de interior.',
@@ -128,7 +230,7 @@ const COMBO_INSPIRATIONS = [
   {
     id: 'rincon-calido',
     title: 'Combo Rincón Cálido',
-    description: 'Sumá calidez y vida a tus espacios.',
+    description: 'Para crear un rincón acogedor en tu living usando texturas rústicas y hojas únicas.',
     includes: 'Planta + maceta',
     image: `${BASE}images/Combos/682819319_18084336818621436_4685393247746492369_n.webp`,
     alt: 'Combo Rincón Cálido con planta variegada en maceta tejida.',
@@ -138,7 +240,7 @@ const COMBO_INSPIRATIONS = [
   {
     id: 'selva-natural',
     title: 'Combo Selva Natural',
-    description: 'Verde que transforma, vida que inspira.',
+    description: 'Hojas de gran formato y una maceta de cerámica hecha a mano para darle presencia a tu espacio.',
     includes: 'Planta + maceta',
     image: `${BASE}images/Combos/682935109_18084336827621436_33320198583019895_n.webp`,
     alt: 'Combo Selva Natural con planta Monstera en maceta de cerámica clara.',
@@ -147,44 +249,41 @@ const COMBO_INSPIRATIONS = [
   },
 ];
 
-const ADVICE_STEPS = [
-  { title: 'Tu espacio', detail: 'Nos contas dónde va la planta.' },
-  { title: 'Nuestras sugerencias', detail: 'Te proponemos 3 opciones claras.' },
-  { title: 'Tu elección', detail: 'Confirmás por WhatsApp si querés.' },
-];
 
-const ADVICE_FEATURED_IMAGE = `${BASE}images/Plantas/Boca de sapo.png`;
 
 const CATEGORIES = [
   { 
+    id: 'plantas',
     icon: <IconInterior />, 
     title: 'Plantas', 
     shortDesc: 'Interior, exterior y suculentas.', 
     link: '/catalogo', 
     color: '#2F4A2E',
-    bgImage: `${BASE}images/categorias/bg_plantas.png`,
+    bgImage: `${BASE}images/categorias/bg_plantas.webp`,
     adviceTitle: 'Tip Botánico',
     advice: 'Cada planta tiene su lugar. Las de interior suelen preferir luz indirecta brillante, mientras que las de exterior y huerta necesitan mucho sol directo. Es clave elegir la planta según la luz real de tu espacio, no al revés.'
   },
   { 
-    icon: <IconMaceta />, 
-    title: 'Macetas', 
-    shortDesc: 'Barro, plástico y decorativas.', 
-    link: '/catalogo?cat=Macetas', 
-    color: '#A65F3A',
-    bgImage: `${BASE}images/categorias/bg_macetas.png`,
-    adviceTitle: 'El Secreto del Drenaje',
-    advice: 'El drenaje es vital para que las raíces no se pudran. Usá macetas con agujeros siempre que puedas. Si elegís una maceta decorativa sin drenaje, te recomendamos usarla como portamaceta.'
-  },
-  { 
+    id: 'insumos',
     icon: <IconJardineria />, 
     title: 'Insumos', 
     shortDesc: 'Sustratos y fertilizantes.', 
     link: '/catalogo?cat=Sustratos%20y%20Tierra', 
     color: '#6F7F5F',
-    bgImage: `${BASE}images/categorias/bg_insumos.png`,
+    bgImage: `${BASE}images/categorias/bg_insumos.webp`,
     adviceTitle: 'Nutrición y Tierra',
     advice: 'La tierra común se compacta. Un buen sustrato debe ser suelto para que las raíces respiren y absorban nutrientes. Recordá fertilizar solo en su época de crecimiento (primavera y verano).'
+  },
+  { 
+    id: 'macetas',
+    icon: <IconMaceta />, 
+    title: 'Macetas', 
+    shortDesc: 'Barro, plástico y decorativas.', 
+    link: '/catalogo?cat=Macetas', 
+    color: '#A65F3A',
+    bgImage: `${BASE}images/categorias/bg_macetas.webp`,
+    adviceTitle: 'El Secreto del Drenaje',
+    advice: 'El drenaje es vital para que las raíces no se pudran. Usá macetas con agujeros siempre que puedas. Si elegís una maceta decorativa sin drenaje, te recomendamos usarla como portamaceta.'
   },
 ];
 
@@ -198,15 +297,11 @@ const isPetSafe = (name) => {
   return PET_SAFE_PLANTS.some(term => normalized.includes(term));
 };
 
-const getDifficultyText = (diff) => {
-  if (diff === 'Baja') return 'Muy fácil';
-  if (diff === 'Media') return 'Cuidado moderado';
-  return 'Para expertos';
-};
 
-const getRecommendations = (answers) => {
+
+const getRecommendations = (answers, products) => {
   const { placement, light, care, pets } = answers;
-  const plants = MOCK_PRODUCTS.filter(p => p.section === 'plantas');
+  const plants = products.filter(p => p.section === 'plantas' && p.active !== false);
   
   const scored = plants.map(plant => {
     let score = 0;
@@ -283,30 +378,30 @@ const getRecommendations = (answers) => {
 };
 
 const getExplanation = (plant, answers) => {
-  const { placement, light, care, pets } = answers;
+  const { light, care, pets } = answers;
   const plantDiff = plant.attributes.find(a => a.type === 'dificultad')?.value || 'Media';
   const isSafe = isPetSafe(plant.name);
   
-  let text = `Elegimos el **${plant.name}** porque es ideal para tu espacio de **${plant.category}**`;
+  let text = `Creemos que el **${plant.name}** te va a encantar para tu espacio de **${plant.category}**`;
   
   if (light === 'poca') {
-    text += ` con poca luz natural, ya que tolera rincones de sombra excelente.`;
+    text += ` con poca luz natural, ya que se banca bárbaro los rincones con sombra o luz tenue.`;
   } else if (light === 'indirecta') {
-    text += ` con mucha luz indirecta, donde sus hojas crecerán hermosas sin quemarse por el sol.`;
+    text += ` con buena luz filtrada: ahí va a crecer divina sin que el sol directo le queme las hojas.`;
   } else {
-    text += ` con sol directo, aprovechando los rayos de sol para su pleno crecimiento y vigor.`;
+    text += ` con sol directo de lleno, aprovechando la luz para crecer bien fuerte y tupida.`;
   }
   
   if (care === 'principiante') {
-    text += ` Al ser de dificultad **Baja**, es súper resistente y perdona olvidos de riego, ideal para arrancar sin presiones.`;
+    text += ` Como es de cuidado **Baja**, es súper noble. Se perdona si te olvidás de regarla de vez en cuando, ideal para empezar sin presiones.`;
   } else if (care === 'entusiasta') {
-    text += ` Su nivel de cuidado es **${plantDiff}**, perfecto para vos que disfrutás observarlas y regar con regularidad.`;
+    text += ` Su nivel de cuidado es **${plantDiff}**, ideal si querés dedicarle unos minutos a ver cómo avanza y regarla a su tiempo.`;
   } else if (care === 'flores') {
-    text += ` Al ser una variedad muy vistosa, aportará hermosas flores o colores vibrantes para alegrar tu rincón.`;
+    text += ` Al ser una variedad muy vistosa, te va a alegrar el espacio con sus flores o sus hojas de colores llamativos.`;
   }
   
   if (pets === 'si' && isSafe) {
-    text += ` ¡Y lo mejor es que es 100% Pet-Friendly 🐾, totalmente segura para tus compañeros peludos!`;
+    text += ` ¡Y un golazo: es Pet-Friendly 🐾, así que no hay drama si tenés perros o gatos curiosos!`;
   }
   
   return text;
@@ -335,8 +430,9 @@ const renderExplanationText = (text) => {
   });
 };
 
-const getRemainingCount = (step, answers) => {
-  let list = MOCK_PRODUCTS.filter(p => p.section === 'plantas');
+const getRemainingCount = (step, answers, products) => {
+  if (!products) return 0;
+  let list = products.filter(p => p.section === 'plantas' && p.active !== false);
   
   if (step > 1 && answers.placement) {
     const catMap = { interior: 'Interior', exterior: 'Exterior', huerta: 'Huerta' };
@@ -380,22 +476,39 @@ const getRemainingCount = (step, answers) => {
 };
 
 const Home = () => {
+  const { products } = useCatalog();
+  
+  // Obtener ejemplares de productos por categoría
+  const getCategoryExemplars = (catId) => {
+    if (!products || products.length === 0) return [];
+    if (catId === 'plantas') {
+      const popularPlants = ["Monstera", "Areca", "Potus", "Sansevieria", "Ficus elástica"];
+      let list = products.filter(p => p.section === 'plantas' && p.active !== false && popularPlants.some(name => p.name.toLowerCase().includes(name.toLowerCase())));
+      if (list.length < 3) {
+        list = products.filter(p => p.section === 'plantas' && p.active !== false);
+      }
+      return list.slice(0, 3);
+    } else if (catId === 'macetas') {
+      return products.filter(p => (p.category === 'Macetas' || p.categoria === 'Macetas') && p.active !== false).slice(0, 3);
+    } else if (catId === 'insumos') {
+      return products.filter(p => p.section === 'insumos' && p.category !== 'Macetas' && p.categoria !== 'Macetas' && p.active !== false).slice(0, 3);
+    }
+    return [];
+  };
+
   const heroRef = useRef(null);
   const quickActionsRef = useRef(null);
   const combosGridRef = useRef(null);
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [activeAccordion, setActiveAccordion] = useState(null);
+  const colLeftRef = useRef(null);
+  const colRightRef = useRef(null);
+  const testimonialsSectionRef = useRef(null);
   const [activeComboIndex, setActiveComboIndex] = useState(null);
-  const [expandedCategory, setExpandedCategory] = useState(null);
 
   // Sistema de recomendaciones de catálogo aleatorio
   const { addToCart } = useCart();
-  const [recommendedProducts, setRecommendedProducts] = useState([]);
-  const [currentRecIndex, setCurrentRecIndex] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   // Estados para el recomendador interactivo
-  const [quizActive, setQuizActive] = useState(true);
   const [quizStep, setQuizStep] = useState(1);
   const [quizAnswers, setQuizAnswers] = useState({
     placement: '',
@@ -404,35 +517,80 @@ const Home = () => {
     pets: ''
   });
   const [quizResults, setQuizResults] = useState([]);
+  const [animationClass, setAnimationClass] = useState('');
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleSelectOption = (stepName, value) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+
     const updatedAnswers = { ...quizAnswers, [stepName]: value };
     setQuizAnswers(updatedAnswers);
     
-    if (quizStep < 4) {
-      setQuizStep(prev => prev + 1);
-    } else {
-      const results = getRecommendations(updatedAnswers);
-      setQuizResults(results);
-      setQuizStep(5); // Paso de resultados
-    }
+    // Deslizar hacia la izquierda (siguiente)
+    setAnimationClass('quiz-fade-out-left');
+    
+    setTimeout(() => {
+      if (quizStep < 4) {
+        setQuizStep(prev => prev + 1);
+        setAnimationClass('quiz-fade-in-right');
+      } else {
+        const results = getRecommendations(updatedAnswers, products);
+        setQuizResults(results);
+        setQuizStep(5); // Paso de resultados
+        setAnimationClass('quiz-fade-in-right');
+      }
+      
+      setTimeout(() => {
+        setAnimationClass('');
+        setIsTransitioning(false);
+      }, 50);
+    }, 350);
   };
 
-  useEffect(() => {
-    const plants = MOCK_PRODUCTS.filter((p) => p.section === 'plantas');
-    if (plants.length > 0) {
-      const shuffled = [...plants].sort(() => 0.5 - Math.random());
-      setRecommendedProducts(shuffled.slice(0, 3));
-    }
-  }, []);
-
-  const nextRec = () => {
-    setCurrentRecIndex((prev) => (prev + 1) % recommendedProducts.length);
+  const handleGoBack = (targetStep = quizStep - 1) => {
+    if (isTransitioning || targetStep < 1 || targetStep >= quizStep) return;
+    setIsTransitioning(true);
+    
+    // Deslizar hacia la derecha (retroceder)
+    setAnimationClass('quiz-fade-out-right');
+    
+    setTimeout(() => {
+      setQuizStep(targetStep);
+      setAnimationClass('quiz-fade-in-left');
+      
+      setTimeout(() => {
+        setAnimationClass('');
+        setIsTransitioning(false);
+      }, 50);
+    }, 350);
   };
 
-  const prevRec = () => {
-    setCurrentRecIndex((prev) => (prev - 1 + recommendedProducts.length) % recommendedProducts.length);
+  const handleRestartQuiz = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    
+    setAnimationClass('quiz-fade-out-right');
+    
+    setTimeout(() => {
+      setQuizStep(1);
+      setQuizAnswers({
+        placement: '',
+        light: '',
+        care: '',
+        pets: ''
+      });
+      setQuizResults([]);
+      setAnimationClass('quiz-fade-in-left');
+      
+      setTimeout(() => {
+        setAnimationClass('');
+        setIsTransitioning(false);
+      }, 50);
+    }, 350);
   };
+
+
 
   // Helper para mover los carruseles móviles suavemente con snapping al pulsar las flechas
   const scrollCarousel = (ref, direction) => {
@@ -477,203 +635,93 @@ const Home = () => {
       elementsToReveal.forEach((el) => revealObserver.unobserve(el));
       revealObserver.disconnect();
     };
+  }, [products]);
+
+  // --- ANIMACIONES GSAP SCROLLTRIGGER PARA CATEGORIAS INTERCALADAS ---
+  useEffect(() => {
+    if (!products || products.length === 0) return;
+
+    const ctx = gsap.context(() => {
+      const rows = gsap.utils.toArray('.category-row');
+      rows.forEach((row) => {
+        const cardCol = row.querySelector('.category-card-col');
+        const productCards = row.querySelectorAll('.exemplar-card-wrapper');
+
+        // Configurar valores iniciales inmediatos y limpios (sin desplazamientos laterales costosos)
+        gsap.set(cardCol, { opacity: 0, y: 30 });
+        gsap.set(productCards, { opacity: 0, y: 20 });
+
+        // Animación de la columna de la tarjeta
+        gsap.to(cardCol, {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: cardCol,
+            start: "top 90%",
+            toggleActions: "play none none reverse",
+          }
+        });
+
+        // Animación de los productos ejemplares de la categoría con un ligero retraso (stagger)
+        gsap.to(productCards, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.08,
+          duration: 0.7,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: row.querySelector('.category-exemplars-col') || row,
+            start: "top 90%",
+            toggleActions: "play none none reverse",
+          }
+        });
+      });
+    });
+
+    return () => ctx.revert(); // Recolección de basura impecable usando gsap.context
+  }, [products]);
+
+  // --- EFECTO DE APILAMIENTO DE TARJETAS DE COMBOS (STACKING CARDS) CON GSAP SCROLLTRIGGER ---
+  useEffect(() => {
+    if (!combosGridRef.current) return;
+    const cards = combosGridRef.current.querySelectorAll('.combo-stack-card');
+    if (cards.length === 0) return;
+
+    const ctx = gsap.context(() => {
+      cards.forEach((card, index) => {
+        if (index === cards.length - 1) return; // La última tarjeta se queda fija arriba
+
+        const nextCard = cards[index + 1];
+        const stickyTop = () => window.innerWidth < 768 ? 90 : 120;
+        const totalDistance = () => card.offsetHeight + 50;
+
+        gsap.to(card, {
+          scale: 0.95,
+          y: -25,
+          opacity: 0.75, // Ajustado a 0.75 y sin filter para evitar el bug del fondo negro en Chrome
+          ease: 'none',
+          scrollTrigger: {
+            trigger: nextCard,
+            start: () => `top ${stickyTop() + totalDistance()}px`,
+            end: () => `top ${stickyTop()}px`,
+            scrub: true,
+            invalidateOnRefresh: true,
+          }
+        });
+      });
+    }, combosGridRef);
+
+    return () => {
+      ctx.revert();
+    };
   }, []);
 
-  // --- MIGRACIÓN A GSAP (ANIMACIÓN PREMIUM BOTÁNICA V4) ---
+  // --- MIGRACIÓN A GSAP (ENTRADA DEL HERO - OPTIMIZADA SIN HOJAS COMPLEMENTARIAS) ---
   useEffect(() => {
-    // 1. Inercia física y Lerp para animación de viento continua a 60fps
-    let targetWind = 0;
-    let currentWind = 0;
-    let lastScrollY = window.scrollY || window.pageYOffset;
-    let lastTime = performance.now();
-
-    // Clasificación de hojas por profundidad para el efecto de paralaje 3D
-    const leftForeground = [".leaf-l1", ".leaf-l9"];
-    const leftMidground = [".leaf-l2", ".leaf-l5", ".leaf-l6", ".leaf-l8", ".leaf-l10"];
-    const leftBackground = [".leaf-l3", ".leaf-l4", ".leaf-l7"];
-
-    const rightForeground = [".leaf-r6", ".leaf-r8"];
-    const rightMidground = [".leaf-r1", ".leaf-r4", ".leaf-r7", ".leaf-r9"];
-    const rightBackground = [".leaf-r2", ".leaf-r3", ".leaf-r5", ".leaf-r10"];
-
-    // Actualización de física y paralaje a 60fps
-    const updateWindPhysics = () => {
-      const currentScrollY = window.scrollY || window.pageYOffset;
-      
-      // Detener actualizaciones pesadas si el usuario ya bajó del todo del Hero
-      if (currentScrollY > 1100) return;
-
-      // Lerp amortiguado de la velocidad real del viento persiguiendo al objetivo
-      // 0.05 da una transición extremadamente suave y planeadora (inercia majestuosa)
-      currentWind += (targetWind - currentWind) * 0.05;
-
-      // Desaceleración y fricción continua del viento objetivo (decae con suavidad premium de ~1.2s)
-      targetWind *= 0.95;
-      if (targetWind < 0.001) targetWind = 0;
-
-      // Si el viento se calma por completo, volvemos exactamente a cero y cortamos
-      if (Math.abs(currentWind) < 0.001) {
-        currentWind = 0;
-      }
-
-      // Parallax offsets: al scrollear hacia abajo (scrollY aumenta), las hojas se mueven hacia arriba (y negativo)
-      // Primer plano se mueve rápido, plano medio velocidad media, fondo de manera lenta
-      const yFore = -0.45 * currentScrollY;
-      const yMid = -0.26 * currentScrollY;
-      const yBack = -0.12 * currentScrollY;
-
-      // Aplicar transformaciones combinadas de viento + paralaje al wrapper intermedio de viento
-      // Hojas del borde izquierdo
-      gsap.set(leftForeground.map(sel => `${sel} .botanical-leaf-wind-wrapper`), {
-        x: -30 * currentWind,
-        y: -8 * currentWind + yFore,
-        skewX: -8 * currentWind,
-        rotation: -14 * currentWind,
-      });
-      gsap.set(leftMidground.map(sel => `${sel} .botanical-leaf-wind-wrapper`), {
-        x: -30 * currentWind,
-        y: -8 * currentWind + yMid,
-        skewX: -8 * currentWind,
-        rotation: -14 * currentWind,
-      });
-      gsap.set(leftBackground.map(sel => `${sel} .botanical-leaf-wind-wrapper`), {
-        x: -30 * currentWind,
-        y: -8 * currentWind + yBack,
-        skewX: -8 * currentWind,
-        rotation: -14 * currentWind,
-      });
-
-      // Hojas del borde derecho
-      gsap.set(rightForeground.map(sel => `${sel} .botanical-leaf-wind-wrapper`), {
-        x: 30 * currentWind,
-        y: -8 * currentWind + yFore,
-        skewX: 8 * currentWind,
-        rotation: 14 * currentWind,
-      });
-      gsap.set(rightMidground.map(sel => `${sel} .botanical-leaf-wind-wrapper`), {
-        x: 30 * currentWind,
-        y: -8 * currentWind + yMid,
-        skewX: 8 * currentWind,
-        rotation: 14 * currentWind,
-      });
-      gsap.set(rightBackground.map(sel => `${sel} .botanical-leaf-wind-wrapper`), {
-        x: 30 * currentWind,
-        y: -8 * currentWind + yBack,
-        skewX: 8 * currentWind,
-        rotation: 14 * currentWind,
-      });
-    };
-
-    const handleScrollWind = () => {
-      const currentScrollY = window.scrollY || window.pageYOffset;
-      const currentTime = performance.now();
-      const timeDiff = currentTime - lastTime;
-
-      // Detener cálculos si el usuario scrolla muy abajo del Hero (ahorro de CPU)
-      if (currentScrollY > 1100) {
-        lastScrollY = currentScrollY;
-        lastTime = currentTime;
-        return;
-      }
-
-      // Si ha pasado más de 120ms (pasa al pausar el scroll), reiniciamos baseline
-      // para evitar saltos de delta gigantescos tras una pausa
-      if (timeDiff > 120) {
-        lastScrollY = currentScrollY;
-        lastTime = currentTime;
-        return;
-      }
-
-      if (timeDiff > 0) {
-        const scrollDelta = Math.abs(currentScrollY - lastScrollY);
-        const speed = scrollDelta / timeDiff; // velocidad real en px/ms
-        
-        // Sumamos a la ráfaga de viento objetivo (físicamente acumulable al scrollear de corrido)
-        targetWind += speed * 1.8;
-        
-        // Tope máximo para evitar deformaciones físicas absurdas en scrolls muy rápidos
-        if (targetWind > 2.5) targetWind = 2.5;
-      }
-
-      lastScrollY = currentScrollY;
-      lastTime = currentTime;
-    };
-
-    // Usar IntersectionObserver para activar el ticker y scroll listener solo cuando el Hero es visible
-    let isSubscribed = false;
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          if (!isSubscribed) {
-            window.addEventListener("scroll", handleScrollWind, { passive: true });
-            gsap.ticker.add(updateWindPhysics);
-            isSubscribed = true;
-          }
-        } else {
-          if (isSubscribed) {
-            window.removeEventListener("scroll", handleScrollWind);
-            gsap.ticker.remove(updateWindPhysics);
-            isSubscribed = false;
-          }
-        }
-      });
-    }, { threshold: 0 });
-
-    if (heroRef.current) {
-      observer.observe(heroRef.current);
-    }
-
-    // GSAP Context para los loops de balanceo y entradas
+    // GSAP Context para loops de balanceo y entradas
     const ctx = gsap.context(() => {
-      // 1. Animaciones base flotantes e independientes (Swaying Loops) para cada una de las 20 hojas
-      const leavesConfig = [
-        { sel: ".leaf-l1", y: 12, x: -8, rot: 10, durY: 9.2, durX: 11.4, durR: 8.3 },
-        { sel: ".leaf-l2", y: 14, x: -6, rot: -8, durY: 10.5, durX: 12.1, durR: 9.0 },
-        { sel: ".leaf-l3", y: 10, x: -9, rot: 12, durY: 13.0, durX: 14.2, durR: 11.5 },
-        { sel: ".leaf-l4", y: 15, x: 7, rot: -10, durY: 11.8, durX: 13.5, durR: 10.2 },
-        { sel: ".leaf-l5", y: 11, x: -5, rot: 8, durY: 12.4, durX: 15.0, durR: 9.8 },
-        { sel: ".leaf-l6", y: 13, x: 8, rot: -12, durY: 10.9, durX: 12.8, durR: 11.1 },
-        { sel: ".leaf-l7", y: 9, x: -6, rot: 7, durY: 14.1, durX: 11.9, durR: 12.5 },
-        { sel: ".leaf-l8", y: 16, x: 10, rot: -14, durY: 9.8, durX: 13.2, durR: 8.7 },
-        { sel: ".leaf-l9", y: 18, x: -11, rot: 15, durY: 8.5, durX: 10.6, durR: 7.9 },
-        { sel: ".leaf-l10", y: 12, x: 6, rot: -9, durY: 11.2, durX: 14.0, durR: 10.6 },
-        
-        { sel: ".leaf-r1", y: 15, x: 6, rot: -12, durY: 10.1, durX: 12.8, durR: 9.4 },
-        { sel: ".leaf-r2", y: 11, x: -5, rot: 7, durY: 13.5, durX: 11.2, durR: 10.5 },
-        { sel: ".leaf-r3", y: 9, x: 5, rot: -6, durY: 14.3, durX: 12.1, durR: 10.5 },
-        { sel: ".leaf-r4", y: 13, x: -7, rot: 11, durY: 11.5, durX: 14.5, durR: 9.9 },
-        { sel: ".leaf-r5", y: 10, x: 6, rot: -8, durY: 12.8, durX: 13.9, durR: 11.3 },
-        { sel: ".leaf-r6", y: 14, x: -8, rot: 10, durY: 10.3, durX: 12.4, durR: 9.1 },
-        { sel: ".leaf-r7", y: 12, x: 7, rot: -9, durY: 12.0, durX: 13.6, durR: 10.8 },
-        { sel: ".leaf-r8", y: 16, x: -10, rot: 13, durY: 9.5, durX: 11.8, durR: 7.6 },
-        { sel: ".leaf-r9", y: 13, x: 8, rot: -10, durY: 11.1, durX: 13.0, durR: 9.6 },
-        { sel: ".leaf-r10", y: 10, x: -5, rot: 6, durY: 13.8, durX: 15.2, durR: 11.9 }
-      ];
-
-      leavesConfig.forEach(cfg => {
-        gsap.to(`${cfg.sel} .botanical-leaf-sway-wrapper`, {
-          y: `+=${cfg.y}`,
-          duration: cfg.durY,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut"
-        });
-        gsap.to(`${cfg.sel} .botanical-leaf-sway-wrapper`, {
-          x: cfg.x > 0 ? `+=${cfg.x}` : `-=${Math.abs(cfg.x)}`,
-          duration: cfg.durX,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut"
-        });
-        gsap.to(`${cfg.sel} .botanical-leaf-sway-wrapper`, {
-          rotation: cfg.rot > 0 ? `+=${cfg.rot}` : `-=${Math.abs(cfg.rot)}`,
-          duration: cfg.durR,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut"
-        });
-      });
-
       // Rebote vertical orgánico del scroll indicator
       gsap.to(".scroll-leaf-bounce", {
         y: 10,
@@ -683,23 +731,16 @@ const Home = () => {
         ease: "sine.inOut"
       });
 
-      // 2. Secuencia de Entrada Teatral de Elementos en el Hero (Entrance Timeline)
+      // Secuencia de Entrada Teatral de Elementos en el Hero (Entrance Timeline)
       const tl = gsap.timeline();
       
-      tl.from(".hero-eyebrow", {
-        opacity: 0,
-        y: -18,
-        duration: 0.8,
-        ease: "power2.out"
-      });
-
       tl.from(".hero-brand-logo", {
         opacity: 0,
         y: 30,
         scale: 0.95,
         duration: 1.1,
         ease: "power4.out"
-      }, "-=0.6");
+      });
 
       tl.from(".hero-subtitle", {
         opacity: 0,
@@ -717,25 +758,6 @@ const Home = () => {
         stagger: 0.15
       }, "-=0.6");
 
-      // Suave float-in para todas las hojas desde los bordes de la pantalla (10 izquierdas, 10 derechas)
-      tl.from(".leaf-l1, .leaf-l2, .leaf-l3, .leaf-l4, .leaf-l5, .leaf-l6, .leaf-l7, .leaf-l8, .leaf-l9, .leaf-l10", {
-        x: -70,
-        opacity: 0,
-        scale: 0.8,
-        duration: 1.8,
-        ease: "power3.out",
-        stagger: 0.06
-      }, "-=1.3");
-
-      tl.from(".leaf-r1, .leaf-r2, .leaf-r3, .leaf-r4, .leaf-r5, .leaf-r6, .leaf-r7, .leaf-r8, .leaf-r9, .leaf-r10", {
-        x: 70,
-        opacity: 0,
-        scale: 0.8,
-        duration: 1.8,
-        ease: "power3.out",
-        stagger: 0.06
-      }, "-=1.8");
-
       tl.from(".hero-scroll-indicator", {
         opacity: 0,
         y: 15,
@@ -743,92 +765,114 @@ const Home = () => {
         ease: "power2.out"
       }, "-=0.6");
 
-      // 3. Efecto Breeze Hover interactivo (Ráfaga de viento al pasar el cursor)
-      const btns = heroRef.current?.querySelectorAll('.hero-actions .btn');
-      if (btns) {
-        const onEnter = () => {
-          gsap.to([
-            ".leaf-l1 .botanical-leaf-inner", ".leaf-l2 .botanical-leaf-inner", 
-            ".leaf-l3 .botanical-leaf-inner", ".leaf-l4 .botanical-leaf-inner", 
-            ".leaf-l5 .botanical-leaf-inner", ".leaf-l6 .botanical-leaf-inner", 
-            ".leaf-l7 .botanical-leaf-inner", ".leaf-l8 .botanical-leaf-inner", 
-            ".leaf-l9 .botanical-leaf-inner", ".leaf-l10 .botanical-leaf-inner"
-          ], {
-            x: -25,
-            y: -6,
-            rotation: -10,
-            scale: 1.03,
-            duration: 0.8,
-            ease: "power2.out",
-            overwrite: "auto"
-          });
-          gsap.to([
-            ".leaf-r1 .botanical-leaf-inner", ".leaf-r2 .botanical-leaf-inner", 
-            ".leaf-r3 .botanical-leaf-inner", ".leaf-r4 .botanical-leaf-inner", 
-            ".leaf-r5 .botanical-leaf-inner", ".leaf-r6 .botanical-leaf-inner", 
-            ".leaf-r7 .botanical-leaf-inner", ".leaf-r8 .botanical-leaf-inner", 
-            ".leaf-r9 .botanical-leaf-inner", ".leaf-r10 .botanical-leaf-inner"
-          ], {
-            x: 25,
-            y: -6,
-            rotation: 10,
-            scale: 1.03,
-            duration: 0.8,
-            ease: "power2.out",
-            overwrite: "auto"
-          });
-        };
-
-        const onLeave = () => {
-          gsap.to(".botanical-leaf-inner", {
-            x: 0,
-            y: 0,
-            rotation: 0,
-            scale: 1,
-            duration: 1.4,
-            ease: "power2.out",
-            overwrite: "auto"
-          });
-        };
-
-        btns.forEach(btn => {
-          btn.addEventListener('mouseenter', onEnter);
-          btn.addEventListener('mouseleave', onLeave);
-        });
-      }
-
     }, heroRef);
 
     return () => {
       ctx.revert(); // Recolección de basura impecable al desmontar
-      observer.disconnect();
-      if (isSubscribed) {
-        window.removeEventListener("scroll", handleScrollWind);
-        gsap.ticker.remove(updateWindPhysics);
-      }
     };
   }, []);
 
   const testimonials = [
-    { name: 'Mariana R.', loc: 'Las Piedras', text: 'Me recomendaron una planta para poca luz y quedó perfecta. Muy buena atención.' },
-    { name: 'Andrés P.', loc: 'Canelones', text: 'Fui por un regalo y me armaron una opción linda y rápida. Recomiendo.' },
+    {
+      name: 'Clara M.',
+      loc: 'Montevideo',
+      text: 'Mi balcón cobró vida con las aromáticas y suculentas de De Raíz. La asesoría personalizada fue clave.',
+      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80'
+    },
+    {
+      name: 'Mateo S.',
+      loc: 'Las Piedras',
+      text: 'Compré varios árboles nativos para el jardín y prendieron todos excelente. Calidad de cultivo insuperable.',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80'
+    },
+    {
+      name: 'Sofía y Juan',
+      loc: 'Canelones',
+      text: 'Para nuestro casamiento nos armaron unos centros de mesa rústicos hermosos. Captaron la esencia al instante.',
+      avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&auto=format&fit=crop&q=80'
+    },
+    {
+      name: 'Valeria D.',
+      loc: 'Las Piedras',
+      text: 'El taller de huerta orgánica me cambió la forma de ver mis plantas. ¡Súper pacientes y dedicados!',
+      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&auto=format&fit=crop&q=80'
+    },
+    {
+      name: 'Alejandro G.',
+      loc: 'La Paz',
+      text: 'El sustrato preparado que venden es mágico, mis plantas de interior revivieron en dos semanas.',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80'
+    },
+    {
+      name: 'Beatriz P.',
+      loc: 'Progreso',
+      text: 'Tienen la mayor variedad de plantines florales de la zona. Siempre que voy encuentro algo especial.',
+      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80'
+    }
   ];
 
   useEffect(() => {
-    const timer = window.setInterval(() => {
-      setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 5500);
+    let mm = gsap.matchMedia();
 
-    return () => window.clearInterval(timer);
-  }, [testimonials.length]);
+    // 1. Animación Parallax de Columnas en pantallas de escritorio
+    mm.add("(min-width: 768px)", () => {
+      if (colLeftRef.current && colRightRef.current) {
+        gsap.fromTo(colLeftRef.current, 
+          { y: '120px' },
+          { 
+            y: '-120px',
+            scrollTrigger: {
+              trigger: testimonialsSectionRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.2,
+            }
+          }
+        );
 
-  const goToPrevTestimonial = () => {
-    setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
+        gsap.fromTo(colRightRef.current, 
+          { y: '-120px' },
+          { 
+            y: '120px',
+            scrollTrigger: {
+              trigger: testimonialsSectionRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.2,
+            }
+          }
+        );
+      }
+    });
 
-  const goToNextTestimonial = () => {
-    setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
-  };
+    // 2. Revelación suave (reveal) de cada tarjeta (todas las resoluciones)
+    mm.add("all", () => {
+      const wrappers = gsap.utils.toArray('.reveal-testimonial');
+      wrappers.forEach((wrapper) => {
+        gsap.fromTo(wrapper, 
+          { 
+            opacity: 0,
+            y: 50,
+            scale: 0.95
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: wrapper,
+              start: "top 92%",
+              toggleActions: "play none none reverse",
+            }
+          }
+        );
+      });
+    });
+
+    return () => mm.revert();
+  }, []);
 
   const openComboLightbox = (index) => {
     setActiveComboIndex(index);
@@ -876,7 +920,7 @@ const Home = () => {
           name: 'De Raíz Floricultura',
           description: 'Vivero especializado en plantas de interior y exterior, macetas e insumos con asesoramiento botánico personalizado en Las Piedras, Canelones.',
           image: [
-            'https://alkirian.github.io/De-ra-z-floricultura/images/logo-hero-white.png',
+            'https://alkirian.github.io/De-ra-z-floricultura/images/logo-hero-white.webp',
             'https://alkirian.github.io/De-ra-z-floricultura/images/Instagram/641159597_18569292976036794_7285793248818445959_n.jpg',
           ],
           url: 'https://alkirian.github.io/De-ra-z-floricultura',
@@ -921,169 +965,20 @@ const Home = () => {
           HERO SPLIT ORGÁNICO
       ══════════════════════════ */}
       <section className="hero split-hero hero-sage-botanicals" ref={heroRef}>
-        {/* Canvas de Botánica Flotante (3D Parallax & Swaying) */}
-        <div className="hero-botanical-canvas" aria-hidden="true">
-          {/* Borde Izquierdo (10 Hojas) */}
-          {/* Borde Izquierdo (10 Hojas) */}
-          <div className="botanical-leaf leaf-l1 leaf-depth-foreground">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 4.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-l2 leaf-depth-midground">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 14.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-l3 leaf-depth-background">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 15.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-l4 leaf-depth-background">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 7.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-l5 leaf-depth-midground">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 9.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-l6 leaf-depth-midground">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 16.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-l7 leaf-depth-background">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 22.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-l8 leaf-depth-midground">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 10.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-l9 leaf-depth-foreground">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 18.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-l10 leaf-depth-midground">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 24.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-
-          {/* Borde Derecho (10 Hojas) */}
-          <div className="botanical-leaf leaf-r1 leaf-depth-midground">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 5.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-r2 leaf-depth-background">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 17.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-r3 leaf-depth-background">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 6.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-r4 leaf-depth-midground">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 8.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-r5 leaf-depth-background">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 19.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-r6 leaf-depth-foreground">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 20.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-r7 leaf-depth-midground">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 23.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-r8 leaf-depth-foreground">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 11.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-r9 leaf-depth-midground">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 21.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="botanical-leaf leaf-r10 leaf-depth-background">
-            <div className="botanical-leaf-wind-wrapper">
-              <div className="botanical-leaf-sway-wrapper">
-                <img src={`${BASE}images/SVG Hero/SVG/Recurso 25.svg`} className="botanical-leaf-inner" alt="" />
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Hojas laterales removidas en favor de la raíz unificada */}
 
         {/* Contenido principal centrado */}
         <div className="hero-content-centered">
           <h1 className="sr-only">De Raiz Floricultura - Vivero en Las Piedras, Uruguay</h1>
-          <span className="hero-eyebrow">
-            <MapPin size={14} /> Las Piedras, Uruguay
-          </span>
           <img
-            src={`${BASE}images/logo-hero-white.png`}
+            src={`${BASE}images/logo-hero-white.webp`}
             alt="De Raíz Floricultura"
             className="hero-brand-logo"
             loading="eager"
           />
           <p className="hero-subtitle">
-            Plantas, flores y asesoramiento en Las Piedras.<br/>
-            Te ayudamos a encontrar la planta perfecta para tu espacio.
+            Plantas de cultivo propio y asesoramiento en Las Piedras.<br/>
+            Te damos una mano para elegir la variedad ideal para tu casa.
           </p>
           <div className="hero-actions stagger-3">
             <a href={generateWaLink(WA_MESSAGES.ayudaElegir)} target="_blank" rel="noreferrer" className="btn btn-light">
@@ -1105,7 +1000,7 @@ const Home = () => {
           >
             <path
               d="M0,72 C180,48 340,38 520,52 C742,70 940,102 1142,88 C1258,80 1358,62 1440,46 L1440,120 L0,120 Z"
-              fill="var(--crema)"
+              fill="var(--beige-claro)"
             />
           </svg>
         </div>
@@ -1116,81 +1011,76 @@ const Home = () => {
           <span className="scroll-text">Desliza para explorar</span>
         </div>
       </section>
-
-
-      {/* ══════════════════════════
-          ATAJOS RÁPIDOS
+               {/* ══════════════════════════
+          CATEGORÍAS ILUSTRADAS
       ══════════════════════════ */}
-      <div className="proposal-block" style={{background: 'var(--crema)'}}>
-        <span className="proposal-corner proposal-corner--top-left" aria-hidden="true"></span>
-        <span className="proposal-corner proposal-corner--top-right" aria-hidden="true"></span>
-        <span className="proposal-corner proposal-corner--bottom-left" aria-hidden="true"></span>
-        <span className="proposal-corner proposal-corner--bottom-right" aria-hidden="true"></span>
-        <section className="quick-actions-section section-padding--sm">
-          <div className="container">
-            <div className="text-center mb-12 quick-actions-header reveal-on-scroll reveal-up">
-              <span className="section-label">Comenzá por acá</span>
-              <h2>Explorá el universo De Raíz</h2>
-              <p className="quick-actions-subtitle">
-                Te guiamos en cada paso para que lleves la naturaleza a tu vida, con la calidad y calidez de siempre.
-              </p>
-            </div>
-            <div className="quick-actions-grid" ref={quickActionsRef}>
-              <Link to="/catalogo" className="quick-action-card quick-action-card--catalog reveal-on-scroll reveal-up">
-                <div className="quick-action-icon-wrapper">
-                  <Leaf size={26} />
-                </div>
-                <span className="quick-action-kicker">Catálogo Completo</span>
-                <h3>Plantas & Macetas</h3>
-                <p>Llevá frescura a tu hogar. Gran variedad de interior, exterior, combos exclusivos e insumos premium.</p>
-                <span className="quick-action-link">Explorar catálogo <ArrowRight size={16} /></span>
-              </Link>
-
-              <Link to="/aprende-de-raiz" className="quick-action-card quick-action-card--learn reveal-on-scroll reveal-up" style={{ '--reveal-delay': '0.15s' }}>
-                <div className="quick-action-icon-wrapper">
-                  <BookOpen size={26} />
-                </div>
-                <span className="quick-action-kicker">Guías de Cultivo</span>
-                <h3>Aprendé de Raíz</h3>
-                <p>Convertite en experto. Consejos paso a paso sobre riego, sustratos y plagas adaptadas a Uruguay.</p>
-                <span className="quick-action-link">Ir a la guía botánica <ArrowRight size={16} /></span>
-              </Link>
-
-              <Link to="/contacto" className="quick-action-card quick-action-card--contact reveal-on-scroll reveal-up" style={{ '--reveal-delay': '0.3s' }}>
-                <div className="quick-action-icon-wrapper">
-                  <MapPin size={26} />
-                </div>
-                <span className="quick-action-kicker">Atención Cercana</span>
-                <h3>Visitanos o Escribinos</h3>
-                <p>Encontranos en Las Piedras, Ruta 48. O chateá con nuestro equipo para recibir asesoramiento personalizado.</p>
-                <span className="quick-action-link">Ver contacto y local <ArrowRight size={16} /></span>
-              </Link>
-            </div>
-
-            {/* Controles de navegación responsivos para carrusel en mobile */}
-            <div className="carousel-nav-controls">
-              <button 
-                type="button" 
-                className="carousel-nav-btn" 
-                onClick={() => scrollCarousel(quickActionsRef, 'left')}
-                aria-label="Deslizar carrusel de atajos a la izquierda"
-              >
-                <ChevronLeft size={20} />
-              </button>
-              <button 
-                type="button" 
-                className="carousel-nav-btn" 
-                onClick={() => scrollCarousel(quickActionsRef, 'right')}
-                aria-label="Deslizar carrusel de atajos a la derecha"
-              >
-                <ChevronRight size={20} />
-              </button>
-            </div>
-
+      <section className="categories-section section-padding" style={{background: 'var(--beige-claro)', position: 'relative', overflow: 'hidden'}}>
+        <div className="container" style={{ position: 'relative', zIndex: 10 }}>
+          <div className="text-center mb-12 reveal-on-scroll reveal-up">
+            <span className="section-label">Qué encontrás en De Raíz</span>
+            <h2>Explorá nuestras categorías</h2>
+            <div className="title-underline"></div>
           </div>
-        </section>
-      </div>
-
+          <div className="categories-alternating-list">
+            {CATEGORIES.map((cat, i) => {
+              const exemplars = getCategoryExemplars(cat.id);
+              const isEven = i % 2 === 0;
+              
+              return (
+                <div 
+                  key={cat.id} 
+                  className={`category-row ${isEven ? 'category-row--even' : 'category-row--odd'}`}
+                  style={{ '--cat-color': cat.color }}
+                >
+                  <div className={`category-card-col reveal-on-scroll ${isEven ? 'reveal-left' : 'reveal-right'}`}>
+                    <div className="category-card-outer" style={{ backgroundImage: `url(${cat.bgImage})` }}>
+                      <div className="category-card-overlay"></div>
+                      <div className="category-card-content">
+                        <div className="category-card-icon-wrap" style={{ color: cat.color }}>
+                          {cat.icon}
+                        </div>
+                        <div className="category-card-header">
+                          <span className="category-card-badge" style={{ color: cat.color, backgroundColor: `${cat.color}15` }}>Categoría</span>
+                          <h3 className="category-card-title">{cat.title}</h3>
+                        </div>
+                        <p className="category-card-desc">{cat.shortDesc}</p>
+                        
+                        <div className="category-card-advice" style={{ borderColor: `${cat.color}40` }}>
+                          <span className="advice-title" style={{ color: cat.color, backgroundColor: `${cat.color}15` }}>
+                            <Sparkles size={14} /> {cat.adviceTitle}
+                          </span>
+                          <p className="advice-text">{cat.advice}</p>
+                        </div>
+                        
+                        <Link to={cat.link} className="category-card-btn" style={{ backgroundColor: cat.color }}>
+                          Ver catálogo <ArrowRight size={16} />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className={`category-exemplars-col reveal-on-scroll ${isEven ? 'reveal-right' : 'reveal-left'}`}>
+                    <div className="exemplars-header">
+                      <span className="exemplars-label" style={{ color: cat.color }}>Ejemplares recomendados de {cat.title}</span>
+                      <div className="exemplars-divider" style={{ backgroundColor: `${cat.color}30` }}></div>
+                    </div>
+                    <div className="exemplars-grid">
+                      {exemplars.map((product) => (
+                        <div key={product.id} className="exemplar-card-wrapper">
+                          <ProductCard 
+                            product={product} 
+                            onClick={setSelectedProduct} 
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
       {/* --------------------------
           COMBOS INSPIRACION
       -------------------------- */}
@@ -1204,71 +1094,60 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="combos-grid" ref={combosGridRef}>
-            {COMBO_INSPIRATIONS.map((combo, index) => (
-              <article
-                key={combo.id}
-                className="combo-card reveal-on-scroll reveal-up"
-                style={{ '--reveal-delay': `${(index % 3) * 0.15}s` }}
-                role="button"
-                tabIndex={0}
-                onClick={() => openComboLightbox(index)}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    openComboLightbox(index);
-                  }
-                }}
-                aria-label={`${combo.title}: ver imagen en grande`}
-              >
-                <div className="combo-card-image-wrap">
-                  <img
-                    src={combo.image}
-                    alt={combo.alt}
-                    className="combo-card-image"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div className="combo-card-content">
-                  <h3>{combo.title}</h3>
-                  <p className="combo-card-description">{combo.description}</p>
-                  <p className="combo-card-includes">
-                    <strong>Incluye:</strong> {combo.includes}
-                  </p>
-                  <a
-                    href={createWhatsAppLink(combo.whatsappMessage)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn btn-secondary combo-card-btn"
-                    aria-label={`${combo.title}: Quiero uno parecido por WhatsApp`}
-                    onClick={(event) => event.stopPropagation()}
-                  >
-                    Quiero uno parecido
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
+          <div className="combos-stack-container" ref={combosGridRef}>
+            {COMBO_INSPIRATIONS.map((combo, index) => {
+              const cardStyle = {
+                zIndex: index + 1,
+              };
 
-          {/* Controles de navegación responsivos para carrusel en mobile */}
-          <div className="carousel-nav-controls">
-            <button 
-              type="button" 
-              className="carousel-nav-btn" 
-              onClick={() => scrollCarousel(combosGridRef, 'left')}
-              aria-label="Deslizar carrusel de combos a la izquierda"
-            >
-              <ChevronLeft size={20} />
-            </button>
-            <button 
-              type="button" 
-              className="carousel-nav-btn" 
-              onClick={() => scrollCarousel(combosGridRef, 'right')}
-              aria-label="Deslizar carrusel de combos a la derecha"
-            >
-              <ChevronRight size={20} />
-            </button>
+              return (
+                <article
+                  key={combo.id}
+                  className="combo-stack-card"
+                  style={cardStyle}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => openComboLightbox(index)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      openComboLightbox(index);
+                    }
+                  }}
+                  aria-label={`${combo.title}: ver imagen en grande`}
+                >
+                  <div className="combo-stack-card-image-wrap">
+                    <img
+                      src={combo.image}
+                      alt={combo.alt}
+                      className="combo-stack-card-image"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div className="combo-stack-card-zoom-badge">
+                      <span>🔍 Ampliar imagen</span>
+                    </div>
+                  </div>
+                  <div className="combo-stack-card-content" onClick={(event) => event.stopPropagation()}>
+                    <span className="combo-stack-badge">Propuesta 0{index + 1}</span>
+                    <h3>{combo.title}</h3>
+                    <p className="combo-stack-card-description">{combo.description}</p>
+                    <p className="combo-stack-card-includes">
+                      <strong>Incluye:</strong> {combo.includes}
+                    </p>
+                    <a
+                      href={generateWaLink(combo.whatsappMessage)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn btn-secondary combo-stack-card-btn"
+                      aria-label={`${combo.title}: Quiero uno parecido por WhatsApp`}
+                    >
+                      Quiero uno parecido
+                    </a>
+                  </div>
+                </article>
+              );
+            })}
           </div>
 
 
@@ -1279,7 +1158,7 @@ const Home = () => {
               combinarlo.
             </p>
             <a
-              href={createWhatsAppLink(COMBO_CUSTOM_MESSAGE)}
+              href={generateWaLink(COMBO_CUSTOM_MESSAGE)}
               target="_blank"
               rel="noreferrer"
               className="btn btn-primary combo-custom-cta-btn"
@@ -1300,161 +1179,242 @@ const Home = () => {
             <span className="section-label">Asesoramiento Interactivo 🌿</span>
             <h2>¿No sabés qué planta elegir?</h2>
             <p className="quiz-section-intro" style={{ maxWidth: '600px', margin: '12px auto 0', color: '#ffffff', fontSize: '1.05rem', lineHeight: '1.6' }}>
-              Completá nuestro test botánico interactivo en 15 segundos. Nuestro sistema irá descartando plantas de nuestro cultivo en tiempo real para encontrar tu planta ideal.
+              Respondé 4 preguntas rápidas y te recomendamos las variedades que mejor se adapten a tu luz, tus tiempos y tus mascotas.
             </p>
           </div>
 
-          <div className="advice-quiz-container animate-fade-in">
-            {/* Header del Quiz */}
-            <div className="quiz-header">
+          <div className="advice-quiz-container">
+            {/* Header del Quiz / Stepper Timeline */}
+            <div className="quiz-header-timeline">
               {quizStep > 1 && quizStep <= 4 && (
                 <button
                   type="button"
                   className="quiz-back-btn"
-                  onClick={() => setQuizStep(prev => prev - 1)}
+                  onClick={() => handleGoBack(quizStep - 1)}
+                  disabled={isTransitioning}
                   aria-label="Volver al paso anterior"
                 >
-                  <ArrowRight size={16} style={{ transform: 'rotate(180deg)', marginRight: '8px' }} /> Volver
+                  <ArrowRight size={14} style={{ transform: 'rotate(180deg)', marginRight: '6px' }} /> Volver
                 </button>
               )}
-              <div className="quiz-progress-wrapper">
-                <div className="quiz-progress-bar" style={{ width: `${(quizStep / 4) * 100}%` }}></div>
-              </div>
+              
               {quizStep <= 4 && (
-                <span className="quiz-step-indicator">
-                  Paso {quizStep} de 4 • {getRemainingCount(quizStep, quizAnswers)} {getRemainingCount(quizStep, quizAnswers) === 1 ? 'planta compatible' : 'plantas compatibles'}
-                </span>
+                <div className="quiz-timeline">
+                  {QUIZ_STEPS_METADATA.map((s) => {
+                    const isActive = quizStep === s.step;
+                    const isCompleted = quizStep > s.step;
+                    const isPending = quizStep < s.step;
+                    
+                    let stepClass = 'timeline-step';
+                    if (isActive) stepClass += ' active';
+                    if (isCompleted) stepClass += ' completed';
+                    if (isPending) stepClass += ' pending';
+                    
+                    return (
+                      <div key={s.step} className="timeline-step-outer">
+                        <button
+                          type="button"
+                          className={stepClass}
+                          onClick={() => isCompleted && handleGoBack(s.step)}
+                          disabled={!isCompleted || isTransitioning}
+                          aria-label={`Ir al paso ${s.step}: ${s.label}`}
+                        >
+                          <div className="timeline-step-icon-wrap">
+                            {isCompleted ? <Check size={12} strokeWidth={3} /> : s.icon}
+                          </div>
+                          <span className="timeline-step-label">{s.label}</span>
+                        </button>
+                        {s.step < 4 && (
+                          <div className={`timeline-line ${quizStep > s.step ? 'filled' : ''}`} />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {quizStep <= 4 && (
+                <div className="quiz-remaining-badge reveal-scale">
+                  <Sprout className="sprout-bounce-icon" size={14} />
+                  <span>
+                    <span key={getRemainingCount(quizStep, quizAnswers, products)} className="remaining-count-anim">
+                      {getRemainingCount(quizStep, quizAnswers, products)}
+                    </span>{' '}
+                    {getRemainingCount(quizStep, quizAnswers, products) === 1 ? 'planta compatible' : 'plantas compatibles'}
+                  </span>
+                </div>
               )}
             </div>
 
+            <div className="quiz-body-wrapper">
               {quizStep === 1 && (
-                <div className="quiz-step-content animate-fade-in">
+                <div className={`quiz-step-content ${animationClass}`}>
                   <h3>¿Dónde vas a ubicar tu planta? 🏠</h3>
                   <p className="quiz-step-subtitle">Definir el ambiente correcto es clave para que tu planta crezca sana.</p>
                   <div className="quiz-cards-grid quiz-cards-grid--two">
                     <button
                       type="button"
-                      className="quiz-card-option"
+                      className={`quiz-card-option ${quizAnswers.placement === 'interior' ? 'selected' : ''}`}
                       onClick={() => handleSelectOption('placement', 'interior')}
+                      disabled={isTransitioning}
                     >
-                      <div className="quiz-card-icon">🏠</div>
+                      <div className="quiz-card-icon-wrap">
+                        <SvgInteriorOption />
+                      </div>
                       <h4>Interior</h4>
                       <p>Living, dormitorio, cocina u oficina.</p>
+                      <div className="quiz-card-select-dot"></div>
                     </button>
                     <button
                       type="button"
-                      className="quiz-card-option"
+                      className={`quiz-card-option ${quizAnswers.placement === 'exterior' ? 'selected' : ''}`}
                       onClick={() => handleSelectOption('placement', 'exterior')}
+                      disabled={isTransitioning}
                     >
-                      <div className="quiz-card-icon">☀️</div>
+                      <div className="quiz-card-icon-wrap">
+                        <SvgExteriorOption />
+                      </div>
                       <h4>Exterior</h4>
                       <p>Jardín, patio o balcón abierto.</p>
+                      <div className="quiz-card-select-dot"></div>
                     </button>
                   </div>
                 </div>
               )}
 
               {quizStep === 2 && (
-                <div className="quiz-step-content animate-fade-in">
+                <div className={`quiz-step-content ${animationClass}`}>
                   <h3>¿Cómo es la luz natural en ese lugar? ⛅</h3>
                   <p className="quiz-step-subtitle">La iluminación es vital. Elegí la opción más cercana a tu espacio real.</p>
                   <div className="quiz-cards-grid">
                     <button
                       type="button"
-                      className="quiz-card-option"
+                      className={`quiz-card-option ${quizAnswers.light === 'poca' ? 'selected' : ''}`}
                       onClick={() => handleSelectOption('light', 'poca')}
+                      disabled={isTransitioning}
                     >
-                      <div className="quiz-card-icon">🕶️</div>
+                      <div className="quiz-card-icon-wrap">
+                        <SvgLowLight />
+                      </div>
                       <h4>Poca luz / Sombra</h4>
                       <p>Espacios con sombra o luz tenue.</p>
+                      <div className="quiz-card-select-dot"></div>
                     </button>
                     <button
                       type="button"
-                      className="quiz-card-option"
+                      className={`quiz-card-option ${quizAnswers.light === 'indirecta' ? 'selected' : ''}`}
                       onClick={() => handleSelectOption('light', 'indirecta')}
+                      disabled={isTransitioning}
                     >
-                      <div className="quiz-card-icon">⛅</div>
+                      <div className="quiz-card-icon-wrap">
+                        <SvgIndirectLight />
+                      </div>
                       <h4>Luz indirecta brillante</h4>
                       <p>Mucha luz natural, sin sol directo.</p>
+                      <div className="quiz-card-select-dot"></div>
                     </button>
                     <button
                       type="button"
-                      className="quiz-card-option"
+                      className={`quiz-card-option ${quizAnswers.light === 'directa' ? 'selected' : ''}`}
                       onClick={() => handleSelectOption('light', 'directa')}
+                      disabled={isTransitioning}
                     >
-                      <div className="quiz-card-icon">☀️</div>
+                      <div className="quiz-card-icon-wrap">
+                        <SvgDirectLight />
+                      </div>
                       <h4>Sol directo</h4>
                       <p>Rayos de sol de lleno varias horas.</p>
+                      <div className="quiz-card-select-dot"></div>
                     </button>
                   </div>
                 </div>
               )}
 
               {quizStep === 3 && (
-                <div className="quiz-step-content animate-fade-in">
+                <div className={`quiz-step-content ${animationClass}`}>
                   <h3>¿Cómo te definirías cuidando plantas? 💧</h3>
                   <p className="quiz-step-subtitle">Elegí la planta que se adapte mejor a tus tiempos y a tu rutina diaria.</p>
                   <div className="quiz-cards-grid">
                     <button
                       type="button"
-                      className="quiz-card-option"
+                      className={`quiz-card-option ${quizAnswers.care === 'principiante' ? 'selected' : ''}`}
                       onClick={() => handleSelectOption('care', 'principiante')}
+                      disabled={isTransitioning}
                     >
-                      <div className="quiz-card-icon">🟢</div>
+                      <div className="quiz-card-icon-wrap">
+                        <SvgBeginner />
+                      </div>
                       <h4>Principiante / Poco tiempo</h4>
                       <p>Plantas súper guerreras de bajo cuidado.</p>
+                      <div className="quiz-card-select-dot"></div>
                     </button>
                     <button
                       type="button"
-                      className="quiz-card-option"
+                      className={`quiz-card-option ${quizAnswers.care === 'entusiasta' ? 'selected' : ''}`}
                       onClick={() => handleSelectOption('care', 'entusiasta')}
+                      disabled={isTransitioning}
                     >
-                      <div className="quiz-card-icon">💧</div>
+                      <div className="quiz-card-icon-wrap">
+                        <SvgEnthusiast />
+                      </div>
                       <h4>Entusiasta / Con tiempo</h4>
                       <p>Me gusta mimarlas y regar seguido.</p>
+                      <div className="quiz-card-select-dot"></div>
                     </button>
                     <button
                       type="button"
-                      className="quiz-card-option"
+                      className={`quiz-card-option ${quizAnswers.care === 'flores' ? 'selected' : ''}`}
                       onClick={() => handleSelectOption('care', 'flores')}
+                      disabled={isTransitioning}
                     >
-                      <div className="quiz-card-icon">🌸</div>
+                      <div className="quiz-card-icon-wrap">
+                        <SvgFlowers />
+                      </div>
                       <h4>Quiero flores y color</h4>
-                      <p>Variedades que aporten tonos alegres.</p>
+                      <p>Variedades que aporten tonos al espacio.</p>
+                      <div className="quiz-card-select-dot"></div>
                     </button>
                   </div>
                 </div>
               )}
 
               {quizStep === 4 && (
-                <div className="quiz-step-content animate-fade-in">
+                <div className={`quiz-step-content ${animationClass}`}>
                   <h3>¿Tenés mascotas curiosas en casa? 🐾</h3>
                   <p className="quiz-step-subtitle">Algunas plantas son tóxicas. Protegemos a tus mejores amigos.</p>
                   <div className="quiz-cards-grid quiz-cards-grid--two">
                     <button
                       type="button"
-                      className="quiz-card-option"
+                      className={`quiz-card-option ${quizAnswers.pets === 'si' ? 'selected' : ''}`}
                       onClick={() => handleSelectOption('pets', 'si')}
+                      disabled={isTransitioning}
                     >
-                      <div className="quiz-card-icon">🐱🐶</div>
+                      <div className="quiz-card-icon-wrap">
+                        <SvgPetsYes />
+                      </div>
                       <h4>Sí, necesito Pet-Friendly</h4>
                       <p>Variedades 100% seguras para perros y gatos.</p>
+                      <div className="quiz-card-select-dot"></div>
                     </button>
                     <button
                       type="button"
-                      className="quiz-card-option"
+                      className={`quiz-card-option ${quizAnswers.pets === 'no' ? 'selected' : ''}`}
                       onClick={() => handleSelectOption('pets', 'no')}
+                      disabled={isTransitioning}
                     >
-                      <div className="quiz-card-icon">🏡</div>
+                      <div className="quiz-card-icon-wrap">
+                        <SvgPetsNo />
+                      </div>
                       <h4>No tengo / No me preocupa</h4>
                       <p>Cualquier variedad me sirve perfectamente.</p>
+                      <div className="quiz-card-select-dot"></div>
                     </button>
                   </div>
                 </div>
               )}
 
               {quizStep === 5 && (
-                <div className="quiz-step-content quiz-results-content animate-fade-in">
+                <div className={`quiz-step-content quiz-results-content ${animationClass}`}>
                   <div className="quiz-results-header">
                     <span className="section-label">¡Tu resultado botánico! 🏆</span>
                     <h3>Encontramos tu planta ideal 🌿</h3>
@@ -1466,62 +1426,90 @@ const Home = () => {
                     </p>
                   </div>
 
-                  <div className={`quiz-results-grid ${quizResults.length === 1 ? 'quiz-results-grid--single' : ''}`}>
+                  <div className="quiz-results-container">
                     {quizResults.map((product) => {
                       const explanation = getExplanation(product, quizAnswers);
+                      const hasCareTips = product.careTips;
                       return (
-                        <div key={product.id} className="quiz-result-card">
-                          <div className="quiz-result-card-image" onClick={() => setSelectedProduct(product)}>
+                        <div key={product.id} className="quiz-match-card reveal-scale">
+                          {/* Panel de Imagen con Badge de Coincidencia */}
+                          <div className="quiz-match-card-image-panel" onClick={() => setSelectedProduct(product)}>
                             <img src={product.image} alt={product.name} />
-                            <span className="quiz-result-card-badge">{product.category}</span>
+                            <div className="quiz-match-compatibility-badge">
+                              <Sparkles size={12} className="sparkle-spin" />
+                              <span>98% Coincidencia</span>
+                            </div>
+                            <span className="quiz-match-zoom-hint">🔍 Ampliar foto</span>
                           </div>
                           
-                          <div className="quiz-result-card-body">
-                            <h4 className="quiz-result-card-title">{product.name}</h4>
+                          {/* Panel de Información y Acciones */}
+                          <div className="quiz-match-card-info-panel">
+                            <span className="quiz-match-category-tag">{product.category}</span>
+                            <h4 className="quiz-match-title">{product.name}</h4>
                             
-                            {/* Atributos cortos */}
-                            <div className="quiz-result-card-attrs">
-                              {product.attributes.slice(0, 3).map((attr, aIdx) => (
-                                <span key={aIdx} className="quiz-result-card-attr-item">
-                                  {getAttributeIcon(attr.type)} {attr.value}
-                                </span>
-                              ))}
+                            {/* Grid de Atributos Botánicos */}
+                            <div className="quiz-match-metrics-grid">
+                              <div className="quiz-match-metric-item">
+                                <div className="metric-icon-wrap"><Sun size={14} /></div>
+                                <div className="metric-info">
+                                  <span className="metric-label">Luz</span>
+                                  <span className="metric-value">{product.attributes.find(a => a.type === 'luz')?.value || 'Adaptable'}</span>
+                                </div>
+                              </div>
+                              <div className="quiz-match-metric-item">
+                                <div className="metric-icon-wrap"><Droplets size={14} /></div>
+                                <div className="metric-info">
+                                  <span className="metric-label">Riego</span>
+                                  <span className="metric-value">{product.attributes.find(a => a.type === 'riego')?.value || 'Moderado'}</span>
+                                </div>
+                              </div>
+                              <div className="quiz-match-metric-item">
+                                <div className="metric-icon-wrap"><Ruler size={14} /></div>
+                                <div className="metric-info">
+                                  <span className="metric-label">Dificultad</span>
+                                  <span className="metric-value">{product.attributes.find(a => a.type === 'dificultad')?.value || 'Baja'}</span>
+                                </div>
+                              </div>
+                              <div className="quiz-match-metric-item">
+                                <div className="metric-icon-wrap"><Leaf size={14} /></div>
+                                <div className="metric-info">
+                                  <span className="metric-label">Mascotas</span>
+                                  <span className="metric-value">{product.isPetFriendly || isPetSafe(product.name) ? 'Pet-Friendly 🐾' : 'Tóxica (mantener alejada)'}</span>
+                                </div>
+                              </div>
                             </div>
 
-                            {/* Explicación personalizada */}
-                            <p className="quiz-result-card-explanation">
-                              {renderExplanationText(explanation)}
-                            </p>
+                            {/* Explicación Personalizada */}
+                            <div className="quiz-match-explanation-box">
+                              <p className="quiz-match-explanation-text">
+                                {renderExplanationText(explanation)}
+                              </p>
+                            </div>
 
-                            {/* Botón Ver Similares en Catálogo */}
-                            <Link
-                              to="/catalogo"
-                              className="quiz-card-similar-btn"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              Ver similares
-                            </Link>
+                            {/* Tip de Cuidado del Vivero */}
+                            {hasCareTips && (
+                              <div className="quiz-match-tips-box">
+                                <h5>🌿 Tip de Cultivo De Raíz:</h5>
+                                <p>{product.careTips}</p>
+                              </div>
+                            )}
 
-                            {/* Botones de acción */}
-                            <div className="quiz-result-card-actions">
+                            {/* Acciones del Producto */}
+                            <div className="quiz-match-actions">
                               <button
                                 type="button"
-                                className="btn btn-primary quiz-card-add-btn"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  addToCart(product);
-                                }}
+                                className="btn btn-primary quiz-match-add-btn"
+                                onClick={() => addToCart(product)}
                               >
-                                <ShoppingCart size={14} /> Agregar
+                                <ShoppingCart size={14} /> Agregar al carrito
                               </button>
                               <a
                                 href={generateWaLink(WA_MESSAGES.producto(product.name))}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="btn btn-secondary quiz-card-wa-btn"
-                                onClick={(e) => e.stopPropagation()}
+                                className="btn btn-secondary quiz-match-wa-btn"
                               >
-                                <MessageCircle size={14} /> Stock
+                                <MessageCircle size={14} /> Consultar Stock
                               </a>
                             </div>
                           </div>
@@ -1530,7 +1518,7 @@ const Home = () => {
                     })}
                   </div>
 
-                  {/* Acciones globales */}
+                  {/* Acciones Globales del Resultado */}
                   <div className="quiz-results-footer-actions">
                     <a
                       href={generateWaLink(generateQuizWhatsAppMessage(quizResults, quizAnswers))}
@@ -1538,285 +1526,183 @@ const Home = () => {
                       rel="noreferrer"
                       className="btn btn-primary quiz-wa-cta"
                     >
-                      <MessageCircle size={18} /> Consultar stock por WhatsApp
+                      <MessageCircle size={18} /> Consultar stock completo por WhatsApp
                     </a>
                     <button
                       type="button"
                       className="btn btn-secondary quiz-restart-btn"
-                      onClick={() => {
-                        setQuizStep(1);
-                        setQuizAnswers({
-                          placement: '',
-                          light: '',
-                          care: '',
-                          pets: ''
-                        });
-                        setQuizResults([]);
-                      }}
+                      onClick={handleRestartQuiz}
                     >
-                      <RotateCcw size={16} /> Volver a empezar
+                      <RotateCcw size={16} /> Hacer el test de nuevo
                     </button>
                   </div>
                 </div>
               )}
             </div>
-        </div>
-      </section>
-      <WaveBottom fill="var(--verde-profundo)" bg="var(--beige-claro)" className="wave-transition--advice-to-categories" />
-
-      {/* ══════════════════════════
-          CATEGORÍAS ILUSTRADAS
-      ══════════════════════════ */}
-      <section className="categories-section section-padding" style={{background: 'var(--beige-claro)', position: 'relative', overflow: 'hidden'}}>
-        <div className="container" style={{ position: 'relative', zIndex: 10 }}>
-          <div className="text-center mb-12 reveal-on-scroll reveal-up">
-            <span className="section-label">Qué encontrás en De Raíz</span>
-            <h2>Explorá nuestras categorías</h2>
-            <div className="title-underline"></div>
-          </div>
-          <div className="categories-accordion-desktop">
-            <div className="accordion-container">
-              {CATEGORIES.map((cat, i) => (
-                <div
-                  key={i}
-                  className={`accordion-item ${activeAccordion === i ? 'accordion-item--active' : ''}`}
-                  onClick={() => setActiveAccordion(i)}
-                  style={{
-                    '--cat-color': cat.color,
-                    backgroundImage: `url(${cat.bgImage})`,
-                    '--reveal-delay': `${i * 0.15}s`
-                  }}
-                >
-                  <div className="accordion-overlay"></div>
-                  <div className="accordion-content-wrapper">
-                    <div className="accordion-icon-wrap" style={{ color: cat.color }}>
-                      <div className="accordion-icon">{cat.icon}</div>
-                    </div>
-                    <div className="accordion-content">
-                      <div className="accordion-header">
-                        <h4>{cat.title}</h4>
-                        <p className="accordion-short-desc">{cat.shortDesc}</p>
-                      </div>
-                      <div className="accordion-details">
-                        <div className="advice-box" style={{ borderColor: `${cat.color}60`, backgroundColor: `rgba(255, 255, 255, 0.65)` }}>
-                          <span className="advice-title" style={{ color: cat.color }}><Sparkles size={14} /> {cat.adviceTitle}</span>
-                          <p>{cat.advice}</p>
-                        </div>
-                        <Link to={cat.link} className="btn-accordion" style={{ backgroundColor: cat.color }}>
-                          Ver {cat.title} <ArrowRight size={16} />
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="categories-carousel-mobile">
-            <div className="carousel-track-mobile">
-              {CATEGORIES.map((cat, i) => (
-                <div
-                  key={i}
-                  className="carousel-slide-mobile"
-                  style={{
-                    '--cat-color': cat.color,
-                    backgroundImage: `url(${cat.bgImage})`
-                  }}
-                >
-                  <Link className="mobile-category-card-main" to={cat.link}>
-                    <div className="mobile-category-overlay"></div>
-                    <div className="mobile-category-content">
-                      <div className="mobile-category-icon-wrap" style={{ color: cat.color }}>
-                        {cat.icon}
-                      </div>
-                      <h3 className="mobile-category-title">{cat.title}</h3>
-                      <p className="mobile-category-desc">{cat.shortDesc}</p>
-                      <button
-                        type="button"
-                        className="btn-mobile-category-tip"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          setExpandedCategory(i);
-                        }}
-                      >
-                        <Sparkles size={14} /> Tip Botánico
-                      </button>
-                    </div>
-                  </Link>
-                </div>
-              ))}
-            </div>
-
-            {CATEGORIES.map((cat, i) => (
-              <div
-                key={`drawer-${i}`}
-                className={`mobile-category-advice-drawer ${expandedCategory === i ? 'mobile-category-advice-drawer--open' : ''}`}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div className="mobile-category-advice-drawer-overlay" onClick={() => setExpandedCategory(null)}></div>
-                <div className="mobile-category-advice-drawer-content" style={{ borderTop: `4px solid ${cat.color}` }}>
-                  <button
-                    type="button"
-                    className="btn-close-advice-drawer"
-                    onClick={() => setExpandedCategory(null)}
-                    aria-label="Cerrar tip botánico"
-                  >
-                    <X size={20} />
-                  </button>
-                  <div className="advice-drawer-header">
-                    <div className="advice-drawer-icon" style={{ backgroundColor: `${cat.color}20`, color: cat.color }}>
-                      {cat.icon}
-                    </div>
-                    <div>
-                      <span className="advice-drawer-subtitle" style={{ color: cat.color }}>{cat.adviceTitle}</span>
-                      <h4 className="advice-drawer-title">{cat.title}</h4>
-                    </div>
-                  </div>
-                  <div className="advice-drawer-body">
-                    <p>{cat.advice}</p>
-                  </div>
-                  <div className="advice-drawer-footer">
-                    <Link
-                      to={cat.link}
-                      className="btn btn-primary btn-block"
-                      style={{ backgroundColor: cat.color, borderColor: cat.color }}
-                      onClick={() => setExpandedCategory(null)}
-                    >
-                      Ver catálogo <ArrowRight size={16} />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
+      <WaveBottom fill="var(--verde-profundo)" bg="var(--blanco-calido)" className="wave-transition--advice-to-categories" />
+
 
 
       {/* ══════════════════════════
-          LOCAL EN LAS PIEDRAS
+          LOCAL EN LAS PIEDRAS (REDESIGN)
       ══════════════════════════ */}
-      <section className="home-local-section section-padding" style={{background: 'var(--beige-claro)', paddingTop: 0}}>
+      <section className="location-map-section section-padding" style={{ background: 'var(--blanco-calido)', position: 'relative', paddingTop: 0 }}>
         <div className="container">
-          <div className="home-local-grid">
-            
-            <div className="home-local-info reveal-on-scroll reveal-up">
-              <span className="section-label">Visítanos</span>
-              <h2>Visítanos en Las Piedras</h2>
-              <div className="title-underline" style={{ margin: '8px 0 0' }}></div>
-              <p className="home-local-intro">
+          <div className="location-header" style={{ marginTop: '48px' }}>
+            <h2 className="location-uppercase-title">Ubicación</h2>
+          </div>
+
+          <div className="location-map-card">
+            <div className="location-map-iframe-container">
+              <iframe
+                title="Mapa de ubicación de De Raíz Floricultura"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.7818987483665!2d-56.222674924258816!3d-34.729095572911576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a12f5a653bb7ef%3A0xe54ef84c7e6c9c7f!2sDe%20Raiz%20Floricultura!5e0!3m2!1ses-419!2suy!4v1710000000000!5m2!1ses-419!2suy"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+
+            <div className="location-floating-card">
+              <h3 className="landmarks-title">Puntos Cercanos</h3>
+              <ul className="landmarks-list">
+                <li>
+                  <span className="landmark-name">Ruta 5 (Conexión rápida)</span>
+                  <span className="landmark-time">4 mins</span>
+                </li>
+                <li>
+                  <span className="landmark-name">Plaza Las Piedras (Centro)</span>
+                  <span className="landmark-time">6 mins</span>
+                </li>
+                <li>
+                  <span className="landmark-name">Progreso</span>
+                  <span className="landmark-time">10 mins</span>
+                </li>
+                <li>
+                  <span className="landmark-name">Límite con Montevideo</span>
+                  <span className="landmark-time">12 mins</span>
+                </li>
+                <li>
+                  <span className="landmark-name">Ruta 102 (Acceso Perimetral)</span>
+                  <span className="landmark-time">15 mins</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="location-editorial-grid">
+            <div className="editorial-left">
+              <h3 className="editorial-lead-title">Visítanos en Las Piedras</h3>
+              <p className="editorial-heading-text">Tu escapada natural en Ruta 48</p>
+            </div>
+            <div className="editorial-right">
+              <p className="editorial-paragraph">
                 Vení a conocer nuestro vivero y cultivo en persona. Encontrá todas las variedades en un espacio natural único y recibí asesoramiento botánico directo de nuestro equipo.
               </p>
               
-              <div className="home-local-details">
-                <div className="local-detail-item">
-                  <div className="local-detail-icon">
-                    <MapPin size={20} />
-                  </div>
-                  <div>
-                    <h4>Dirección</h4>
-                    <p>Ruta 48, Las Piedras, Canelones, Uruguay</p>
-                  </div>
+              <address className="editorial-address-block" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+                <div className="editorial-info-col">
+                  <strong>Dirección</strong>
+                  <span><MapPin size={12} style={{ marginRight: '4px', verticalAlign: 'middle' }} /> Ruta 48, Las Piedras, Canelones, Uruguay</span>
                 </div>
-
-                <div className="local-detail-item">
-                  <div className="local-detail-icon">
-                    <Clock size={20} />
-                  </div>
-                  <div>
-                    <h4>Horarios de Atención</h4>
-                    <p>Lunes a Sábados: 09:00 a 18:00 hs</p>
-                    <p>Domingos: 09:00 a 13:00 hs</p>
-                  </div>
+                <div className="editorial-info-col">
+                  <strong>Teléfono</strong>
+                  <span><Phone size={12} style={{ marginRight: '4px', verticalAlign: 'middle' }} /> <a href="tel:+59899000000">+598 99 000 000</a></span>
                 </div>
-              </div>
+                <div className="editorial-info-col">
+                  <strong>Horarios</strong>
+                  <span>Lunes a Sábado: 09:00 - 18:00</span>
+                  <span>Domingos: 09:00 - 13:00</span>
+                </div>
+              </address>
 
-              <div className="home-local-ctas">
+              <div className="editorial-ctas">
                 <a 
                   href="https://www.google.com/maps/search/?api=1&query=De+Raiz+Floricultura+Las+Piedras" 
                   target="_blank" 
                   rel="noreferrer" 
-                  className="btn btn-primary"
+                  className="btn btn-editorial-primary"
                 >
-                  Ver en Google Maps
+                  <Navigation size={15} /> Cómo llegar
                 </a>
-                <Link to="/contacto" className="btn btn-outline">
-                  Cómo llegar
+                <Link to="/contacto" className="btn btn-editorial-secondary">
+                  <MessageCircle size={15} /> Más información
                 </Link>
               </div>
             </div>
-
-            <div className="home-local-visual reveal-on-scroll reveal-scale">
-              <div className="local-preview-card">
-                <span className="local-preview-badge">🌿 ¡Visítanos!</span>
-                <h3>De Raíz Floricultura</h3>
-                <p>Ubicación local y vivero de cultivo propio en Las Piedras.</p>
-                
-                <div className="local-preview-map-placeholder">
-                  <div className="preview-route-art">RUTA 48</div>
-                  <span className="preview-pin-art" role="img" aria-label="Pin de mapa">📍</span>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
 
-      <WaveBottom fill="var(--beige-claro)" bg="var(--verde-profundo)" className="wave-transition--categories-to-testimonials" />
+      <WaveBottom fill="var(--blanco-calido)" bg="var(--verde-profundo)" className="wave-transition--categories-to-testimonials" />
 
 
       {/* ══════════════════════════
           TESTIMONIOS
       ══════════════════════════ */}
-      <section className="testimonials-section section-padding">
+      <section className="testimonials-section section-padding" ref={testimonialsSectionRef}>
         <div className="container" style={{ position: 'relative', zIndex: 10 }}>
-          <div className="text-center mb-12 testimonials-header reveal-on-scroll reveal-up">
+          <div className="text-center mb-16 testimonials-header">
             <span className="section-label">Clientes</span>
             <h2>Lo que dicen nuestros clientes</h2>
             <p className="testimonials-subtitle">
               Opiniones reales de clientes de Las Piedras.
             </p>
           </div>
-          <div className="testimonial-carousel reveal-on-scroll reveal-scale">
-            <button type="button" className="testimonial-nav testimonial-nav--prev" onClick={goToPrevTestimonial} aria-label="Testimonio anterior">
-              <ChevronLeft size={20} />
-            </button>
 
-            <div className="testimonial-track" style={{ transform: `translateX(-${activeTestimonial * 100}%)` }}>
-              {testimonials.map((t, i) => (
-                <div key={i} className="testimonial-slide">
-                  <div className="testimonial-card animate-fade-in">
+          <div className="testimonials-grid">
+            <div className="testimonials-col testimonials-col-left" ref={colLeftRef}>
+              {testimonials.filter((_, i) => i % 2 === 0).map((t, i) => (
+                <div key={i} className="reveal-testimonial">
+                  <div className="testimonial-card">
                     <div className="testimonial-stars">{'★★★★★'}</div>
-                    <p className="testimonial-text">"{t.text}"</p>
-                    <div className="testimonial-author">
-                      <strong>{t.name}</strong>
-                      <span>{t.loc}</span>
+                    <div className="testimonial-content">
+                      <div className="testimonial-avatar-wrapper">
+                        <img src={t.avatar} alt={t.name} className="testimonial-avatar" />
+                      </div>
+                      <div className="testimonial-info">
+                        <p className="testimonial-text">"{t.text}"</p>
+                        <div className="testimonial-author">
+                          <span className="testimonial-name">- {t.name.toUpperCase()}</span>
+                          <span className="testimonial-loc">{t.loc}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
 
-            <button type="button" className="testimonial-nav testimonial-nav--next" onClick={goToNextTestimonial} aria-label="Siguiente testimonio">
-              <ChevronRight size={20} />
-            </button>
+            <div className="testimonials-col testimonials-col-right" ref={colRightRef}>
+              {testimonials.filter((_, i) => i % 2 !== 0).map((t, i) => (
+                <div key={i} className="reveal-testimonial">
+                  <div className="testimonial-card">
+                    <div className="testimonial-stars">{'★★★★★'}</div>
+                    <div className="testimonial-content">
+                      <div className="testimonial-avatar-wrapper">
+                        <img src={t.avatar} alt={t.name} className="testimonial-avatar" />
+                      </div>
+                      <div className="testimonial-info">
+                        <p className="testimonial-text">"{t.text}"</p>
+                        <div className="testimonial-author">
+                          <span className="testimonial-name">- {t.name.toUpperCase()}</span>
+                          <span className="testimonial-loc">{t.loc}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="testimonial-dots" aria-label="Indicadores de testimonio">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                className={`testimonial-dot ${activeTestimonial === i ? 'active' : ''}`}
-                onClick={() => setActiveTestimonial(i)}
-                aria-label={`Ir al testimonio ${i + 1}`}
-              />
-            ))}
-          </div>
-          <div className="text-center mt-8">
+          <div className="text-center mt-12">
             <a href={generateWaLink(WA_MESSAGES.general)} target="_blank" rel="noreferrer" className="btn btn-outline-light">
               <MessageCircle size={18} /> Consultar por WhatsApp
             </a>

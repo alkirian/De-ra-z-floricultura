@@ -46,7 +46,7 @@ const CartPanel = () => {
 
         {cart.length === 0 ? (
           <div className="cart-empty">
-            <p>Tu lista esta vacia.</p>
+            <p>Tu lista está vacía.</p>
           </div>
         ) : (
           <div className="cart-items">

@@ -7,15 +7,13 @@ import CartFloatButton from './components/CartFloatButton';
 import Footer from './components/Footer';
 import './index.css';
 
-// Lazy loaded pages to optimize bundle size and loading speed
-const Home = React.lazy(() => import('./pages/Home'));
-const Catalog = React.lazy(() => import('./pages/Catalog'));
-const Contact = React.lazy(() => import('./pages/Contact'));
-const LearnRoot = React.lazy(() => import('./pages/LearnRoot'));
-const LearnTopic = React.lazy(() => import('./pages/LearnTopic'));
-
-// Lazy loaded auxiliary panels
-const CartPanel = React.lazy(() => import('./components/CartPanel'));
+import Home from './pages/Home';
+import Catalog from './pages/Catalog';
+import Contact from './pages/Contact';
+import LearnRoot from './pages/LearnRoot';
+import LearnTopic from './pages/LearnTopic';
+import Admin from './pages/Admin';
+import CartPanel from './components/CartPanel';
 
 function App() {
   const basename = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -33,6 +31,7 @@ function App() {
               <Route path="/aprende-de-raiz" element={<LearnRoot />} />
               <Route path="/aprende-de-raiz/:topicSlug" element={<LearnTopic />} />
               <Route path="/contacto" element={<Contact />} />
+              <Route path="/admin" element={<Admin />} />
             </Routes>
           </React.Suspense>
         </main>
@@ -43,12 +42,7 @@ function App() {
         <CartFloatButton />
         <WhatsAppFloat />
 
-        {/* Filtro SVG global para desenfoque botánico uniforme de 2% en todas las páginas */}
-        <svg style={{ position: 'absolute', width: 0, height: 0, pointerEvents: 'none' }} aria-hidden="true">
-          <filter id="leaf-blur-filter" filterUnits="objectBoundingBox" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="0.02" />
-          </filter>
-        </svg>
+
       </div>
     </Router>
   );

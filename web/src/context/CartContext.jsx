@@ -13,19 +13,17 @@ const normalizeProduct = (product) => ({
 });
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-
-  useEffect(() => {
+  const [cart, setCart] = useState(() => {
     try {
       const raw = localStorage.getItem(CART_KEY);
-      if (!raw) return;
+      if (!raw) return [];
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) setCart(parsed);
+      return Array.isArray(parsed) ? parsed : [];
     } catch {
-      setCart([]);
+      return [];
     }
-  }, []);
+  });
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem(CART_KEY, JSON.stringify(cart));

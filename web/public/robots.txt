@@ -3,5 +3,6 @@ Allow: /
 
 # Evitar indexación de variantes de filtros del catálogo (contenido duplicado)
 Disallow: /De-ra-z-floricultura/catalogo?
+Disallow: /De-ra-z-floricultura/admin
 
 Sitemap: https://alkirian.github.io/De-ra-z-floricultura/sitemap.xml

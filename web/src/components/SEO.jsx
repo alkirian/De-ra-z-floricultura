@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 const SITE_URL = 'https://alkirian.github.io/De-ra-z-floricultura';
-const DEFAULT_OG_IMAGE = `${SITE_URL}/images/og-cover.jpg`;
+const DEFAULT_OG_IMAGE = `${SITE_URL}/images/og-cover.webp`;
 
 const normalizePath = (path = '/') => {
   if (!path.startsWith('/')) return `/${path}`;

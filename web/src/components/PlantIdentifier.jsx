@@ -63,7 +63,8 @@ const PlantIdentifier = () => {
   useEffect(() => {
     const checkBackend = async () => {
       try {
-        const response = await fetch('/api/health');
+        const apiBase = import.meta.env.VITE_API_URL || '';
+        const response = await fetch(`${apiBase}/api/health`);
         setBackendOnline(response.ok);
       } catch (checkError) {
         setBackendOnline(false);
@@ -155,16 +156,15 @@ const PlantIdentifier = () => {
     <div className="plant-identifier card">
       <div className="plant-identifier-header">
         <span className="section-label">Nuevo</span>
-        <h3>Identifica una planta desde una foto</h3>
+        <h3>Descubrí tu planta desde una foto</h3>
         <p>
-          Subi una imagen clara de hojas, flores o frutos para obtener una sugerencia de
-          especie usando Pl@ntNet.
+          Subí una foto nítida de sus hojas o flores y te ayudamos a identificar de qué especie se trata.
         </p>
       </div>
 
       {!backendOnline && (
         <div className="plant-alert plant-alert-error">
-          Esta función puede estar temporalmente no disponible. Si querés, escribinos por WhatsApp y te ayudamos manualmente.
+          El identificador automático está tomando un descanso. Escribinos directamente al WhatsApp con una foto y te decimos qué planta es en un ratito.
         </div>
       )}
 
@@ -311,8 +311,7 @@ const PlantIdentifier = () => {
       )}
 
       <p className="plant-disclaimer">
-        La identificacion es aproximada y puede fallar si la imagen esta borrosa, mal iluminada
-        o no muestra bien hojas, flores o frutos.
+        Disculpas: la identificación automática no es perfecta. Si la foto está un poco borrosa o tiene poca luz, puede fallar. Si te da dudas, recordá que siempre podés mandarnos una foto al WhatsApp y lo vemos juntos.
       </p>
     </div>
   );

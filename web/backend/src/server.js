@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const plantnetRoutes = require('./routes/plantnet.routes');
+const catalogRoutes = require('./routes/catalog.routes');
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/plantnet', plantnetRoutes);
+app.use('/api/catalog', catalogRoutes);
 
 app.use((error, req, res, next) => {
   if (error.code === 'LIMIT_FILE_SIZE') {

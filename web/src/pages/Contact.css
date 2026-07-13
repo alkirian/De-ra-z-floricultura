@@ -69,205 +69,6 @@
   }
 }
 
-.contact-main-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
-
-.contact-nap,
-.contact-map {
-  padding: 22px;
-}
-
-.contact-nap h2,
-.contact-map h2,
-.local-services h2,
-.local-gallery h2 {
-  margin-bottom: 12px;
-}
-
-.nap-address {
-  font-style: normal;
-  display: grid;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-.nap-row {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--texto-oscuro);
-  font-size: 0.88rem;
-}
-
-.nap-row a {
-  color: var(--verde-profundo);
-  font-weight: 700;
-}
-
-.nap-hours h3 {
-  display: inline-flex;
-  gap: 6px;
-  align-items: center;
-  font-size: 0.9rem;
-  margin-bottom: 8px;
-  color: var(--verde-profundo);
-}
-
-.nap-hours ul {
-  display: grid;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-.nap-hours li {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  padding-bottom: 6px;
-  border-bottom: 1px dashed rgba(143, 168, 120, 0.35);
-  font-size: 0.85rem;
-}
-
-.nap-hours li span {
-  color: var(--texto-medio);
-}
-
-.nap-hours li strong {
-  color: var(--verde-profundo);
-}
-
-.nap-ctas {
-  display: grid;
-  gap: 10px;
-}
-
-.botanical-visit-card {
-  padding: 24px;
-  background: linear-gradient(145deg, #f5f0e6, #eae3d2);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--beige-medio);
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: inset 0 0 40px rgba(47, 74, 46, 0.03);
-}
-
-.botanical-visit-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--verde-salvia);
-  color: var(--blanco-calido);
-  font-size: 0.8rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 20px;
-  align-self: flex-start;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.botanical-visit-card h3 {
-  font-family: var(--font-display);
-  font-size: 1.12rem;
-  color: var(--verde-profundo);
-  margin: 0;
-}
-
-.botanical-visit-text {
-  font-size: 0.84rem;
-  line-height: 1.5;
-  color: var(--texto-medio);
-  margin: 0;
-}
-
-.botanical-visit-map-art {
-  height: 160px;
-  border-radius: var(--radius-sm);
-  background: #fdfbf7;
-  border: 1px solid var(--beige-medio);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 4px 0;
-}
-
-.botanical-visit-map-art::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(var(--beige-medio) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(143, 168, 120, 0.06) 2px, transparent 2px),
-    linear-gradient(0deg, rgba(143, 168, 120, 0.06) 2px, transparent 2px);
-  background-size: 16px 16px, 40px 40px, 40px 40px;
-  background-position: center;
-  opacity: 0.8;
-}
-
-.map-art-route {
-  position: absolute;
-  top: 40%;
-  left: 0;
-  right: 0;
-  height: 12px;
-  background: #eae3d2;
-  border-top: 2px solid var(--beige-medio);
-  border-bottom: 2px solid var(--beige-medio);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--texto-medio);
-  letter-spacing: 0.1em;
-  transform: rotate(-3deg);
-}
-
-.map-art-city {
-  position: absolute;
-  bottom: 12px;
-  right: 20px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--texto-medio);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.botanical-visit-map-art .map-art-pin {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--verde-profundo);
-  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));
-}
-
-.map-art-pin span {
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  font-weight: 700;
-  background: var(--verde-profundo);
-  color: var(--crema);
-  padding: 2px 8px;
-  border-radius: 4px;
-  margin-top: 4px;
-}
-
-.botanical-visit-ctas {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-}
 
 @media (min-width: 480px) {
   .botanical-visit-ctas {
@@ -394,10 +195,6 @@
 }
 
 @media (min-width: 820px) {
-  .contact-main-grid {
-    grid-template-columns: 2fr 3fr;
-  }
-
   .services-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -441,22 +238,53 @@
     min-height: 140px;
   }
 
-  /* 3. Centrado en Info del Local y Mapa de Visita */
-  .contact-nap,
-  .contact-map {
+  /* 3. Estilos Responsivos de Ubicación y Mapa */
+  .location-map-card {
+    height: 420px;
+    margin-bottom: 24px;
+  }
+  .location-floating-card {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    margin-top: 16px;
+    box-shadow: var(--shadow-md);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    background: var(--blanco-calido);
+  }
+  .location-editorial-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-top: 8px;
     text-align: center;
   }
-  .nap-row {
+  .editorial-lead-title {
+    font-size: 1.8rem;
+  }
+  .editorial-heading-text {
+    font-size: 0.95rem;
+  }
+  .editorial-address-block {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px 0;
+    text-align: left;
+  }
+  .editorial-info-col {
+    align-items: center;
+    text-align: center;
+  }
+  .editorial-ctas {
     justify-content: center;
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
   }
-  .nap-hours li {
-    font-size: 0.9rem;
-  }
-  .botanical-visit-badge {
-    align-self: center;
-  }
-  .botanical-visit-text {
-    text-align: center;
+  .btn-editorial-primary,
+  .btn-editorial-secondary {
+    width: 100%;
   }
 
   /* 4. Centrado de Servicios (Grilla compacta de 2 columnas con Drawer de Ver Más) */

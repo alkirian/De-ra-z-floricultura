@@ -18,7 +18,11 @@ const WhatsAppFloat = () => {
 
   useEffect(() => {
     const onScroll = () => {
-      if (window.scrollY > 120) setShowBubble(false);
+      if (window.scrollY > 120) {
+        setShowBubble(prev => prev ? false : prev);
+      } else {
+        setShowBubble(prev => !prev ? true : prev);
+      }
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -28,7 +32,7 @@ const WhatsAppFloat = () => {
     <>
       {showBubble && !dismissed && (
         <div className="wa-bubble" role="status" aria-live="polite">
-          <p>Buscas alguna planta para tu espacio? Consultanos por aqui.</p>
+          <p>¿Buscás alguna planta para tu espacio? Consultanos por aquí.</p>
           <button type="button" onClick={() => { setShowBubble(false); setDismissed(true); }} aria-label="Cerrar globo">
             <X size={14} />
           </button>

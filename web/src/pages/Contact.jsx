@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { MapPin, Clock, MessageCircle, Navigation, Phone, Leaf, Sprout, Shovel, Package, X } from 'lucide-react';
 import { BIZ_INFO, generateWaLink, WA_MESSAGES } from '../data/mockData';
 import SEO from '../components/SEO';
@@ -89,6 +89,7 @@ const Contact = () => {
 
   return (
     <article className="contact-page animate-fade-in">
+      <h1 className="sr-only">Contacto y Ubicación de De Raíz Floricultura — Las Piedras</h1>
       <SEO
         title="Visita nuestra tienda de plantas en Las Piedras | De Raíz"
         description="Ubicación, horarios y contacto de De Raíz en Las Piedras. Abrí Google Maps, escribinos por WhatsApp y visitá nuestro local botánico."
@@ -102,66 +103,92 @@ const Contact = () => {
 
 
 
-      <section className="section-padding" style={{ background: 'var(--blanco-calido)', position: 'relative' }}>
+      <section className="location-map-section section-padding" style={{ background: 'var(--blanco-calido)', position: 'relative' }}>
         <div className="leaf-deco" style={{left: '-40px', top: '10%', color: 'var(--verde-salvia)', opacity: 0.15}}>
           <LeafSVG />
         </div>
 
         <div className="container">
-          <div className="contact-main-grid">
-            <section className="contact-nap card" aria-labelledby="nap-title">
-              <h2 id="nap-title">Información del local</h2>
-              <address className="nap-address" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
-                <p className="nap-row"><MapPin size={16} /> {BIZ_INFO.location}</p>
-                <p className="nap-row"><Phone size={16} /> <a href={`tel:+${BIZ_INFO.phone}`}>+{BIZ_INFO.phone}</a></p>
+          <div className="location-header">
+            <h2 className="location-uppercase-title">Ubicación</h2>
+          </div>
+
+          <div className="location-map-card">
+            <div className="location-map-iframe-container">
+              <iframe
+                title="Mapa de ubicación de De Raíz Floricultura"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.7818987483665!2d-56.222674924258816!3d-34.729095572911576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a12f5a653bb7ef%3A0xe54ef84c7e6c9c7f!2sDe%20Raiz%20Floricultura!5e0!3m2!1ses-419!2suy!4v1710000000000!5m2!1ses-419!2suy"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+
+            <div className="location-floating-card">
+              <h3 className="landmarks-title">Puntos Cercanos</h3>
+              <ul className="landmarks-list">
+                <li>
+                  <span className="landmark-name">Ruta 5 (Conexión rápida)</span>
+                  <span className="landmark-time">4 mins</span>
+                </li>
+                <li>
+                  <span className="landmark-name">Plaza Las Piedras (Centro)</span>
+                  <span className="landmark-time">6 mins</span>
+                </li>
+                <li>
+                  <span className="landmark-name">Progreso</span>
+                  <span className="landmark-time">10 mins</span>
+                </li>
+                <li>
+                  <span className="landmark-name">Límite con Montevideo</span>
+                  <span className="landmark-time">12 mins</span>
+                </li>
+                <li>
+                  <span className="landmark-name">Ruta 102 (Acceso Perimetral)</span>
+                  <span className="landmark-time">15 mins</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="location-editorial-grid">
+            <div className="editorial-left">
+              <h3 className="editorial-lead-title">Vivero de especialidad en Las Piedras</h3>
+              <p className="editorial-heading-text">Tu escapada natural en Ruta 48</p>
+            </div>
+            <div className="editorial-right">
+              <p className="editorial-paragraph">
+                Ubicados en un entorno tranquilo y accesible en Canelones, a solo minutos de los accesos principales. Te invitamos a recorrer un espacio dedicado a las plantas de interior, exterior, sustratos y asesoramiento experto para tus espacios.
+              </p>
+              
+              <address className="editorial-address-block" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+                <div className="editorial-info-col">
+                  <strong>Dirección</strong>
+                  <span><MapPin size={12} style={{ marginRight: '4px', verticalAlign: 'middle' }} /> {BIZ_INFO.location}</span>
+                </div>
+                <div className="editorial-info-col">
+                  <strong>Teléfono</strong>
+                  <span><Phone size={12} style={{ marginRight: '4px', verticalAlign: 'middle' }} /> <a href={`tel:+${BIZ_INFO.phone}`}>+{BIZ_INFO.phone}</a></span>
+                </div>
+                <div className="editorial-info-col">
+                  <strong>Horarios</strong>
+                  <span>Lunes a Sábado: 09:00 - 18:00</span>
+                  <span>Domingos: 09:00 - 13:00</span>
+                </div>
               </address>
 
-              <div className="nap-hours" aria-label="Horarios de apertura">
-                <h3><Clock size={16} /> Horarios</h3>
-                <ul>
-                  <li><span>Lunes a Sábado</span><strong>09:00 - 18:00</strong></li>
-                  <li><span>Domingo</span><strong>09:00 - 13:00</strong></li>
-                </ul>
-              </div>
-
-              <div className="nap-ctas">
-                <a href={mapsUrl} target="_blank" rel="noreferrer" className="btn btn-primary">
-                  <Navigation size={18} /> Abrir en Google Maps
+              <div className="editorial-ctas">
+                <a href={mapsUrl} target="_blank" rel="noreferrer" className="btn btn-editorial-primary">
+                  <Navigation size={15} /> Cómo llegar
                 </a>
-                <a href={generateWaLink(WA_MESSAGES.ayudaElegir)} target="_blank" rel="noreferrer" className="btn btn-secondary">
-                  <MessageCircle size={18} /> Consultar por WhatsApp
+                <a href={generateWaLink(WA_MESSAGES.ayudaElegir)} target="_blank" rel="noreferrer" className="btn btn-editorial-secondary">
+                  <MessageCircle size={15} /> Chat por WhatsApp
                 </a>
               </div>
-            </section>
-
-            <section className="contact-map card" aria-labelledby="map-title">
-              <h2 id="map-title">Ubicación y Visita</h2>
-              <div className="botanical-visit-card">
-                <div className="botanical-visit-badge">
-                  <Leaf size={14} /> ¡Visitanos!
-                </div>
-                <h3>Nuestro Local en Canelones</h3>
-                <p className="botanical-visit-text">
-                  Ruta 48, Las Piedras, Uruguay. Te esperamos con la mejor selección y asesoramiento personalizado de plantas en Canelones. Escribinos por WhatsApp para coordinar tu visita o conocer la mejor forma de llegar.
-                </p>
-                <div className="botanical-visit-map-art">
-                  <div className="map-art-route">Ruta 48</div>
-                  <div className="map-art-city">Las Piedras</div>
-                  <div className="map-art-pin">
-                    <MapPin size={24} className="animate-bounce" />
-                    <span>De Raíz</span>
-                  </div>
-                </div>
-                <div className="botanical-visit-ctas">
-                  <a href={mapsUrl} target="_blank" rel="noreferrer" className="btn btn-primary">
-                    <Navigation size={16} /> Abrir Google Maps
-                  </a>
-                  <a href={generateWaLink(WA_MESSAGES.ayudaElegir)} target="_blank" rel="noreferrer" className="btn btn-secondary">
-                    <MessageCircle size={16} /> Chat por WhatsApp
-                  </a>
-                </div>
-              </div>
-            </section>
+            </div>
           </div>
         </div>
       </section>

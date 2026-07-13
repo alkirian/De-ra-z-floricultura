@@ -1,9 +1,35 @@
 import React, { useEffect } from 'react';
-import { X, Sun, Droplets, Leaf, MessageCircle } from 'lucide-react';
+import { X, Sun, Droplets, Leaf, MessageCircle, Ruler, Package, Sprout } from 'lucide-react';
 import { generateWaLink, WA_MESSAGES } from '../data/mockData';
 import './ProductModal.css';
 
-const ProductModal = ({ product, onClose }) => {
+const getAttributeIcon = (type) => {
+  switch (type) {
+    case 'luz':          return <Sun size={20} color="var(--color-primary)" />;
+    case 'riego':        return <Droplets size={20} color="var(--color-primary)" />;
+    case 'dificultad':   return <Leaf size={20} color="var(--color-primary)" />;
+    case 'tamano':       return <Ruler size={20} color="var(--color-primary)" />;
+    case 'material':     return <Package size={20} color="var(--color-primary)" />;
+    case 'presentacion': return <Package size={20} color="var(--color-primary)" />;
+    case 'uso':          return <Sprout size={20} color="var(--color-primary)" />;
+    default:             return <Sprout size={20} color="var(--color-primary)" />;
+  }
+};
+
+const getAttributeLabel = (type) => {
+  switch (type) {
+    case 'luz':          return 'Luz';
+    case 'riego':        return 'Riego';
+    case 'dificultad':   return 'Dificultad';
+    case 'tamano':       return 'Tamaño';
+    case 'material':     return 'Material';
+    case 'presentacion': return 'Envase';
+    case 'uso':          return 'Uso';
+    default:             return type.charAt(0).toUpperCase() + type.slice(1);
+  }
+};
+
+const ProductModal = ({ product, onClose, actionButton }) => {
   // Prevent body scroll when modal is open
   useEffect(() => {
     document.documentElement.classList.add('scroll-locked');
@@ -22,10 +48,8 @@ const ProductModal = ({ product, onClose }) => {
     }
   };
 
-  const light = product.light || product.attributes?.find(a => a.type === 'luz')?.value || "N/A";
-  const water = product.water || product.attributes?.find(a => a.type === 'riego')?.value || "N/A";
-  const difficulty = product.difficulty || product.attributes?.find(a => a.type === 'dificultad')?.value || "N/A";
   const isPetFriendly = product.isPetFriendly;
+  const attributes = product.attributes || [];
 
   return (
     <div className="modal-backdrop animate-fade-in" onClick={handleBackdropClick}>
@@ -42,49 +66,38 @@ const ProductModal = ({ product, onClose }) => {
           <div className="modal-info-col">
             <span className="badge">{product.category}</span>
             <h2 className="modal-title">{product.name}</h2>
+            {product.price && product.price !== "Consultar" && (
+              <p className="modal-price">{product.price}</p>
+            )}
             
             <p className="modal-description">{product.description}</p>
             
-            <div className="modal-attributes-list">
-              {light !== "N/A" && (
-                <div className="modal-attribute">
-                  <div className="modal-icon-wrapper"><Sun size={20} color="var(--color-primary)"/></div>
-                  <div>
-                    <strong>Luz</strong>
-                    <p>{light}</p>
+            {attributes.length > 0 && (
+              <div className="modal-attributes-list">
+                {attributes.map((attr, idx) => (
+                  <div key={idx} className="modal-attribute">
+                    <div className="modal-icon-wrapper">
+                      {getAttributeIcon(attr.type)}
+                    </div>
+                    <div>
+                      <strong>{getAttributeLabel(attr.type)}</strong>
+                      <p>{attr.value}</p>
+                    </div>
                   </div>
-                </div>
-              )}
-              {water !== "N/A" && (
-                <div className="modal-attribute">
-                  <div className="modal-icon-wrapper"><Droplets size={20} color="var(--color-primary)"/></div>
-                  <div>
-                    <strong>Riego</strong>
-                    <p>{water}</p>
+                ))}
+                {isPetFriendly && (
+                  <div className="modal-attribute pet-friendly-attr">
+                    <div className="modal-icon-wrapper pet-friendly-icon-wrapper">
+                      <span className="pet-icon">🐾</span>
+                    </div>
+                    <div>
+                      <strong>Mascotas</strong>
+                      <p className="pet-friendly-text">Seguro para perros y gatos</p>
+                    </div>
                   </div>
-                </div>
-              )}
-              {difficulty !== "N/A" && (
-                <div className="modal-attribute">
-                  <div className="modal-icon-wrapper"><Leaf size={20} color="var(--color-primary)"/></div>
-                  <div>
-                    <strong>Dificultad</strong>
-                    <p>{difficulty}</p>
-                  </div>
-                </div>
-              )}
-              {isPetFriendly && (
-                <div className="modal-attribute pet-friendly-attr">
-                  <div className="modal-icon-wrapper pet-friendly-icon-wrapper">
-                    <span className="pet-icon">🐾</span>
-                  </div>
-                  <div>
-                    <strong>Mascotas</strong>
-                    <p className="pet-friendly-text">Seguro para perros y gatos</p>
-                  </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
 
             {(product.careTips || product.pests) && (
               <div className="modal-extra-info">
@@ -104,16 +117,22 @@ const ProductModal = ({ product, onClose }) => {
             )}
 
             <div className="modal-actions">
-              <a 
-                href={generateWaLink(WA_MESSAGES.producto(product.name))} 
-                target="_blank" 
-                rel="noreferrer" 
-                className="btn btn-primary w-full"
-              >
-                <MessageCircle size={20} style={{marginRight: '8px'}} />
-                Consultar por este producto
-              </a>
-              <p className="modal-hint">Abre WhatsApp con un mensaje automático</p>
+              {actionButton ? (
+                actionButton
+              ) : (
+                <>
+                  <a 
+                    href={generateWaLink(WA_MESSAGES.producto(product.name))} 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="btn btn-primary w-full"
+                  >
+                    <MessageCircle size={20} style={{marginRight: '8px'}} />
+                    Consultar por este producto
+                  </a>
+                  <p className="modal-hint">Abre WhatsApp con un mensaje automático</p>
+                </>
+              )}
             </div>
           </div>
         </div>

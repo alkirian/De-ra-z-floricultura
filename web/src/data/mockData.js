@@ -35,60 +35,60 @@ export const CATEGORIES = {
 };
 
 const BASE = import.meta.env.BASE_URL;
-const PLANT_IMAGES_BASE_PATH = `${BASE}images/plantas%202`;
+const PLANT_IMAGES_BASE_PATH = 'images/plantas%202';
 const SAFE_PLANT_IMAGES = {
-  Anthurium: `${PLANT_IMAGES_BASE_PATH}/anturio.png`,
-  Aphelandra: `${PLANT_IMAGES_BASE_PATH}/afelandra.png`,
-  Areca: `${PLANT_IMAGES_BASE_PATH}/areca.png`,
-  Chamaedorea: `${PLANT_IMAGES_BASE_PATH}/chamaedorea.png`,
-  Croton: `${PLANT_IMAGES_BASE_PATH}/croton.png`,
-  Dieffenbachia: `${PLANT_IMAGES_BASE_PATH}/dieffenbachia.png`,
-  'Drácena': `${PLANT_IMAGES_BASE_PATH}/dracaena.png`,
-  'Ficus elástica': `${PLANT_IMAGES_BASE_PATH}/ficus_elastica.png`,
-  'Ficus lyrata': `${PLANT_IMAGES_BASE_PATH}/ficus_lyrata.png`,
-  Monstera: `${PLANT_IMAGES_BASE_PATH}/monstera_deliciosa.png`,
-  'Monstera Monkey': `${PLANT_IMAGES_BASE_PATH}/monstera_adansonii.png`,
-  Peperomia: `${PLANT_IMAGES_BASE_PATH}/peperomia.png`,
-  Potus: `${PLANT_IMAGES_BASE_PATH}/potus.png`,
-  Raphis: `${PLANT_IMAGES_BASE_PATH}/raphis.png`,
-  Sansevieria: `${PLANT_IMAGES_BASE_PATH}/sansevieria.png`,
-  'Sansevieria golden': `${PLANT_IMAGES_BASE_PATH}/sansevieria_variegada.png`,
-  Spathiphyllum: `${PLANT_IMAGES_BASE_PATH}/espatifilo.png`,
-  'Violeta africana': `${PLANT_IMAGES_BASE_PATH}/violeta_africana.png`,
-  Alternanthera: `${PLANT_IMAGES_BASE_PATH}/alternanthera_variedades.png`,
-  Azalea: `${PLANT_IMAGES_BASE_PATH}/azalea_rosa.png`,
-  'Azalea de parque': `${PLANT_IMAGES_BASE_PATH}/azalea_fucsia.png`,
-  Calistemo: `${PLANT_IMAGES_BASE_PATH}/callistemon.png`,
-  'Ciprés calvo': `${PLANT_IMAGES_BASE_PATH}/cipres.png`,
-  Clavelina: `${PLANT_IMAGES_BASE_PATH}/clavelina.png`,
-  Columnea: `${PLANT_IMAGES_BASE_PATH}/columnea.png`,
-  Copete: `${PLANT_IMAGES_BASE_PATH}/copete.png`,
-  Coprosma: `${PLANT_IMAGES_BASE_PATH}/coprosoma.png`,
-  Cuphea: `${PLANT_IMAGES_BASE_PATH}/cuphea.png`,
-  Dipladenia: `${PLANT_IMAGES_BASE_PATH}/dipladenia.png`,
-  'Espárrago': `${PLANT_IMAGES_BASE_PATH}/esparrago.png`,
-  Gazania: `${PLANT_IMAGES_BASE_PATH}/gazania.png`,
-  Helecho: `${PLANT_IMAGES_BASE_PATH}/helecho_boston.png`,
-  Hiedra: `${PLANT_IMAGES_BASE_PATH}/hiedra.png`,
-  Lavanda: `${PLANT_IMAGES_BASE_PATH}/lavanda.png`,
-  'Mini clavel': `${PLANT_IMAGES_BASE_PATH}/mini%20clavel.png`,
-  'Mini viola': `${PLANT_IMAGES_BASE_PATH}/mini%20viola.png`,
-  Nácar: `${PLANT_IMAGES_BASE_PATH}/flor%20de%20nacar.png`,
-  Pennisetum: `${PLANT_IMAGES_BASE_PATH}/pennisetum.png`,
-  Petunia: `${PLANT_IMAGES_BASE_PATH}/petunia.png`,
-  'Pittosporum nana': `${PLANT_IMAGES_BASE_PATH}/pittosporum%20nana.png`,
-  Limón: `${PLANT_IMAGES_BASE_PATH}/limonero.png`,
-  Menta: `${PLANT_IMAGES_BASE_PATH}/menta_flor.png`,
-  Pimiento: `${PLANT_IMAGES_BASE_PATH}/pimiento.png`,
-  Plumbago: `${PLANT_IMAGES_BASE_PATH}/plumbago.png`,
-  Romero: `${PLANT_IMAGES_BASE_PATH}/romero.png`,
-  Ruda: `${PLANT_IMAGES_BASE_PATH}/ruda.png`,
-  Tomillo: `${PLANT_IMAGES_BASE_PATH}/tomillo.png`,
-  'Velo de novia': `${PLANT_IMAGES_BASE_PATH}/gypsophila.png`,
-  Westringia: `${PLANT_IMAGES_BASE_PATH}/westringia.png`,
+  Anthurium: `${PLANT_IMAGES_BASE_PATH}/anturio.webp`,
+  Aphelandra: `${PLANT_IMAGES_BASE_PATH}/afelandra.webp`,
+  Areca: `${PLANT_IMAGES_BASE_PATH}/areca.webp`,
+  Chamaedorea: `${PLANT_IMAGES_BASE_PATH}/chamaedorea.webp`,
+  Croton: `${PLANT_IMAGES_BASE_PATH}/croton.webp`,
+  Dieffenbachia: `${PLANT_IMAGES_BASE_PATH}/dieffenbachia.webp`,
+  'Drácena': `${PLANT_IMAGES_BASE_PATH}/dracaena.webp`,
+  'Ficus elástica': `${PLANT_IMAGES_BASE_PATH}/ficus_elastica.webp`,
+  'Ficus lyrata': `${PLANT_IMAGES_BASE_PATH}/ficus_lyrata.webp`,
+  Monstera: `${PLANT_IMAGES_BASE_PATH}/monstera_deliciosa.webp`,
+  'Monstera Monkey': `${PLANT_IMAGES_BASE_PATH}/monstera_adansonii.webp`,
+  Peperomia: `${PLANT_IMAGES_BASE_PATH}/peperomia.webp`,
+  Potus: `${PLANT_IMAGES_BASE_PATH}/potus.webp`,
+  Raphis: `${PLANT_IMAGES_BASE_PATH}/raphis.webp`,
+  Sansevieria: `${PLANT_IMAGES_BASE_PATH}/sansevieria.webp`,
+  'Sansevieria golden': `${PLANT_IMAGES_BASE_PATH}/sansevieria_variegada.webp`,
+  Spathiphyllum: `${PLANT_IMAGES_BASE_PATH}/espatifilo.webp`,
+  'Violeta africana': `${PLANT_IMAGES_BASE_PATH}/violeta_africana.webp`,
+  Alternanthera: `${PLANT_IMAGES_BASE_PATH}/alternanthera_variedades.webp`,
+  Azalea: `${PLANT_IMAGES_BASE_PATH}/azalea_rosa.webp`,
+  'Azalea de parque': `${PLANT_IMAGES_BASE_PATH}/azalea_fucsia.webp`,
+  Calistemo: `${PLANT_IMAGES_BASE_PATH}/callistemon.webp`,
+  'Ciprés calvo': `${PLANT_IMAGES_BASE_PATH}/cipres.webp`,
+  Clavelina: `${PLANT_IMAGES_BASE_PATH}/clavelina.webp`,
+  Columnea: `${PLANT_IMAGES_BASE_PATH}/columnea.webp`,
+  Copete: `${PLANT_IMAGES_BASE_PATH}/copete.webp`,
+  Coprosma: `${PLANT_IMAGES_BASE_PATH}/coprosoma.webp`,
+  Cuphea: `${PLANT_IMAGES_BASE_PATH}/cuphea.webp`,
+  Dipladenia: `${PLANT_IMAGES_BASE_PATH}/dipladenia.webp`,
+  'Espárrago': `${PLANT_IMAGES_BASE_PATH}/esparrago.webp`,
+  Gazania: `${PLANT_IMAGES_BASE_PATH}/gazania.webp`,
+  Helecho: `${PLANT_IMAGES_BASE_PATH}/helecho_boston.webp`,
+  Hiedra: `${PLANT_IMAGES_BASE_PATH}/hiedra.webp`,
+  Lavanda: `${PLANT_IMAGES_BASE_PATH}/lavanda.webp`,
+  'Mini clavel': `${PLANT_IMAGES_BASE_PATH}/mini%20clavel.webp`,
+  'Mini viola': `${PLANT_IMAGES_BASE_PATH}/mini%20viola.webp`,
+  Nácar: `${PLANT_IMAGES_BASE_PATH}/flor%20de%20nacar.webp`,
+  Pennisetum: `${PLANT_IMAGES_BASE_PATH}/pennisetum.webp`,
+  Petunia: `${PLANT_IMAGES_BASE_PATH}/petunia.webp`,
+  'Pittosporum nana': `${PLANT_IMAGES_BASE_PATH}/pittosporum%20nana.webp`,
+  Limón: `${PLANT_IMAGES_BASE_PATH}/limonero.webp`,
+  Menta: `${PLANT_IMAGES_BASE_PATH}/menta_flor.webp`,
+  Pimiento: `${PLANT_IMAGES_BASE_PATH}/pimiento.webp`,
+  Plumbago: `${PLANT_IMAGES_BASE_PATH}/plumbago.webp`,
+  Romero: `${PLANT_IMAGES_BASE_PATH}/romero.webp`,
+  Ruda: `${PLANT_IMAGES_BASE_PATH}/ruda.webp`,
+  Tomillo: `${PLANT_IMAGES_BASE_PATH}/tomillo.webp`,
+  'Velo de novia': `${PLANT_IMAGES_BASE_PATH}/gypsophila.webp`,
+  Westringia: `${PLANT_IMAGES_BASE_PATH}/westringia.webp`,
 };
 
-const getPlantImage = (name) => SAFE_PLANT_IMAGES[name] || `${BASE}images/placeholder_white.png`;
+const getPlantImage = (name) => SAFE_PLANT_IMAGES[name] || 'images/placeholder_white.png';
 
 const EASY_PLANTS = [
   'sansevieria', 'potus', 'peperomia', 'dracena', 'spathiphyllum', 'hiedra',
@@ -258,14 +258,14 @@ interiorPlants.forEach((name, i) => {
     price: "Consultar",
     image: getPlantImage(name),
     isPetFriendly: checkIfPetFriendly(name),
-    description: `Planta de interior ${name}. Ideal para decorar tus espacios con vida.`,
+    description: `El/La ${name} es una de nuestras variedades favoritas para interior. Ideal si buscás sumar hojas verdes y un toque fresco a tus rincones con buena luz natural.`,
     attributes: [
       { type: 'luz', value: getPlantLightValue(name) },
       { type: 'riego', value: getPlantWaterValue(name) },
       { type: 'dificultad', value: getDifficulty(name) }
     ],
-    careTips: "Limpiar las hojas con un paño húmedo para mantenerlas brillantes. Evitar corrientes de aire frío y cambios bruscos de temperatura.",
-    pests: "Cochinilla algodonosa, arañuela roja (en ambientes muy secos)."
+    careTips: "Recomendación De Raíz: Limpiale el polvo de las hojas con un pañito húmedo de vez en cuando (así respira mejor) y buscale un rincón estable, lejos de corrientes de aire frío o estufas.",
+    pests: "Atención con: Cochinilla algodonosa o arañuela roja (sobre todo si el ambiente está muy seco)."
   });
 });
 
@@ -279,14 +279,14 @@ exteriorPlants.forEach((name, i) => {
     price: "Consultar",
     image: getPlantImage(name),
     isPetFriendly: checkIfPetFriendly(name),
-    description: `Planta de exterior ${name}. Perfecta para darle color a tu jardín o balcón.`,
+    description: `Llevá el/la ${name} a tu patio, balcón o jardín. Es una planta hermosa, cultivada por nosotros y muy buscada para dar color y vida al aire libre.`,
     attributes: [
       { type: 'luz', value: getPlantLightValue(name) },
       { type: 'riego', value: getPlantWaterValue(name) },
       { type: 'dificultad', value: getDifficulty(name) }
     ],
-    careTips: "Abonar a principios de primavera y verano. Podar ramas secas o flores marchitas para fomentar nuevo crecimiento.",
-    pests: "Pulgones (especialmente en primavera), trips y hormigas cortadoras."
+    careTips: "Consejo botánico: Podale las flores marchitas y ramas secas para que brote con más fuerza. Agradece un abonado al inicio de la primavera.",
+    pests: "Atención con: Pulgones en primavera, trips u hormigas cortadoras si está en jardín abierto."
   });
 });
 
@@ -300,14 +300,14 @@ huertaPlants.forEach((name) => {
     price: "Consultar",
     image: getPlantImage(name),
     isPetFriendly: checkIfPetFriendly(name),
-    description: `${name} perfecta para tu huerta orgánica en casa. Aromática y noble.`,
+    description: `${name} de cultivo propio, lista para trasplantar. Una aromática noble y sana, ideal para tu huerta en casa y usar fresca en tus recetas.`,
     attributes: [
       { type: 'luz', value: getPlantLightValue(name) },
       { type: 'riego', value: getPlantWaterValue(name) },
       { type: 'dificultad', value: getDifficulty(name) }
     ],
-    careTips: "Cosechar regularmente para estimular el crecimiento y evitar que la planta semille prematuramente.",
-    pests: "Mosca blanca, pulgones y orugas. Recomendamos preventivos orgánicos como aceite de Neem o jabón potásico."
+    careTips: "Tip del cultivador: Cosechá sus ramitas con frecuencia para estimular a que siga brotando con fuerza y evitar que florezca antes de tiempo.",
+    pests: "Cuidado con: Orugas o mosca blanca. Podés combatirlas de forma natural y ecológica usando jabón potásico y aceite de Neem."
   });
 });
 
@@ -325,264 +325,374 @@ const slugify = (text) => {
 
 const newInsumoProductsRaw = [
   {
-    "nombre": "Samambaias Vitaplan",
+    "nombre": "Argila Expandida Vitaplan (1.2L)",
     "categoria": "Sustratos y Tierra",
-    "descripcion": "Acondicionador de suelo para plantas ornamentales, ideal para mejorar la estructura del sustrato y acompañar el desarrollo de plantas de interior y exterior.",
-    "detalle": "Producto para mejorar el sustrato y favorecer el desarrollo de plantas ornamentales. Especialmente útil para helechos, plantas verdes y especies de interior que requieren un sustrato aireado y con buena retención de humedad.",
-    "presentacion": "Bolsa aprox. 7,5 kg",
-    "uso": "Ornamentales y helechos",
-    "precio": null,
-    "imagen": "generica-sustratos.jpg"
+    "descripcion": "Arcilla expandida ideal para mejorar el drenaje en la base de las macetas y decorar la superficie de tus plantas.",
+    "detalle": "Arcilla expandida ideal para mejorar el drenaje en la base de las macetas y decorar la superficie de tus plantas.",
+    "presentacion": "Bolsa 1.2L",
+    "uso": "Drenaje y decoración de macetas",
+    "precio": "Consultar",
+    "imagen": "insumo_2.png"
   },
   {
-    "nombre": "Turba de Musgo Sphagnum",
+    "nombre": "Insecticida Cipermic 25 (100ml)",
+    "categoria": "Control de Plagas",
+    "descripcion": "Insecticida piretroide concentrado de amplio espectro para control de hormigas, moscas, mosquitos y otras plagas comunes en el jardín.",
+    "detalle": "Insecticida piretroide concentrado de amplio espectro para control de hormigas, moscas, mosquitos y otras plagas comunes en el jardín. Utilizar con precaución siguiendo las indicaciones del envase.",
+    "presentacion": "Frasco 100 ml",
+    "uso": "Control de hormigas e insectos",
+    "precio": "Consultar",
+    "imagen": "insumo_3.png"
+  },
+  {
+    "nombre": "Sustrato Cactus y Suculentas Terrafertil (5L)",
     "categoria": "Sustratos y Tierra",
-    "descripcion": "Turba ideal para mejorar la retención de humedad en mezclas de sustrato y favorecer un ambiente más estable para las raíces.",
-    "detalle": "Turba de musgo sphagnum recomendada para preparar mezclas de sustrato con buena retención de agua. Útil para plantas ornamentales, acidófilas, almácigos y mezclas especiales.",
+    "descripcion": "Mezcla premium lista para usar, especialmente formulada para cactus y suculentas. Garantiza un excelente drenaje y aireación.",
+    "detalle": "Mezcla premium lista para usar, especialmente formulada para cactus y suculentas. Garantiza un excelente drenaje y aireación para evitar la pudrición de raíces.",
+    "presentacion": "Bolsa 5L",
+    "uso": "Cactus y crasas",
+    "precio": "Consultar",
+    "imagen": "insumo_4.png"
+  },
+  {
+    "nombre": "Aceite de Neem Orgánico (Óleo de Neem)",
+    "categoria": "Control de Plagas",
+    "descripcion": "Insecticida y acaricida orgánico natural a base de aceite de neem. Ideal para el control preventivo y curativo de plagas comunes.",
+    "detalle": "Insecticida y acaricida orgánico natural a base de aceite de neem. Ideal para el control preventivo y curativo de plagas comunes de forma ecológica y segura.",
+    "presentacion": "Caja con aplicador",
+    "uso": "Insectos y ácaros",
+    "precio": "Consultar",
+    "imagen": "insumo_5.png"
+  },
+  {
+    "nombre": "Triple Acción Gran Amor (Fungicida/Insecticida)",
+    "categoria": "Control de Plagas",
+    "descripcion": "Producto listo para usar de triple acción que protege tus plantas contra insectos, ácaros y hongos comunes del jardín.",
+    "detalle": "Producto listo para usar de triple acción que protege tus plantas contra insectos, ácaros y hongos comunes del jardín de forma rápida y práctica.",
+    "presentacion": "Pulverizador 500 cc",
+    "uso": "Control de insectos, ácaros y hongos",
+    "precio": "Consultar",
+    "imagen": "insumo_6.png"
+  },
+  {
+    "nombre": "Aceite de Neem Gran Amor (220cc)",
+    "categoria": "Control de Plagas",
+    "descripcion": "Aceite de neem emulsificable, insecticida orgánico y preventivo natural para mantener tus plantas sanas y libres de plagas.",
+    "detalle": "Aceite de neem emulsificable, insecticida orgánico y preventivo natural para mantener tus plantas sanas y libres de plagas de forma ecológica.",
+    "presentacion": "Botella 220 cc",
+    "uso": "Preventivo orgánico",
+    "precio": "Consultar",
+    "imagen": "insumo_7.png"
+  },
+  {
+    "nombre": "Alimento para Orquídeas Crece Más",
+    "categoria": "Fertilizantes y Cuidado",
+    "descripcion": "Fertilizante líquido balanceado y específico para nutrir y promover una floración abundante y prolongada en todo tipo de orquídeas.",
+    "detalle": "Fertilizante líquido balanceado y específico para nutrir y promover una floración abundante y prolongada en todo tipo de orquídeas.",
+    "presentacion": "Botella",
+    "uso": "Nutrición y floración de orquídeas",
+    "precio": "Consultar",
+    "imagen": "insumo_8.png"
+  },
+  {
+    "nombre": "Fertilizante Granulado Cultivar Maccio",
+    "categoria": "Fertilizantes y Cuidado",
+    "descripcion": "Fertilizante completo granulado (N-P-K) formulado para potenciar el crecimiento vigoroso, follaje verde y floración espectacular en plantas y flores.",
+    "detalle": "Fertilizante completo granulado (N-P-K) formulado para potenciar el crecimiento vigoroso, follaje verde y floración espectacular en plantas y flores.",
     "presentacion": "Bolsa",
-    "uso": "Mezclas de sustrato",
-    "precio": null,
-    "imagen": "generica-sustratos.jpg"
+    "uso": "Crecimiento y floración general",
+    "precio": "Consultar",
+    "imagen": "insumo_9.png"
   },
   {
-    "nombre": "Smartfoil Bioestimulante Orgánico",
+    "nombre": "Nutri Cobre Vitaplan (Spray 500ml)",
     "categoria": "Fertilizantes y Cuidado",
-    "descripcion": "Bioestimulante orgánico de uso doméstico, pensado para acompañar el crecimiento y fortalecimiento general de las plantas.",
-    "detalle": "Bioestimulante orgánico a base de metabolitos de fermentación de levadura. Recomendado para fortalecer plantas, estimular su desarrollo y mejorar su respuesta general al cuidado. Leer instrucciones del envase antes de usar.",
-    "presentacion": "Caja con 20 sachets",
-    "uso": "Plantas de interior, exterior y huerta",
-    "precio": null,
-    "imagen": "generica-fertilizantes.jpg"
-  },
-  {
-    "nombre": "Humato de Fósforo y Potasio",
-    "categoria": "Fertilizantes y Cuidado",
-    "descripcion": "Biofertilizante líquido con fósforo y potasio, recomendado para acompañar la etapa de floración de las plantas.",
-    "detalle": "Producto líquido orientado al cuidado y nutrición de plantas en etapa de floración. Aporta nutrientes importantes para acompañar el desarrollo floral. Aplicar según indicaciones del envase.",
-    "presentacion": "Botella",
-    "uso": "Floración",
-    "precio": null,
-    "imagen": "generica-fertilizantes.jpg"
-  },
-  {
-    "nombre": "Super Magro La Huertina",
-    "categoria": "Fertilizantes y Cuidado",
-    "descripcion": "Biofertilizante líquido recomendado para acompañar el crecimiento y desarrollo general de las plantas.",
-    "detalle": "Producto líquido para uso en jardinería y huerta. Recomendado para estimular el crecimiento vegetal y acompañar el mantenimiento de plantas sanas. Aplicar siguiendo las indicaciones del envase.",
-    "presentacion": "Botella",
-    "uso": "Crecimiento vegetal",
-    "precio": null,
-    "imagen": "generica-fertilizantes.jpg"
-  },
-  {
-    "nombre": "Brillo para Hojas Gran Amor",
-    "categoria": "Fertilizantes y Cuidado",
-    "descripcion": "Producto para aportar brillo y cuidado a las hojas de plantas ornamentales de interior.",
-    "detalle": "Producto líquido para cuidado foliar. Ayuda a mejorar la presentación de las hojas y acompañar el mantenimiento de plantas ornamentales. Ideal para plantas de interior.",
-    "presentacion": "Botella 220 cm³ aprox.",
-    "uso": "Hojas y plantas ornamentales",
-    "precio": null,
-    "imagen": "generica-cuidado-plantas.jpg"
+    "descripcion": "Nutriente mineral mixto con cobre presentado en spray de fácil aplicación. Fortalece las defensas naturales de tus plantas frente a hongos.",
+    "detalle": "Nutriente mineral mixto con cobre presentado en spray de fácil aplicación. Fortalece las defensas naturales de tus plantas frente a hongos.",
+    "presentacion": "Spray 500 ml",
+    "uso": "Prevención de hongos y nutrición foliar",
+    "precio": "Consultar",
+    "imagen": "insumo_11.png"
   },
   {
     "nombre": "Sulfato de Hierro Crece Más",
     "categoria": "Fertilizantes y Cuidado",
-    "descripcion": "Corrector mineral a base de hierro, recomendado para el cuidado nutricional de plantas, árboles y jardín.",
-    "detalle": "Sulfato de hierro para corregir deficiencias minerales y acompañar el desarrollo saludable de las plantas. Ayuda a mejorar el color y vigor general. Utilizar según instrucciones de la etiqueta.",
+    "descripcion": "Corrector mineral ideal para prevenir y tratar la clorosis férrica (hojas amarillas). Aporta el hierro necesario para devolver el verde intenso a tus plantas.",
+    "detalle": "Corrector mineral ideal para prevenir y tratar la clorosis férrica (hojas amarillas). Aporta el hierro necesario para devolver el verde intenso a tus plantas.",
     "presentacion": "Bolsa",
-    "uso": "Plantas, árboles y jardín",
-    "precio": null,
-    "imagen": "generica-fertilizantes.jpg"
+    "uso": "Corrección de clorosis (hojas amarillas)",
+    "precio": "Consultar",
+    "imagen": "insumo_12.png"
   },
   {
-    "nombre": "Nutri Cobre Vitaplan",
+    "nombre": "Sustrato para Orquídeas Terrafertil (5L)",
+    "categoria": "Sustratos y Tierra",
+    "descripcion": "Mezcla específica a base de corteza, carbón y turba que proporciona la aireación y soporte ideales para el correcto desarrollo radicular de las orquídeas.",
+    "detalle": "Mezcla específica a base de corteza, carbón y turba que proporciona la aireación y soporte ideales para el correcto desarrollo radicular de las orquídeas.",
+    "presentacion": "Bolsa 5L",
+    "uso": "Aireación ideal para raíces de orquídeas",
+    "precio": "Consultar",
+    "imagen": "insumo_13.png"
+  },
+  {
+    "nombre": "Enraizador Hidrosol (Gotero)",
     "categoria": "Fertilizantes y Cuidado",
-    "descripcion": "Fertilizante mineral mixto con cobre, presentado en formato spray para aplicación práctica.",
-    "detalle": "Producto mineral con sulfato de cobre para el cuidado de plantas. Recomendado para mantenimiento preventivo y nutricional según indicaciones del fabricante. Leer etiqueta antes de usar.",
-    "presentacion": "Spray 500 ml",
-    "uso": "Cuidado de plantas",
-    "precio": null,
-    "imagen": "generica-cuidado-plantas.jpg"
+    "descripcion": "Hormona líquida para enraizar esquejes y gajos de plantas leñosas y herbáceas. Acelera el desarrollo de raíces sanas y fuertes.",
+    "detalle": "Hormona líquida para enraizar esquejes y gajos de plantas leñosas y herbáceas. Acelera el desarrollo de raíces sanas y fuertes.",
+    "presentacion": "Envase gotero",
+    "uso": "Propagación por esquejes",
+    "precio": "Consultar",
+    "imagen": "insumo_14.png"
   },
   {
-    "nombre": "Fertilizante para Orquídeas",
+    "nombre": "Fertilizante Horta-Fácil Granulado (250g)",
     "categoria": "Fertilizantes y Cuidado",
-    "descripcion": "Fertilizante específico para el cuidado y nutrición de orquídeas.",
-    "detalle": "Producto orientado al mantenimiento de orquídeas. Ayuda a acompañar su crecimiento y floración cuando se utiliza correctamente. Presentación exacta y modo de uso a confirmar según etiqueta.",
-    "presentacion": "A confirmar",
-    "uso": "Orquídeas",
-    "precio": null,
-    "imagen": "generica-orquideas.jpg"
+    "descripcion": "Fertilizante balanceado granulado diseñado para nutrir de forma sostenida tus canteros de flores, arbustos y plantas en la huerta.",
+    "detalle": "Fertilizante balanceado granulado diseñado para nutrir de forma sostenida tus canteros de flores, arbustos y plantas en la huerta.",
+    "presentacion": "Envase 250g",
+    "uso": "Nutrición para flores y huerta",
+    "precio": "Consultar",
+    "imagen": "insumo_15.png"
   },
   {
-    "nombre": "Cero Plaga Hormiguicida",
-    "categoria": "Control de Plagas",
-    "descripcion": "Hormiguicida para uso en hogar y jardín, indicado para el control de hormigas.",
-    "detalle": "Producto para el control de hormigas en espacios de hogar y jardín. Aplicar únicamente según las instrucciones del envase. Leer etiqueta, dosis y precauciones antes de usar.",
-    "presentacion": "Botella spray",
-    "uso": "Hormigas",
-    "precio": null,
-    "imagen": "generica-plagas.jpg"
-  },
-  {
-    "nombre": "Cero Plaga Caracolicida",
-    "categoria": "Control de Plagas",
-    "descripcion": "Producto para el control de caracoles y babosas en jardín y plantas ornamentales.",
-    "detalle": "Caracolicida para uso en jardín. Recomendado para controlar caracoles y babosas en zonas con plantas. Usar con precaución y seguir las instrucciones del envase. Leer etiqueta, dosis y precauciones antes de usar.",
-    "presentacion": "Botella spray",
-    "uso": "Caracoles y babosas",
-    "precio": null,
-    "imagen": "generica-plagas.jpg"
-  },
-  {
-    "nombre": "Gran Amor Cura las Plantas",
-    "categoria": "Control de Plagas",
-    "descripcion": "Insecticida acaricida para el cuidado de plantas ornamentales de interior y exterior.",
-    "detalle": "Producto para el cuidado de plantas frente a insectos y ácaros. Recomendado para plantas ornamentales. Leer etiqueta, dosis y precauciones antes de usar.",
-    "presentacion": "Envase 500 cm³",
-    "uso": "Insectos y ácaros",
-    "precio": null,
-    "imagen": "generica-plagas.jpg"
-  },
-  {
-    "nombre": "Fungicida Orgánico Gran Amor",
-    "categoria": "Control de Plagas",
-    "descripcion": "Fungicida orgánico para el control de hongos en plantas.",
-    "detalle": "Producto orgánico para el control de hongos en plantas. Aplicar según indicaciones del envase. Leer etiqueta, dosis y precauciones antes de usar.",
-    "presentacion": "Botella 500 cm³",
-    "uso": "Hongos en plantas",
-    "precio": null,
-    "imagen": "generica-plagas.jpg"
-  },
-  {
-    "nombre": "Aceite de Neem + Jabón Potásico",
-    "categoria": "Control de Plagas",
-    "descripcion": "Producto a base de aceite de neem y jabón potásico para el cuidado de árboles, plantas y huerta.",
-    "detalle": "Producto recomendado para el control and prevención de insectos y hongos en plantas. Apto para árboles, plantas ornamentales y huerta según indicaciones del envase. Leer etiqueta, dosis y precauciones antes de usar.",
-    "presentacion": "Botella 500 ml / 1 L",
-    "uso": "Árboles, plantas y huerta",
-    "precio": null,
-    "imagen": "generica-plagas.jpg"
-  },
-  {
-    "nombre": "Jabón Potásico La Huertina",
-    "categoria": "Control de Plagas",
-    "descripcion": "Jabón potásico de amplio espectro para el cuidado de árboles y plantas.",
-    "detalle": "Jabón potásico para control de insectos en plantas. Producto apto para árboles y plantas según indicaciones del envase. Leer etiqueta, dosis y precauciones antes de usar.",
-    "presentacion": "Botella o spray",
-    "uso": "Árboles y plantas",
-    "precio": null,
-    "imagen": "generica-plagas.jpg"
-  },
-  {
-    "nombre": "Tribel Multiuso",
-    "categoria": "Control de Plagas",
-    "descripcion": "Insecticida multiuso para el control de insectos en plantas.",
-    "detalle": "Insecticida de uso múltiple para plantas. Producto químico: leer etiqueta, dosis y precauciones antes de usar.",
-    "presentacion": "Botella 100 ml",
-    "uso": "Control de insectos",
-    "precio": null,
-    "imagen": "generica-plagas.jpg"
-  },
-  {
-    "nombre": "Cipermic 25",
-    "categoria": "Control de Plagas",
-    "descripcion": "Insecticida piretroide concentrado emulsionable de uso agrícola.",
-    "detalle": "Insecticida concentrado emulsionable piretroide. Producto de uso agrícola. Leer etiqueta, dosis y precauciones antes de usar.",
-    "presentacion": "Frasco 100 ml",
-    "uso": "Control de insectos",
-    "precio": null,
-    "imagen": "generica-plagas.jpg"
-  },
-  {
-    "nombre": "Mix Hormital",
-    "categoria": "Control de Plagas",
-    "descripcion": "Cebo hormiguicida granulado para el control de hormigas.",
-    "detalle": "Producto hormiguicida para control de hormigas. Presentación en cebo granulado. Leer etiqueta, dosis y precauciones antes de usar.",
+    "nombre": "Urea Maccio Cultivar Nitrogenado",
+    "categoria": "Fertilizantes y Cuidado",
+    "descripcion": "Fertilizante nitrogenado de alta concentración (46% N) que estimula un crecimiento verde rápido y exuberante en el césped y follaje.",
+    "detalle": "Fertilizante nitrogenado de alta concentración (46% N) que estimula un crecimiento verde rápido y exuberante en el césped y follaje.",
     "presentacion": "Bolsa",
-    "uso": "Hormigas",
-    "precio": null,
-    "imagen": "generica-plagas.jpg"
+    "uso": "Crecimiento de césped y follaje verde",
+    "precio": "Consultar",
+    "imagen": "insumo_16.png"
   },
   {
-    "nombre": "Ara-Ba Mata Caracoles y Babosas",
+    "nombre": "Oxicloruro de Cobre Beltrame Fungicida",
     "categoria": "Control de Plagas",
-    "descripcion": "Producto para el control de caracoles y babosas en jardín, canteros y plantas.",
-    "detalle": "Molusquicida para control de caracoles y babosas. Utilizar de acuerdo a la etiqueta y mantener fuera del alcance de niños y mascotas. Leer etiqueta, dosis y precauciones antes de usar.",
-    "presentacion": "Bolsa 100 g / 200 g",
-    "uso": "Caracoles y babosas",
-    "precio": null,
-    "imagen": "generica-plagas.jpg"
+    "descripcion": "Fungicida preventivo de amplio espectro formulado a base de cobre. Protege plantas y frutales contra hongos foliares como torque, antracnosis y mildiú.",
+    "detalle": "Fungicida preventivo de amplio espectro formulado a base de cobre. Protege plantas y frutales contra hongos foliares como torque, antracnosis y mildiú.",
+    "presentacion": "Caja con sobres",
+    "uso": "Prevención de hongos en plantas y árboles",
+    "precio": "Consultar",
+    "imagen": "insumo_17.png"
   },
   {
-    "nombre": "Super Babocol",
-    "categoria": "Control de Plagas",
-    "descripcion": "Molusquicida para el control de babosas y caracoles en jardín.",
-    "detalle": "Producto formulado para el control de babosas y caracoles. Recomendado para jardín, canteros y plantas ornamentales. Leer etiqueta, dosis y precauciones antes de usar.",
+    "nombre": "Semillas de Césped Familiar Beltrame (500g)",
+    "categoria": "Sustratos y Tierra",
+    "descripcion": "Mezcla de semillas seleccionadas de alta calidad para sembrar y lograr un césped familiar tupido, resistente al pisoteo y de rápido establecimiento.",
+    "detalle": "Mezcla de semillas seleccionadas de alta calidad para sembrar y lograr un césped familiar tupido, resistente al pisoteo y de rápido establecimiento.",
+    "presentacion": "Bolsa 500g",
+    "uso": "Siembra y resiembra de césped familiar",
+    "precio": "Consultar",
+    "imagen": "insumo_18.png"
+  },
+  {
+    "nombre": "Sustrato Plantas de Interior Terrafertil",
+    "categoria": "Sustratos y Tierra",
+    "descripcion": "Mezcla premium formulada especialmente para plantas de interior. Brinda retención de humedad óptima, aireación y los nutrientes necesarios para hojas verdes y sanas.",
+    "detalle": "Mezcla premium formulada especialmente para plantas de interior. Brinda retención de humedad óptima, aireación y los nutrientes necesarios para hojas verdes y sanas.",
     "presentacion": "Bolsa",
-    "uso": "Caracoles y babosas",
-    "precio": null,
-    "imagen": "generica-plagas.jpg"
+    "uso": "Mezcla para plantas de interior en maceta",
+    "precio": "Consultar",
+    "imagen": "insumo_19.png"
   },
   {
-    "nombre": "Oxicloruro de Cobre Beltrame",
-    "categoria": "Control de Plagas",
-    "descripcion": "Fungicida a base de cobre para el cuidado de plantas.",
-    "detalle": "Fungicida presentado en sobres o caja. Producto para uso en plantas según indicaciones de etiqueta. Leer etiqueta, dosis y precauciones antes de usar.",
-    "presentacion": "Caja 15 x 50 g",
-    "uso": "Control de hongos",
-    "precio": null,
-    "imagen": "generica-plagas.jpg"
-  },
-  {
-    "nombre": "Piedritas Decorativas Crece Más",
-    "categoria": "Macetas",
-    "descripcion": "Piedritas decorativas para cubrir la superficie de macetas y mejorar la presentación de las plantas.",
-    "detalle": "Piedras decorativas para macetas, ideales para terminaciones prolijas en plantas de interior, exterior y arreglos decorativos.",
+    "nombre": "Turba de Musgo Sphagnum Terrafertil",
+    "categoria": "Sustratos y Tierra",
+    "descripcion": "Turba seleccionada ideal para acondicionar el suelo, preparar sustratos ácidos o mejorar la retención de agua en mezclas especiales de trasplante.",
+    "detalle": "Turba seleccionada ideal para acondicionar el suelo, preparar sustratos ácidos o mejorar la retención de agua en mezclas especiales de trasplante.",
     "presentacion": "Bolsa",
-    "uso": "Decoración de macetas",
-    "precio": null,
-    "imagen": "generica-decoracion.jpg"
+    "uso": "Retención de humedad y sustrato ácido",
+    "precio": "Consultar",
+    "imagen": "insumo_21.png"
   },
   {
-    "nombre": "Maceta Cuadrada Alta Vendy",
+    "nombre": "Sustrato Súper Resaca Terrafertil",
+    "categoria": "Sustratos y Tierra",
+    "descripcion": "Acondicionador orgánico rico en materia orgánica de río, ideal para ablandar suelos arcillosos y aportar esponjosidad a tus sustratos.",
+    "detalle": "Acondicionador orgánico rico en materia orgánica de río, ideal para ablandar suelos arcillosos y aportar esponjosidad a tus sustratos.",
+    "presentacion": "Bolsa",
+    "uso": "Enmienda orgánica para mejorar suelo",
+    "precio": "Consultar",
+    "imagen": "insumo_22.png"
+  },
+  {
+    "nombre": "Súper Babocol Caracolicida",
+    "categoria": "Control de Plagas",
+    "descripcion": "Cebo granulado molusquicida altamente efectivo para el control y eliminación de caracoles y babosas en canteros y huertas.",
+    "detalle": "Cebo granulado molusquicida altamente efectivo para el control y eliminación de caracoles y babosas en canteros y huertas.",
+    "presentacion": "Bolsa",
+    "uso": "Cebo granulado contra caracoles y babosas",
+    "precio": "Consultar",
+    "imagen": "insumo_23.png"
+  },
+  {
+    "nombre": "Sustrato Samambaias Vitaplan (7.5kg)",
+    "categoria": "Sustratos y Tierra",
+    "descripcion": "Sustrato formulado específicamente para helechos y plantas verdes que requieren alta retención de humedad, esponjosidad y un medio rico en materia orgánica.",
+    "detalle": "Sustrato formulado específicamente para helechos y plantas verdes que requieren alta retención de humedad, esponjosidad y un medio rico en materia orgánica.",
+    "presentacion": "Bolsa aprox. 7.5 kg",
+    "uso": "Helechos y plantas que requieren humedad",
+    "precio": "Consultar",
+    "imagen": "insumo_27.png"
+  },
+  {
+    "nombre": "Cero Plaga Caracolicida Granulado",
+    "categoria": "Control de Plagas",
+    "descripcion": "Cebo granulado específico para atraer y eliminar caracoles y babosas. Resistente a la humedad para una mayor duración en el jardín.",
+    "detalle": "Cebo granulado específico para atraer y eliminar caracoles y babosas. Resistente a la humedad para una mayor duración en el jardín.",
+    "presentacion": "Botella dosificadora",
+    "uso": "Control persistente de caracoles y babosas",
+    "precio": "Consultar",
+    "imagen": "insumo_28.png"
+  },
+  {
+    "nombre": "Combo Cero Plaga Rastreros (Spray)",
+    "categoria": "Control de Plagas",
+    "descripcion": "Combo preventivo y curativo líquido para el control de hormigas e insectos rastreros en el jardín y plantas ornamentales.",
+    "detalle": "Combo preventivo y curativo líquido para el control de hormigas e insectos rastreros en el jardín y plantas ornamentales.",
+    "presentacion": "Botellas spray listos para usar",
+    "uso": "Control de hormigas e insectos rastreros",
+    "precio": "Consultar",
+    "imagen": "insumo_29.png"
+  },
+  {
+    "nombre": "Piedritas Decorativas Blancas Crece Más",
     "categoria": "Macetas",
-    "descripcion": "Maceta cuadrada alta de diseño moderno, ideal para plantas ornamentales de interior y exterior.",
-    "detalle": "Maceta de formato alto, disponible en varios colores. Recomendada para decorar espacios interiores, balcones, patios y jardines.",
-    "presentacion": "Unidad",
-    "uso": "Interior y exterior",
-    "precio": null,
-    "imagen": "generica-macetas.jpg"
+    "descripcion": "Piedras blancas decorativas seleccionadas para colocar sobre el sustrato. Aportan una excelente terminación estética y retienen la humedad.",
+    "detalle": "Piedras blancas decorativas seleccionadas para colocar sobre el sustrato. Aportan una excelente terminación estética y retienen la humedad.",
+    "presentacion": "Bolsa",
+    "uso": "Decoración de macetas y retención de humedad",
+    "precio": "Consultar",
+    "imagen": "insumo_30.png"
   },
   {
-    "nombre": "Maceta Redonda Línea Original",
+    "nombre": "Melaza para Plantas Nutrilab",
+    "categoria": "Fertilizantes y Cuidado",
+    "descripcion": "Melaza de caña de alta calidad rica en carbohidratos que alimenta la microvida del suelo y aporta micronutrientes para potenciar el vigor y rendimiento.",
+    "detalle": "Melaza de caña de alta calidad rica en carbohidratos que alimenta la microvida del suelo y aporta micronutrientes para potenciar el vigor y rendimiento.",
+    "presentacion": "Envase plástico",
+    "uso": "Alimento para microvida y floración",
+    "precio": "Consultar",
+    "imagen": "insumo_31.png"
+  },
+  {
+    "nombre": "Alimento para Plantas Crece Más Universal",
+    "categoria": "Fertilizantes y Cuidado",
+    "descripcion": "Fertilizante líquido completo y balanceado de uso universal. Aporta nitrógeno, fósforo y potasio para un crecimiento armónico de todo tipo de plantas.",
+    "detalle": "Fertilizante líquido completo y balanceado de uso universal. Aporta nitrógeno, fósforo y potasio para un crecimiento armónico de todo tipo de plantas.",
+    "presentacion": "Botella",
+    "uso": "Nutrición equilibrada multiuso",
+    "precio": "Consultar",
+    "imagen": "insumo_32.png"
+  },
+  {
+    "nombre": "Combo La Huertina (Super Magro + Humato + ME)",
+    "categoria": "Fertilizantes y Cuidado",
+    "descripcion": "Kit completo de nutrición orgánica que incluye bioestimulante foliar, abono líquido y regenerador de microvida para tus plantas y huerta.",
+    "detalle": "Kit completo de nutrición orgánica que incluye bioestimulante foliar, abono líquido y regenerador de microvida para tus plantas y huerta.",
+    "presentacion": "3 botellas líquidas",
+    "uso": "Kit completo de biofertilizantes orgánicos",
+    "precio": "Consultar",
+    "imagen": "insumo_33.png"
+  },
+  {
+    "nombre": "Combo La Huertina Pasta Potásica + Alimento",
+    "categoria": "Fertilizantes y Cuidado",
+    "descripcion": "Kit práctico que combina jabón potásico concentrado para prevención de plagas y fertilizante premium para incentivar el florecimiento de tus orquídeas.",
+    "detalle": "Kit práctico que combina jabón potásico concentrado para prevención de plagas y fertilizante premium para incentivar el florecimiento de tus orquídeas.",
+    "presentacion": "Jabón potásico en pasta + botella de alimento",
+    "uso": "Prevención de plagas y nutrición de flores",
+    "precio": "Consultar",
+    "imagen": "insumo_34.png"
+  },
+  {
+    "nombre": "Fertilizante Horta-Fácil Bolsa Amarilla",
+    "categoria": "Fertilizantes y Cuidado",
+    "descripcion": "Fertilizante granulado balanceado para canteros, huerta y jardín. Aporta nutrientes esenciales de liberación gradual para un follaje verde y flores abundantes.",
+    "detalle": "Fertilizante granulado balanceado para canteros, huerta y jardín. Aporta nutrientes esenciales de liberación gradual para un follaje verde y flores abundantes.",
+    "presentacion": "Bolsa amarilla",
+    "uso": "Fertilidad sostenida de canteros y huerta",
+    "precio": "Consultar",
+    "imagen": "insumo_35.png"
+  },
+  {
+    "nombre": "Fibra de Coco Vitaplan (2000g)",
+    "categoria": "Sustratos y Tierra",
+    "descripcion": "Fibra de coco deshidratada y procesada de forma ecológica. Aporta una excelente retención de humedad, esponjosidad y estimula el desarrollo de raíces sanas.",
+    "detalle": "Fibra de coco deshidratada y procesada de forma ecológica. Aporta una excelente retención de humedad, esponjosidad y estimula el desarrollo de raíces sanas.",
+    "presentacion": "Bolsa 2000g",
+    "uso": "Fibra natural ecológica para sustrato",
+    "precio": "Consultar",
+    "imagen": "insumo_36.png"
+  },
+  {
+    "nombre": "Combo Agroyuyo Plagas (Neem + Jabón + Aceite)",
+    "categoria": "Control de Plagas",
+    "descripcion": "Kit completo preventivo y curativo a base de extractos vegetales. Ideal para combatir mosca blanca, pulgón, arañuela y cochinilla de forma orgánica.",
+    "detalle": "Kit completo preventivo y curativo a base de extractos vegetales. Ideal para combatir mosca blanca, pulgón, arañuela y cochinilla de forma orgánica.",
+    "presentacion": "Kit de envases dosificadores",
+    "uso": "Kit ecológico contra pulgones y cochinillas",
+    "precio": "Consultar",
+    "imagen": "insumo_37.png"
+  },
+  {
+    "nombre": "Combo Cipermic + Neem + Jabón Potásico",
+    "categoria": "Control de Plagas",
+    "descripcion": "Kit fitosanitario mixto que combina el poder insecticida de contacto del Cipermic con la prevención persistente y orgánica del Neem y Jabón Potásico.",
+    "detalle": "Kit fitosanitario mixto que combina el poder insecticida de contacto del Cipermic con la prevención persistente y orgánica del Neem y Jabón Potásico.",
+    "presentacion": "Kit mixto de frascos concentrados",
+    "uso": "Kit de choque y prevención de plagas",
+    "precio": "Consultar",
+    "imagen": "insumo_38.png"
+  },
+  {
+    "nombre": "Fungicida e Insecticida Lampo (Sobres)",
+    "categoria": "Control de Plagas",
+    "descripcion": "Fungicida foliar preventivo y curativo de alto espectro en sobres. Protege tus plantas hortícolas y ornamentales de hongos comunes como oídio y mildiú.",
+    "detalle": "Fungicida foliar preventivo y curativo de alto espectro en sobres. Protege tus plantas hortícolas y ornamentales de hongos comunes como oídio y mildiú.",
+    "presentacion": "Sobres individuales",
+    "uso": "Tratamiento foliar preventivo y curativo",
+    "precio": "Consultar",
+    "imagen": "insumo_39.png"
+  },
+  {
+    "nombre": "Combo Sanidad y Nutrición Completo",
+    "categoria": "Control de Plagas",
+    "descripcion": "Kit integral de cabecera para el hobbista del jardín. Contiene preventivo fúngico, insecticida granulado y fertilizantes para el cuidado integral durante todo el año.",
+    "detalle": "Kit integral de cabecera para el hobbista del jardín. Contiene preventivo fúngico, insecticida granulado y fertilizantes para el cuidado integral durante todo el año.",
+    "presentacion": "Combo completo de insumos",
+    "uso": "Kit anual de prevención y alimentación vegetal",
+    "precio": "Consultar",
+    "imagen": "insumo_40.png"
+  },
+  {
+    "nombre": "Sustrato Violetas Vitaplan (1.5kg)",
+    "categoria": "Sustratos y Tierra",
+    "descripcion": "Mezcla específica y liviana diseñada especialmente para violetas africanas y plantas del mismo género. Brinda un drenaje óptimo y nutrición suave.",
+    "detalle": "Mezcla específica y liviana diseñada especialmente para violetas africanas y plantas del mismo género. Brinda un drenaje óptimo y nutrición suave.",
+    "presentacion": "Bolsa 1.5kg",
+    "uso": "Mezcla suave específica para violetas",
+    "precio": "Consultar",
+    "imagen": "insumo_1.png"
+  },
+  {
+    "nombre": "Maceta Terracota Clásica N°14",
     "categoria": "Macetas",
-    "descripcion": "Maceta redonda para plantas ornamentales, disponible en distintos colores y tamaños.",
-    "detalle": "Maceta redonda para uso en interior o exterior. Ideal para plantas ornamentales, arreglos verdes y decoración de ambientes.",
-    "presentacion": "Unidad",
-    "uso": "Interior y exterior",
-    "precio": null,
-    "imagen": "generica-macetas.jpg"
+    "descripcion": "Maceta de barro cocido tradicional. Su porosidad permite una excelente aireación de las raíces y evaporación del exceso de agua, ideal para plantas delicadas.",
+    "detalle": "Maceta de barro cocido tradicional. Su porosidad permite una excelente aireación de las raíces y evaporación del exceso de agua, ideal para plantas delicadas como suculentas y cactus.",
+    "presentacion": "Unidad (Diámetro 14cm)",
+    "uso": "Excelente drenaje y aireación natural",
+    "precio": "Consultar",
+    "imagen": "insumo_30.png"
   },
   {
-    "nombre": "Maceta Cerámica Decorativa",
+    "nombre": "Maceta Premium Rotomoldeada Cónica",
     "categoria": "Macetas",
-    "descripcion": "Maceta cerámica esmaltada de diseño decorativo para plantas de interior.",
-    "detalle": "Maceta cerámica decorativa disponible en distintos diseños, colores y tamaños. Ideal para realzar plantas ornamentales y espacios interiores.",
-    "presentacion": "Unidad",
-    "uso": "Plantas de interior",
-    "precio": null,
-    "imagen": "generica-macetas.jpg"
-  },
-  {
-    "nombre": "Pulverizador Manual",
-    "categoria": "Herramientas",
-    "descripcion": "Pulverizador manual para riego liviano, cuidado de hojas o aplicación de productos líquidos.",
-    "detalle": "Accesorio práctico para jardinería doméstica. Apto para pulverizar agua o productos líquidos según corresponda.",
-    "presentacion": "Unidad",
-    "uso": "Riego y aplicación",
-    "precio": null,
-    "imagen": "generica-accesorios.jpg"
+    "descripcion": "Maceta de diseño moderno fabricada en polietileno de alta calidad. Resistente al sol (filtro UV), golpes y temperaturas extremas, ultra liviana.",
+    "detalle": "Maceta de diseño moderno fabricada en polietileno de alta calidad. Resistente al sol (filtro UV), golpes y temperaturas extremas, ultra liviana y apta para interior o exterior.",
+    "presentacion": "Unidad (Altura 30cm)",
+    "uso": "Decoración exterior/interior ultra duradera",
+    "precio": "Consultar",
+    "imagen": "insumo_30.png"
   }
 ];
 
@@ -594,7 +704,7 @@ const newInsumoProducts = newInsumoProductsRaw.map((p) => {
     name: p.nombre,
     slug: slugify(p.nombre),
     price: p.precio,
-    image: `${BASE}images/placeholder_white.png`,
+    image: `images/insumos/ok/${p.imagen}`,
     description: p.detalle || p.descripcion,
     active: true,
     stock: "disponible",
@@ -605,78 +715,7 @@ const newInsumoProducts = newInsumoProductsRaw.map((p) => {
   };
 });
 
-const originalInsumos = [
-  {
-    id: nextId++,
-    section: 'insumos',
-    category: "Macetas",
-    name: "Maceta de Barro Clásica",
-    price: "Consultar",
-    image: `${BASE}images/placeholder_white.png`,
-    description: "Maceta de terracota transpirable, excelente para suculentas y plantas que odian el exceso de humedad.",
-    attributes: [
-      { type: 'material', value: 'Barro / Terracota' },
-      { type: 'tamano', value: 'Varios tamaños' }
-    ]
-  },
-  {
-    id: nextId++,
-    section: 'insumos',
-    category: "Macetas",
-    name: "Maceta Rotomoldeada",
-    price: "Consultar",
-    image: `${BASE}images/placeholder_white.png`,
-    description: "Macetas modernas, ultra livianas y resistentes al sol. No se decoloran ni se rompen con facilidad.",
-    attributes: [
-      { type: 'material', value: 'Plástico Rotomoldeado' },
-      { type: 'tamano', value: 'Grandes volúmenes' }
-    ]
-  },
-  {
-    id: nextId++,
-    section: 'insumos',
-    category: "Sustratos y Tierra",
-    name: "Tierra Preparada Premium",
-    price: "Consultar",
-    image: `${BASE}images/placeholder_white.png`,
-    description: "Mezcla ideal lista para usar en macetas. Contiene compost, perlita y humus de lombriz.",
-    attributes: [
-      { type: 'volumen', value: 'Bolsas de 10L y 25L' },
-      { type: 'uso', value: 'Plantas de interior y exterior' }
-    ]
-  },
-  {
-    id: nextId++,
-    section: 'insumos',
-    category: "Sustratos y Tierra",
-    name: "Sustrato para Suculentas",
-    price: "Consultar",
-    image: `${BASE}images/placeholder_white.png`,
-    description: "Sustrato con alto porcentaje de arena y pometina para garantizar un drenaje extremo.",
-    attributes: [
-      { type: 'volumen', value: 'Bolsa de 5L' },
-      { type: 'uso', value: 'Cactus y crasas' }
-    ]
-  },
-  {
-    id: nextId++,
-    section: 'insumos',
-    category: "Fertilizantes y Cuidado",
-    name: "Humus de Lombriz Líquido",
-    price: "Consultar",
-    image: `${BASE}images/placeholder_white.png`,
-    description: "Fertilizante 100% orgánico. Mejora la floración y el crecimiento verde sin quemar la planta.",
-    attributes: [
-      { type: 'tipo', value: 'Orgánico líquido' },
-      { type: 'uso', value: 'Diluir en riego' }
-    ]
-  }
-].map(p => ({
-  ...p,
-  slug: slugify(p.name),
-  active: true,
-  stock: "disponible"
-}));
+const originalInsumos = [];
 
 const processedPlantProducts = plantProducts.map(p => ({
   ...p,

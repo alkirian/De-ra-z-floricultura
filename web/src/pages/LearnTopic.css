@@ -1,235 +1,955 @@
-.learn-topic-hero {
-  background:
-    radial-gradient(circle at 20% 16%, rgba(143, 168, 120, 0.16), transparent 44%),
-    radial-gradient(circle at 86% 20%, rgba(166, 95, 58, 0.16), transparent 40%),
-    linear-gradient(180deg, var(--beige-claro) 0%, var(--crema) 100%);
-}
+/* =====================================================
+   ESTILOS DE GUÍA INDIVIDUAL — FORMATO EDITORIAL PREMIUM
+   ===================================================== */
 
-.learn-topic-hero-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
-  align-items: center;
-}
-
-.learn-topic-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--texto-suave);
-  margin-bottom: 14px;
-}
-
-.learn-topic-hero h1 {
-  margin: 12px 0;
-}
-
-.learn-topic-hero p {
-  max-width: 65ch;
-}
-
-.learn-topic-bullets {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 14px;
-}
-
-.learn-topic-bullets span {
-  border: 1px solid rgba(143, 168, 120, 0.45);
-  background: rgba(255, 249, 239, 0.9);
-  color: var(--verde-profundo);
-  border-radius: var(--radius-full);
-  padding: 6px 10px;
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-
-.learn-topic-cover-wrap {
-  padding: 16px;
-}
-
-.learn-topic-cover {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: contain;
-}
-
-.learn-topic-cover-wrap p {
-  margin-top: 10px;
-  font-size: 0.85rem;
-}
-
-.learn-topic-layout {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
-}
-
-.learn-topic-main {
-  display: grid;
-  gap: 14px;
-}
-
-.learn-topic-section {
-  padding: 22px;
-}
-
-.learn-topic-section h2 {
-  font-size: clamp(1.32rem, 2vw, 1.9rem);
-  margin-bottom: 12px;
-}
-
-.learn-topic-section p {
-  margin-bottom: 10px;
-}
-
-.learn-topic-section ul {
-  display: grid;
-  gap: 8px;
-}
-
-.learn-topic-section li {
+.guide-reader-page {
+  background-color: var(--blanco-calido);
   color: var(--texto-oscuro);
-  line-height: 1.55;
-}
-
-.learn-season-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
-
-.learn-season-card {
-  border: 1px solid rgba(143, 168, 120, 0.33);
-  background: #fff9ef;
-  border-radius: var(--radius-md);
-  padding: 14px;
-}
-
-.learn-season-card h3 {
-  font-size: 1rem;
-  margin-bottom: 8px;
-}
-
-.learn-topic-side {
-  padding: 20px;
-  height: fit-content;
-}
-
-.learn-topic-side h3 {
-  margin-bottom: 10px;
-}
-
-.learn-topic-side ul {
-  display: grid;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-.learn-topic-side a {
-  color: var(--verde-profundo);
-  font-weight: 700;
-}
-
-.learn-topic-side-block {
-  margin: 14px 0;
-  padding-top: 12px;
-  border-top: 1px dashed rgba(166, 95, 58, 0.35);
-}
-
-.learn-topic-side-block h4 {
-  margin-bottom: 8px;
-}
-
-.learn-topic-side-link {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-}
-
-.learn-topic-not-found {
-  padding: 28px;
-  text-align: center;
-}
-
-.learn-topic-not-found p {
-  margin: 8px 0 14px;
-}
-
-.learn-next-card {
-  margin-top: 18px;
-  padding: 22px;
-}
-
-.learn-next-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-  align-items: center;
-  margin-top: 8px;
-}
-
-.learn-next-grid img {
-  width: 100%;
-  max-height: 220px;
-  object-fit: cover;
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(143, 168, 120, 0.4);
-}
-
-@media (min-width: 860px) {
-  .learn-topic-hero-grid {
-    grid-template-columns: minmax(0, 1.3fr) minmax(280px, 1fr);
-  }
-
-  .learn-season-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .learn-next-grid {
-    grid-template-columns: minmax(0, 1.5fr) minmax(220px, 1fr);
-  }
-}
-
-@media (min-width: 1120px) {
-  .learn-topic-layout {
-    grid-template-columns: minmax(0, 2fr) minmax(280px, 0.9fr);
-    align-items: start;
-  }
-
-  .learn-topic-side {
-    position: sticky;
-    top: 108px;
-  }
+  padding-top: 80px; /* Separación de la Navbar flotante */
+  padding-bottom: 80px;
+  line-height: 1.75;
 }
 
 /* =====================================================
-   CARGADOR DE GUÍA BOTÁNICA (TRANSICIÓN PREMIUM)
+   1. HEADER / HERO
    ===================================================== */
-.guide-loading {
-  padding: 80px 20px;
-  text-align: center;
-  font-family: var(--font-heading);
-  color: var(--verde-profundo);
-  font-size: 1.15rem;
+.guide-header {
+  padding: 48px 0;
+  background-color: var(--crema);
+  border-bottom: 1px solid var(--beige-medio);
+}
+
+.guide-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--texto-suave);
+  margin-bottom: 20px;
+}
+
+.guide-breadcrumb a {
+  color: var(--texto-suave);
+  transition: color var(--t-fast);
+}
+
+.guide-breadcrumb a:hover {
+  color: var(--verde-profundo);
+}
+
+.guide-breadcrumb .current {
+  color: var(--terracota);
+}
+
+.guide-breadcrumb svg {
+  color: var(--texto-suave);
+}
+
+.guide-title-area {
+  max-width: 850px;
+  margin-bottom: 24px;
+}
+
+.guide-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  color: var(--verde-profundo);
+  line-height: 1.2;
+  margin-bottom: 16px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.guide-subtitle {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  color: var(--texto-medio);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.guide-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 28px;
+  padding-top: 20px;
+  border-top: 1px dashed rgba(122, 86, 56, 0.25);
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--texto-medio);
+}
+
+.meta-item svg {
+  color: var(--terracota);
+}
+
+.meta-item strong {
+  color: var(--verde-profundo);
+}
+
+/* =====================================================
+   2. COVER IMAGE
+   ===================================================== */
+.guide-cover-section {
+  margin-top: 40px;
+  margin-bottom: 48px;
+}
+
+.guide-cover-wrap {
+  position: relative;
+  height: clamp(260px, 45vh, 460px);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.guide-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.guide-cover-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(43, 36, 28, 0.9) 0%, rgba(43, 36, 28, 0.4) 60%, transparent 100%);
+  padding: 32px 40px;
+  color: var(--crema);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.botanical-name strong,
+.botanical-family strong {
+  display: block;
+  font-size: 1.15rem;
+  color: white;
+  margin-top: 4px;
+}
+
+.botanical-name span,
+.botanical-family span {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--verde-salvia-light);
+}
+
+/* =====================================================
+   3. TWO COLUMN LAYOUT & TYPOGRAPHY
+   ===================================================== */
+.guide-content-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 56px;
+  align-items: start;
+}
+
+.guide-main-article {
+  min-width: 0;
+}
+
+.guide-section {
+  margin-bottom: 56px;
+  scroll-margin-top: 120px;
+}
+
+.guide-section h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 1.8rem);
+  color: var(--verde-profundo);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--beige-medio);
+}
+
+.guide-section p {
+  font-size: 1.05rem;
+  color: var(--texto-medio);
+  margin-bottom: 24px;
+  line-height: 1.75;
+}
+
+.guide-section strong {
+  color: var(--verde-profundo);
+}
+
+.guide-section ul,
+.guide-section ol {
+  margin-bottom: 28px;
+  padding-left: 24px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  background: var(--blanco-calido);
+  gap: 12px;
+}
+
+.guide-section ul {
+  list-style-type: disc;
+}
+
+.guide-section ol {
+  list-style-type: decimal;
+}
+
+.guide-section li {
+  font-size: 1.02rem;
+  color: var(--texto-medio);
+}
+
+.section-img-wrap {
+  margin: 36px 0;
   border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  aspect-ratio: 16/9;
+}
+
+.section-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s var(--ease-natural);
+}
+
+.section-img-wrap:hover img {
+  transform: scale(1.03);
+}
+
+/* --- Tip Box / Callouts --- */
+.tip-box {
+  padding: 28px 32px;
+  border-radius: var(--radius-md);
+  margin: 40px 0;
+  box-shadow: var(--shadow-xs);
+}
+
+.salvia-box {
+  background-color: #f4f7f1;
+  border-left: 5px solid var(--verde-salvia);
+}
+
+.tip-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--verde-profundo);
+  margin-bottom: 12px;
+}
+
+.tip-header svg {
+  color: var(--verde-salvia);
+}
+
+.tip-box p {
+  font-size: 1rem;
+  margin-bottom: 0;
+  color: var(--texto-oscuro);
+  text-align: left;
+  line-height: 1.65;
+}
+
+/* --- Seasons Care Cards --- */
+.seasons-care-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 36px 0;
+}
+
+.season-care-card {
+  padding: 30px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--beige-medio);
+  box-shadow: var(--shadow-xs);
+}
+
+.season-care-card.summer {
+  background-color: #fffbf5;
+  border-left: 4px solid #e09e3e;
+}
+
+.season-care-card.winter {
+  background-color: #f5f9fc;
+  border-left: 4px solid #4a90e2;
+}
+
+.season-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 5px 12px;
+  border-radius: 4px;
+  margin-bottom: 18px;
+}
+
+.summer .season-badge {
+  background-color: #fdf0db;
+  color: #c07a1c;
+}
+
+.winter .season-badge {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.season-care-card p {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  margin-bottom: 0;
+}
+
+/* =====================================================
+   4. SYMPTOM DIAGNOSIS WIDGET (INTERACTIVE)
+   ===================================================== */
+.diagnostic-widget {
+  background-color: #fdfaf6;
+  border: 1.5px solid var(--beige-medio);
+  padding: 40px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.widget-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.widget-icon {
+  width: 44px;
+  height: 44px;
+  color: var(--terracota);
+  background-color: #faeedc;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+}
+
+.widget-header h3 {
+  font-size: 1.4rem;
+  color: var(--verde-profundo);
+  margin-bottom: 4px;
+}
+
+.widget-header p {
+  font-size: 0.92rem;
+  color: var(--texto-suave);
+  margin-bottom: 0;
+}
+
+.widget-content {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 32px;
+}
+
+.symptoms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.symptom-btn {
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--beige-medio);
+  background-color: var(--color-surface);
+  color: var(--texto-oscuro);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: all var(--t-fast);
+}
+
+.symptom-btn:hover {
+  background-color: var(--beige-claro);
+  border-color: var(--texto-suave);
+  transform: translateX(4px);
+}
+
+.symptom-btn.is-active {
+  background-color: var(--verde-profundo);
+  color: var(--crema);
+  border-color: var(--verde-profundo);
+  box-shadow: var(--shadow-sm);
+}
+
+.symptom-btn svg {
+  color: var(--texto-suave);
+  transition: color var(--t-fast);
+}
+
+.symptom-btn.is-active svg {
+  color: var(--crema);
+}
+
+.diagnosis-result-card {
+  background-color: var(--color-surface);
   border: 1px solid var(--color-border);
-  animation: pulse-loading 1.8s infinite ease-in-out;
+  padding: 32px;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: var(--shadow-xs);
+  min-height: 280px;
+  justify-content: center;
 }
 
-@keyframes pulse-loading {
-  0%, 100% { opacity: 0.65; transform: scale(0.99); }
-  50% { opacity: 1; transform: scale(1); }
+.result-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
+.result-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.text-warning { color: #c07a1c; }
+.text-danger { color: #a24b3a; }
+.text-success { color: var(--verde-profundo); }
+
+.result-text {
+  font-size: 0.96rem;
+  line-height: 1.6;
+  margin-bottom: 0 !important;
+  color: var(--texto-medio);
+}
+
+.symptom-desc {
+  font-weight: 700;
+  color: var(--texto-oscuro);
+}
+
+.solution-section {
+  border-top: 1px dashed var(--beige-medio);
+  padding-top: 16px;
+}
+
+.solution-desc {
+  font-size: 0.96rem;
+  color: var(--texto-oscuro);
+}
+
+/* =====================================================
+   5. CATALOG INTEGRATION (LINKS STYLE FOR DYNAMIC)
+   ===================================================== */
+.products-integration {
+  border-top: 1px solid var(--beige-medio);
+  padding-top: 56px;
+}
+
+.section-header-inline {
+  margin-bottom: 32px;
+}
+
+.section-header-inline h2 {
+  border-bottom: none;
+  margin-bottom: 6px;
+}
+
+.section-header-inline p {
+  color: var(--texto-suave);
+  font-size: 0.95rem;
+}
+
+.catalog-links-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.catalog-link-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 24px;
+  border-radius: var(--radius-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all var(--t-normal);
+  box-shadow: var(--shadow-xs);
+}
+
+.catalog-link-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--verde-salvia);
+  box-shadow: var(--shadow-sm);
+}
+
+.catalog-link-copy h4 {
+  font-size: 1.05rem;
+  color: var(--verde-profundo);
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+.catalog-link-copy p {
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+  margin-bottom: 0 !important;
+}
+
+.catalog-link-card .arrow-icon {
+  color: var(--texto-suave);
+  transition: transform var(--t-fast), color var(--t-fast);
+}
+
+.catalog-link-card:hover .arrow-icon {
+  transform: translate(3px, -3px);
+  color: var(--terracota);
+}
+
+/* =====================================================
+   6. SIDEBAR STYLING (STICKY)
+   ===================================================== */
+.guide-sidebar {
+  position: sticky;
+  top: 110px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.sidebar-widget {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: var(--shadow-xs);
+}
+
+.sidebar-widget h3 {
+  font-size: 1.15rem;
+  color: var(--verde-profundo);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid var(--beige-claro);
+}
+
+.sidebar-widget h3 svg {
+  color: var(--terracota);
+}
+
+/* --- Technical Sheet --- */
+.tech-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.tech-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.tech-item svg {
+  color: var(--verde-salvia);
+  flex-shrink: 0;
+}
+
+.tech-item div {
+  display: flex;
+  flex-direction: column;
+}
+
+.tech-item strong {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--texto-oscuro);
+  line-height: 1.2;
+}
+
+.tech-item span {
+  font-size: 0.9rem;
+  color: var(--texto-medio);
+}
+
+.toxicity-warning {
+  background-color: #fef5f4;
+  border: 1px solid #f9d6d5;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.toxicity-warning svg {
+  color: #c9302c;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.toxicity-warning strong {
+  display: block;
+  font-size: 0.82rem;
+  color: #a94442;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.toxicity-warning span {
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: #a94442;
+}
+
+/* --- Table of Contents --- */
+.toc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.toc-list li {
+  list-style: none;
+}
+
+.toc-list button {
+  width: 100%;
+  text-align: left;
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+  font-weight: 600;
+  transition: all var(--t-fast);
+  padding: 4px 0;
+  border-left: 2px solid transparent;
+  padding-left: 12px;
+}
+
+.toc-list button:hover {
+  color: var(--verde-profundo);
+  border-left-color: var(--verde-salvia-light);
+  padding-left: 16px;
+}
+
+.toc-list button.is-active {
+  color: var(--verde-profundo);
+  font-weight: 800;
+  border-left-color: var(--terracota);
+  padding-left: 16px;
+}
+
+/* --- Chat Advice Widget --- */
+.chat-advice-widget h4 {
+  font-size: 1.05rem;
+  color: var(--verde-profundo);
+  margin-bottom: 8px;
+}
+
+.chat-advice-widget p {
+  font-size: 0.88rem;
+  color: var(--texto-medio);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+/* =====================================================
+   7. NEXT READ SECTION
+   ===================================================== */
+.guide-next-read {
+  margin-top: 56px;
+}
+
+.next-read-card {
+  padding: 40px;
+  background-color: var(--crema);
+  border: 1px solid var(--beige-medio);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+}
+
+.next-read-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.next-read-copy h3 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--verde-profundo);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.next-read-copy p {
+  font-size: 0.96rem;
+  color: var(--texto-medio);
+  margin-bottom: 24px;
+}
+
+.next-read-img-wrap {
+  aspect-ratio: 16/10;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.next-read-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s var(--ease-natural);
+}
+
+.next-read-card:hover .next-read-img-wrap img {
+  transform: scale(1.03);
+}
+
+/* =====================================================
+   8. BOTTOM NAVIGATION
+   ===================================================== */
+.guide-bottom-nav {
+  margin-top: 48px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* =====================================================
+   9. RESPONSIVE DESIGN (MOBILE POLISH)
+   ===================================================== */
+
+@media (max-width: 1024px) {
+  .guide-content-layout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .guide-sidebar {
+    position: static;
+    order: -1; /* Muestra el sidebar arriba (Ficha Técnica rápida) */
+  }
+
+  .toc-widget {
+    display: none; /* Oculta el índice redundante en móvil */
+  }
+
+  .tech-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 24px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .guide-reader-page {
+    padding-top: 70px;
+    padding-bottom: 60px;
+  }
+
+  /* Widget de Síntomas: Slider horizontal en celular (evita fatiga visual de scroll vertical largo) */
+  .widget-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .symptoms-list {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 12px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .symptoms-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .symptom-btn {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    white-space: nowrap;
+    padding: 12px 18px;
+    font-size: 0.88rem;
+  }
+
+  .symptom-btn:hover {
+    transform: none; /* Evitar saltos en pantallas táctiles */
+  }
+
+  /* Grilla de enlaces de catálogo */
+  .catalog-links-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Next read grid layout */
+  .next-read-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .next-read-img-wrap {
+    order: -1;
+    aspect-ratio: 16/9;
+  }
+}
+
+@media (max-width: 580px) {
+  .guide-header {
+    padding: 32px 0;
+  }
+
+  .guide-breadcrumb {
+    margin-bottom: 16px;
+  }
+
+  .guide-title {
+    font-size: 1.85rem;
+    line-height: 1.25;
+  }
+
+  .guide-cover-wrap {
+    height: 250px;
+    border-radius: var(--radius-md);
+  }
+
+  /* Tarjeta de identificación botánica en móvil se coloca debajo de la foto */
+  .guide-cover-overlay {
+    position: relative;
+    background-color: var(--crema);
+    color: var(--texto-oscuro);
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    box-shadow: var(--shadow-xs);
+  }
+  
+  .botanical-name strong,
+  .botanical-family strong {
+    color: var(--verde-profundo);
+    font-size: 0.95rem;
+    margin-top: 2px;
+  }
+
+  .botanical-name span,
+  .botanical-family span {
+    font-size: 0.7rem;
+  }
+
+  .guide-section {
+    margin-bottom: 40px;
+  }
+
+  .guide-section h2 {
+    font-size: 1.45rem;
+    margin-bottom: 16px;
+  }
+
+  .guide-section p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .tip-box {
+    padding: 20px 24px;
+    margin: 28px 0;
+  }
+
+  .tip-box p {
+    font-size: 0.95rem;
+  }
+
+  /* Ajustes estacionales apilados */
+  .seasons-care-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .season-care-card {
+    padding: 20px;
+  }
+
+  /* Widget de Diagnóstico en móvil */
+  .diagnostic-widget {
+    padding: 24px 20px;
+  }
+
+  .widget-header {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .widget-icon {
+    width: 38px;
+    height: 38px;
+    padding: 8px;
+  }
+
+  .widget-header h3 {
+    font-size: 1.15rem;
+  }
+
+  .diagnosis-result-card {
+    padding: 20px;
+    min-height: auto;
+  }
+
+  .sidebar-widget {
+    padding: 20px;
+  }
+
+  .tech-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .toxicity-warning {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .next-read-card {
+    padding: 24px 20px;
+  }
+
+  .next-read-copy h3 {
+    font-size: 1.35rem;
+  }
+}

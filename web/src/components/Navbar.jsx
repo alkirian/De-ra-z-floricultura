@@ -11,7 +11,10 @@ const Navbar = () => {
   const isHome = location.pathname === '/';
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 60);
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 60;
+      setScrolled(prev => prev !== isScrolled ? isScrolled : prev);
+    };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -40,7 +43,7 @@ const Navbar = () => {
       <div className="container nav-container">
         {/* Logo */}
         <Link to="/" className="nav-logo">
-          <img src={`${import.meta.env.BASE_URL}images/Logo-transparent.png`} alt="De Raíz Logo" className="nav-logo-img" />
+          <img src={`${import.meta.env.BASE_URL}images/Logo-transparent.webp`} alt="De Raíz Logo" className="nav-logo-img" />
           <span className="nav-logo-text">De Raíz</span>
         </Link>
 

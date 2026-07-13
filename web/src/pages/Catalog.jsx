@@ -1,10 +1,12 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
-import { MOCK_PRODUCTS, CATEGORIES, generateWaLink, WA_MESSAGES } from '../data/mockData';
+import { CATEGORIES, generateWaLink, WA_MESSAGES } from '../data/mockData';
+import { useCatalog } from '../context/CatalogContext';
 import { Search, X, MessageCircle } from 'lucide-react';
 import SEO from '../components/SEO';
 import { useCart } from '../context/CartContext';
+import ProductModal from '../components/ProductModal';
 import './Catalog.css';
 
 const MAIN_FILTERS = [
@@ -13,10 +15,10 @@ const MAIN_FILTERS = [
   { id: 'insumos', label: 'Insumos' },
 ];
 
-const INSUMOS_SUBCATEGORIES = CATEGORIES.insumos.filter((cat) => cat !== 'Macetas');
+const INSUMOS_SUBCATEGORIES = CATEGORIES.insumos.filter((cat) => cat !== 'Macetas' && cat !== 'Todos');
 
 const NEED_FILTERS = {
-  'planta-facil': 'Plantas fÃ¡ciles',
+  'planta-facil': 'Plantas fáciles',
   'poca-luz': 'Poca luz',
   'mucha-luz': 'Mucha luz',
   'poco-riego': 'Poco riego',
@@ -62,6 +64,7 @@ const getCategoriesByMainFilter = (filter) => {
 };
 
 const Catalog = () => {
+  const { products, loading } = useCatalog();
   const location = useLocation();
   const [activeMainFilter, setActiveMainFilter] = useState('plantas');
   const [activeCategory, setActiveCategory] = useState('Todas');
@@ -78,17 +81,27 @@ const Catalog = () => {
     const queryParam = params.get('q');
     const needParam = params.get('need');
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSearchQuery(queryParam || '');
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setActiveNeed(NEED_FILTERS[needParam] ? needParam : '');
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setVisibleCount(12);
 
     if (catParam) {
-      if (CATEGORIES.plantas.includes(catParam)) {
+      const catLower = catParam.toLowerCase();
+      if (catLower === 'plantas' || catParam === 'Todas') {
         setActiveMainFilter('plantas');
-        setActiveCategory(catParam);
-      } else if (catParam === 'Macetas') {
+        setActiveCategory('Todas');
+      } else if (catLower === 'macetas') {
         setActiveMainFilter('macetas');
         setActiveCategory('Todas');
+      } else if (catLower === 'insumos' || catParam === 'Todos') {
+        setActiveMainFilter('insumos');
+        setActiveCategory('Todos');
+      } else if (CATEGORIES.plantas.includes(catParam)) {
+        setActiveMainFilter('plantas');
+        setActiveCategory(catParam);
       } else if (INSUMOS_SUBCATEGORIES.includes(catParam)) {
         setActiveMainFilter('insumos');
         setActiveCategory(catParam);
@@ -117,7 +130,9 @@ const Catalog = () => {
   };
 
   const filteredProducts = useMemo(() => {
-    return MOCK_PRODUCTS.filter((product) => {
+    if (loading) return [];
+    return products.filter((product) => {
+      if (product.active === false) return false;
       const isAllCategory = activeCategory === 'Todas' || activeCategory === 'Todos';
       const searchTerms = getSearchTerms(searchQuery);
       const productName = normalizeText(product.name);
@@ -139,18 +154,19 @@ const Catalog = () => {
       const catMatch = isAllCategory ? true : product.category === activeCategory;
       return catMatch && searchMatch;
     });
-  }, [activeCategory, activeMainFilter, searchQuery, activeNeed]);
+  }, [activeCategory, activeMainFilter, searchQuery, activeNeed, products, loading]);
 
   const activeCategoriesList = getCategoriesByMainFilter(activeMainFilter);
 
   return (
     <div className="catalog-page catalog-page--fade">
       <SEO
-        title="CatÃ¡logo de Plantas, Macetas e Insumos en Las Piedras | De RaÃ­z"
-        description="ExplorÃ¡ nuestra variedad de plantas de interior y exterior, tierra, sustratos y macetas modernas en Las Piedras, Canelones. HacÃ© tu consulta de stock hoy."
+        title="Catálogo de Plantas, Macetas e Insumos en Las Piedras | De Raíz"
+        description="Explorá nuestra variedad de plantas de interior y exterior, tierra, sustratos y macetas modernas en Las Piedras, Canelones. Hacé tu consulta de stock hoy."
         path="/catalogo"
       />
       <div className="container">
+        <h1 className="sr-only">Catálogo Botánico de Plantas, Macetas e Insumos — De Raíz</h1>
 
         {activeNeed && (
           <div className="catalog-need-chip mb-6">
@@ -175,7 +191,7 @@ const Catalog = () => {
                 type="button"
                 className="catalog-search-clear"
                 onClick={() => setSearchQuery('')}
-                aria-label="Borrar bÃºsqueda"
+                aria-label="Borrar búsqueda"
               >
                 <X size={14} />
               </button>
@@ -203,7 +219,7 @@ const Catalog = () => {
 
         {/* Sub-Categories Scroll */}
         <div className="category-filters-container mb-12">
-          <p className="category-scroll-hint">DeslizÃ¡ para ver mÃ¡s categorÃ­as</p>
+          <p className="category-scroll-hint">Deslizá para ver más categorías</p>
           <div className="category-filters">
             {activeCategoriesList.map(cat => (
               <button 
@@ -244,7 +260,7 @@ const Catalog = () => {
               className="btn btn-secondary"
               onClick={() => setVisibleCount((prev) => prev + 12)}
             >
-              Mostrar mÃ¡s ({filteredProducts.length - visibleCount} restantes)
+              Mostrar más ({filteredProducts.length - visibleCount} restantes)
             </button>
           </div>
         )}
@@ -264,7 +280,7 @@ const Catalog = () => {
                 </a>
               </>
             ) : (
-              <p>Pronto agregaremos mÃ¡s opciones a esta categorÃ­a.</p>
+              <p>Pronto agregaremos más opciones a esta categoría.</p>
             )}
           </div>
         )}
@@ -273,74 +289,23 @@ const Catalog = () => {
 
       {/* Product Detail Modal */}
       {selectedProduct && (
-        <div className="modal-overlay" onClick={() => setSelectedProduct(null)}>
-          <div className="modal-content glass-panel" onClick={e => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setSelectedProduct(null)}>
-              <X size={24} />
+        <ProductModal
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+          actionButton={
+            <button
+              type="button"
+              className="btn btn-primary w-full"
+              onClick={() => {
+                addToCart(selectedProduct);
+                setIsCartOpen(true);
+                setSelectedProduct(null);
+              }}
+            >
+              Agregar para consultar stock y precio
             </button>
-            
-            <div className="modal-grid">
-              <div className="modal-image">
-                <img src={selectedProduct.image} alt={selectedProduct.name} loading="lazy" decoding="async" />
-              </div>
-              
-              <div className="modal-info">
-                <span className="badge mb-4">{selectedProduct.category}</span>
-                <h2 className="modal-title">{selectedProduct.name}</h2>
-                {selectedProduct.price && selectedProduct.price !== "Consultar" && (
-                  <p className="modal-price">{selectedProduct.price}</p>
-                )}
-                <p className="modal-description">{selectedProduct.description}</p>
-                
-                <div className="modal-specs">
-                  {selectedProduct.attributes.map((attr, idx) => (
-                    <div key={idx} className="spec-item">
-                      <strong>{attr.type.toUpperCase()}</strong>
-                      <span>{attr.value}</span>
-                    </div>
-                  ))}
-                  {selectedProduct.isPetFriendly && (
-                    <div className="spec-item pet-friendly-spec">
-                      <strong>Mascotas</strong>
-                      <span className="pet-safe-value">ðŸ¾ Apto Mascotas</span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Extra info (Tips y Plagas) */}
-                {(selectedProduct.careTips || selectedProduct.pests) && (
-                  <div className="modal-extra-info">
-                    {selectedProduct.careTips && (
-                      <div className="info-block">
-                        <h4 className="info-title">âœ¨ Tips de Cuidado</h4>
-                        <p className="info-text">{selectedProduct.careTips}</p>
-                      </div>
-                    )}
-                    {selectedProduct.pests && (
-                      <div className="info-block pests-block">
-                        <h4 className="info-title">ðŸ› Posibles Plagas</h4>
-                        <p className="info-text">{selectedProduct.pests}</p>
-                      </div>
-                    )}
-                  </div>
-                )}
-
-
-                <button
-                  type="button"
-                  className="btn btn-primary w-full"
-                  onClick={() => {
-                    addToCart(selectedProduct);
-                    setIsCartOpen(true);
-                    setSelectedProduct(null);
-                  }}
-                >
-                  Agregar para consultar stock y precio
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+          }
+        />
       )}
     </div>
   );

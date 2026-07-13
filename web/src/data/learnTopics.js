@@ -3,251 +3,17 @@ const GUIDE_IMG = `${BASE}images/Gu%C3%ADa`;
 
 export const LEARN_TOPICS = [
   {
-    slug: 'riego-por-estacion',
-    isVisible: true,
-    tag: 'Riego',
-    title: 'Riego por estación en Uruguay',
-    summary: 'Cómo ajustar el agua según verano, otoño, invierno y primavera.',
-    readTime: '6 min',
-    image: `${GUIDE_IMG}/riego%20estaciones.jpeg`,
-    intro:
-      'En Uruguay el clima cambia bastante entre estaciones. El riego ideal no es fijo: depende de la temperatura, el viento, el tipo de maceta y la luz.',
-    highlights: ['Primero mirar tierra, después regar', 'Menos agua en invierno', 'Más control en olas de calor'],
-    sections: [
-      {
-        id: 'base',
-        title: 'Regla base para no fallar',
-        paragraphs: [
-          'Evitá regar por calendario estricto. Regar solo por día de semana suele causar exceso.',
-          'Antes de agregar agua, tocá el sustrato unos 2 a 3 cm. Si está húmedo, esperá.',
-        ],
-        bullets: [
-          'Maceta chica seca más rápido que maceta grande.',
-          'Barro seca más rápido que plástico.',
-          'Planta en sombra suele necesitar menos agua.',
-        ],
-      },
-      {
-        id: 'chequeo',
-        title: 'Chequeo rápido de humedad',
-        paragraphs: ['Usá este mini control en menos de 1 minuto:'],
-        bullets: [
-          'Insertá un dedo en la tierra hasta la segunda falange.',
-          'Si sale con tierra pegada y fresca, todavía no regués.',
-          'Si sale seco y suelto, regá de forma pareja hasta que drene.',
-          'Vaciá el plato a los 10-15 minutos para evitar encharque.',
-        ],
-      },
-    ],
-    seasonNotes: [
-      { season: 'Verano (dic-feb)', notes: ['Regar temprano o al atardecer.', 'Revisar la humedad día por medio en macetas chicas.'] },
-      { season: 'Otoño (mar-may)', notes: ['Bajar la frecuencia gradualmente.', 'Evitar mojar las hojas al final del día.'] },
-      { season: 'Invierno (jun-ago)', notes: ['Reducir el riego en interiores fríos.', 'No fertilizar en exceso durante el reposo.'] },
-      { season: 'Primavera (sep-nov)', notes: ['Aumentar el riego progresivo.', 'Controlar brotes nuevos y plagas tempranas.'] },
-    ],
-    relatedCatalog: [
-      { label: 'Ver plantas de interior fáciles', to: '/catalogo?cat=Interior&need=facil' },
-      { label: 'Ver sustratos y tierra', to: '/catalogo?cat=Sustratos%20y%20Tierra' },
-    ],
-  },
-  {
-    slug: 'sustratos-y-mezclas',
-    isVisible: true,
-    tag: 'Sustratos',
-    title: 'Sustratos y mezclas recomendadas',
-    summary: 'Qué tierra usar según la planta, la maceta y el nivel de drenaje.',
-    readTime: '7 min',
-    image: `${GUIDE_IMG}/sustrato.jpeg`,
-    intro:
-      'La tierra correcta evita la mayoría de los problemas de riego. Un buen sustrato guarda humedad sin ahogar las raíces.',
-    highlights: ['No todo va con tierra negra pura', 'La perlita mejora la aireación', 'El drenaje es obligatorio'],
-    sections: [
-      {
-        id: 'interior',
-        title: 'Mezcla para interior',
-        paragraphs: ['Ideal para plantas como Potus, Monstera, Drácena o Ficus elástica.'],
-        bullets: [
-          '50% sustrato universal',
-          '30% compost maduro o humus',
-          '20% perlita o material drenante',
-        ],
-      },
-      {
-        id: 'suculentas',
-        title: 'Mezcla para cactus y suculentas',
-        paragraphs: ['Estas plantas prefieren un secado rápido entre riegos.'],
-        bullets: [
-          '40% sustrato liviano',
-          '40% arena gruesa o pómez',
-          '20% perlita',
-        ],
-      },
-      {
-        id: 'errores',
-        title: 'Errores comunes',
-        bullets: [
-          'Usar tierra compacta sin porosidad.',
-          'Reutilizar sustrato viejo sin renovarlo.',
-          'Olvidar la capa drenante y los agujeros en la maceta.',
-        ],
-      },
-    ],
-    relatedCatalog: [
-      { label: 'Ver sustratos disponibles', to: '/catalogo?cat=Sustratos%20y%20Tierra' },
-      { label: 'Ver macetas con drenaje', to: '/catalogo?cat=Macetas' },
-    ],
-  },
-  {
-    slug: 'macetas-y-drenaje',
-    isVisible: true,
-    tag: 'Macetas',
-    title: 'Macetas y drenaje sin errores',
-    summary: 'Cómo elegir el material, tamaño y drenaje para cada planta.',
-    readTime: '5 min',
-    image: `${GUIDE_IMG}/macetas.jpeg`,
-    intro:
-      'La maceta influye directamente en el riego y la salud de las raíces. Elegir bien evita la podredumbre y el estrés hídrico.',
-    highlights: ['Drenaje primero', 'Tamaño proporcional', 'Material según tu rutina'],
-    sections: [
-      {
-        id: 'materiales',
-        title: 'Barro, plástico o cerámica',
-        bullets: [
-          'Barro: respira y seca rápido. Ideal para quienes riegan de más.',
-          'Plástico: retiene humedad. Bueno si regás poco o hay viento.',
-          'Cerámica esmaltada: decorativa, revisar drenaje real.',
-        ],
-      },
-      {
-        id: 'tamano',
-        title: 'Tamaño recomendado',
-        bullets: [
-          'Evitá pasar a una maceta enorme de golpe.',
-          'Subí solo 2 a 4 cm de diámetro respecto a la actual.',
-          'Si hay demasiada tierra libre, tarda más en secar.',
-        ],
-      },
-    ],
-    relatedCatalog: [{ label: 'Ver macetas', to: '/catalogo?cat=Macetas' }],
-  },
-  {
-    slug: 'luz-y-ubicacion',
-    isVisible: true,
-    tag: 'Luz',
-    title: 'Luz y ubicación de plantas',
-    summary: 'Cómo identificar si tu espacio tiene mucha, media o poca luz.',
-    readTime: '5 min',
-    image: `${BASE}images/Gu%C3%ADas/ficus%20lyrata.jpeg`,
-    intro:
-      'La luz es el factor más importante para elegir la especie. No todas las plantas aguantan los mismos rincones.',
-    highlights: ['No toda ventana es igual', 'El sol directo quema algunas hojas', 'Mover 1 metro cambia mucho'],
-    sections: [
-      {
-        id: 'mapa-luz',
-        title: 'Mapa rápido de luz en casa',
-        bullets: [
-          'Mucha luz: cerca de la ventana con sol varias horas.',
-          'Luz media: claridad abundante sin sol directo fuerte.',
-          'Poca luz: rincón interior lejos de la ventana.',
-        ],
-      },
-      {
-        id: 'senales',
-        title: 'Señales de luz insuficiente o excesiva',
-        bullets: [
-          'Poca luz: entrenudos largos, hojas chicas, pérdida de color.',
-          'Exceso de sol: manchas secas, bordes quemados.',
-          'Solución: mover de a poco y observar de 7 a 10 días.',
-        ],
-      },
-    ],
-    relatedCatalog: [
-      { label: 'Plantas para poca luz', to: '/catalogo?cat=Interior&need=poca-luz' },
-      { label: 'Plantas de exterior', to: '/catalogo?cat=Exterior' },
-    ],
-  },
-  {
-    slug: 'plagas-comunes-uruguay',
-    isVisible: true,
-    tag: 'Plagas',
-    title: 'Plagas comunes en Uruguay',
-    summary: 'Cómo prevenir y actuar a tiempo sin complicaciones.',
-    readTime: '6 min',
-    image: `${GUIDE_IMG}/plagas.jpeg`,
-    intro:
-      'La prevención semanal evita tratamientos agresivos. Cuanto antes detectes, más fácil es resolver.',
-    highlights: ['Revisión semanal en hojas', 'Ventilación y limpieza', 'Actuar temprano'],
-    sections: [
-      {
-        id: 'deteccion',
-        title: 'Chequeo semanal en 3 pasos',
-        bullets: [
-          'Revisar el envés de las hojas y brotes tiernos.',
-          'Buscar puntos algodonosos, melaza o telitas finas.',
-          'Separar la planta afectada del resto hasta controlar.',
-        ],
-      },
-      {
-        id: 'plagas',
-        title: 'Las más frecuentes',
-        bullets: [
-          'Cochinilla: bolitas blancas algodonosas.',
-          'Pulgón: colonias en brotes nuevos.',
-          'Arañuela: punteado y telitas en hojas.',
-          'Hongos: manchas oscuras asociadas a exceso de humedad.',
-        ],
-      },
-    ],
-    relatedCatalog: [{ label: 'Ver productos de cuidado', to: '/catalogo?cat=Fertilizantes%20y%20Cuidado' }],
-  },
-  {
-    slug: 'calendario-botanico-uruguay',
-    isVisible: true,
-    tag: 'Calendario',
-    title: 'Calendario botánico en Uruguay',
-    summary: 'Qué conviene hacer cada mes para mantener tus plantas fuertes.',
-    readTime: '8 min',
-    image: `${GUIDE_IMG}/calendario.jpeg`,
-    intro:
-      'Este calendario te ayuda a planificar las tareas sin sobrecargar tus plantas. Sirve para interior, exterior y huerta en maceta.',
-    highlights: ['Tareas por bloque estacional', 'Poda y trasplante en el momento correcto', 'Prevención antes de extremos climáticos'],
-    sections: [
-      {
-        id: 'calido',
-        title: 'Época cálida (sep-feb)',
-        bullets: [
-          'Mayor crecimiento: ajustar riego y fertilización.',
-          'Controlar plagas por aumento de temperatura.',
-          'Podas suaves para ordenar la forma y estimular brotes.',
-        ],
-      },
-      {
-        id: 'frio',
-        title: 'Época fría (mar-ago)',
-        bullets: [
-          'Reducir el riego y evitar encharques.',
-          'Proteger especies sensibles de las heladas.',
-          'Preparar sustratos para el recambio de primavera.',
-        ],
-      },
-    ],
-    relatedCatalog: [
-      { label: 'Ver huerta y aromáticas', to: '/catalogo?cat=Huerta' },
-      { label: 'Ver plantas de interior', to: '/catalogo?cat=Interior' },
-    ],
-  },
-  {
     slug: 'guia-ficus-lyrata',
     isVisible: true,
     tag: 'Guía definitiva',
     title: 'Guía completa del Ficus Lyrata',
     seoTitle: 'Cuidados del Ficus Lyrata en Uruguay | De Raíz Floricultura',
     seoDescription: 'Guía completa del Ficus Lyrata: luz ideal, cuándo regar, sustrato y problemas comunes. Consejos adaptados al clima uruguayo de De Raíz.',
-    summary: 'De hojas caídas a follaje exuberante: luz, riego, suelo y soluciones concretas.',
+    summary: 'Consejos prácticos para pasar de una planta triste a una llena de hojas verdes y fuertes.',
     readTime: '10 min',
-    image: `${BASE}images/Gu%C3%ADas/san%20seivieria.jpeg`,
+    image: `${BASE}images/Gu%C3%ADas/ficus%20lyrata.webp`,
     intro:
-      'Esta guía te muestra, paso a paso, cómo ubicar y cuidar tu Ficus Lyrata en Uruguay para evitar hojas amarillas, manchas y pérdida de vigor.',
+      'Esta guía te muestra de forma sencilla cómo ubicar y cuidar tu Ficus Lyrata en Uruguay para evitar que se le caigan las hojas o le salgan manchas y lograr que crezca divino.',
     highlights: ['Ideal para interior luminoso', 'Muy sensible al exceso de agua', 'Responde mejor a rutinas estables'],
     sections: [
       {
@@ -292,7 +58,7 @@ export const LEARN_TOPICS = [
     problems: [
       {
         title: 'Hojas amarillas',
-        description: 'Suele indicar exceso de riego o sustrato agotado.',
+        description: 'Suele indicar exceso de riego o sustrato acotado.',
         solution: 'Dejá secar más entre riegos y mejorá el drenaje.',
       },
       {
@@ -305,28 +71,6 @@ export const LEARN_TOPICS = [
         description: 'Frecuente por cambios bruscos de lugar o temperatura.',
         solution: 'Mantené una ubicación estable y sin corrientes frías.',
       },
-    ],
-    faqs: [
-      {
-        question: '¿Cada cuánto regar un Ficus Lyrata en Uruguay?',
-        answer:
-          'No se riega por calendario fijo. Regá cuando la capa superior del sustrato esté seca. En invierno suele requerir menos agua.',
-      },
-      {
-        question: '¿Puede recibir sol directo?',
-        answer:
-          'Tolera sol suave de mañana. El sol fuerte de la tarde, sobre todo en verano, puede quemar las hojas si no hay filtro.',
-      },
-      {
-        question: '¿Por qué se le caen las hojas de abajo?',
-        answer:
-          'Puede ser por estrés de traslado, cambios de luz o riego excesivo. Si el resto de la planta se ve sana, suele recuperarse al estabilizar los cuidados.',
-      },
-    ],
-    relatedGuides: [
-      { slug: 'luz-y-ubicacion', title: 'Luz y ubicación de plantas', summary: 'Aprendé a leer la luz de tu casa antes de ubicar cualquier especie.' },
-      { slug: 'riego-por-estacion', title: 'Riego por estación en Uruguay', summary: 'Ajustá la frecuencia y cantidad de agua según la época del año.' },
-      { slug: 'sustratos-y-mezclas', title: 'Sustratos y mezclas recomendadas', summary: 'La base para evitar el exceso de agua y raíces debilitadas.' },
     ],
     relatedCatalog: [
       { label: 'Ver Ficus y plantas de interior', to: '/catalogo?cat=Interior&q=Ficus' },
@@ -341,60 +85,143 @@ export const LEARN_TOPICS = [
     seoTitle: 'Cuidados de la Espada de San Jorge (Sansevieria) | De Raíz Uruguay',
     seoDescription:
       'Aprende a cuidar tu Espada de San Jorge. Guía rápida sobre riego en invierno, luz ideal y solución a hojas caídas o podridas. Visita De Raíz.',
-    summary: 'Guía rápida sobre luz, riego y sustrato para mantener tu Sansevieria erguida y fuerte.',
+    summary: 'Consejos sobre luz, riego y sustrato para mantener tu Sansevieria siempre sana.',
     readTime: '8 min',
-    image: `${GUIDE_IMG}/iluminacion.jpeg`,
-    heroTitle: 'GUÍA COMPLETA DE LA ESPADA DE SAN JORGE (SANSEVIERIA)',
-    heroSubtitle: 'La planta indestructible: Cuidados esenciales y errores fatales.',
-    heroImageAlt: 'Espada de San Jorge en interior luminoso',
-    showLightDiagram: false,
+    image: `${BASE}images/Gu%C3%ADas/san%20seivieria.webp`,
     intro:
-      'Conocida botánicamente como Sansevieria o Dracaena trifasciata, la Espada de San Jorge es la heroína de los espacios difíciles. Purifica el aire y soporta el olvido, pero tiene un talón de Aquiles: el exceso de mimos. Descubre cómo mantenerla erguida y fuerte en tu hogar.',
+      'La Espada de San Jorge (Sansevieria) es de las plantas más aguantadoras que existen. Purifica el aire y tolera descuidos, pero tiene una debilidad: el exceso de agua. Te contamos cómo cuidarla para tenerla siempre fuerte.',
+    highlights: ['Luz adaptable (desde sombra a sol)', 'Riego muy espaciado', 'Sustrato que drene bien'],
     sections: [
       {
         id: 'luz',
-        title: '1. LA LUZ: ADAPTABILIDAD EXTREMA',
+        title: '1. ¿Cuánta luz necesita?',
         paragraphs: [
-          'Es famosa por sobrevivir en rincones oscuros, pero ese no es su hábitat ideal. Para que sus hojas mantengan esos patrones atigrados vibrantes y crezca con fuerza, prefiere luz indirecta brillante. Tolera un par de horas de sol directo suave, especialmente durante los meses fríos en Uruguay, pero evita el sol abrasador del verano al mediodía para que no se quemen sus puntas.',
+          'Es famosa por sobrevivir en rincones con poca luz, pero no es lo ideal. Para que sus hojas mantengan sus colores bien definidos y crezca con fuerza, prefiere luz indirecta brillante.',
+          'Se banca un par de horas de sol directo suave, sobre todo en los meses fríos de Uruguay, pero evitemos el sol fuerte del mediodía en verano para que no se le quemen las puntas.',
         ],
       },
       {
         id: 'riego',
-        title: '2. EL RIEGO: EL SECRETO ESTÁ EN OLVIDARLA',
+        title: '2. El riego: menos es más',
         paragraphs: [
-          'El asesino número uno de la Espada de San Jorge es la regadera. Esta planta almacena agua en sus gruesas hojas. Solo debes regarla cuando el sustrato esté 100% seco hasta el fondo de la maceta. En pleno verano, esto puede ser cada 15 días, pero durante el invierno uruguayo (cuando la humedad ambiental es alta y hace frío), un riego al mes es más que suficiente. Ante la duda, no riegues.',
+          'El error más común con la Espada de San Jorge es regarla de más. Acordate de que almacena agua en sus hojas gruesas.',
+          'Hay que regarla recién cuando la tierra esté 100% seca de arriba a abajo. En verano, esto puede ser cada 15 días, pero en el invierno de Uruguay (cuando hay mucha humedad y hace frío), con una vez al mes alcanza y sobra. Ante la duda, es mejor no regar.',
         ],
       },
       {
         id: 'suelo',
-        title: '3. EL SUSTRATO: DRENAJE RÁPIDO',
+        title: '3. El sustrato ideal',
         paragraphs: [
-          'Necesita respirar. Un sustrato universal apelmazado pudrirá sus raíces en cuestión de días. Utiliza una mezcla para cactus y suculentas. En De Raíz preparamos un sustrato específico muy poroso, cargado de perlita y arena gruesa, ideal para garantizar que el agua pase de largo y no se encharque.',
+          'Necesita respirar. Un sustrato universal apelmazado pudrirá sus raíces en cuestión de días. Utiliza una mezcla para cactus y suculentas.',
+          'En De Raíz preparamos un sustrato específico muy poroso, cargado de perlita y arena gruesa, ideal para garantizar que el agua pase de largo y no se encharque.',
         ],
       },
     ],
     problems: [
       {
         title: 'Hojas caídas o blandas',
-        text: 'Si las hojas se doblan desde la base y están pastosas, tu planta tiene pudrición por exceso de agua. Solución: Retírala de la maceta de inmediato, corta las partes podridas con tijeras desinfectadas, cambia todo el sustrato por uno seco y suspende el riego por completo.',
+        description: 'Si las hojas se doblan desde la base y están pastosas, tu planta tiene pudrición por exceso de agua.',
+        solution: 'Retírala de la maceta de inmediato, corta las partes podridas con tijeras desinfectadas, cambia todo el sustrato por uno seco y suspende el riego.',
       },
       {
         title: 'Manchas marrones y secas',
-        text: 'Suele ser indicio de quemaduras por sol directo muy fuerte, o daño por corrientes de aire helado si la tienes cerca de una ventana mal aislada en pleno invierno. Solución: Reubica la maceta a un lugar más resguardado con luz indirecta.',
+        description: 'Suele ser indicio de quemaduras por sol directo muy fuerte, o daño por corrientes de aire helado en invierno.',
+        solution: 'Reubica la maceta a un lugar más resguardado con luz indirecta brillante.',
       },
       {
         title: 'La planta no crece',
-        text: 'La Sansevieria es de crecimiento lento por naturaleza. Sin embargo, si pasan los años y no da brotes nuevos (hijos), puede estar en un rincón demasiado oscuro o en una maceta excesivamente grande. Solución: Acércala a una fuente de luz y plántala en macetas ajustadas; prefieren estar ligeramente apretadas.',
+        description: 'La Sansevieria es de crecimiento lento. Si no da brotes, puede estar en un rincón demasiado oscuro o en una maceta excesivamente grande.',
+        solution: 'Acércala a la luz y plántala en macetas ajustadas; prefieren estar ligeramente apretadas.',
       },
     ],
-    ctaText:
-      '¿Tu Espada de San Jorge necesita un rescate urgente o buscas la maceta ideal para ella?',
-    ctaButton: 'Tráenos una foto al local o consúltanos por WhatsApp.',
-    ctaWaMessage:
-      'Hola De Raíz, necesito ayuda con mi Espada de San Jorge. Les envío una foto para asesoramiento.',
     relatedCatalog: [
       { label: 'Ver macetas para interior', to: '/catalogo?cat=Macetas' },
       { label: 'Ver sustratos y tierra', to: '/catalogo?cat=Sustratos%20y%20Tierra' },
+    ],
+  },
+  {
+    slug: 'guia-monstera-deliciosa',
+    isVisible: true,
+    tag: 'Guía definitiva',
+    title: 'Guía completa de la Monstera Deliciosa',
+    seoTitle: 'Cuidados de la Monstera Deliciosa en Uruguay | De Raíz',
+    seoDescription: 'Aprende a cuidar tu Monstera Deliciosa. Luz ideal, riego estacional, sustrato y diagnóstico de hojas amarillas en Uruguay.',
+    summary: 'Cómo cuidar sus hojas caladas, riego por estación, sustrato poroso y hacer esquejes.',
+    readTime: '8 min',
+    image: `${BASE}images/Interior.jpeg`,
+    intro:
+      'La Costilla de Adán (Monstera Deliciosa) se roba todas las miradas con sus hojas enormes y caladas. En esta guía te contamos cómo entender lo que necesita para que crezca hermosa y fuerte en casa.',
+    highlights: ['Luz indirecta muy brillante', 'Sensible al exceso de riego', 'Fácil de propagar por esqueje'],
+    sections: [
+      {
+        id: 'luz',
+        title: '1. LA LUZ: EL MOTOR DE SUS AGUJEROS',
+        paragraphs: [
+          'La Monstera crece bajo el dosel forestal en las selvas de Centroamérica, recibiendo luz indirecta brillante.',
+          'Evita el sol directo fuerte de la tarde en el verano uruguayo para no quemar su follaje. Si no recibe suficiente claridad, sus hojas nuevas nacerán pequeñas y sin sus características perforaciones (fenestraciones).',
+        ],
+        bullets: [
+          'Ubicación recomendada: cerca de ventana este o norte filtrado.',
+          'Gira la maceta 90 grados al mes para un desarrollo equilibrado.',
+        ],
+      },
+      {
+        id: 'riego',
+        title: '2. EL RIEGO POR ESTACIÓN EN URUGUAY',
+        paragraphs: [
+          'El exceso de riego es su principal enemigo. Sus raíces carnosas son altamente propensas a la pudrición si permanecen encharcadas.',
+          'En verano uruguayo, el crecimiento es activo y demanda riego semanal. En invierno, baja la frecuencia drásticamente regando solo cuando el sustrato seque casi por completo.',
+        ],
+        bullets: [
+          'Verano: regar cada 5-7 días tras secar el primer tercio del suelo.',
+          'Invierno: regar cada 15-20 días y evitar pulverizar foliarmente en frío.',
+        ],
+      },
+      {
+        id: 'sustrato',
+        title: '3. EL SUSTRATO IDEAL',
+        paragraphs: [
+          'La Monstera necesita un suelo poroso y aireado que permita a sus raíces respirar e imite el suelo de la selva tropical.',
+          'Una mezcla pesada de tierra de jardín común compactará la maceta y ahogará la planta.',
+        ],
+        bullets: [
+          'Mezcla recomendada: 40% fibra de coco, 30% perlita, 20% humus de lombriz, 10% corteza.',
+          'Siempre utiliza macetas que cuenten con agujeros de drenaje reales.',
+        ],
+      },
+      {
+        id: 'propagacion',
+        title: '4. PROPAGACIÓN PASO A PASO',
+        paragraphs: [
+          'Multiplicar la Monstera es fácil siempre y cuando cortes incluyendo un nodo (el abultamiento en el tallo del cual nacen las hojas y las raíces aéreas).',
+        ],
+        bullets: [
+          'Corta 2 cm por debajo del nodo usando una yema desinfectada.',
+          'Coloca el esqueje en agua en un rincón luminoso y cambia el agua semanalmente.',
+          'Trasplanta a tierra cuando las raíces alcancen los 5-8 cm de largo.',
+        ],
+      },
+    ],
+    problems: [
+      {
+        title: 'Hojas amarillas inferiores',
+        description: 'Suele deberse a un exceso de riego acumulado en el fondo de la maceta.',
+        solution: 'Espacia los riegos y asegúrate de que el agua drene rápido y de vaciar el plato.',
+      },
+      {
+        title: 'Puntas secas o crujientes',
+        description: 'Indica falta de humedad ambiental o sequedad debido a calefacción en invierno.',
+        solution: 'Pulveriza las hojas o agrúpala con otras plantas para crear un microclima húmedo.',
+      },
+      {
+        title: 'Hojas nuevas sin cortes',
+        description: 'La planta es muy joven o le falta luz natural para poder perforar sus hojas.',
+        solution: 'Acércala a una ventana muy luminosa con luz indirecta brillante.',
+      },
+    ],
+    relatedCatalog: [
+      { label: 'Ver sustrato para plantas de interior', to: '/catalogo?cat=Sustratos%20y%20Tierra' },
+      { label: 'Ver macetas y tutores', to: '/catalogo?cat=Macetas' },
     ],
   },
 ];

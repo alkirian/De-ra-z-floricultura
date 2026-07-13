@@ -30,3 +30,12 @@ backend/.env.*
 *.njsproj
 *.sln
 *.sw?
+
+# Temporary and local data
+zip_backups/
+raiz.svg
+matches.json
+matches_v2.json
+precise_matches.json
+final_mapping.json
+
